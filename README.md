@@ -4,8 +4,8 @@ This is a course requirement for CS 191/CS192 Software Engineering Courses of th
 
 <list of team members in alphabetical order>
 
-Chavez, Don Sebastien B.
-Dizon, Sean Andrei
-Dolojan, Julian Andrei C 
-Mangco, Resai Auriel A.
-Rabatan, Jebsen Nathaniel M.
+Chavez, Don Sebastien B. <br>
+Dizon, Sean Andrei<br>
+Dolojan, Julian Andrei C.<br> 
+Mangco, Resai Auriel A.<br>
+Rabatan, Jebsen Nathaniel M.<br>
