@@ -1,0 +1,24 @@
+name: Unit Testing
+
+on:
+  push:
+    branches: [ "dev" ]
+  pull_request:
+    branches: [ "dev" ]
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    name: Run GUT Unit Tests
+    runs-on: ubuntu-latest
+    container:
+      image: barichello/godot-ci:4.3 =
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Run Unit Tests
+        run: |
+          mkdir -v -p build/windows
+          godot -s addons/gut/gut_cmdln.gd -d --path "$PWD" -ginclude_subdirs -gdir=res://Test/Unit -gexit -gprefix=test_
