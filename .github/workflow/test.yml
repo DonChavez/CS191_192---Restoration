@@ -1,0 +1,22 @@
+name: Testing
+
+on:
+  pull_request:
+    branches:
+      - *
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Godot
+      uses: firebelley/setup-godot@v1
+      with:
+        godot-version: '3.3.2'
+
+    - name: Run GUT tests
+      run: godot --headless --test

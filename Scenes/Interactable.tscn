@@ -1,0 +1,148 @@
+[gd_scene load_steps=21 format=3 uid="uid://xhcevfte565q"]
+
+[ext_resource type="Script" path="res://Scripts/Interactable.gd" id="1_g2yh0"]
+[ext_resource type="Texture2D" uid="uid://c8yiuuiwooat" path="res://Art/objects/coin.png" id="2_r1w7r"]
+[ext_resource type="AudioStream" uid="uid://cd80tggsffe7o" path="res://Music/sfx1.mp3" id="3_mvh78"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_whlcg"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bgxm"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_altgw"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbsav"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o86h"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxgom"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j8urh"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyshn"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1wjrp"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnq6u"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tgp3"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8mdhj"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce2jr"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xld83"]
+atlas = ExtResource("2_r1w7r")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mr7qv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_whlcg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bgxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_altgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbsav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o86h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxgom")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j8urh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyshn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1wjrp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnq6u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tgp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8mdhj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ce2jr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xld83")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 10.0
+}]
+
+[sub_resource type="SystemFont" id="SystemFont_wfpfs"]
+subpixel_positioning = 0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m01ob"]
+size = Vector2(12, 12)
+
+[node name="Area2D" type="Area2D" node_paths=PackedStringArray("interaction_sound")]
+collision_layer = 8
+collision_mask = 13
+script = ExtResource("1_g2yh0")
+interaction_sound = NodePath("AudioStreamPlayer2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_mr7qv")
+animation = &"spin"
+frame = 10
+frame_progress = 0.828493
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_mvh78")
+
+[node name="Label" type="Label" parent="."]
+y_sort_enabled = true
+offset_left = -5.0
+offset_top = -27.0
+offset_right = 4.0
+offset_bottom = -4.0
+theme_override_fonts/font = SubResource("SystemFont_wfpfs")
+text = "F"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_m01ob")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
