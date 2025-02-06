@@ -1,5 +1,9 @@
 name: Unit Testing
 
+env:
+  GODOT_VERSION: 4.3
+  TEST_PATH: res://Test
+  
 on:
   push:
     branches:
@@ -12,17 +16,12 @@ on:
       - main
 
 jobs:
-  unit-tests:
-    name: Run GUT Unit Tests
+  unit-test:
     runs-on: ubuntu-latest
-    container:
-      image: barichello/godot-ci:4.3 =
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Run Unit Tests
-        run: |
-          mkdir -v -p build/windows
-          godot -s addons/gut/gut_cmdln.gd --rendering-driver opengl3 -d --path "$PWD" -ginclude_subdirs -gdir=res://Test/Unit -gexit -gprefix=test_
+      - uses: actions/checkout@v4
+      - uses: MikeSchulze/gdunit4-action@v1.1.5
+        with:
+          godot-version: ${{ env.GODOT_VERSION }} 
+          paths: ${{ env.TEST_PATH }}
+          publish-report: false
