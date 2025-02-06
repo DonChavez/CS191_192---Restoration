@@ -1,8 +1,10 @@
-[gd_scene load_steps=44 format=3 uid="uid://tm7irnaihbkh"]
+[gd_scene load_steps=46 format=3 uid="uid://tm7irnaihbkh"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_x82pb"]
 [ext_resource type="Texture2D" uid="uid://d0oap5nona40h" path="res://Art/characters/player.png" id="2_sb4ww"]
+[ext_resource type="AudioStream" uid="uid://celwhctajul3x" path="res://Music/oof.mp3" id="4_swn2h"]
 [ext_resource type="PackedScene" uid="uid://cusqbl0whlfcq" path="res://Scenes/Components/hurtbox_component.tscn" id="5_2rurv"]
+[ext_resource type="Script" path="res://Scenes/health_label.gd" id="5_lhndc"]
 [ext_resource type="PackedScene" uid="uid://0rfheeo0r2lh" path="res://Scenes/Components/health_component.tscn" id="6_coi35"]
 
 [sub_resource type="Animation" id="Animation_dj4wt"]
@@ -46,7 +48,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.166667, 0.333333, 0.466667),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [42, 43, 44, 45]
+"values": [48, 49, 50, 51]
 }
 
 [sub_resource type="Animation" id="Animation_4dvgp"]
@@ -290,10 +292,10 @@ _data = {
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cnckw"]
-animation = &"attack_back"
+animation = &"attack_front"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0wly2"]
-animation = &"attack_front"
+animation = &"attack_back"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_b8gxa"]
 animation = &"attack_right"
@@ -400,10 +402,11 @@ size = Vector2(14, 18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_skuti"]
 
-[node name="PlayerCharacter" type="CharacterBody2D"]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_x82pb")
+sprite = NodePath("idle_sprite")
 
 [node name="idle_sprite" type="Sprite2D" parent="."]
 y_sort_enabled = true
@@ -421,7 +424,7 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_p1ikk")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Attack/blend_position = Vector2(0, -0.00654757)
+parameters/Attack/blend_position = Vector2(0.997002, -0.0196429)
 parameters/Idle/blend_position = Vector2(-0.214286, -0.085119)
 parameters/Walking/blend_position = Vector2(-0.797535, 0.108608)
 
@@ -429,15 +432,37 @@ parameters/Walking/blend_position = Vector2(-0.797535, 0.108608)
 position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_c3r1v")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("5_2rurv")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "interaction_sound") instance=ExtResource("5_2rurv")]
 collision_mask = 5
 health_component = NodePath("../HealthComponent")
+interaction_sound = NodePath("AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_skuti")
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="HurtboxComponent"]
+stream = ExtResource("4_swn2h")
+
 [node name="HealthComponent" parent="." instance=ExtResource("6_coi35")]
 max_health = 5.0
 
+[node name="Label" type="Label" parent="." node_paths=PackedStringArray("health_component")]
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 17.0
+offset_right = 14.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.494843)
+theme_override_font_sizes/font_size = 20
+text = "5"
+horizontal_alignment = 1
+script = ExtResource("5_lhndc")
+health_component = NodePath("../HealthComponent")
+
+[connection signal="damaged" from="HurtboxComponent" to="." method="_on_hurtbox_component_damaged"]
 [connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]

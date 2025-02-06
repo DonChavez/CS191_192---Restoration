@@ -21,4 +21,4 @@ jobs:
       - name: Run Unit Tests
         run: |
           mkdir -v -p build/windows
-          godot -s addons/gut/gut_cmdln.gd -d --path "$PWD" -ginclude_subdirs -gdir=res://Test/Unit -gexit -gprefix=test_
+          godot -s addons/gut/gut_cmdln.gd --rendering-driver opengl3 -d --path "$PWD" -ginclude_subdirs -gdir=res://Test/Unit -gexit -gprefix=test_
