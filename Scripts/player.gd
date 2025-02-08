@@ -7,7 +7,7 @@ extends CharacterBody2D
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var health_component = $HealthComponent
-
+@onready var inventory_manager = %InventoryManager
 var attack_direction = Vector2.ZERO 
 var is_attacking = false
 var attack_duration = 0.5 
@@ -16,6 +16,10 @@ var facing_direction = Vector2.RIGHT
 
 func _ready():
 	update_animation_parameters(Vector2(-1, 0))
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("inventory"):
+		inventory_manager.interact_inventory()
+
 
 func _physics_process(_delta: float):
 	var input_direction = Vector2(
