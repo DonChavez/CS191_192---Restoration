@@ -116,11 +116,10 @@ subpixel_positioning = 0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m01ob"]
 size = Vector2(12, 12)
 
-[node name="Area2D" type="Area2D" node_paths=PackedStringArray("interaction_sound")]
+[node name="Area2D" type="Area2D"]
 collision_layer = 8
 collision_mask = 13
 script = ExtResource("1_g2yh0")
-interaction_sound = NodePath("AudioStreamPlayer2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
