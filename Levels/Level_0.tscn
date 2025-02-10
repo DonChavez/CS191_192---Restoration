@@ -1,6 +1,6 @@
-[gd_scene load_steps=23 format=4 uid="uid://brfr1um240qgp"]
+[gd_scene load_steps=24 format=4 uid="uid://brfr1um240qgp"]
 
-[ext_resource type="Script" path="res://Levels/level_0.gd" id="1_5kt1l"]
+[ext_resource type="Script" path="res://Scripts/ESCAPE_exitgame.gd" id="1_5kt1l"]
 [ext_resource type="Script" path="res://Levels/inventory_manager.gd" id="1_7ssnp"]
 [ext_resource type="PackedScene" uid="uid://tm7irnaihbkh" path="res://Scenes/Player.tscn" id="1_uvmjd"]
 [ext_resource type="Texture2D" uid="uid://dx1y6y3w1lhic" path="res://Art/tilesets/grass.png" id="2_jho04"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ljeepy3h6jyh" path="res://Scenes/collectable.tscn" id="9_2grxp"]
 [ext_resource type="PackedScene" uid="uid://dpj537bajpnw" path="res://Scenes/gatherable.tscn" id="12_jw8ep"]
 [ext_resource type="PackedScene" uid="uid://dvqta63n2kucd" path="res://Scenes/chest.tscn" id="13_aeapv"]
+[ext_resource type="PackedScene" uid="uid://c0h7577h2hfbx" path="res://Scenes/ESCAPE.tscn" id="15_cblwd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_81n3g"]
 atlas = ExtResource("2_wuocp")
@@ -247,3 +248,5 @@ position = Vector2(761, 270)
 
 [node name="Area2D" parent="." instance=ExtResource("7_mrhq2")]
 position = Vector2(520, 267)
+
+[node name="ESCAPE" parent="." instance=ExtResource("15_cblwd")]
