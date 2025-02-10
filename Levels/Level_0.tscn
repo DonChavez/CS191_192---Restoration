@@ -1,13 +1,33 @@
-[gd_scene load_steps=15 format=4 uid="uid://brfr1um240qgp"]
+[gd_scene load_steps=22 format=4 uid="uid://brfr1um240qgp"]
 
+[ext_resource type="Script" path="res://Levels/inventory_manager.gd" id="1_7ssnp"]
 [ext_resource type="PackedScene" uid="uid://tm7irnaihbkh" path="res://Scenes/Player.tscn" id="1_uvmjd"]
 [ext_resource type="Texture2D" uid="uid://dx1y6y3w1lhic" path="res://Art/tilesets/grass.png" id="2_jho04"]
+[ext_resource type="Texture2D" uid="uid://c8yiuuiwooat" path="res://Art/objects/coin.png" id="2_wuocp"]
 [ext_resource type="Texture2D" uid="uid://ddkgriaqprwr6" path="res://Art/tilesets/plains.png" id="3_auuv5"]
 [ext_resource type="Texture2D" uid="uid://c35s1vsnuh3e7" path="res://Art/objects/objects.png" id="4_1x0t1"]
 [ext_resource type="AudioStream" uid="uid://cds3wmh6eu0aa" path="res://Music/bg_music.mp3" id="5_8k57s"]
 [ext_resource type="Texture2D" uid="uid://dyf8fsxrdu8u" path="res://Art/tilesets/fences.png" id="5_vlmo3"]
 [ext_resource type="PackedScene" uid="uid://c66cij8omnqav" path="res://Scenes/Enemy.tscn" id="6_t4elo"]
 [ext_resource type="PackedScene" uid="uid://xhcevfte565q" path="res://Scenes/Interactable.tscn" id="7_mrhq2"]
+[ext_resource type="PackedScene" uid="uid://ljeepy3h6jyh" path="res://Scenes/collectable.tscn" id="9_2grxp"]
+[ext_resource type="PackedScene" uid="uid://dpj537bajpnw" path="res://Scenes/gatherable.tscn" id="12_jw8ep"]
+[ext_resource type="PackedScene" uid="uid://dvqta63n2kucd" path="res://Scenes/chest.tscn" id="13_aeapv"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81n3g"]
+atlas = ExtResource("2_wuocp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_r73gv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_81n3g")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hrqya"]
 texture = ExtResource("2_jho04")
@@ -164,6 +184,30 @@ collision_mask = 10
 position = Vector2(0, 10)
 remote_path = NodePath("../../Main Camera")
 
+[node name="Invetory" type="Panel" parent="PlayerCharacter"]
+offset_left = 50.0
+offset_top = -18.0
+offset_right = 90.0
+offset_bottom = 22.0
+scale = Vector2(1.91532, 0.842105)
+
+[node name="coin_count" type="Label" parent="PlayerCharacter/Invetory"]
+layout_mode = 0
+offset_left = 8.3537
+offset_top = 1.1875
+offset_right = 48.3537
+offset_bottom = 24.1875
+scale = Vector2(0.778406, 0.936926)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="PlayerCharacter/Invetory"]
+position = Vector2(3.65474, 11.875)
+scale = Vector2(0.522105, 1.1875)
+sprite_frames = SubResource("SpriteFrames_r73gv")
+
+[node name="InventoryManager" type="Node" parent="PlayerCharacter"]
+unique_name_in_owner = true
+script = ExtResource("1_7ssnp")
+
 [node name="Main Camera" type="Camera2D" parent="."]
 position = Vector2(480, 248)
 zoom = Vector2(4, 4)
@@ -182,13 +226,22 @@ stream = ExtResource("5_8k57s")
 volume_db = -9.838
 autoplay = true
 
-[node name="Coin" parent="." instance=ExtResource("7_mrhq2")]
-position = Vector2(518, 259)
-collision_layer = 10
-collision_mask = 15
-collision_priority = 0.0
-
 [node name="Enemy" parent="." instance=ExtResource("6_t4elo")]
 position = Vector2(465, 159)
 collision_layer = 4
 collision_mask = 3
+
+[node name="Collectable" parent="." instance=ExtResource("9_2grxp")]
+position = Vector2(699, 204)
+
+[node name="Collectable2" parent="." instance=ExtResource("9_2grxp")]
+position = Vector2(733, 202)
+
+[node name="Gatherable" parent="." instance=ExtResource("12_jw8ep")]
+position = Vector2(625, 243)
+
+[node name="Chest" parent="." instance=ExtResource("13_aeapv")]
+position = Vector2(761, 270)
+
+[node name="Area2D" parent="." instance=ExtResource("7_mrhq2")]
+position = Vector2(520, 267)

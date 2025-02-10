@@ -1,20 +1,18 @@
 extends Area2D
 
-@onready var interaction_sound = $AudioStreamPlayer2D  
 @onready var prompt_label = $Label
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var inventory_manager = %InventoryManager
 
 var player_nearby = false
-
 func _ready():
 	prompt_label.visible = false
 	animated_sprite.play("spin")
-	
+
 func interact() -> void:
 	print("Interacted with the object!")  
-	interaction_sound.play()  
 	inventory_manager.add_coin()
+	queue_free()
 		
 func _process(_delta: float) -> void:
 	if player_nearby and Input.is_action_just_pressed("interact"):
