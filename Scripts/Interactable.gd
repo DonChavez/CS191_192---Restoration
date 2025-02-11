@@ -10,7 +10,7 @@ var player_nearby = false
 func _ready():
 	prompt_label.visible = false
 	animated_sprite.play("spin")
-	
+
 func interact() -> void:
 	print("Interacted with the object!")  
 	interaction_sound.play()  
