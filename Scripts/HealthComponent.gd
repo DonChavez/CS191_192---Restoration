@@ -6,12 +6,17 @@ signal damage_taken(amount: float)
 signal died()
 
 @export var max_health: float = 100.0
+@export var is_invulnerable: bool = false
 var health: float = 0.0
 
 func _ready() -> void:
 	health = max_health
+	changed.emit(health)
 
 func take_damage(amount: float) -> void:
+	if is_invulnerable:
+		return
+		
 	var old_health: float = health
 	health = max(0, health - amount)
 

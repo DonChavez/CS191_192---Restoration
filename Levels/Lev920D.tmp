@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://bl5fj7een4ff"]
+[gd_scene load_steps=25 format=4 uid="uid://bl5fj7een4ff"]
 
 [ext_resource type="Script" path="res://Levels/inventory_manager.gd" id="1_7ssnp"]
 [ext_resource type="PackedScene" uid="uid://tm7irnaihbkh" path="res://Scenes/Player.tscn" id="1_uvmjd"]
@@ -9,7 +9,11 @@
 [ext_resource type="AudioStream" uid="uid://cds3wmh6eu0aa" path="res://Music/bg_music.mp3" id="5_8k57s"]
 [ext_resource type="Texture2D" uid="uid://dyf8fsxrdu8u" path="res://Art/tilesets/fences.png" id="5_vlmo3"]
 [ext_resource type="PackedScene" uid="uid://c66cij8omnqav" path="res://Scenes/Enemy.tscn" id="6_t4elo"]
-[ext_resource type="PackedScene" uid="uid://xhcevfte565q" path="res://Scenes/Coin.tscn" id="7_mrhq2"]
+[ext_resource type="PackedScene" uid="uid://xhcevfte565q" path="res://Scenes/Interactable.tscn" id="7_mrhq2"]
+[ext_resource type="PackedScene" uid="uid://ljeepy3h6jyh" path="res://Scenes/collectable.tscn" id="9_2grxp"]
+[ext_resource type="Script" path="res://Scripts/Interactable.gd" id="11_nabkp"]
+[ext_resource type="PackedScene" uid="uid://dpj537bajpnw" path="res://Scenes/gatherable.tscn" id="12_jw8ep"]
+[ext_resource type="AudioStream" uid="uid://d4d8rnubomuv4" path="res://Music/coin.wav" id="12_tt08g"]
 [ext_resource type="PackedScene" uid="uid://dvqta63n2kucd" path="res://Scenes/chest.tscn" id="13_aeapv"]
 [ext_resource type="PackedScene" uid="uid://bqqmhvjf5chye" path="res://Portal.tscn" id="15_fqqdc"]
 
@@ -232,6 +236,20 @@ autoplay = true
 position = Vector2(465, 159)
 collision_layer = 4
 
+[node name="Collectable" parent="." instance=ExtResource("9_2grxp")]
+position = Vector2(699, 204)
+
+[node name="Collectable2" parent="." instance=ExtResource("9_2grxp")]
+position = Vector2(733, 202)
+script = ExtResource("11_nabkp")
+object_type = 2
+
+[node name="AudioStreamPlayer2D2" type="AudioStreamPlayer2D" parent="Collectable2"]
+stream = ExtResource("12_tt08g")
+
+[node name="Gatherable" parent="." instance=ExtResource("12_jw8ep")]
+position = Vector2(625, 243)
+
 [node name="Chest" parent="." instance=ExtResource("13_aeapv")]
 position = Vector2(761, 270)
 
@@ -241,11 +259,3 @@ position = Vector2(520, 267)
 [node name="Portal" parent="." instance=ExtResource("15_fqqdc")]
 position = Vector2(687, 343)
 target_level_path = "res://Levels/Level_1.tscn"
-
-[node name="Gatherable" parent="." instance=ExtResource("7_mrhq2")]
-position = Vector2(591, 309)
-object_type = 1
-
-[node name="Collectable" parent="." instance=ExtResource("7_mrhq2")]
-position = Vector2(652, 256)
-object_type = 2

@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://tm7irnaihbkh"]
+[gd_scene load_steps=50 format=3 uid="uid://tm7irnaihbkh"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_x82pb"]
 [ext_resource type="Texture2D" uid="uid://d0oap5nona40h" path="res://Art/characters/player.png" id="2_sb4ww"]
@@ -9,7 +9,6 @@
 [ext_resource type="PackedScene" uid="uid://dfhn50kk4srv8" path="res://Scenes/Projectile.tscn" id="7_a2f1u"]
 [ext_resource type="PackedScene" uid="uid://dbacefnbo6kto" path="res://Scenes/Shield.tscn" id="8_b1geb"]
 [ext_resource type="Texture2D" uid="uid://t2m16sjaltr1" path="res://Art/particles/dust_particles_01.png" id="9_onrlr"]
-[ext_resource type="PackedScene" uid="uid://cxmrpnlf8xncr" path="res://Scenes/Components/hitbox_component.tscn" id="10_c8lag"]
 
 [sub_resource type="Animation" id="Animation_dj4wt"]
 length = 0.001
@@ -403,26 +402,28 @@ states/Walking/position = Vector2(534.667, 117.877)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_x14g6"), "Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_xiqw7"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_03d8x"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_wbp3w"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_1etgc"), "Attack", "Walking", SubResource("AnimationNodeStateMachineTransition_k817j"), "Walking", "Attack", SubResource("AnimationNodeStateMachineTransition_idhbl")]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c3r1v"]
-size = Vector2(14, 13)
+size = Vector2(14, 18)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_skuti"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bejbd"]
 radius = 27.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dlbxp"]
-size = Vector2(19.5, 14)
-
-[node name="PlayerCharacter" type="CharacterBody2D"]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_x82pb")
+move_speed = null
+attack_animation_speed = null
+sprite = NodePath("Sprite2D")
 projectile = ExtResource("7_a2f1u")
 is_invulnerable = true
+dash_speed = null
+dash_duration = null
+dash_cooldown = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true
-position = Vector2(0, -7)
 texture = ExtResource("2_sb4ww")
 flip_h = true
 hframes = 6
@@ -442,7 +443,7 @@ parameters/Idle/blend_position = Vector2(-0.214286, -0.085119)
 parameters/Walking/blend_position = Vector2(-0.797535, 0.108608)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
+position = Vector2(0, 8)
 shape = SubResource("RectangleShape2D_c3r1v")
 
 [node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "interaction_sound") instance=ExtResource("5_2rurv")]
@@ -451,6 +452,7 @@ health_component = NodePath("../HealthComponent")
 interaction_sound = NodePath("AudioStreamPlayer2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
+position = Vector2(0, 8)
 shape = SubResource("CircleShape2D_skuti")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="HurtboxComponent"]
@@ -474,6 +476,7 @@ script = ExtResource("5_lhndc")
 health_component = NodePath("../HealthComponent")
 
 [node name="Shield" parent="." instance=ExtResource("8_b1geb")]
+position = Vector2(0, 8)
 collision_layer = 64
 collision_mask = 112
 lifetime = 2.0
@@ -488,15 +491,7 @@ hframes = 4
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_coi35")]
 max_health = 5.0
-
-[node name="KnockbackTimer" type="Timer" parent="."]
-
-[node name="MeleeHitbox" parent="." instance=ExtResource("10_c8lag")]
-collision_layer = 17
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHitbox"]
-shape = SubResource("RectangleShape2D_dlbxp")
+is_invulnerable = true
 
 [connection signal="damaged" from="HurtboxComponent" to="." method="_on_hurtbox_component_damaged"]
 [connection signal="body_entered" from="Shield" to="." method="_on_shield_body_entered"]

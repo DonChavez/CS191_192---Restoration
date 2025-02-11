@@ -413,10 +413,11 @@ radius = 27.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dlbxp"]
 size = Vector2(19.5, 14)
 
-[node name="PlayerCharacter" type="CharacterBody2D"]
+[node name="PlayerCharacter" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 y_sort_enabled = true
 collision_mask = 2
 script = ExtResource("1_x82pb")
+sprite = NodePath("Sprite2D")
 projectile = ExtResource("7_a2f1u")
 is_invulnerable = true
 
@@ -487,7 +488,6 @@ texture = ExtResource("9_onrlr")
 hframes = 4
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_coi35")]
-max_health = 5.0
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 

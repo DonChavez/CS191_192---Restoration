@@ -487,7 +487,6 @@ texture = ExtResource("9_onrlr")
 hframes = 4
 
 [node name="HealthComponent" parent="." instance=ExtResource("6_coi35")]
-max_health = 5.0
 
 [node name="KnockbackTimer" type="Timer" parent="."]
 
