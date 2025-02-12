@@ -44,7 +44,7 @@ func test_shield_disable():
  shield.disable_shield()
 
  assert_bool(shield.visible).is_false()
- assert_bool(shield.collision_shape.disabled).is_false()
+ assert_bool(shield.monitoring).is_false()
  #Won't assert color since it can be changed dynamically(if we want)
 
 
@@ -68,12 +68,14 @@ func test_shield_enable():
 
  shield.enable_shield()
 
+ #assert_bool(shield.monitoring).is_true()
  assert_bool(shield.visible).is_true()
- #Something might be wrong here: Collision
- #assert_bool(shield.collision_shape.disabled).is_false()
 
+ #Improve Collision Monitor testing
  await get_tree().create_timer(3.0).timeout
+
  verify(shield_spy, 2).disable_shield()
+ assert_bool(shield.visible).is_false()
 
 
 

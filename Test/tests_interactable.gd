@@ -37,8 +37,6 @@ func test_interactable_player_near_object() -> void:
  var label = Label.new()
  var animated_sprite = AnimatedSprite2D.new()
  var sample_object = Node.new()
-
-
  label.name = "Label"  # Must match the node name in the script
  animated_sprite.name = "AnimatedSprite2D"
 
