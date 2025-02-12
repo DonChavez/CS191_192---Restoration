@@ -1,7 +1,7 @@
 class_name health_bar_UnitTest
 extends GdUnitTestSuite
 
-const HealthComponentTest = preload("res://Scripts/Components/HealthComponent.gd")
+const HealthComponentTest = preload("res://Scripts/HealthComponent.gd")
 const health_barTest = preload("res://Scripts/health_bar.gd")
 
 

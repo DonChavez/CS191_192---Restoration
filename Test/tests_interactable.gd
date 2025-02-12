@@ -1,7 +1,7 @@
 class_name interactable_UnitTest
 extends GdUnitTestSuite
 
-const interactable_Test = preload("res://Scripts/Components/Interactable.gd")
+const interactable_Test = preload("res://Scripts/Interactable.gd")
 
 # Called when the node enters the scene tree for the first time.
 func test_interactable() -> void:
