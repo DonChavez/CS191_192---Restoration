@@ -26,3 +26,6 @@ func test_Healthbar_change_health() -> void:
  assert_float(health_bar.health_component.health).is_equal(60.0)
  health_component.queue_free()
  health_bar.queue_free()
+
+
+# No need for scene tests, only logic needed

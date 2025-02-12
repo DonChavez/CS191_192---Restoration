@@ -46,3 +46,4 @@ func test_HealthComponent_take_damage_isDead() -> void:
 # Might have to add more test cases
 # Signaling
 # Does not go beyond bounds
+# Have to rewrite/optimize for cleanliness and extensiveness

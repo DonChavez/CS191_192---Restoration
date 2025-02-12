@@ -37,6 +37,8 @@ func test_interactable_player_near_object() -> void:
  var label = Label.new()
  var animated_sprite = AnimatedSprite2D.new()
  var sample_object = Node.new()
+
+
  label.name = "Label"  # Must match the node name in the script
  animated_sprite.name = "AnimatedSprite2D"
 
@@ -144,6 +146,13 @@ func test_interactable_player_area_exited() -> void:
  #animated_sprite.queue_free()
  #interaction_sound.queue_free()
  #inventory_manager.queue_free()
+
+
+
+
+
+
+# Have to rewrite/optimize for cleanliness and extensiveness
 
 
 
