@@ -5,7 +5,7 @@ extends GdUnitTestSuite
 
 # Preloading resources(For per)
 # Note: Should we use const or var for preloads?
-const HealthComponentTest = preload("res://Scripts/HealthComponent.gd")
+const HealthComponentTest = preload("res://Scripts/Components/HealthComponent.gd")
 
 # Sample test
 #func test_example():
@@ -46,3 +46,4 @@ func test_HealthComponent_take_damage_isDead() -> void:
 # Might have to add more test cases
 # Signaling
 # Does not go beyond bounds
+# Have to rewrite/optimize for cleanliness and extensiveness

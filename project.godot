@@ -24,6 +24,10 @@ LevelManager="*res://Scripts/Global Scripts/LevelManager.gd"
 window/size/viewport_width=1920
 window/size/viewport_height=1080
 
+[dotnet]
+
+project/assembly_name="Restoration"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")

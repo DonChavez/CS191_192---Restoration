@@ -1,7 +1,7 @@
 class_name health_bar_UnitTest
 extends GdUnitTestSuite
 
-const HealthComponentTest = preload("res://Scripts/HealthComponent.gd")
+const HealthComponentTest = preload("res://Scripts/Components/HealthComponent.gd")
 const health_barTest = preload("res://Scripts/health_bar.gd")
 
 
@@ -26,3 +26,6 @@ func test_Healthbar_change_health() -> void:
  assert_float(health_bar.health_component.health).is_equal(60.0)
  health_component.queue_free()
  health_bar.queue_free()
+
+
+# No need for scene tests, only logic needed
