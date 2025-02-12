@@ -21,6 +21,7 @@ func test_shield_ready():
  add_child(shield)
  await get_tree().process_frame  # Allow _ready() to execute
 
+ verify(shield_spy, 1)._ready()
  verify(shield_spy, 1).disable_shield()
 
 func test_shield_disable():
