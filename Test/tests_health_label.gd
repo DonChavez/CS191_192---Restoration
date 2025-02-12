@@ -6,7 +6,7 @@ const healthComponent_Test = preload("res://Scripts/Components/HealthComponent.g
 
 
 func test_health_label_ready():
- #Load and Instantiate Scene
+ 
  var health_component =  healthComponent_Test.new()
  var health_label =  health_label_Test.new()
  health_component._ready()
