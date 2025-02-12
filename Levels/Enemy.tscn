@@ -1,9 +1,9 @@
 [gd_scene load_steps=19 format=3 uid="uid://c66cij8omnqav"]
 
 [ext_resource type="Texture2D" uid="uid://cd744cipl537i" path="res://Art/characters/slime.png" id="1_5kkht"]
-[ext_resource type="Script" path="res://Scripts/Enemy.gd" id="1_m2tq0"]
+[ext_resource type="Script" path="res://Scripts/Components/Enemy.gd" id="1_m2tq0"]
 [ext_resource type="PackedScene" uid="uid://0rfheeo0r2lh" path="res://Scenes/Components/health_component.tscn" id="3_r4ma3"]
-[ext_resource type="PackedScene" uid="uid://cxmrpnlf8xncr" path="res://Scenes/Components/hitbox_component.tscn" id="4_e6pih"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/hitbox_component2.tscn" id="4_e6pih"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3i2xa"]
 atlas = ExtResource("1_5kkht")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=4 uid="uid://bnccqyv5iewka"]
 
 [ext_resource type="Texture2D" uid="uid://d2flw4hiw030l" path="res://Art/tilesets/floors/wooden.png" id="1_fgk44"]
-[ext_resource type="PackedScene" uid="uid://bqqmhvjf5chye" path="res://Portal.tscn" id="2_57i6o"]
-[ext_resource type="PackedScene" uid="uid://c66cij8omnqav" path="res://Scenes/Enemy.tscn" id="2_jaut5"]
+[ext_resource type="PackedScene" uid="uid://bqqmhvjf5chye" path="res://Scenes/Templates/Portal.tscn" id="2_57i6o"]
+[ext_resource type="PackedScene" uid="uid://c66cij8omnqav" path="res://Scenes/Templates/Enemy.tscn" id="2_jaut5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qchdi"]
 texture = ExtResource("1_fgk44")

@@ -4,7 +4,7 @@ extends Area2D
 enum ObjectType { INTERACTABLE, GATHERABLE, COLLECTABLE }
 @export var object_type : ObjectType = ObjectType.INTERACTABLE
 
-@onready var interaction_sound = null
+@onready var interaction_sound = $AudioStreamPlayer2D
 @onready var prompt_label = null
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var inventory_manager = %InventoryManager
@@ -15,11 +15,6 @@ var player_nearby = false
 func _ready():
 	# Check if the Label and AudioStreamPlayer2D nodes exist
 	prompt_label = $Label if has_node("Label") else null
-	if has_node("AudioStreamPlayer2D"):
-		interaction_sound = get_node("AudioStreamPlayer2D") as AudioStreamPlayer2D
-	
-	# Set up initial animation state for the sprite
-	animated_sprite.play("spin")
 	
 	# Hide the prompt label for interactable and gatherable by default
 	if prompt_label:
@@ -37,16 +32,16 @@ func interact() -> void:
 			print("Gathered the object!")
 			if interaction_sound:
 				interaction_sound.play()  # Play sound if required
+				await interaction_sound.finished
 			inventory_manager.add_coin()  # Handle the gathering (add coin or any other effect)
 			queue_free()  # Remove the object after gathering
 		ObjectType.COLLECTABLE:
 			print("Collected the object!")
 			if interaction_sound:
-				interaction_sound.play()  # Play sound if required
+				interaction_sound.play()
+				await interaction_sound.finished 
 			inventory_manager.add_coin()  # Handle the collection (add coin or any other effect)
 			# Wait for the sound to finish before removing the object
-			if interaction_sound:
-				await interaction_sound.finished
 			queue_free()  # Remove the object after collection
 
 # Called every frame

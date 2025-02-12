@@ -7,7 +7,7 @@ var player = null
 var dashing = false
 var dash_direction = Vector2.ZERO
 
-@export var projectile = load("res://Scenes/Projectile.tscn")  # Load projectile scene directly
+@export var projectile = load("res://Scenes/Templates/Projectile.tscn")  # Load projectile scene directly
 
 @onready var dash_timer = $DashTimer
 
@@ -49,8 +49,7 @@ func _on_area_2d_body_exited(_body: Node2D) -> void:
 
 func _on_dash_timer_timeout():
 	if player_chase and player:
-		print("Attacking")
-		attack()  # Fire 8 projectiles in a circle
+		circle_attack()  # Fire 8 projectiles in a circle
 
 		# Optional: Enemy dashes after shooting
 		dash_direction = (player.position - position).normalized()
@@ -58,9 +57,7 @@ func _on_dash_timer_timeout():
 		await get_tree().create_timer(0.3).timeout
 		dashing = false
 		
-
-		
-func attack():
+func circle_attack():
 	var num_projectiles = 8
 	var angle_step = TAU / num_projectiles  
 

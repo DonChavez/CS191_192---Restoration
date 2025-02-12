@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://bl5fj7een4ff"]
+[gd_scene load_steps=21 format=4 uid="uid://bl5fj7een4ff"]
 
 [ext_resource type="Script" path="res://Levels/inventory_manager.gd" id="1_7ssnp"]
 [ext_resource type="PackedScene" uid="uid://tm7irnaihbkh" path="res://Scenes/Player.tscn" id="1_uvmjd"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c66cij8omnqav" path="res://Scenes/Templates/Enemy.tscn" id="6_t4elo"]
 [ext_resource type="PackedScene" uid="uid://xhcevfte565q" path="res://Scenes/Templates/Coin.tscn" id="7_mrhq2"]
 [ext_resource type="PackedScene" uid="uid://dvqta63n2kucd" path="res://Scenes/chest.tscn" id="13_aeapv"]
+[ext_resource type="PackedScene" uid="uid://bqqmhvjf5chye" path="res://Scenes/Templates/Portal.tscn" id="15_fqqdc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_81n3g"]
 atlas = ExtResource("2_wuocp")
@@ -243,3 +244,6 @@ object_type = 1
 [node name="Collectable" parent="." instance=ExtResource("7_mrhq2")]
 position = Vector2(652, 256)
 object_type = 2
+
+[node name="Portal" parent="." instance=ExtResource("15_fqqdc")]
+position = Vector2(683, 345)

@@ -22,12 +22,12 @@ func _process(_delta: float) -> void:
 
 
 
-func _on_area_2d_body_entered(body: Node2D) -> void:
+func _on_area_2d_body_entered(_body: Node2D) -> void:
 	player_nearby = true
 	label.visible = true
 
 
-func _on_area_2d_body_exited(body: Node2D) -> void:
+func _on_area_2d_body_exited(_body: Node2D) -> void:
 	player_nearby = false
 	label.visible = false 
 	panel.visible = false
