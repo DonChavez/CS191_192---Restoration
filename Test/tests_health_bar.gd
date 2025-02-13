@@ -8,6 +8,7 @@ const health_barTest = preload("res://Scripts/health_bar.gd")
 func test_Healthbar_init() -> void:
  var health_component =  HealthComponentTest.new()
  var health_bar = health_barTest.new()
+
  health_component._ready()
  health_bar.health_component = health_component
  health_bar._ready()
