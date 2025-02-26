@@ -6,15 +6,12 @@ env:
   
 on:
   push:
-    branches:
-      - dev
-      - sprint-1
+    branches:  # Runs on every push to any branch
+      - '**'
   pull_request:
-    branches: 
-      - dev
-      - sprint-1
-      - main
-
+    branches:  # Runs on every pull request to any branch
+      - '**'
+      
 jobs:
   unit-test:
     runs-on: ubuntu-latest
