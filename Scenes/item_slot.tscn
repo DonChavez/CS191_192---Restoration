@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1c8vyfyanpjj"]
+
+[ext_resource type="Texture2D" uid="uid://sqsen7i3vycq" path="res://Art/tilesets/grid.png" id="1_jcr5c"]
+[ext_resource type="Script" path="res://Scripts/item_slot.gd" id="2_broc3"]
+
+[node name="ItemSlot" type="TextureRect"]
+custom_minimum_size = Vector2(40, 40)
+mouse_filter = 0
+texture = ExtResource("1_jcr5c")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("2_broc3")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+offset_left = -16.0
+offset_top = 41.0
+offset_right = 56.0
+offset_bottom = 64.0
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2

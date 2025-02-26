@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=3 uid="uid://diou0jic7lvpc"]
+
+[ext_resource type="Script" path="res://Scenes/Templates/Ranged.gd" id="1_h35ld"]
+[ext_resource type="PackedScene" uid="uid://0rfheeo0r2lh" path="res://Scenes/Components/health_component.tscn" id="2_u6bsw"]
+[ext_resource type="Texture2D" uid="uid://beuxi5jr4bj2n" path="res://Art/Bee.png" id="3_ehk5e"]
+[ext_resource type="PackedScene" uid="uid://cusqbl0whlfcq" path="res://Scenes/Components/hurtbox_component.tscn" id="4_785uf"]
+[ext_resource type="Script" path="res://Scripts/health_label.gd" id="5_hxvq6"]
+[ext_resource type="Script" path="res://Scripts/Components/HitboxComponent.gd" id="6_nf5va"]
+[ext_resource type="AudioStream" uid="uid://bi1emnk3s4lmt" path="res://Music/enemy_hurt.mp3" id="7_baiod"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvpdo"]
+atlas = ExtResource("3_ehk5e")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_opn8t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvpdo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4d5c5"]
+radius = 82.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g1luh"]
+radius = 5.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ek72t"]
+size = Vector2(9, 6)
+
+[node name="Ranged" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_h35ld")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_u6bsw")]
+max_health = 5.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_opn8t")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_4d5c5")
+
+[node name="HurtboxComponent2" parent="." instance=ExtResource("4_785uf")]
+position = Vector2(0, -1)
+collision_layer = 0
+priority = 1
+
+[node name="Hitbox" type="CollisionShape2D" parent="HurtboxComponent2"]
+shape = SubResource("CircleShape2D_g1luh")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_ek72t")
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="Label" type="Label" parent="." node_paths=PackedStringArray("health_component")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 6.0
+offset_right = 9.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.494843)
+theme_override_font_sizes/font_size = 20
+text = "5"
+horizontal_alignment = 1
+script = ExtResource("5_hxvq6")
+health_component = NodePath("../HealthComponent")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "interaction_sound") instance=ExtResource("4_785uf")]
+position = Vector2(0, -1)
+collision_layer = 4
+collision_mask = 17
+priority = 1
+script = ExtResource("6_nf5va")
+health_component = NodePath("../HealthComponent")
+interaction_sound = NodePath("AudioStreamPlayer2D")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HitboxComponent"]
+shape = SubResource("CircleShape2D_g1luh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="HitboxComponent"]
+stream = ExtResource("7_baiod")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_area_2d_body_exited"]

@@ -40,7 +40,7 @@ func interact() -> void:
 			if interaction_sound:
 				interaction_sound.play()
 				await interaction_sound.finished 
-			inventory_manager.add_coin()  # Handle the collection (add coin or any other effect)
+			inventory_manager.add_scoin()  # Handle the collection (add coin or any other effect)
 			# Wait for the sound to finish before removing the object
 			queue_free()  # Remove the object after collection
 

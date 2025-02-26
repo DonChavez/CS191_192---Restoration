@@ -26,12 +26,14 @@ func _ready():
 	# Configure hurtbox and sprite based on who fired the projectile
 	if fired_by == "player":
 		hurtbox.set_collision_layer_value(5, true)		# Assign it as player projectile
+		hurtbox.set_collision_layer_value(6, false)
 		hurtbox.set_collision_mask_value(3, true)		# Can collide with enemies
 		hurtbox.set_collision_mask_value(1, false)		# No collision with player
 		sprite.texture = player_projectile_texture
 		speed = 200									# More projecetile speed for player
 	elif fired_by == "enemy":
 		hurtbox.set_collision_layer_value(6, true)		# Assign it as penemy projectile
+		hurtbox.set_collision_layer_value(5, false)
 		hurtbox.set_collision_mask_value(1, true) 		# Can collide with player
 		hurtbox.set_collision_mask_value(3, false)		# No collision with other enemies
 		sprite.texture = enemy_projectile_texture

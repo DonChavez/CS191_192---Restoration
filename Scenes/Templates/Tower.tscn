@@ -1,0 +1,107 @@
+[gd_scene load_steps=14 format=3 uid="uid://bnwby11b0gxd"]
+
+[ext_resource type="Script" path="res://Scenes/Templates/Tower.gd" id="1_sa7gi"]
+[ext_resource type="PackedScene" uid="uid://0rfheeo0r2lh" path="res://Scenes/Components/health_component.tscn" id="2_qijn6"]
+[ext_resource type="Texture2D" uid="uid://bq1g2opneb8ld" path="res://Art/TD1.png" id="3_272ti"]
+[ext_resource type="PackedScene" uid="uid://cusqbl0whlfcq" path="res://Scenes/Components/hurtbox_component.tscn" id="4_pyto1"]
+[ext_resource type="Texture2D" uid="uid://beuxi5jr4bj2n" path="res://Art/Bee.png" id="4_u7srx"]
+[ext_resource type="Script" path="res://Scripts/health_label.gd" id="5_mty3w"]
+[ext_resource type="Script" path="res://Scripts/Components/HitboxComponent.gd" id="6_tkafl"]
+[ext_resource type="AudioStream" uid="uid://bi1emnk3s4lmt" path="res://Music/enemy_hurt.mp3" id="8_n5wx6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mowr0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_272ti")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sh5yx"]
+atlas = ExtResource("4_u7srx")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2fl5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sh5yx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4d5c5"]
+radius = 207.087
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ivwh"]
+size = Vector2(61, 68.5)
+
+[node name="Tower" type="CharacterBody2D"]
+collision_layer = 128
+collision_mask = 3
+script = ExtResource("1_sa7gi")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_qijn6")]
+max_health = 20.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_mowr0")
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+position = Vector2(-1, -37)
+sprite_frames = SubResource("SpriteFrames_k2fl5")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_4d5c5")
+
+[node name="Label" type="Label" parent="." node_paths=PackedStringArray("health_component")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 6.0
+offset_right = 9.0
+offset_bottom = 34.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.494843)
+theme_override_font_sizes/font_size = 20
+text = "5"
+horizontal_alignment = 1
+script = ExtResource("5_mty3w")
+health_component = NodePath("../HealthComponent")
+
+[node name="HitboxComponent" parent="." node_paths=PackedStringArray("health_component", "interaction_sound") instance=ExtResource("4_pyto1")]
+position = Vector2(0, -1)
+collision_layer = 4
+collision_mask = 17
+priority = 1
+script = ExtResource("6_tkafl")
+health_component = NodePath("../HealthComponent")
+interaction_sound = NodePath("AudioStreamPlayer2D")
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(2, -10)
+shape = SubResource("RectangleShape2D_3ivwh")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="HitboxComponent"]
+stream = ExtResource("8_n5wx6")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(2, -11)
+shape = SubResource("RectangleShape2D_3ivwh")
+
+[connection signal="died" from="HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_area_2d_body_exited"]

@@ -49,7 +49,6 @@ func _on_area_2d_body_exited(_body: Node2D) -> void:
 
 func _on_dash_timer_timeout():
 	if player_chase and player:
-		circle_attack()  # Fire 8 projectiles in a circle
 
 		# Optional: Enemy dashes after shooting
 		dash_direction = (player.position - position).normalized()

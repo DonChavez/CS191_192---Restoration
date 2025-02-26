@@ -6,14 +6,12 @@ extends Area2D
 @onready var animated_sprite = $Sprite2D
 
 var player_nearby = false
-var target_level: PackedScene
 
 func _ready():
 	prompt_label.visible = false
-	target_level = load(target_level_path) as PackedScene
 	
 func interact() -> void:
-	LevelManager.change_level(target_level)
+	get_tree().change_scene_to_file(target_level_path)
 		
 func _process(_delta: float) -> void:
 	if player_nearby and Input.is_action_just_pressed("interact"):

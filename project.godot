@@ -94,6 +94,7 @@ dash={
 2d_physics/layer_5="Player Projectiles"
 2d_physics/layer_6="Enemy Projectiles"
 2d_physics/layer_7="Player Shield"
+2d_physics/layer_8="Enemy Building"
 
 [rendering]
 

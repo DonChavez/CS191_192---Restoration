@@ -9,7 +9,6 @@ extends CharacterBody2D
 @export var projectile = load("res://Scenes/Templates/Projectile.tscn")
 
 @onready var health_component = $HealthComponent
-@onready var inventory_manager = %InventoryManager
 @onready var shield = $Shield
 @onready var melee_hurtbox = $MeleeHurtbox
 @onready var sprite = $AnimatedSprite2D
@@ -64,8 +63,6 @@ func handle_input() -> void:
 
 	if Input.is_action_pressed("block") and can_block:
 		create_shield()
-	if Input.is_action_just_pressed("inventory"):
-		inventory_manager.interact_inventory()
 	if Input.is_action_just_pressed("shoot"):
 		shoot_projectile()
 	if Input.is_action_just_pressed("attack") and not is_attacking:
@@ -111,7 +108,7 @@ func melee_attack() -> void:
 	var animation_name = "attack_" + facing_direction
 	var anim_speed = sprite.get_sprite_frames().get_animation_speed(animation_name)
 	var anim_length = sprite.get_sprite_frames().get_frame_count(animation_name) / anim_speed
-	var hurtbox_duration = anim_length / attack_speed * 0.3  # Hurtbox active for 30% of the attack duration
+	var hurtbox_duration = anim_length / attack_speed * 0.1  # Hurtbox active for 30% of the attack duration
 
 	# Enable hurtbox briefly
 	activate_melee_hurtbox(hurtbox_duration)
@@ -201,9 +198,10 @@ func _on_health_component_died() -> void:
 	handle_death()
 
 func _on_shield_body_entered(body: Node2D) -> void:
-	if body.has_method("bounce"):
+	if body.has_method("bounce") and body.fired_by == "enemy":
 		var normal = (body.global_position - global_position).normalized()
 		body.bounce(normal)
+
 
 func _on_hitbox_component_damaged(_amount: float) -> void:
 	sprite.modulate = Color(1, 0, 0)  
