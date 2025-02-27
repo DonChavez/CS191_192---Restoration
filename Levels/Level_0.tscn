@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Trash.tscn" id="12_pvu47"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/recycler.tscn" id="13_0xsfp"]
 [ext_resource type="PackedScene" uid="uid://dvqta63n2kucd" path="res://Scenes/chest.tscn" id="13_aeapv"]
-[ext_resource type="PackedScene" path="res://Scenes/Coin.tscn" id="14_kwvrw"]
+[ext_resource type="PackedScene" uid="uid://bdsrg7eg6hfn6" path="res://Scenes/Coin.tscn" id="14_kwvrw"]
 [ext_resource type="PackedScene" path="res://Scenes/Item_manager.tscn" id="15_y2uai"]
 [ext_resource type="PackedScene" uid="uid://c5aap3h4fps8p" path="res://Scenes/Items/item.tscn" id="16_8behu"]
 [ext_resource type="PackedScene" uid="uid://bnwby11b0gxd" path="res://Scenes/Templates/Tower.tscn" id="17_03co7"]

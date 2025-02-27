@@ -22,7 +22,7 @@ func test_coin_ready():
  add_child(coin)
  await get_tree().process_frame  # Allow _ready() to execute
 
- assert_float(coin.Speed).is_equal(120)
+ assert_float(coin.Speed).is_equal(120.0)
 
  coin.queue_free()
 
