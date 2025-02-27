@@ -1,7 +1,7 @@
 class_name recycler_UnitTest
 extends GdUnitTestSuite
 
-const RECYCLER_SCENE = "res://Scenes/Recycler.tscn"  # Update with correct path
+const RECYCLER_SCENE = "res://Scenes/recycler.tscn"  # Update with correct path
 
 func test_recycler_ready():
 
