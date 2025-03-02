@@ -1,0 +1,8 @@
+The level manager acts as a global script, which is called a singleton, that allows scripts or nodes dictated inside it to load instantly upon game start
+
+For instnace, by placing "var Player = null" in the level manager, this allows the player to load immediately before the game starts.
+this can be used especially with the presence of LevelManager.Player = self in the Player.gd allowing other nodes to determine when the player exists
+
+to use globals, simply access: 
+	Project -> Project Settings -> Globals
+	this gives the option to upload a script that declares objects immediately

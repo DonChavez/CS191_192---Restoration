@@ -1,0 +1,22 @@
+To create a tilemap, we have to use the TilemapLayer
+Similar to how the characterbody2d works, we have to select a tileset
+in the Inspector, simply select a new tiles then at the bottom of the console, select the "TileSet" option and choose the needed tileset
+Godot will automatically set the pixels but can simply be edited by selecting the "setup" option
+to group an entire object in 1 pixel, for instance a tree, hold control and drag
+
+Add-ons
+
+Physics Layers:
+	when turning on the physics layers, this allows us to add collision layers on the tilesets
+	the collision layers can then be painted by going to Tileset -> Paint -> Paint Properties -> Physics layer
+	simply draw around the needed parts that need to have collisions
+
+Terrains:
+	Terrains make certain tilemappings easier
+	for instance, a whole elevated platform, a whole field of dirt, etc. 
+	to do this, simply go to TileMapLayer -> Terrain Sets -> Add Element -> Add Element
+	after such, go to the paint tool in the tilesets, then select the tiles that will be used for the terrain
+	after selecting, highlight (hold left click) on the innards of the terrain
+	for example: 
+		on the hill: draw on the hill side and avoid the walls
+		on the dirt: draw on the dirt, avoid the grass

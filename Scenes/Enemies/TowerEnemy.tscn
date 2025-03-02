@@ -1,0 +1,70 @@
+[gd_scene load_steps=9 format=3 uid="uid://btpotfo7v6c50"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/TowerEnemy.gd" id="1_wyg77"]
+[ext_resource type="Texture2D" uid="uid://kiiqkupdl5om" path="res://Art/Characters/EyeofSauron.png" id="2_s8t23"]
+[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_faeaw"]
+[ext_resource type="PackedScene" uid="uid://b84tb5cvf203n" path="res://Scenes/Components/HealthLabel.tscn" id="4_7yvsu"]
+[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_7ldd5"]
+[ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_taqc1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mdcyp"]
+size = Vector2(10, 52)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
+radius = 48.0416
+
+[node name="TowerEnemy" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_wyg77")
+
+[node name="TowerEnemySprite" type="Sprite2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(0.025737, 0.025737)
+texture = ExtResource("2_s8t23")
+
+[node name="TowerEnemyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_mdcyp")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(0, 1)
+scale = Vector2(-4.71235, -4.71235)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+scale = Vector2(1.0043, 1.20613)
+shape = SubResource("CircleShape2D_3h7bf")
+
+[node name="TowerEnemyHealth" parent="." instance=ExtResource("3_faeaw")]
+
+[node name="TowerEnemyHealthLabel" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("4_7yvsu")]
+offset_left = -17.0
+offset_top = -17.0
+offset_right = 23.0
+offset_bottom = 6.0
+scale = Vector2(0.5, 0.5)
+Health_component = NodePath("../TowerEnemyHealth")
+
+[node name="TowerEnemyHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("5_7ldd5")]
+position = Vector2(0, 1)
+collision_layer = 4
+Health = NodePath("../TowerEnemyHealth")
+
+[node name="TowerEnemyHitCollision2" type="CollisionShape2D" parent="TowerEnemyHitbox"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_mdcyp")
+
+[node name="TowerEnemyHurtbox" parent="." instance=ExtResource("6_taqc1")]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 2
+
+[node name="TowerEnemyHurtCollision2" type="CollisionShape2D" parent="TowerEnemyHurtbox"]
+position = Vector2(0, 5)
+scale = Vector2(1.01, 1.01)
+shape = SubResource("RectangleShape2D_mdcyp")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

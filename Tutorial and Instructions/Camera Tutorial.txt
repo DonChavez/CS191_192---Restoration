@@ -1,0 +1,11 @@
+The way the camera works in the scenes 
+
+Camera is made a child of the node simply so that it makes it easier to shift focus from an object to another
+Example: 
+	Player focus:
+		by making the camera a child of the player, the camera will always focus on the player
+		instead, we use RemoteTransform2D and connect that to the camera in order to focus on the player
+		This is done so that it will be easier to shift focus when necessary
+		
+other issues:
+	when switching layers, making the camera a child of the player causes certain errors. to fix it, we do the process as stated above

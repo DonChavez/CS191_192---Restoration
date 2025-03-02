@@ -1,0 +1,9 @@
+Basic Enemy - just moves
+
+Melee Enemy - dashes
+
+Ranged Enemy - moves and shoots
+
+Tower - doesnt move but shoots in a cirlce
+
+Elite - moves, dashes, shoots, circle attack

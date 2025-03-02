@@ -1,0 +1,22 @@
+extends Area2D
+# class_name allows us to inherit functions/values in to or from other nodes
+class_name HitboxComponent
+# hitbox component will be the one that receives the damage
+
+# signals
+# signal for taking damage
+signal damaged(Amount : float)
+
+# exportable variables
+@export var Health: HealthComponent  # Reference to health
+#@export var interaction_sound: AudioStreamPlayer2D  # Sound on hit
+
+func damage_received(Amount: float) -> void:
+	# affect only the object's health component
+	if Health:
+		# inherited take_damage function that will be applied to the health component
+		print("I take damage")
+		Health.take_damage(Amount)  # Apply damage
+		#damaged.emit(Amount)  # Emit damage signal upon taking damage
+		#if interaction_sound:
+			#interaction_sound.play()  # Play hit sound

@@ -1,0 +1,20 @@
+Entire Inventory Management System:
+	Coin Management, Item Management, etc. still aren't here currently since I'm still Confused on how to do it and I've been getting a lot of errors recently - Julian
+
+Portals:
+	simply add
+
+Level Manager:
+	still have to do the global level manager stuff to keep the player's details
+	
+EliteEnemy:
+	fix the collision of the elite enemy
+	
+Shield:
+	add bouncing function
+	
+Sprint 3:
+	Still have to do parrying and global pollution level
+	
+Testings: 
+	Will do the testings after finishing the essentials

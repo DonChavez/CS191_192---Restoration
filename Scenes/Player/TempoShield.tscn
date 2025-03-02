@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://c2p11rdf0f6yt"]
+
+[ext_resource type="Texture2D" uid="uid://c3jxqgd4weuvj" path="res://Art/Objects/Shield.png" id="1_tqrhx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxsx3"]
+size = Vector2(20, 29)
+
+[node name="TempoShield" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="TempoShieldSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_tqrhx")
+
+[node name="TempoShieldCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qxsx3")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://2rsvspeeiv5n"]
+
+[ext_resource type="Script" path="res://Scripts/Projectile.gd" id="1_duoo3"]
+[ext_resource type="Texture2D" uid="uid://d4cs0h4tuexfj" path="res://Art/Particles/PlayerProjectile.png" id="2_rha6k"]
+[ext_resource type="Texture2D" uid="uid://0eyrqlsd88rg" path="res://Art/Particles/EnemyProjectile.png" id="3_hnnx5"]
+[ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="4_38uwm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l61qw"]
+radius = 4.0
+
+[node name="Projectile" type="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_duoo3")
+Player_projectile_texture = ExtResource("2_rha6k")
+Enemy_projectile_texture = ExtResource("3_hnnx5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="ProjectileCollision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l61qw")
+
+[node name="ProjectileHurtbox" parent="." instance=ExtResource("4_38uwm")]
+
+[node name="ProjectileCollisionHurt" type="CollisionShape2D" parent="ProjectileHurtbox"]
+shape = SubResource("CircleShape2D_l61qw")

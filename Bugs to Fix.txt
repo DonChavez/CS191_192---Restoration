@@ -1,0 +1,8 @@
+Shield bug: 
+	does not decrease HP per tick, only decreases per hitbox entry
+
+Enemy bug:
+	the melee enemy sometimes hits the collision multiple times causing an insta kill
+
+Projectile Issue:
+	sometiems projectile does not damage player

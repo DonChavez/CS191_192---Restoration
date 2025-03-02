@@ -1,0 +1,15 @@
+Draw Order simply dictates which sprite will be drawn first
+By default, the draw order (as seen in the scenes) is based on bottom to top
+the nodes placed on the bottom will be drawn first (above everything else) and the nodes at the highest will be drawn last and be placed at the bottom
+
+in the BaseTestingArea Scene, the Hill Layer is made a child of the ground layer for simplicity
+This is done since the Hill layer is an Add-on to the ground layer
+
+This is determined by the objects Z-index in the ordering section on the Inspector
+a lower Z-index value means that the object is drawn lower than the other objects
+For instance, tree = Z: 0 and fence = Z: 1 -> fence will be above the tree
+
+How to set the draw order automatically:
+	Enable Y-sort on the root node / parent node
+	For instance, in thie tutorial Scene, enabling the Y-sort on the Tutorial Node automatically draws all objects inside, the object layer, player, enemy, etc. relative to how they should appear
+	Example: player is behind the top of the tree, but in front of the trunk

@@ -1,0 +1,33 @@
+Current Convensions are: 
+	Environment = Layer 1
+	Player = Layer 2
+	Enemies = Layer 3
+	
+	note: to check layer settings, click on collisions -> triple dots on the right
+	
+Layer: 
+	this represents which section the object can be touched. 
+	In a sense, this is where they live/sit in the game
+	
+Mask: 
+	this represents what the object can see.
+	specifically, regardless of what layer an object is in, the object will be able to collide with any layer stated in its mask
+	
+Example:
+	Player is in Layer 1 
+	Enemy is in Layer 2
+	Normally, these wouldn't collide
+	but, if Enemy's mask is stated to see Layer 1, Enemy can thus collide with the Player (Layer 1)
+	
+How to Adust the Layers:
+	The layer settings on the base scene of the object will be its default
+	however, the layer settings can actually be changed depending on the needs of the scene
+	
+	Example:
+		player base scene is set to Layer 2, but in the tutorial scene, it's layer is set to 1
+		without masks, that means the player can collide with the environment in the tutorial scene
+	
+	The layers can also be adjusted in the script itself using set_collision_layer
+
+Enemy Collision adjustment:
+	for the hurtbox of the enemy to work properly, set the hurtbox collision to a few points higher than the base collision in order for it to connect and register properly with the player's hitbox

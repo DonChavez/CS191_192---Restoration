@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bqfdgmr4ntfbf"]
+
+[ext_resource type="Texture2D" uid="uid://c3jxqgd4weuvj" path="res://Art/Objects/Shield.png" id="1_gk2g7"]
+[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_gpj8s"]
+[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_s6o8a"]
+[ext_resource type="PackedScene" uid="uid://b84tb5cvf203n" path="res://Scenes/Components/HealthLabel.tscn" id="4_enj2q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fwuc2"]
+size = Vector2(20, 29)
+
+[node name="Shield" type="StaticBody2D"]
+collision_layer = 2
+collision_mask = 5
+
+[node name="ShieldSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_gk2g7")
+
+[node name="ShieldCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_fwuc2")
+
+[node name="ShieldDurability" parent="." instance=ExtResource("2_gpj8s")]
+Max_health = 1000.0
+
+[node name="ShieldHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("3_s6o8a")]
+Health = NodePath("../ShieldDurability")
+
+[node name="Shieldhitbox" type="CollisionShape2D" parent="ShieldHitbox"]
+position = Vector2(0, -0.5)
+scale = Vector2(1.01, 1.01)
+shape = SubResource("RectangleShape2D_fwuc2")
+
+[node name="ShieldDurabilityLabel" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("4_enj2q")]
+offset_left = -10.0
+offset_top = -22.0
+offset_right = 30.0
+offset_bottom = 1.0
+scale = Vector2(0.3, 0.3)
+Health_component = NodePath("../ShieldDurability")

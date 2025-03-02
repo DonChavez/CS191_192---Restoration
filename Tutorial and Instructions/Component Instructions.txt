@@ -1,0 +1,37 @@
+3 components
+health -> handles the object's health
+hitbox -> takes the damage
+hurtbox -> deals the damage
+
+order of operation: 
+	1. hurtbox access
+		accesses the hitbox collision and checks if it collides with another object's hitbox
+		if true, will pass on a certain damage amount
+	2. hitbox access
+		passes on the damage amount from the hurtbox to the health component
+	3. health access
+		increments/decrements the health of the object based on the damage received
+		
+sequence: 
+	hurtbox (checks if hitbox collided) -> 
+	hitbox (confirm hitbox is collided) -> 
+	hurtbox (deals damage and passes value to hitbox) -> 
+	hitbox (takes damage function and passes onto health) -> 
+	health (updates object health)
+
+Health Handling: 
+	the current signals are take_damage, Regen, and changed
+	the take_damage is used to indicate of the object is damaged (Health--) and play the animations accordingly
+	the regen is used to indicate if the object regenerates HP (Health++) and play the appropriate animations
+	the changed signal is used for the label to indicate what HP is currently there
+
+Hitbox Handling:
+	For the hitbox to take in effect properly, ensure that the hitbox is connected to the health component
+	this is done through the inspector section of the hitbox
+
+Hurtbox Handling:
+	the func _process part of the hurtbox ensures that on every tick, if an objects hitbox collides with the hurtbox, the hurtbox will continuously do damage
+	the benefit of this is that if an enemy is constantly sticking to a player, the player will constantly take damage
+	the downside:
+		this presents an issue in which if the player's melee hurtbox is activated for long enough, it may deal multiple instances of damage to enemy hurtboxes if they stay in the melee hurtbox's range for too long
+		without extra modifications, each object that shares the same hurtbox will have the same details. for instance, players and enemies that share the same hurtbox will inherit the same damage values unless changed accordingly
