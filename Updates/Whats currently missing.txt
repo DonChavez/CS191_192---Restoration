@@ -1,17 +1,22 @@
 Entire Inventory Management System:
 	Coin Management, Item Management, etc. still aren't here currently since I'm still Confused on how to do it and I've been getting a lot of errors recently - Julian
 
-Portals:
-	simply add
-
 Level Manager:
 	still have to do the global level manager stuff to keep the player's details
+	
+Portal Tutorial and LevelManager Tutorial:
+	still need to fully understand how the system works and make a tutorial on how to do it
 	
 EliteEnemy:
 	fix the collision of the elite enemy
 	
 Shield:
 	add bouncing function
+
+Healing:
+	current implementation of healing is that the player should not be blocking
+	this is only true if the player tries to pick up health items
+	however, the player should be able to heal while they are in block mode if it's a heal-over-time scenario
 	
 Sprint 3:
 	Still have to do parrying and global pollution level

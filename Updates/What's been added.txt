@@ -1,0 +1,9 @@
+branch: Reset_Julian
+
+# v0.0.1 is named this since the .0.1 is updates getting to main
+v0.0.1:
+	1. incereased the PlayerHitbox scale from x = y = 1 to x = y = 1.01 -> done in order to increase the chances of the player hitbox colliding with hurtboxes
+	2. fixed the bug with the player's hitbox sometimes not activating -> .monitorable and .monitoring was added to the tempo_shield and the shield_hitbox to fully enable and disable the shield
+	3. Created new Scene: NextTestingArea -> connected to the BaseTestingArea to highlight Portal functionality
+	4. Created the portal that allows player to be transported
+	5. Added the code in the LevelManager that allows the player to be transported
