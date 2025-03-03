@@ -61,7 +61,10 @@ func _ready() -> void:
 	Melee_hurtbox.visible = false
 	# initialize the shield
 	Tempo_shield.visible = false
+	Tempo_shield.monitoring = false
+	Tempo_shield.monitorable = false
 	TS_hitbox.monitoring = false
+	TS_hitbox.monitorable = false
 	TS_hitbox.visible = false
 	
 	#-----Shield WIP-----#
@@ -258,7 +261,10 @@ func block() -> void:
 	
 	Tempo_shield.position = get_object_spawn_position(Facing_direction)
 	Tempo_shield.visible = true
+	Tempo_shield.monitoring = true
+	Tempo_shield.monitorable = true
 	TS_hitbox.monitoring = true
+	TS_hitbox.monitorable = true
 	TS_hitbox.visible = true
 	
 	#-----Shield WIP-----#
@@ -287,7 +293,10 @@ func end_block() -> void:
 	Player_hitbox.monitoring = true
 	
 	Tempo_shield.visible = false
+	Tempo_shield.monitoring = false
+	Tempo_shield.monitorable = false
 	TS_hitbox.monitoring = false
+	TS_hitbox.monitorable = false
 	TS_hitbox.visible = false
 	
 	# disable the shield again
