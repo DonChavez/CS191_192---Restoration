@@ -31,8 +31,11 @@ extends CharacterBody2D
 #-----local variables-----#
 # input/direction variables
 var Input_direction : Vector2 = Vector2.ZERO
-var Facing_direction : String = ""
+var Facing_direction : String = "right"
 var Mouse_direction : Vector2 = Vector2.ZERO
+
+# death flag
+var Player_is_dead = false
 
 # Animation variables
 const Idle : String = "Idle_"
@@ -52,6 +55,7 @@ var Is_blocking : bool = false
 # Interaction Variables
 
 func _ready() -> void:
+	await get_tree().process_frame
 	# initialize the player
 	LevelManager.Player = self
 	# Idle right is the default animation
@@ -59,9 +63,13 @@ func _ready() -> void:
 	# melee attack hurtbox is off by default
 	Melee_hurtbox.monitoring = false
 	Melee_hurtbox.visible = false
+	
 	# initialize the shield
 	Tempo_shield.visible = false
+	Tempo_shield.monitoring = false
+	Tempo_shield.monitorable = false	#Fix
 	TS_hitbox.monitoring = false
+	TS_hitbox.monitorable = false	#Fix
 	TS_hitbox.visible = false
 	
 	#-----Shield WIP-----#
@@ -73,10 +81,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# check if player is alive on every tick
-	if !is_dead():
+	if !Player_is_dead:
 		# determines what the player inputs
 		input_handling()
-		
 		# velocity and move_and_collide is essential for character movement
 		# player cannot move while blocking
 		if Is_blocking:
@@ -86,15 +93,13 @@ func _physics_process(delta: float) -> void:
 		
 		# move_and_collide ensures that the player doesn't inherit the velicoty when colliding with walls
 		# velocity is multiplied with the delta to ensure that movement is based on ticks
-		move_and_collide(velocity * delta)
+		move_and_slide()
 		
 		# updates the input direction of the player every tick
 		update_movement_input()
 		
 		# update the animation of the player
 		update_animations()
-	else: 
-		player_dead()
 
 #----------Input related functions----------#
 func input_handling() -> void:
@@ -117,7 +122,7 @@ func input_handling() -> void:
 		if Input.is_action_just_pressed("attack") and not Is_attacking:
 			melee_attack()
 		if Input.is_action_just_pressed("shoot"):
-				shoot_projectile()
+			shoot_projectile()
 
 # determines where the player attacks based on the mouse position
 func get_mouse_direction() -> String:
@@ -166,6 +171,12 @@ func update_animations() -> void:
 		if Is_attacking:
 			Player_sprite.play(Attack + Facing_direction)
 		elif velocity != Vector2.ZERO:
+				# adjust animation speed based on movement speed
+			if velocity.length() > 0:
+				var base_speed = 75.0  # Set this to the move speed where animation looks normal
+				Player_sprite.speed_scale = Move_speed / base_speed
+			else:
+				Player_sprite.speed_scale = 1.0  # Reset when idle
 			Player_sprite.play(Move + Facing_direction)
 		# play the Idle Animation Again for the condition that the player is not moving while not blocking
 		else:
@@ -246,19 +257,23 @@ func shoot_projectile():
 func block() -> void:
 	
 	# adjust collision timing to be if parrying
-	
 	Is_blocking = true
 	print("I'm blocking")
 	# turn off player health damage
-	Player_health.Is_object_blocking = true
 	Player_hitbox.monitoring = false
+	Player_hitbox.monitorable = false
+
 	
 	# get Shield Direction
 	Facing_direction = get_mouse_direction()
 	
+	# Enable Temporary Shield
 	Tempo_shield.position = get_object_spawn_position(Facing_direction)
 	Tempo_shield.visible = true
+	Tempo_shield.monitoring = true
+	Tempo_shield.monitorable = true
 	TS_hitbox.monitoring = true
+	TS_hitbox.monitorable = true
 	TS_hitbox.visible = true
 	
 	#-----Shield WIP-----#
@@ -283,12 +298,15 @@ func end_block() -> void:
 	Is_blocking = false
 	print("I'm done blocking")
 	# turn on health damage
-	Player_health.Is_object_blocking = false
 	Player_hitbox.monitoring = true
+	Player_hitbox.monitorable = true
 	
 	Tempo_shield.visible = false
+	Tempo_shield.monitorable = false
+	Tempo_shield.monitoring = false
 	TS_hitbox.monitoring = false
 	TS_hitbox.visible = false
+	TS_hitbox.monitorable = false
 	
 	# disable the shield again
 	#-----Shield WIP-----#
@@ -299,24 +317,16 @@ func end_block() -> void:
 	#-----Shield WIP-----#
 
 #----------component related functions----------#
-func is_dead() -> bool:
-	return Player_health.Health <= 0
-	
-func player_dead() -> void:
-	Player_sprite.play(Death)
-	# ensure that the player doesn't take damage anymore
+func _on_player_health_died() -> void:
+	if Player_is_dead:
+		return  # exit if already dead
+	Player_is_dead = true  # set death flag to prevent multiple calls
+
+	Player_sprite.play("Death")
+	# Ensure that the player doesn't take damage anymore
 	Player_hitbox.monitoring = false
-	
-	#-------Death Animation Handling-------#
-	# same method as seen in the attack animation handling
-	var Death_animation_name : String = Death
-	var Death_animation_speed : float = Player_sprite.get_sprite_frames().get_animation_speed(Death_animation_name) # the speed in which the whole animation plays out
-	var Death_animation_frames : float = Player_sprite.get_sprite_frames().get_frame_count(Death_animation_name) # the nmumber of frames in the animation
-	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed) # the length of the whole animation
-	var Death_frame_speed : float = Death_animation_length / Death_animation_frames # the duration of each frame
-	
-	# wait for the death animation to finish playing
-	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
-	#-------Death Animation Handling-------#
+
+	# onnect the animation_finished signal to a handler function
+	await Player_sprite.animation_finished
 	
 	queue_free()

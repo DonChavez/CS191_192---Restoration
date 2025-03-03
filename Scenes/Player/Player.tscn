@@ -291,7 +291,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xk6ma")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack_down",
 "speed": 5.0
 }, {
@@ -308,7 +308,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kqx5s")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack_left",
 "speed": 5.0
 }, {
@@ -325,7 +325,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ntle5")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack_right",
 "speed": 5.0
 }, {
@@ -342,7 +342,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ptvto")
 }],
-"loop": true,
+"loop": false,
 "name": &"Attack_up",
 "speed": 5.0
 }, {
@@ -356,7 +356,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_itbwy")
 }],
-"loop": true,
+"loop": false,
 "name": &"Death",
 "speed": 5.0
 }, {
@@ -548,62 +548,45 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lsu7d"]
 size = Vector2(9, 10)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbp88"]
-size = Vector2(20, 29)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d4m5w"]
 size = Vector2(9, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wt541"]
 size = Vector2(11.5, 11.5)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2c55"]
+size = Vector2(15.8988, 27.7638)
+
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(0, -6)
-collision_layer = 2
+y_sort_enabled = true
+position = Vector2(-1, -4)
+collision_layer = 66
 collision_mask = 5
 script = ExtResource("1_r6j8o")
 
 [node name="AnimatedPlayer2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_u6o5y")
-animation = &"Death"
+animation = &"Attack_right"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lsu7d")
-
-[node name="TempoShield" parent="." instance=ExtResource("3_psm1d")]
-scale = Vector2(0.508582, 0.508582)
-
-[node name="TSDurability" parent="TempoShield" instance=ExtResource("3_4xdl3")]
-Max_health = 1000.0
-
-[node name="TSHitbox" parent="TempoShield" node_paths=PackedStringArray("Health") instance=ExtResource("4_2ll6f")]
-collision_layer = 2
-collision_mask = 0
-Health = NodePath("../TSDurability")
-
-[node name="TSHitCollision" type="CollisionShape2D" parent="TempoShield/TSHitbox"]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_kbp88")
-
-[node name="TSDurabilityLable" parent="TempoShield" node_paths=PackedStringArray("Health_component") instance=ExtResource("6_d243k")]
-offset_left = -9.83125
-offset_top = 11.7975
-offset_right = 30.1687
-offset_bottom = 34.7975
-scale = Vector2(0.3, 0.3)
-Health_component = NodePath("../TSDurability")
 
 [node name="PlayerHealth" parent="." instance=ExtResource("3_4xdl3")]
 
 [node name="PlayerHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("4_2ll6f")]
 collision_layer = 2
+collision_mask = 33
+collision_priority = 0.0
 Health = NodePath("../PlayerHealth")
+Damage_interval = 0.5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
 shape = SubResource("RectangleShape2D_d4m5w")
 
 [node name="MeleeHurtbox" parent="." instance=ExtResource("5_0jedd")]
+visible = false
 collision_layer = 0
 collision_mask = 4
 
@@ -618,3 +601,31 @@ offset_bottom = -1.0
 scale = Vector2(0.5, 0.5)
 horizontal_alignment = 1
 Health_component = NodePath("../PlayerHealth")
+
+[node name="TempoShield" parent="." instance=ExtResource("3_psm1d")]
+visible = false
+scale = Vector2(0.508582, 0.508582)
+
+[node name="TSDurability" parent="TempoShield" instance=ExtResource("3_4xdl3")]
+visible = false
+Max_health = 1000.0
+
+[node name="TSHitbox" parent="TempoShield" node_paths=PackedStringArray("Health") groups=["TSHitbox"] instance=ExtResource("4_2ll6f")]
+collision_layer = 130
+collision_mask = 32
+Health = NodePath("../TSDurability")
+
+[node name="TSHitCollision" type="CollisionShape2D" parent="TempoShield/TSHitbox"]
+position = Vector2(-0.0843716, 0.11812)
+shape = SubResource("RectangleShape2D_g2c55")
+
+[node name="TSDurabilityLabel" parent="TempoShield" node_paths=PackedStringArray("Health_component") instance=ExtResource("6_d243k")]
+offset_left = -9.83125
+offset_top = 11.7975
+offset_right = 30.1687
+offset_bottom = 34.7975
+scale = Vector2(0.3, 0.3)
+Health_component = NodePath("../TSDurability")
+
+[connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]
+[connection signal="body_entered" from="TempoShield" to="." method="_on_tempo_shield_body_entered"]

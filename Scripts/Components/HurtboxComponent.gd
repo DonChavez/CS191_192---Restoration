@@ -9,7 +9,7 @@ signal hit(Hitbox: HitboxComponent, amount: float)  # Signal for hit event
 
 # exports
 @export var Damage_amount: float = 20.0  # Damage dealt
-@export var Damage_interval: float = 0.5
+@export var Damage_interval: float = 0.1
 
 # local variables
 var Time_since_last_damage: float = 0.0
@@ -36,7 +36,7 @@ func _on_hitbox_exited(Area: Area2D) -> void:
 	if Area is HitboxComponent and Hitbox == Area:
 		Hitbox = null
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if Hitbox and monitoring:
 		Time_since_last_damage += delta
 		if Time_since_last_damage >= Damage_interval:

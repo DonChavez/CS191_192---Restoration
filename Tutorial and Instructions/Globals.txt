@@ -1,0 +1,2 @@
+groups:
+	a collection of scenes that you can reference to

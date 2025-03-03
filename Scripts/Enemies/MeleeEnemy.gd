@@ -68,7 +68,7 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	print("URRARRUU!")
 	DashTimer.start()  # Optional: start the dash timer upon seeing the player
 
-func _on_detection_area_body_exited(body: Node2D) -> void:
+func _on_detection_area_body_exited(_body: Node2D) -> void:
 	# we want to stop chasing the player once they exit
 	Player = null
 	Player_chase = false

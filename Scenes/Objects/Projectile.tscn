@@ -21,6 +21,10 @@ Enemy_projectile_texture = ExtResource("3_hnnx5")
 shape = SubResource("CircleShape2D_l61qw")
 
 [node name="ProjectileHurtbox" parent="." instance=ExtResource("4_38uwm")]
+collision_layer = 0
+collision_mask = 0
 
 [node name="ProjectileCollisionHurt" type="CollisionShape2D" parent="ProjectileHurtbox"]
 shape = SubResource("CircleShape2D_l61qw")
+
+[connection signal="hit" from="ProjectileHurtbox" to="." method="_on_projectile_hurtbox_hit"]

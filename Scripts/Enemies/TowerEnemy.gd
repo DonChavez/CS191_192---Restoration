@@ -52,7 +52,7 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	# enemy will now chase the player
 	print("The EYE Sees YOU")
 
-func _on_detection_area_body_exited(body: Node2D) -> void:
+func _on_detection_area_body_exited(_body: Node2D) -> void:
 	# we want to stop chasing the player once they exit
 	Player = null
 	print("GIVE ME BACK MY RING")

@@ -156,7 +156,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="RangedEnemyHurtCollision" type="CollisionShape2D" parent="RangedEnemyHurtbox"]
-scale = Vector2(1.01, 1.01)
 shape = SubResource("CircleShape2D_skdr7")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

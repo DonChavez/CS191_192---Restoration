@@ -2,16 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://c3jxqgd4weuvj" path="res://Art/Objects/Shield.png" id="1_tqrhx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxsx3"]
-size = Vector2(20, 29)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_75woc"]
+size = Vector2(15.8988, 27.7638)
 
 [node name="TempoShield" type="Area2D"]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 0
+collision_mask = 32
+
+[node name="TempoShieldCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.168743, 0.23624)
+shape = SubResource("RectangleShape2D_75woc")
 
 [node name="TempoShieldSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_tqrhx")
-
-[node name="TempoShieldCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_qxsx3")

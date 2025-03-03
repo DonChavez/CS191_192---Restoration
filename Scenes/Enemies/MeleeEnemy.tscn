@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dm30882fg0dtv"]
+[gd_scene load_steps=22 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
 [ext_resource type="Texture2D" uid="uid://u57isqd80tjo" path="res://Art/Characters/slime_green.png" id="2_2mu7m"]
@@ -102,13 +102,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_skdr7"]
-radius = 6.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_o1hhy"]
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
 radius = 48.0416
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_skdr7"]
+radius = 5.0
+
 [node name="MeleeEnemy" type="CharacterBody2D"]
+position = Vector2(0, -3)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_awrbn")
@@ -120,7 +124,7 @@ animation = &"Idle"
 
 [node name="MeleeEnemyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_skdr7")
+shape = SubResource("CircleShape2D_o1hhy")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 position = Vector2(0, 1)
@@ -154,7 +158,6 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="MeleeEnemyHurtCollision" type="CollisionShape2D" parent="MeleeEnemyHurtbox"]
-scale = Vector2(1.01, 1.01)
 shape = SubResource("CircleShape2D_skdr7")
 
 [node name="DashTimer" type="Timer" parent="."]

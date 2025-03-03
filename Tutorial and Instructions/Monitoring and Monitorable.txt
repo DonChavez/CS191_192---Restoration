@@ -1,0 +1,7 @@
+The monitoring and monitorable properties allow Area2D nodes to detect or be detected by other objects.
+
+"monitoring = true":
+	allows it to check for other bodies entering or exiting the collision shape
+	
+"monitorable = true":
+	allows it to be detected by collision shapes

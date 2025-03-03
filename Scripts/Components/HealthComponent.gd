@@ -9,6 +9,8 @@ signal damage_taken(Amount: float)
 signal regen(Amount : float)
 # changed is used for the health label
 signal changed(health: float)
+# signal to see if the health reaches 0
+signal died
 '''
 Used in: 
 	PlayerCharacter.gd -> handle the death animation
@@ -17,12 +19,11 @@ Used in:
 
 # exportable variables
 @export var Max_health: float = 100.0 # can be changed anytime
-@export var Is_object_blocking : bool = false
-@export var Is_object_parrying : bool = false
-@export var Is_object_healing : bool = false
+@export var Is_invulnerable : bool = false
 
 # local variables
 var Health: float = 0.0
+var Is_dead: bool = false
 
 func _ready() -> void:
 	# initialize health to be currently on max health
@@ -33,9 +34,22 @@ func take_damage(Amount : float) -> void:
 	# immediately return if health is 0
 	if Health == 0: return
 	# subtract the health by the amount of damage taken
-	if !Is_object_blocking:
-		if Is_object_healing or Is_object_parrying:
-			Health += Amount
-		else:
-			Health -= Amount
+	if !Is_invulnerable:
+		Health -= Amount
 		changed.emit(Health)
+		
+		if Health <= 0:
+			Health = 0
+			Is_dead = true
+			died.emit()
+		
+func heal(Amount: float) -> void:
+	# prevent from healing when dead
+	if Is_dead:
+		return
+	# heal health by a certain amount
+	Health += Amount
+	# ensures that health does not exceed max_health
+	Health = min(Health, Max_health)  
+	regen.emit(Amount)
+	changed.emit(Health)

@@ -3,4 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/Components/HitboxComponent.gd" id="1_mgx83"]
 
 [node name="HitboxComponent" type="Area2D"]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_mgx83")

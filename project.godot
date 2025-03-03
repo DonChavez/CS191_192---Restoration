@@ -19,6 +19,22 @@ config/icon="res://icon.svg"
 
 LevelManager="*res://Globals/LevelManager.gd"
 
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[global_group]
+
+TSHitbox=""
+
+[gui]
+
+theme/custom_font="res://Art/Font/Roboto-Regular.ttf"
+theme/default_font_multichannel_signed_distance_field=true
+
 [input]
 
 move_right={
@@ -79,6 +95,7 @@ interact={
 2d_physics/layer_4="Objects/Breakables"
 2d_physics/layer_5="Player Projectile"
 2d_physics/layer_6="Enemy Projectile"
+2d_physics/layer_7="Stairs"
 
 [rendering]
 
