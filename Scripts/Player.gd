@@ -272,7 +272,10 @@ func block() -> void:
 	Tempo_shield.visible = true
 	Tempo_shield.monitoring = true
 	Tempo_shield.monitorable = true
+	Tempo_shield.monitoring = true
+	Tempo_shield.monitorable = true
 	TS_hitbox.monitoring = true
+	TS_hitbox.monitorable = true
 	TS_hitbox.monitorable = true
 	TS_hitbox.visible = true
 	
@@ -305,6 +308,7 @@ func end_block() -> void:
 	Tempo_shield.monitorable = false
 	Tempo_shield.monitoring = false
 	TS_hitbox.monitoring = false
+	TS_hitbox.monitorable = false
 	TS_hitbox.visible = false
 	TS_hitbox.monitorable = false
 	

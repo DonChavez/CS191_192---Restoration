@@ -1,0 +1,17 @@
+.monitorable and .monitoring are functions inherited from the Area2D node
+
+.monitorable: 
+	this allow other objects (Static bodies) to be able to detect the area
+	Passive
+
+.monitoring: 
+	this makes it so that the Area2D itself looks for other bodies to detect
+	active
+	
+by default, these functions are set to true, meaning that as an Area2D exists in a scene, it will, by default, try to collide with other bodies
+
+Usage in the code: 
+	the temporary shield:
+		the shield uses these functions in order to activate and deactivate itself
+		it's important to set both parameters to false or true, respectively, in order to ensure while it's deactivated, it won't affect anything in the scene
+		essentially, by setting both parameters to false, it basically looks like the shield has been queue_free()'d from the scene 

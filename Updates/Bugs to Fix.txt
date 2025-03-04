@@ -1,0 +1,11 @@
+Shield bug: 
+	does not decrease HP per tick, only decreases per hitbox entry
+
+Enemy bug:
+	the melee enemy sometimes hits the collision multiple times causing an insta kill
+	often happens when the player runs into the enemy causing jittering and thus colliding multiple times
+	probable fix: player knockback and short invulnerability
+
+Portal bug: 
+	Player spawns at the top-left section of the scene instead of where the player is actually placed
+	for instance, in scene NextTestingArea, the player is placed at the bottom-left naturally, but when interacting with the portal, the player gets spawned in the top-left

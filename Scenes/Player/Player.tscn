@@ -576,6 +576,7 @@ shape = SubResource("RectangleShape2D_lsu7d")
 [node name="PlayerHealth" parent="." instance=ExtResource("3_4xdl3")]
 
 [node name="PlayerHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("4_2ll6f")]
+scale = Vector2(1.01, 1.01)
 collision_layer = 2
 collision_mask = 33
 collision_priority = 0.0

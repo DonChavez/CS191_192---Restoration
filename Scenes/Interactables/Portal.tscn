@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1jrt03ir805e"]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/Portal.gd" id="1_a3od5"]
+[ext_resource type="Texture2D" uid="uid://bef06w0tk0cyx" path="res://Art/Tilesets/walls/wooden_door_b.png" id="1_oxm5d"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgk3x"]
+
+[node name="Portal" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_a3od5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_oxm5d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.21011, 1.21011)
+shape = SubResource("RectangleShape2D_qgk3x")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -10.0
+offset_top = -22.0
+offset_right = 30.0
+offset_bottom = 1.0
+scale = Vector2(0.5, 0.5)
+text = "F"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
