@@ -5,9 +5,9 @@
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_3x10y"]
 [ext_resource type="Texture2D" uid="uid://cm3gvpx421e35" path="res://Art/Characters/EliteEnemy/DragonIdle.png" id="3_ksokq"]
 [ext_resource type="Texture2D" uid="uid://5ne4yjf7n2tl" path="res://Art/Characters/EliteEnemy/DragonWalk.png" id="4_a4cw3"]
-[ext_resource type="PackedScene" uid="uid://b84tb5cvf203n" path="res://Scenes/Components/HealthLabel.tscn" id="4_iqqje"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_2kw33"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_0wwcd"]
+[ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3f8uv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p21ad"]
 atlas = ExtResource("2_f7wkg")
@@ -425,7 +425,7 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
 radius = 48.0416
 
-[node name="EliteEnemy" type="CharacterBody2D"]
+[node name="EliteEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_q18po")
@@ -451,14 +451,6 @@ shape = SubResource("CircleShape2D_3h7bf")
 [node name="EliteEnemyHealth" parent="." instance=ExtResource("3_3x10y")]
 Max_health = 500.0
 
-[node name="MeleeEnemyHealthLabel" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("4_iqqje")]
-offset_left = -17.0
-offset_top = -17.0
-offset_right = 23.0
-offset_bottom = 6.0
-scale = Vector2(0.5, 0.5)
-Health_component = NodePath("../EliteEnemyHealth")
-
 [node name="EliteEnemyHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("5_2kw33")]
 position = Vector2(0, 1)
 collision_layer = 4
@@ -476,6 +468,13 @@ collision_mask = 2
 shape = SubResource("CircleShape2D_skdr7")
 
 [node name="DashTimer" type="Timer" parent="."]
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("8_3f8uv")]
+offset_left = -45.0
+offset_top = 41.0
+offset_right = 135.0
+offset_bottom = 49.0
+Health_component = NodePath("../EliteEnemyHealth")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
