@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Scripts/Enemies/RangedEnemy.gd" id="1_qc07w"]
 [ext_resource type="Texture2D" uid="uid://bptoqm0rgn3ui" path="res://Art/Characters/Shooter.png" id="2_5s71k"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_8bud7"]
-[ext_resource type="PackedScene" uid="uid://b84tb5cvf203n" path="res://Scenes/Components/HealthLabel.tscn" id="4_smdnc"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_di4qy"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_1nxr0"]
+[ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_emrfn"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6gctf"]
 atlas = ExtResource("2_5s71k")
@@ -108,7 +108,7 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
 radius = 48.0416
 
-[node name="RangedEnemy" type="CharacterBody2D"]
+[node name="RangedEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_qc07w")
@@ -134,14 +134,6 @@ shape = SubResource("CircleShape2D_3h7bf")
 
 [node name="RangedEnemyHealth" parent="." instance=ExtResource("3_8bud7")]
 
-[node name="RangedEnemyHealthLabel" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("4_smdnc")]
-offset_left = -17.0
-offset_top = -17.0
-offset_right = 23.0
-offset_bottom = 6.0
-scale = Vector2(0.5, 0.5)
-Health_component = NodePath("../RangedEnemyHealth")
-
 [node name="RangedEnemyHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("5_di4qy")]
 position = Vector2(0, 1)
 collision_layer = 4
@@ -157,6 +149,11 @@ collision_mask = 2
 
 [node name="RangedEnemyHurtCollision" type="CollisionShape2D" parent="RangedEnemyHurtbox"]
 shape = SubResource("CircleShape2D_skdr7")
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("6_emrfn")]
+offset_left = -4.0
+offset_right = 12.0
+Health_component = NodePath("../RangedEnemyHealth")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

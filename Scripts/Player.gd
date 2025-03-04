@@ -332,5 +332,3 @@ func _on_player_health_died() -> void:
 
 	# onnect the animation_finished signal to a handler function
 	await Player_sprite.animation_finished
-	
-	queue_free()

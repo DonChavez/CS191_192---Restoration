@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://b6us2qurr7wx7"]
+[gd_scene load_steps=79 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Texture2D" uid="uid://d0oap5nona40h" path="res://Art/Characters/player.png" id="1_10uo1"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_r6j8o"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c2p11rdf0f6yt" path="res://Scenes/Player/TempoShield.tscn" id="3_psm1d"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_2ll6f"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
-[ext_resource type="PackedScene" uid="uid://b84tb5cvf203n" path="res://Scenes/Components/HealthLabel.tscn" id="6_d243k"]
+[ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4whj"]
 atlas = ExtResource("1_10uo1")
@@ -554,10 +554,7 @@ size = Vector2(9, 10)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wt541"]
 size = Vector2(11.5, 11.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2c55"]
-size = Vector2(15.8988, 27.7638)
-
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 y_sort_enabled = true
 position = Vector2(-1, -4)
 collision_layer = 66
@@ -587,46 +584,17 @@ Damage_interval = 0.5
 shape = SubResource("RectangleShape2D_d4m5w")
 
 [node name="MeleeHurtbox" parent="." instance=ExtResource("5_0jedd")]
-visible = false
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHurtbox"]
 shape = SubResource("RectangleShape2D_wt541")
 
-[node name="PlayerHealthLabel" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("6_d243k")]
-offset_left = -17.0
-offset_top = -24.0
-offset_right = 23.0
-offset_bottom = -1.0
-scale = Vector2(0.5, 0.5)
-horizontal_alignment = 1
-Health_component = NodePath("../PlayerHealth")
-
-[node name="TempoShield" parent="." instance=ExtResource("3_psm1d")]
-visible = false
+[node name="TempoShield" parent="." groups=["TSHitbox"] instance=ExtResource("3_psm1d")]
 scale = Vector2(0.508582, 0.508582)
 
-[node name="TSDurability" parent="TempoShield" instance=ExtResource("3_4xdl3")]
-visible = false
-Max_health = 1000.0
-
-[node name="TSHitbox" parent="TempoShield" node_paths=PackedStringArray("Health") groups=["TSHitbox"] instance=ExtResource("4_2ll6f")]
-collision_layer = 130
-collision_mask = 32
-Health = NodePath("../TSDurability")
-
-[node name="TSHitCollision" type="CollisionShape2D" parent="TempoShield/TSHitbox"]
-position = Vector2(-0.0843716, 0.11812)
-shape = SubResource("RectangleShape2D_g2c55")
-
-[node name="TSDurabilityLabel" parent="TempoShield" node_paths=PackedStringArray("Health_component") instance=ExtResource("6_d243k")]
-offset_left = -9.83125
-offset_top = 11.7975
-offset_right = 30.1687
-offset_bottom = 34.7975
-scale = Vector2(0.3, 0.3)
-Health_component = NodePath("../TSDurability")
+[node name="HealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("8_3nwdd")]
+Health_component = NodePath("../PlayerHealth")
 
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]
 [connection signal="body_entered" from="TempoShield" to="." method="_on_tempo_shield_body_entered"]

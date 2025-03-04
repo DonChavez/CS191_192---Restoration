@@ -1,11 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://c2p11rdf0f6yt"]
+[gd_scene load_steps=7 format=3 uid="uid://c2p11rdf0f6yt"]
 
 [ext_resource type="Texture2D" uid="uid://c3jxqgd4weuvj" path="res://Art/Objects/Shield.png" id="1_tqrhx"]
+[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_xs7wl"]
+[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_h7dsf"]
+[ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="4_1d43r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_75woc"]
 size = Vector2(15.8988, 27.7638)
 
-[node name="TempoShield" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pwth2"]
+size = Vector2(15.8988, 27.7638)
+
+[node name="TempoShield" type="Area2D" groups=["Shield"]]
 collision_layer = 0
 collision_mask = 32
 
@@ -15,3 +21,23 @@ shape = SubResource("RectangleShape2D_75woc")
 
 [node name="TempoShieldSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_tqrhx")
+
+[node name="TSDurability" parent="." instance=ExtResource("2_xs7wl")]
+Max_health = 1000.0
+
+[node name="TSHitbox" parent="." node_paths=PackedStringArray("Health") groups=["TSHitbox"] instance=ExtResource("3_h7dsf")]
+collision_layer = 130
+collision_mask = 32
+Health = NodePath("../TSDurability")
+
+[node name="TSHitCollision" type="CollisionShape2D" parent="TSHitbox"]
+position = Vector2(-0.0843716, 0.11812)
+shape = SubResource("RectangleShape2D_pwth2")
+
+[node name="ShieldDurability" parent="TSHitbox" node_paths=PackedStringArray("Health_component") instance=ExtResource("4_1d43r")]
+offset_left = -7.52
+offset_top = 11.798
+offset_right = 22.48
+offset_bottom = 15.798
+Health_component = NodePath("../../TSDurability")
+metadata/_edit_use_anchors_ = true

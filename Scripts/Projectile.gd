@@ -49,8 +49,25 @@ func fireblaster(Name: String) -> void:
 	
 # Bounce the projectile off a surface
 func bounce(Bounce_direction: Vector2):
-	Direction = Direction.bounce(Bounce_direction)  # Reflect the direction
-	rotation = Direction.angle()  # Adjust the rotation to match the new direction
+	# Find the nearest enemy
+	var Nearest_enemy = null
+	var Shortest_distance = INF
+	
+	# Brute force approach 
+	# Checks every enemy and gets the nearest one
+	for Enemy in get_tree().get_nodes_in_group("Enemy"):
+		# Automatically calculates the distance between 2 points
+		var Distance = global_position.distance_to(Enemy.global_position)
+		if Distance < Shortest_distance:
+			Shortest_distance = Distance
+			Nearest_enemy = Enemy
+
+	# ff an enemy is found, change the direction of the projectile towards the nearest enemy
+	if Nearest_enemy:
+		Direction = (Nearest_enemy.global_position - global_position).normalized()
+	else:
+		# default bounce if no enemy found
+		Direction = Direction.bounce(Bounce_direction)  
 
 func _physics_process(delta: float) -> void:
 	var Collision = move_and_collide(Direction * Speed * delta) 	# Move and check for collisions
@@ -58,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		
 
-# Handle what happens when the projectile hits something
+# handle what happens when the projectile hits something
 func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, amount: float) -> void:
 	if Hitbox.is_in_group("TSHitbox"):
 		var Normal = (global_position - Hitbox.global_position).normalized()
