@@ -28,3 +28,18 @@ v0.0.3:
 	10. Made the camera a child of the player to easily transfer it between scenes
 	11. Player now will not queue_free() if it dies
 
+---- Update from latest push (Wed Mar  5 12:29:15 PST 2025) ----
+branch: reset_sean
+v0.0.3:
+	1. Reverted physics interpolation because it causes too many problems for now
+	2. Removed HealthLabel and it's replaced by HealthBar
+	3. Added a new HealthBar component (it will display at the bottom of the entity)
+	4. Fixed temporary sprite portal showing 2 frames
+	5. Fixed portal bug
+	6. Added SpawnPoint node at every level to determine where the play spawns on enter
+	7. Added new feature called "groups" (check tutorial for how it works)
+	8. Modified bounce function to bounce to nearest enemy from the player
+	9. Projectiles that are bounced by the shield now go towards the nearest enemy from the player.
+	10. Made the camera a child of the player to easily transfer it between scenes
+	11. Player now will not queue_free() if it dies
+
