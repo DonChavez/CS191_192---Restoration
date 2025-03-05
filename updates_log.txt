@@ -1,45 +1,36 @@
----- Update from latest push (Wed Mar  5 12:17:29 PST 2025) ----
-branch: reset_sean
-v0.0.3:
-	1. Reverted physics interpolation because it causes too many problems for now
-	2. Removed HealthLabel and it's replaced by HealthBar
-	3. Added a new HealthBar component (it will display at the bottom of the entity)
-	4. Fixed temporary sprite portal showing 2 frames
-	5. Fixed portal bug
-	6. Added SpawnPoint node at every level to determine where the play spawns on enter
-	7. Added new feature called "groups" (check tutorial for how it works)
-	8. Modified bounce function to bounce to nearest enemy from the player
-	9. Projectiles that are bounced by the shield now go towards the nearest enemy from the player.
-	10. Made the camera a child of the player to easily transfer it between scenes
-	11. Player now will not queue_free() if it dies
+---- Update from latest push (Mon Mar 3 2025) ----
+branch: reset_julian
+v0.0.1:
+	1. incereased the PlayerHitbox scale from x = y = 1 to x = y = 1.01 -> done in order to increase the chances of the player hitbox colliding with hurtboxes
+	2. fixed the bug with the player's hitbox sometimes not activating -> .monitorable and .monitoring was added to the tempo_shield and the shield_hitbox to fully enable and disable the shield
+	3. Created new Scene: NextTestingArea -> connected to the BaseTestingArea to highlight Portal functionality
+	4. Created the portal that allows player to be transported
+	5. Added the code in the LevelManager that allows the player to be transported
 
----- Update from latest push (Wed Mar  5 12:27:15 PST 2025) ----
+---- Update from latest push (Wed Mar 5 00:24:00 PST 2025) ----
 branch: reset_sean
-v0.0.3:
-	1. Reverted physics interpolation because it causes too many problems for now
-	2. Removed HealthLabel and it's replaced by HealthBar
-	3. Added a new HealthBar component (it will display at the bottom of the entity)
-	4. Fixed temporary sprite portal showing 2 frames
-	5. Fixed portal bug
-	6. Added SpawnPoint node at every level to determine where the play spawns on enter
-	7. Added new feature called "groups" (check tutorial for how it works)
-	8. Modified bounce function to bounce to nearest enemy from the player
-	9. Projectiles that are bounced by the shield now go towards the nearest enemy from the player.
-	10. Made the camera a child of the player to easily transfer it between scenes
-	11. Player now will not queue_free() if it dies
-
----- Update from latest push (Wed Mar  5 12:29:15 PST 2025) ----
-branch: reset_sean
-v0.0.3:
-	1. Reverted physics interpolation because it causes too many problems for now
-	2. Removed HealthLabel and it's replaced by HealthBar
-	3. Added a new HealthBar component (it will display at the bottom of the entity)
-	4. Fixed temporary sprite portal showing 2 frames
-	5. Fixed portal bug
-	6. Added SpawnPoint node at every level to determine where the play spawns on enter
-	7. Added new feature called "groups" (check tutorial for how it works)
-	8. Modified bounce function to bounce to nearest enemy from the player
-	9. Projectiles that are bounced by the shield now go towards the nearest enemy from the player.
-	10. Made the camera a child of the player to easily transfer it between scenes
-	11. Player now will not queue_free() if it dies
-
+v0.0.2
+	1. Fixed Shield bug (does not decrease HP per tick, only decreases per hitbox entry)
+	2. Fixed Enemy bug (the melee enemy sometimes hits the collision multiple times causing an insta kill) -
+	made hitbox bigger than the body collision shape due to triggering the body instead of the hitbox
+	3. Fixed Projectile (Issue sometiems projectile does not damage player)
+	4. Fixed blurry font (added roboto font)
+	5. Added a Stair area that slows down the player
+	6. Updated move speed animation to sync to the current move speed
+	7. Adjusted zoom level to be x2.5
+	8. Added a limit to the camera area (clamps down the camera to a certain defined area)
+	9. Added a new heal() method to HealthComponent
+	10. Added bounce function to projectile
+	11. Added shield block bounce
+	12. Reverted hurtbox scale (1.01x -> 1x)
+	13. Added GDUnit4 for tests
+	14. Added previous tests from sprint-2
+	15. Fixed blurry sprites when moving (Set physics interpolation to on)
+	16. Changed all _process to _physics_process (Going forward, must use _physics_process instead for optimization)
+	17. Added a new died signal to HealthComponent
+	- this will emit when the health reaches 0
+	18. Modified the death animation to use the new died signal
+	19. Adjusted default viewport to be 1280x720 (Project Settings -> Display -> Size)
+	20. Fixed stretch of the display of different resolutions to expand and zoom instead of zooming out of the camera
+	(Project Settings -> Display -> Window -> Stretch)
+	21. Removed unused assets
