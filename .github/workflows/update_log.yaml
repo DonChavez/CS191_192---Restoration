@@ -21,7 +21,7 @@ jobs:
       - name: Check for merge conflicts in "What's been added.txt"
         id: conflict_check
         run: |
-          if git ls-files -u | grep "What's been added.txt"; then
+          if git ls-files -u | grep "Updates/What's been added.txt"; then
             echo "conflict=true" >> $GITHUB_ENV
           else
             echo "conflict=false" >> $GITHUB_ENV
