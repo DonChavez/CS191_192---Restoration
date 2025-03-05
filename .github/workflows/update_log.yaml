@@ -27,7 +27,7 @@ jobs:
         run: |
           export TZ=Asia/Manila
           echo "---- Update from latest push ($(date)) ----" >> updates_log.txt
-          cat "What's been added.txt" >> updates_log.txt
+          cat "Updates/What's been added.txt" >> updates_log.txt
           echo "" >> updates_log.txt  # Add newline for formatting
 
       - name: Commit and push changes
