@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgx4d5ogv1yi8"]
+
+[ext_resource type="Texture2D" uid="uid://ba44rxbdy5ort" path="res://Art/Tilesets/grass.png" id="1_epuwt"]
+
+[node name="Dialogue" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_right = 115.0
+offset_bottom = 43.0
+texture = ExtResource("1_epuwt")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 42.0
+offset_bottom = 21.0
+text = "NPC"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="NinePatchRect"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 22.0
+offset_right = 159.0
+offset_bottom = 43.0
+scale = Vector2(0.7, 0.7)
+text = "Text here"
+scroll_active = false

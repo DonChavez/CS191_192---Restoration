@@ -10,7 +10,6 @@ radius = 4.0
 
 [node name="Projectile" type="CharacterBody2D"]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_duoo3")
 Player_projectile_texture = ExtResource("2_rha6k")
 Enemy_projectile_texture = ExtResource("3_hnnx5")

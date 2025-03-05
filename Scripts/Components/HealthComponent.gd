@@ -37,6 +37,7 @@ func take_damage(Amount : float) -> void:
 	if !Is_invulnerable:
 		Health -= Amount
 		changed.emit(Health)
+		damage_taken.emit(Amount)
 		
 		if Health <= 0:
 			Health = 0

@@ -1,0 +1,19 @@
+When making a pull request, there is a new workflow where all PRs will auto append the
+"Updates/What's been added.txt" to "updates_log.txt". This is automatic so review PRs 
+before merging.
+
+Make sure to follow the format:
+
+branch name: [Insert branch name here]
+v0.0.1 # Update version here
+    [List of changes in the version]
+
+Example:
+
+branch name: reset_julian
+v0.0.1
+    1. Changed something
+
+
+Review 
+"Updates/What's been added.txt"

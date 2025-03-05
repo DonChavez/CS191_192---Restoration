@@ -11,18 +11,20 @@ config_version=5
 [application]
 
 config/name="Restoration Reset"
-run/main_scene="res://Scenes/Levels/TestingArea/BaseTestingArea.tscn"
+run/main_scene="res://Scenes/Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 LevelManager="*res://Globals/LevelManager.gd"
+PlayerManager="*res://Globals/PlayerManager.gd"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/mode=2
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/stretch/scale_mode="integer"
@@ -102,6 +104,11 @@ interact={
 2d_physics/layer_5="Player Projectile"
 2d_physics/layer_6="Enemy Projectile"
 2d_physics/layer_7="Stairs"
+
+[physics]
+
+common/physics_jitter_fix=0.0
+common/physics_interpolation=true
 
 [rendering]
 

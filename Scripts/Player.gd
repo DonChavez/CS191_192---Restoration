@@ -56,8 +56,6 @@ var Is_blocking : bool = false
 
 func _ready() -> void:
 	await get_tree().process_frame
-	# initialize the player
-	LevelManager.Player = self
 	# Idle right is the default animation
 	Player_sprite.play("Idle_right")
 	# melee attack hurtbox is off by default
@@ -79,7 +77,7 @@ func _ready() -> void:
 	#Shield_collision.disabled = true
 	#-----Shield WIP-----#
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	# check if player is alive on every tick
 	if !Player_is_dead:
 		# determines what the player inputs
@@ -332,3 +330,11 @@ func _on_player_health_died() -> void:
 
 	# onnect the animation_finished signal to a handler function
 	await Player_sprite.animation_finished
+	
+func _on_player_health_damage_taken(Amount: float) -> void:
+	var original_color = modulate  # Store the original color
+	modulate = Color(1, 0, 0)  # Flash red
+	
+	# Return to the original color after a short delay
+	await get_tree().create_timer(0.2).timeout
+	modulate = original_color

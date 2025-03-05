@@ -1,35 +1,38 @@
 extends Node
 
-# initializes the player immediately allowing for every other node to easily access it
-var Player = null
+var Starting_level = "res://Scenes/Levels/TestingArea/BaseTestingArea.tscn"
 
-func change_level(New_level_path: PackedScene):
+func start_game() -> void:
+	if not Starting_level:
+		push_error("Start level path is invalid!")
+		return
+
+	# ensure that the player is properly spawned
+	if PlayerManager:
+		PlayerManager.spawn_player()
+	
+	# change the level after spawning the player
+	change_level(Starting_level)
+
+func change_level(New_level_path: String) -> void:
 	if not New_level_path:
+		push_error("New level path is invalid!")
 		return
+	
+	# remove the player from the current scene before switching
+	if PlayerManager and PlayerManager.player_instance:
+		PlayerManager.player_instance.get_parent().remove_child(PlayerManager.player_instance)
+	get_tree().change_scene_to_file(New_level_path)
+	
+	# call the function after the scene has full loaded
+	call_deferred("_deferred_transfer_player")
 
-	# Remove current scene (level)
-	var Current_scene = get_tree().current_scene
-	if Current_scene:
-		Current_scene.queue_free()
-
-	# Load new level
-	var New_level = New_level_path.instantiate()
-	if not New_level:
-		return
-
-	# Add new level to tree
-	get_tree().root.add_child(New_level)
-	get_tree().current_scene = New_level
-
-	# Reparent player safely
-	if Player:
-		if Player.get_parent():
-			Player.get_parent().remove_child(Player)  # Remove from previous level
-		New_level.add_child(Player)  # Add to new level
-
-		# Set player spawn position
-		var Spawn = New_level.get_node_or_null("PlayerSpawn")
-		if Spawn:
-			Player.global_position = Spawn.global_position
-		else:
-			Player.global_position = Vector2(100, 100)
+func _deferred_transfer_player() -> void:
+	# wait for the previous function to finish
+	await get_tree().process_frame
+	
+	# transfer the player to the current level
+	if PlayerManager:
+		PlayerManager.transfer_player()
+	else:
+		push_error("PlayerManager is not found!")
