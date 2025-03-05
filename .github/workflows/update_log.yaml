@@ -1,0 +1,39 @@
+name: Updates the update log to new pushes
+
+permissions:
+  contents: write  
+
+on:
+  push:
+    branches:
+      - reset
+
+jobs:
+  append-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the main branch
+        uses: actions/checkout@v3
+        with:
+          ref: reset
+          fetch-depth: 0  
+
+      - name: Check if log file exists
+        run: |
+          touch updates_log.txt  # Create if it doesn't exist
+
+      - name: Append new updates to the log file
+        run: |
+          export TZ=Asia/Manila
+          echo "---- Update from latest push ($(date)) ----" >> updates_log.txt
+          cat "What's been added.txt" >> updates_log.txt
+          echo "" >> updates_log.txt  # Add newline for formatting
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add updates_log.txt
+          git commit -m "Updated update log"
+          git push origin reset
