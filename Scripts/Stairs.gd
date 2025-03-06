@@ -6,11 +6,11 @@ extends Area2D
 var original_speed: float
 
 func _on_body_entered(body):
-	print("player entered")
-	if body == player:
-		original_speed = player.Move_speed  # Store original speed
-		player.Move_speed *= slow_factor  # Apply slow effect
+	if body.is_in_group("Player"):
+		print("Player entered")
+		original_speed = body.Move_speed  # Store original speed
+		body.Move_speed *= slow_factor  # Apply slow effect
 
 func _on_body_exited(body):
-	if body == player:
-		player.Move_speed = original_speed  # Restore speed
+	if body.is_in_group("Player"):
+		body.Move_speed = original_speed  # Restore speed

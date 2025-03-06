@@ -1,11 +1,5 @@
 Entire Inventory Management System:
 	Coin Management, Item Management, etc. still aren't here currently since I'm still Confused on how to do it and I've been getting a lot of errors recently - Julian
-
-Level Manager:
-	still have to do the global level manager stuff to keep the player's details
-	
-Portal Tutorial and LevelManager Tutorial:
-	still need to fully understand how the system works and make a tutorial on how to do it
 	
 EliteEnemy:
 	fix the collision of the elite enemy
@@ -23,3 +17,6 @@ Sprint 3:
 	
 Testings: 
 	Will do the testings after finishing the essentials
+
+Dialogue Manager:
+	Needs to handle mutiple dialogues

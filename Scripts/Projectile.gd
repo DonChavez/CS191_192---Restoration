@@ -22,6 +22,7 @@ func _ready() -> void:
 	# set the spawn position of the projectile
 	# do not touch
 	global_position = SpawnPos
+	reset_physics_interpolation()
 	rotation = Direction.angle()
 	
 	fireblaster(Fired_by)
@@ -76,7 +77,7 @@ func _physics_process(delta: float) -> void:
 		
 
 # handle what happens when the projectile hits something
-func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, amount: float) -> void:
+func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void:
 	if Hitbox.is_in_group("TSHitbox"):
 		var Normal = (global_position - Hitbox.global_position).normalized()
 		bounce(Normal)  # Reflect the projectile
