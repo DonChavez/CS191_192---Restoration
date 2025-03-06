@@ -49,3 +49,29 @@ v0.0.3:
 	10. Made the camera a child of the player to easily transfer it between scenes
 	11. Player now will not queue_free() if it dies
 
+---- Update from latest push (Thu Mar  6 20:36:09 PST 2025) ----
+branch: reset_sean
+v0.0.4:
+	1. Reverted physics interpolation, now enabled (now fixed and working) - game is much smoother
+	2. Modified portal.gd (now accepts level path instead of PackedScene) - works with LevelManager
+	3. Added a new area (HubTestingArea) - prototype for buildings and NPCs
+	4. Added a new scene (NPC) - NPC where the player can interact when near an NPC
+	5. Added a new scene (Dialogue) - There is a dialogue box above the npc with a bunch of text
+		(WIP: Will completely overhaul it later on using a dialogue manager)
+	6. Added a new scene (Menu) - There is now a menu when the player runs the game
+		(WIP: This is mainly used to test the LevelManger and PlayerManger)
+	7. Added a new global (PlayerManager) - Manages that player character and make it persist through the game
+	8. Added a new global (LevelManger) - It handles switching between scenes and starts the game
+	9. Added 2 new autoloaders (PlayerManager, LevelManager) - This scenes will persist in life cycle of the game
+	10. Added a new tutorial for autoloaders
+	11. Added a new tutorial for PRs (push request)
+	12. Fixed an issue with the player jittering when moving (Disable y-sort for the ground)
+	13. Fixed an issue where projectile sprites teleporting (reset_physics_interpolation())
+	14. Removed player scene in HubTestingArea and uses LevelManager instead
+	15. Added a feature where if the player takes damage, they turn red
+
+	Others
+	1. Added a new workflow that will keep track of all the updates
+	2. Fulfilled Portal Tutorial and LevelManager Tutorial
+	3. Fullfilled Level Manager
+
