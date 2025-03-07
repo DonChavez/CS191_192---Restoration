@@ -3,15 +3,15 @@ the player is correctly loaded
 
 Variables
 
-    - Starting_level: the starting scene when game starts.
+	- Starting_level: the starting scene when game starts.
 
 Functions
 
-    - start_game()
-        starts the game by spawning the player and transitioning to the Starting_level
+	- start_game()
+		starts the game by spawning the player and transitioning to the Starting_level
 
-    - change_level(New_level_path: String)
-        handles changing scenes and transfer the player to the next level
+	- change_level(New_level_path: String)
+		handles changing scenes and transfer the player to the next level
 
-    - _deferred_transfer_player()
-        transfers the player to the next level, ensuring the scene has fully loaded before moving the player
+	- _deferred_transfer_player()
+		transfers the player to the next level, ensuring the scene has fully loaded before moving the player

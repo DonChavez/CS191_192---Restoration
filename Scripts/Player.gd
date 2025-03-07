@@ -27,6 +27,7 @@ extends CharacterBody2D
 
 # Miscellenaous Variables
 @onready var Main = get_tree().current_scene
+@onready var Inventory: InventoryObject =$Inventory
 
 #-----local variables-----#
 # input/direction variables
@@ -338,3 +339,8 @@ func _on_player_health_damage_taken(Amount: float) -> void:
 	# Return to the original color after a short delay
 	await get_tree().create_timer(0.2).timeout
 	modulate = original_color
+	
+#----------item related functions----------#
+func get_inventory() -> InventoryObject:
+	return Inventory
+	

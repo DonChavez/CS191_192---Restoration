@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=4 uid="uid://cuuy8aqddjprb"]
 
-[ext_resource type="Texture2D" uid="uid://sp1ed74cv37y" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
-[ext_resource type="Texture2D" uid="uid://da4o1f7gy4efn" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
-[ext_resource type="Texture2D" uid="uid://dlen1c4bo04w1" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
+[ext_resource type="Texture2D" uid="uid://bap5b4sawqyuc" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
+[ext_resource type="Texture2D" uid="uid://crvjnnl5p5cvs" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
+[ext_resource type="Texture2D" uid="uid://nltaetk6r2mu" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
 [ext_resource type="Texture2D" uid="uid://c35s1vsnuh3e7" path="res://Art/Objects/objects.png" id="5_scw7s"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="6_dgjc6"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="7_xo2jl"]

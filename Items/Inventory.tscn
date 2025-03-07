@@ -1,0 +1,310 @@
+[gd_scene load_steps=11 format=3 uid="uid://rvdpqkc4q54e"]
+
+[ext_resource type="Script" path="res://Items/Inventory.gd" id="1_j5x7l"]
+[ext_resource type="Script" path="res://Items/InventoryUI.gd" id="1_lloe7"]
+[ext_resource type="Texture2D" uid="uid://sgsb6wdgkb3x" path="res://Art/Tilesets/grid.png" id="2_vy7ot"]
+[ext_resource type="Texture2D" uid="uid://cgdd0fkhu6fny" path="res://Art/Objects/trashbag.png" id="3_obxsk"]
+[ext_resource type="Texture2D" uid="uid://c0qot41quc24k" path="res://Art/Objects/coin_pouch.png" id="4_fqtxd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xpnvu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_p5cas"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cv4aw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pdg03"]
+
+[sub_resource type="Theme" id="Theme_pjwnp"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_xpnvu")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_p5cas")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_cv4aw")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_pdg03")
+
+[node name="Inventory" type="Node2D"]
+script = ExtResource("1_j5x7l")
+
+[node name="InventoryUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 200.0
+script = ExtResource("1_lloe7")
+
+[node name="InventoryPanel" type="Panel" parent="InventoryUI"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+
+[node name="TrashImage" type="TextureRect" parent="InventoryUI/InventoryPanel"]
+layout_mode = 0
+offset_left = 312.0
+offset_top = 5.0
+offset_right = 2360.0
+offset_bottom = 2053.0
+scale = Vector2(0.0127557, 0.0127557)
+texture = ExtResource("3_obxsk")
+
+[node name="TrashLabel" type="Label" parent="InventoryUI/InventoryPanel"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 31.0
+text = "0"
+
+[node name="CoinImage" type="TextureRect" parent="InventoryUI/InventoryPanel"]
+layout_mode = 0
+offset_left = 227.0
+offset_top = 4.0
+offset_right = 1427.0
+offset_bottom = 1186.0
+scale = Vector2(0.0260892, 0.0260892)
+texture = ExtResource("4_fqtxd")
+
+[node name="CoinLabel" type="Label" parent="InventoryUI/InventoryPanel"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 8.0
+offset_right = 304.0
+offset_bottom = 31.0
+text = "0"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="InventoryUI/InventoryPanel"]
+custom_minimum_size = Vector2(360, 150)
+layout_mode = 2
+offset_left = 26.0
+offset_top = 42.0
+offset_right = 386.0
+offset_bottom = 192.0
+theme = SubResource("Theme_pjwnp")
+
+[node name="CenterContainer" type="CenterContainer" parent="InventoryUI/InventoryPanel/ScrollContainer"]
+layout_mode = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="TextureRect" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect3" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect4" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect5" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect6" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect7" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect8" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect9" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect10" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect11" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect12" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect13" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect14" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect15" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect16" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect17" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect18" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect19" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect20" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect21" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect22" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect23" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect24" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect25" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect26" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect27" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect28" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect29" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect30" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect31" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect32" type="TextureRect" parent="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("2_vy7ot")
+expand_mode = 1
+stretch_mode = 5
