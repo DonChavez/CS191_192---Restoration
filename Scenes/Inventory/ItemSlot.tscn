@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c1c8vyfyanpjj"]
 
-[ext_resource type="Script" path="res://Items/ItemSlot.gd" id="2_broc3"]
+[ext_resource type="Script" path="res://Scripts/Inventory/ItemSlot.gd" id="2_broc3"]
 
 [node name="ItemSlot" type="TextureButton" groups=["ItemSlots"]]
 custom_minimum_size = Vector2(40, 40)
@@ -16,9 +16,11 @@ offset_left = -16.0
 offset_top = 41.0
 offset_right = 56.0
 offset_bottom = 64.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="CenterContainer"]
 layout_mode = 2
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

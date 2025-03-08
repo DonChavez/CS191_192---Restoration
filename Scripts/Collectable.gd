@@ -70,7 +70,7 @@ func spawn_object() -> void:
 	var gravity = 9.8 # Gravity pulling down
 	var MaxYSpeed = 370 # Maximum fall speed before stopping
 	var Velocity = Vector2.ZERO  # Initial velocity
-	Velocity.x = X_speed * randf_range(-1, 1)  # randomized horizontal movement
+	Velocity.x = X_speed * randf_range(-1.5, 1.5)  # randomized horizontal movement
 	Velocity.y = Y_speed  
 	
 	# Run movement in a coroutine (no need for _process)

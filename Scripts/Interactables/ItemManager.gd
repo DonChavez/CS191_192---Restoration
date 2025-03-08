@@ -6,12 +6,12 @@ Items starting with 1 are common, 2 are uncommon, 3 are rare,
 4 are epic, and 5 are legendary
 """
 const Item_database = {
-	"00001": preload("res://Scenes/Items/item.tscn"),
-	"10001": preload("res://Scenes/Items/item.tscn"),
-	"20001": preload("res://Scenes/Items/item.tscn"),
-	"30001": preload("res://Scenes/Items/item.tscn"),
-	"40001": preload("res://Scenes/Items/item.tscn"),
-	"50001": preload("res://Scenes/Items/item.tscn")
+	"00001": preload("res://Scenes/Items/Item.tscn"),
+	"10001": preload("res://Scenes/Items/Item.tscn"),
+	"20001": preload("res://Scenes/Items/Item.tscn"),
+	"30001": preload("res://Scenes/Items/Item.tscn"),
+	"40001": preload("res://Scenes/Items/Item.tscn"),
+	"50001": preload("res://Scenes/Items/Item.tscn")
 
 }
 
@@ -19,7 +19,7 @@ const Item_database = {
 func get_item_scene(Item_id: String) -> PackedScene:
 	return Item_database.get(Item_id, null)  # Returns null if item ID doesn't exist
 
-# Function to spawn an item in the world
+# Function to spawn an item in the world (Redundant for now)
 func spawn_item(Item_id: String, Position: Vector2) -> Node2D:
 	var Item_scene = get_item_scene(Item_id)
 	if Item_scene:

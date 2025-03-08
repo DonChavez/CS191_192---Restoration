@@ -1,6 +1,6 @@
 branch: reset_resai
 v0.0.5:
-	1. Added Inventory Scene
+	1. Added Inventory Scene with several features
 	2. Added Inventory under Player 
 	3. Added Configurable Collectables with certain animations
 	4. Added Trash Collectables of different type
@@ -8,6 +8,9 @@ v0.0.5:
 	6. Added Destructable Trash Pile that blocks players
 	7. Edited HubTestingArea to test newly added Objects
 	8. Edited HitboxComponent to have Substitute Damage that replaces any damage taken
+	9. Added Recycler
+	10. Added Item
+	11. Added a few temporary images in art
 	
 	Others
-	1. Added a new usage of Monitoring and monitorable
+	1. Added new usage for Monitoring and monitorable

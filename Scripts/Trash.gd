@@ -1,6 +1,10 @@
 extends Node2D
 class_name Trash
 
+"""
+This is not used and may be deleted in the future
+
+"""
 @onready var Input_label = $InputLabel
 @export var trash_value: int  # Set in each scene
 

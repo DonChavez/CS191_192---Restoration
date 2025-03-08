@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpwxmame1ylhk"]
 
-[ext_resource type="Script" path="res://Items/Trash.gd" id="1_qusnk"]
+[ext_resource type="Script" path="res://Scripts/Trash.gd" id="1_qusnk"]
 
 [node name="Trash" type="Node2D"]
 scale = Vector2(0.247435, 0.247435)

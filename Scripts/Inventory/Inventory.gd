@@ -27,7 +27,7 @@ func _ready():	# Empty inventory at the start (Change)
 func _process(Delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		Inventory_ui.toggle_inventory()
-		_reset_selected()
+		_reset_item_slot(Selected)
 
 
 func add_coin(Amount: int):
@@ -39,8 +39,8 @@ func add_trash(Amount: int):
 
 #-----for item methods-----#
 
-func _reset_selected() -> void:
-	Inventory_slots[Selected].reset()
+func _reset_item_slot(Slot: int) -> void:
+	Inventory_slots[Slot].reset()
 	Selected = -1
 
 # Get item from inventory
@@ -70,12 +70,12 @@ func add_item(Item_data: Node2D) -> bool:
 	return false  # No space available
 
 
-func _on_item_slot_clicked(Index: int, ID:int) -> void:
+func _on_item_slot_clicked(Index: int) -> void:
 	await get_tree().create_timer(0.001).timeout
 	# reset if invalid Index or same as Selected
 	if Index < 0 or Index >= Inventory_slot_num or Selected == Index:
 		print("Invalid inventory index:", Index)
-		_reset_selected()
+		_reset_item_slot(Selected)
 		return
 	# If no selected and Index has Item, Select
 	elif Selected == -1 and Items[Index]:
@@ -108,7 +108,8 @@ func drop_item():
 	
 	# Change Item Slot statuses
 	Inventory_slots[Selected].toggle_item()
-	_reset_selected()
+	_reset_item_slot(Selected)
+
 	
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
@@ -125,13 +126,14 @@ func move_item(Index: int) -> void:
 		Items[Selected] = Items[Index]
 	else:
 		Items[Selected] = null
+		# Change Item Slot statuses
+		Inventory_slots[Selected].toggle_item()
+		Inventory_slots[Index].toggle_item()
 	Items[Index] = holder
-
-	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item()
-	Inventory_slots[Index].toggle_item()
-	_reset_selected()
 	
+	_reset_item_slot(Selected)
+	_reset_item_slot(Index)
+
 	# Update UI after move/swap
 	Inventory_ui.update_inventory()
 

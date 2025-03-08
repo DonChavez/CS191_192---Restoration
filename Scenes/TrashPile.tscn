@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dqitanht6fg3n"]
 
-[ext_resource type="Script" path="res://Items/TrashPile.gd" id="1_mier1"]
+[ext_resource type="Script" path="res://Scripts/TrashPile.gd" id="1_mier1"]
 [ext_resource type="Texture2D" uid="uid://dbryy0t2etsvk" path="res://Art/Objects/trash.png" id="2_0crbq"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_of8ju"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_bpwug"]

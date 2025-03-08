@@ -1,7 +1,7 @@
 extends Control
 
-@onready var Grid1 = %RecyclerGrid.get_children() #Slots
-@onready var Grid2 = %RecyclerGrid2.get_children() #Slots
+@onready var Grid1 = $RecyclerPanel/CenterContainer/RecyclerGrid.get_children() #Slots
+@onready var Grid2 = $RecyclerPanel/CenterContainer2/RecyclerGrid2.get_children() #Slots
 @onready var Trashlabel = $RecyclerPanel/TrashLabel
 
 # Called when the node enters the scene tree for the first time.

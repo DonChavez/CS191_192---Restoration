@@ -17,3 +17,5 @@ Usage in the code:
 		essentially, by setting both parameters to false, it basically looks like the shield has been queue_free()'d from the scene 
 	The Collectables:
 		Instances have a spawn animation and the Area2D Monitoring is set to false while it plays
+	The Items:
+		Instances have a spawn animation and the Area2D Monitoring is set to false while it plays

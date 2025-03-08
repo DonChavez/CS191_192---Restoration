@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://brm8k3e0qaxpp"]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/RecyclerButton.gd" id="1_6ah26"]
+[ext_resource type="Texture2D" uid="uid://sgsb6wdgkb3x" path="res://Art/Tilesets/grid.png" id="1_w48fd"]
+
+[node name="RecyclerButton" type="TextureButton"]
+texture_normal = ExtResource("1_w48fd")
+script = ExtResource("1_6ah26")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+offset_left = -16.0
+offset_top = 41.0
+offset_right = 56.0
+offset_bottom = 64.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CenterContainer"]
+layout_mode = 2
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
