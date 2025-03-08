@@ -27,7 +27,7 @@ extends CharacterBody2D
 
 # Miscellenaous Variables
 @onready var Main = get_tree().current_scene
-@onready var Inventory: InventoryObject =$Inventory
+@onready var Inventory: InventoryObject = $Inventory
 
 #-----local variables-----#
 # input/direction variables

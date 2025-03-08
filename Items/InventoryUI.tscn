@@ -1,0 +1,184 @@
+[gd_scene load_steps=10 format=3 uid="uid://g0r5rj82grxe"]
+
+[ext_resource type="Script" path="res://Items/InventoryUI.gd" id="1_fba0f"]
+[ext_resource type="Texture2D" uid="uid://cgdd0fkhu6fny" path="res://Art/Objects/trashbag.png" id="2_0cl4u"]
+[ext_resource type="Texture2D" uid="uid://c0qot41quc24k" path="res://Art/Objects/coin_pouch.png" id="3_287fq"]
+[ext_resource type="PackedScene" uid="uid://c1c8vyfyanpjj" path="res://Items/ItemSlot.tscn" id="4_cr87f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rod21"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_323wq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cdjiu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ch8b6"]
+
+[sub_resource type="Theme" id="Theme_pjwnp"]
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_rod21")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_323wq")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_cdjiu")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_ch8b6")
+
+[node name="InventoryUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 400.0
+offset_bottom = 200.0
+script = ExtResource("1_fba0f")
+
+[node name="InventoryPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+
+[node name="InventoryLabel" type="Label" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 8.0
+offset_right = 107.0
+offset_bottom = 31.0
+text = "Inventory"
+
+[node name="TrashTexture" type="TextureRect" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 315.0
+offset_top = 4.0
+offset_right = 2363.0
+offset_bottom = 2052.0
+scale = Vector2(0.0120302, 0.0120302)
+texture = ExtResource("2_0cl4u")
+
+[node name="TrashLabel" type="Label" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 31.0
+text = "0"
+
+[node name="CoinImage" type="TextureRect" parent="InventoryPanel"]
+offset_left = 231.0
+offset_right = 1431.0
+offset_bottom = 1182.0
+scale = Vector2(0.0260892, 0.0260892)
+texture = ExtResource("3_287fq")
+
+[node name="CoinLabel" type="Label" parent="InventoryPanel"]
+layout_mode = 0
+offset_left = 264.0
+offset_top = 8.0
+offset_right = 304.0
+offset_bottom = 31.0
+text = "0"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="InventoryPanel"]
+custom_minimum_size = Vector2(360, 150)
+layout_mode = 2
+offset_left = 26.0
+offset_top = 42.0
+offset_right = 386.0
+offset_bottom = 192.0
+theme = SubResource("Theme_pjwnp")
+
+[node name="CenterContainer" type="CenterContainer" parent="InventoryPanel/ScrollContainer"]
+layout_mode = 2
+
+[node name="InventoryGrid" type="GridContainer" parent="InventoryPanel/ScrollContainer/CenterContainer"]
+layout_mode = 2
+columns = 8
+
+[node name="ItemSlot" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot2" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot3" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot4" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot5" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot6" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot7" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot8" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot9" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot10" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot11" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot12" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot13" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot14" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot15" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot16" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot17" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot18" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot19" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot20" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot21" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot22" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot23" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot24" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot25" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot26" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot27" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot28" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot29" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot30" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot31" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2
+
+[node name="ItemSlot32" parent="InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("4_cr87f")]
+layout_mode = 2

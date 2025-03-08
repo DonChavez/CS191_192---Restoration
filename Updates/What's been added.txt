@@ -1,13 +1,13 @@
 branch: reset_resai
 v0.0.5:
-	1. Added Configurable Collectables with certain animations
-	2. Added Trash Collectables of different type
-	3. Added Coin Collectables
-	4. Added Destructable Trash Pile that blocks players
-	5. Edited HubTestingArea to test newly added Objects
-	6. Edited HitboxComponent to have Substitute Damage that replaces any damage taken
-	7. 
+	1. Added Inventory Scene
+	2. Added Inventory under Player 
+	3. Added Configurable Collectables with certain animations
+	4. Added Trash Collectables of different type
+	5. Added Coin Collectables
+	6. Added Destructable Trash Pile that blocks players
+	7. Edited HubTestingArea to test newly added Objects
+	8. Edited HitboxComponent to have Substitute Damage that replaces any damage taken
+	
 	Others
-	1. Added a new workflow that will keep track of all the updates
-	2. Fulfilled Portal Tutorial and LevelManager Tutorial
-	3. Fullfilled Level Manager
+	1. Added a new usage of Monitoring and monitorable

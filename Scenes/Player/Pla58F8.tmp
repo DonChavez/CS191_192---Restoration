@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://b6us2qurr7wx7"]
+[gd_scene load_steps=79 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Texture2D" uid="uid://d0oap5nona40h" path="res://Art/Characters/player.png" id="1_10uo1"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_r6j8o"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_2ll6f"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
-[ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Items/Inventory.tscn" id="8_5onck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4whj"]
 atlas = ExtResource("1_10uo1")
@@ -561,12 +560,6 @@ position = Vector2(-1, -4)
 collision_layer = 66
 collision_mask = 5
 script = ExtResource("1_r6j8o")
-Move_speed = null
-Attack_speed = null
-
-[node name="Inventory" parent="." instance=ExtResource("8_5onck")]
-z_index = 1
-position = Vector2(-199, -107)
 
 [node name="AnimatedPlayer2D" type="AnimatedSprite2D" parent="."]
 physics_interpolation_mode = 2
