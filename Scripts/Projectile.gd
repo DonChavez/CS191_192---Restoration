@@ -3,6 +3,7 @@ extends CharacterBody2D
 # exportables
 @export var Speed = 100
 @export var Lifetime = 2.0  
+@export var MaxBounces = 0
 
 # projectile textures
 @export var Player_projectile_texture: Texture2D
@@ -17,6 +18,7 @@ extends CharacterBody2D
 var Fired_by : String = "" # determines who fired the projectile
 var Direction : Vector2 = Vector2.ZERO
 var SpawnPos: Vector2
+var bounce_count: int = 0  # Tracks the current number of bounces
 
 func _ready() -> void:
 	# set the spawn position of the projectile
@@ -49,38 +51,38 @@ func fireblaster(Name: String) -> void:
 		
 	
 # Bounce the projectile off a surface
-func bounce(Bounce_direction: Vector2):
-	# Find the nearest enemy
-	var Nearest_enemy = null
-	var Shortest_distance = INF
-	
-	# Brute force approach 
-	# Checks every enemy and gets the nearest one
-	for Enemy in get_tree().get_nodes_in_group("Enemy"):
-		# Automatically calculates the distance between 2 points
-		var Distance = global_position.distance_to(Enemy.global_position)
-		if Distance < Shortest_distance:
-			Shortest_distance = Distance
-			Nearest_enemy = Enemy
-
-	# ff an enemy is found, change the direction of the projectile towards the nearest enemy
-	if Nearest_enemy:
-		Direction = (Nearest_enemy.global_position - global_position).normalized()
+func bounce(Bounce_direction: Vector2) -> void:
+	if bounce_count < MaxBounces:
+		Direction = Direction.bounce(Bounce_direction).normalized()
+		bounce_count += 1
 	else:
-		# default bounce if no enemy found
-		Direction = Direction.bounce(Bounce_direction)  
+		queue_free()  # Destroy projectile if max bounces exceeded
+		
+func redirect_to_nearest_enemy(collision_normal: Vector2) -> void:
+	var nearest_enemy: Node2D = null
+	var shortest_distance = INF
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		var distance = global_position.distance_to(enemy.global_position)
+		if distance < shortest_distance:
+			shortest_distance = distance
+			nearest_enemy = enemy
+	if nearest_enemy:
+		Direction = (nearest_enemy.global_position - global_position).normalized()
+		bounce_count += 1
+	else:
+		bounce(collision_normal)  # Perform a standard bounce if no enemies are found
 
 func _physics_process(delta: float) -> void:
 	var Collision = move_and_collide(Direction * Speed * delta) 	# Move and check for collisions
 	if Collision:
-		queue_free()
+		bounce(Collision.get_normal())
 		
 
 # handle what happens when the projectile hits something
 func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void:
 	if Hitbox.is_in_group("TSHitbox"):
 		var Normal = (global_position - Hitbox.global_position).normalized()
-		bounce(Normal)  # Reflect the projectile
+		redirect_to_nearest_enemy(Normal)  # Reflect the projectile
 		
 		Fired_by = "Player"
 		fireblaster(Fired_by)

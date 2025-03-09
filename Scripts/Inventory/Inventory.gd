@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasLayer
 # class_name allows us to inherit functions/values in to or from other nodes
 class_name InventoryObject
 
@@ -28,6 +28,7 @@ func _process(Delta: float) -> void:
 	if Input.is_action_just_pressed("inventory"):
 		Inventory_ui.toggle_inventory()
 		_reset_item_slot(Selected)
+		Player.Can_process_input = !Player.Can_process_input
 
 # Updates collectible amounts
 func add_coin(Amount: int):
@@ -62,6 +63,11 @@ func add_item(Item_data: Node2D) -> bool:
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
 			Inventory_slots[I].toggle_item() # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
+			
+			# Apply effect of item
+			if Item_data:
+				Item_data.apply_effect(Player)
+				
 			return true  # Item added successfully
 
 	print("Inventory Full!")
@@ -108,6 +114,10 @@ func drop_item():
 	# Change Item Slot statuses
 	Inventory_slots[Selected].toggle_item()
 	_reset_item_slot(Selected)
+	
+	# Remove effect of item
+	if Item_instance:
+		Item_instance.remove_effect(Player)
 
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
