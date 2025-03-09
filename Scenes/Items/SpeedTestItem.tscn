@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dxiw5vow2nvet"]
+
+[ext_resource type="Script" path="res://Scripts/Items/SpeedTestItem.gd" id="1_tco8p"]
+[ext_resource type="Texture2D" uid="uid://bmmndjrdh48l5" path="res://Art/Objects/items.png" id="2_jinys"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hh04n"]
+atlas = ExtResource("2_jinys")
+region = Rect2(192, 64, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5kr57"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hh04n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc26m"]
+
+[node name="SpeedTestItem" type="Node2D"]
+script = ExtResource("1_tco8p")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3125, 0.3125)
+sprite_frames = SubResource("SpriteFrames_5kr57")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 1032
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_fc26m")
+
+[node name="InputLabel" type="Label" parent="."]
+offset_left = -12.0
+offset_top = -25.0
+offset_right = 28.0
+offset_bottom = -2.0
+scale = Vector2(0.603663, 0.603663)
+text = "F"
+horizontal_alignment = 1
+vertical_alignment = 1
