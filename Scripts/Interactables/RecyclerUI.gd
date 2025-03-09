@@ -18,5 +18,6 @@ func _ready():
 func toggle_recycler():
 	self.visible = !self.visible
 
+# Updates the Trash amount
 func update_trash(Trash:int):
 	Trashlabel.text = str(Trash)

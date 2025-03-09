@@ -17,9 +17,11 @@ func _on_pressed() -> void:
 		if Clicked:
 			self_modulate = Color(0.8, 2.0, 0.8)  # Slightly darker when pressed
 
+# If item slot has item or not
 func toggle_item()-> void:
 	Has_item = !Has_item
 
+# Reset its visuals and status
 func reset() -> void:
 	self_modulate = Color(1, 1, 1)  # Reset to normal
 	Clicked = false

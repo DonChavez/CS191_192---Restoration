@@ -39,15 +39,16 @@ func _on_area_2d_body_exited(Body: Node2D) -> void:
 	Input_label.visible = false
 	RecyclerUI.visible = false
 
+# drop/spawn an item in world
 func drop_item(Item_instance: Node2D):
 	
 	Item_instance.global_position = self.global_position+Vector2(0,70)
 	Item_instance.visible = true  # Ensure it's visible in the world
 
-	var world_scene = get_tree().current_scene  # Get current game world
-	world_scene.add_child(Item_instance)  # Move to world
+	var World_scene = get_tree().current_scene  # Get current game world
+	World_scene.add_child(Item_instance)  # Move to world
 
-
+# Get random item depending on which button clicked
 func _on_recycler_button_clicked(Index: int, ID: int) -> void:
 	var Item_category_map = {	# Temp printing
 		0: {

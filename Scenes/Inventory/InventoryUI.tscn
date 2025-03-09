@@ -57,6 +57,7 @@ offset_bottom = 31.0
 text = "0"
 
 [node name="CoinImage" type="TextureRect" parent="InventoryPanel"]
+layout_mode = 0
 offset_left = 231.0
 offset_right = 1431.0
 offset_bottom = 1182.0

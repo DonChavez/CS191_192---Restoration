@@ -6,12 +6,16 @@ Items starting with 1 are common, 2 are uncommon, 3 are rare,
 4 are epic, and 5 are legendary
 """
 const Item_database = {
-	"00001": preload("res://Scenes/Items/Item.tscn"),
-	"10001": preload("res://Scenes/Items/Item.tscn"),
-	"20001": preload("res://Scenes/Items/Item.tscn"),
-	"30001": preload("res://Scenes/Items/Item.tscn"),
-	"40001": preload("res://Scenes/Items/Item.tscn"),
-	"50001": preload("res://Scenes/Items/Item.tscn")
+	"00001": preload("res://Scenes/Items/C001.tscn"),
+	"00002": preload("res://Scenes/Items/C002.tscn"),
+	"10001": preload("res://Scenes/Items/U001.tscn"),
+	"10002": preload("res://Scenes/Items/U002.tscn"),
+	"20001": preload("res://Scenes/Items/R001.tscn"),
+	"20002": preload("res://Scenes/Items/R002.tscn"),
+	"30001": preload("res://Scenes/Items/E001.tscn"),
+	"30002": preload("res://Scenes/Items/E002.tscn"),
+	"40001": preload("res://Scenes/Items/L001.tscn"),
+	"40002": preload("res://Scenes/Items/L002.tscn"),
 
 }
 

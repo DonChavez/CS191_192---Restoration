@@ -4,14 +4,9 @@ signal CLICKED(Index: int, ID: int)  # Define signal with a bool parameter
 @onready var Array_indx: int = -1
 @onready var Row_ID: int = -1
 @onready var The_label: Label = $CenterContainer/Label
-@onready var Has_item: bool = false
-
 
 func _ready():
 	pass
-
-func toggle_item()-> void:
-	Has_item = !Has_item
 
 # Set Index of a wider array for inventory or recycler
 func set_index(Index:int):
@@ -31,10 +26,8 @@ func _on_mouse_entered():
 func _on_mouse_exited():
 	self_modulate = Color(1, 1, 1)  # Reset to normal
 
-
 func _on_button_down() -> void:
-	self_modulate = Color(1, 2, 1)
-
+	self_modulate = Color(1, 2, 1) # Clicked has green tint
 
 func _on_button_up() -> void:
 	CLICKED.emit(Array_indx, Row_ID)

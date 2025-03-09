@@ -10,6 +10,7 @@ enum ItemType { TRASH, COIN }  # Define types
 @export var Animatedsprite: AnimatedSprite2D  # Get reference
 @export var Sprite: Sprite2D  # Get reference
 @export var Value: int  # Get reference
+@export var Spawn_animate: bool = true
 
 #-----local variables-----#
 @onready var Speed: float = 200
@@ -26,7 +27,7 @@ func _ready():
 	if Animatedsprite:
 		Animatedsprite.play("coin_spin") 
 	# Do Spawn animation then Idle
-	await spawn_object()
+	await spawn_object_animation()
 	Base_position = position
 	Idle = true
 	
@@ -56,13 +57,16 @@ func _process(Delta: float) -> void:
 func _on_body_entered(Body: Node2D) -> void:
 	Player = Body # Works if correct Collision Mapping
 	Inventory = Player.get_inventory()
+	Idle = false
 
 # Oscillation movement
 func _idle_animation(Delta: float) -> void:
 	Time_elapsed +=  Delta  # Track elapsed time
 	position.y = Base_position.y + sin(Time_elapsed*Idle_speed) * Amplitude
 
-func spawn_object() -> void:
+func spawn_object_animation() -> void:
+	if !Spawn_animate:
+		return
 	$".".set_deferred("monitoring", false)
 
 	var X_speed = 50  # Base horizontal movement

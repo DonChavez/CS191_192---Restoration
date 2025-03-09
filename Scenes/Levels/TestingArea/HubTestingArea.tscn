@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dqitanht6fg3n" path="res://Scenes/TrashPile.tscn" id="10_6erel"]
 [ext_resource type="PackedScene" uid="uid://4ljjh7bbnlts" path="res://Scenes/TrashSmall.tscn" id="11_pu62g"]
 [ext_resource type="PackedScene" uid="uid://b8e1eypx76o43" path="res://Scenes/TrashMedium.tscn" id="12_svkrl"]
-[ext_resource type="PackedScene" uid="uid://c5aap3h4fps8p" path="res://Scenes/Items/Item.tscn" id="13_3hr0k"]
+[ext_resource type="PackedScene" uid="uid://b1pkh4gb852el" path="res://Scenes/Items/C001.tscn" id="13_3hr0k"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="14_epukc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
@@ -422,24 +422,30 @@ text = "F to speak"
 
 [node name="Coin" parent="." instance=ExtResource("9_h28lj")]
 position = Vector2(618, 415)
+Spawn_animate = false
 
 [node name="Coin2" parent="." instance=ExtResource("9_h28lj")]
 position = Vector2(619, 414)
+Spawn_animate = false
 
 [node name="Coin3" parent="." instance=ExtResource("9_h28lj")]
 position = Vector2(618, 416)
+Spawn_animate = false
 
 [node name="TrashPile" parent="." instance=ExtResource("10_6erel")]
 position = Vector2(196, 239)
 
 [node name="TrashSmall" parent="." instance=ExtResource("11_pu62g")]
-position = Vector2(269, 287)
+position = Vector2(655, 265)
+Spawn_animate = false
 
 [node name="TrashMedium" parent="." instance=ExtResource("12_svkrl")]
-position = Vector2(273, 343)
+position = Vector2(663, 289)
+Spawn_animate = false
 
 [node name="Item" parent="." instance=ExtResource("13_3hr0k")]
 position = Vector2(155, 326)
+Spawn_animate = false
 
 [node name="RecyclerManager" parent="." instance=ExtResource("14_epukc")]
 position = Vector2(325, 189)

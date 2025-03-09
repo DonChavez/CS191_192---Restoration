@@ -18,12 +18,10 @@ func update_inventory():
 	for I in range(Grid.size()):
 		var Item = Inventory_manager.get_item(I) #InventorManager get item
 		var Slot = Grid[I]  # Get slot node
-
+		
+		# Replace with Icon texture if has item
 		if Item:
-			var Sprite_node = Item.get_node_or_null("AnimatedSprite2D")  # Try to get the child node safely
-			if Sprite_node:
-				var Textured = Sprite_node.sprite_frames.get_frame_texture(Sprite_node.animation, Sprite_node.frame)
-				Slot.texture_normal = Textured  # Show item icon
+			Slot.texture_normal = Item.get_node("Icon").texture
 		else: 
 			Slot.texture_normal = load("res://Art/tilesets/grid.png") #Blank tile
 

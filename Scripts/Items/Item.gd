@@ -2,12 +2,11 @@ extends Node2D
 class_name ItemObject
 
 enum Existence { WORLD, INVENTORY, SHOP}
-@onready var Item_manager = get_tree().current_scene.get_node("Item_Manager")
 @onready var Input_label = $InputLabel
 @onready var Item_ID:String = ""
 @onready var Exist_in: Existence = Existence.WORLD 
 @onready var Stackable: bool = false
-
+@export var Spawn_animate: bool = true
 
 # Other Nodes
 @onready var Player: CharacterBody2D = null  
@@ -16,7 +15,7 @@ enum Existence { WORLD, INVENTORY, SHOP}
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input_label.visible = false
-	spawn_object()
+	spawn_object_animation()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(Delta: float) -> void:	# Add to Inventory if interacted
@@ -37,7 +36,9 @@ func _on_area_2d_body_exited(Body: Node2D):
 	if Exist_in == Existence.WORLD:
 		Input_label.visible = false
 		
-func spawn_object() -> void:
+func spawn_object_animation() -> void:
+	if !Spawn_animate:
+		return
 	$".".set_deferred("monitoring", false)
 
 	var X_speed = 50  # Base horizontal movement

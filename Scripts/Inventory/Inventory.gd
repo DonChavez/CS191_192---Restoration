@@ -29,7 +29,7 @@ func _process(Delta: float) -> void:
 		Inventory_ui.toggle_inventory()
 		_reset_item_slot(Selected)
 
-
+# Updates collectible amounts
 func add_coin(Amount: int):
 	Coins += Amount
 	Inventory_ui.update_coin(Coins)
@@ -38,12 +38,12 @@ func add_trash(Amount: int):
 	Inventory_ui.update_trash(Trash)
 
 #-----for item methods-----#
-
+# Reset the status of an Inventory Slot and Selected
 func _reset_item_slot(Slot: int) -> void:
 	Inventory_slots[Slot].reset()
 	Selected = -1
 
-# Get item from inventory
+# Get item from inventory array
 func get_item(Index):
 	if Index >= 0 and Index < Inventory_slot_num:
 		return Items[Index]
@@ -54,14 +54,13 @@ func add_item(Item_data: Node2D) -> bool:
 	var Item_parent = Item_data.get_parent()
 	if Item_parent:  # Check if the item has a parent
 		Item_parent.remove_child(Item_data)  # Remove it first
-	
 
 	for I in range(Inventory_slot_num):
 		if Items[I] == null:  # Find empty slot in the Inventory
 			Items[I] = Item_data
 			print("Added:", Item_data["name"])
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
-			Inventory_slots[I].toggle_item()
+			Inventory_slots[I].toggle_item() # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
 			return true  # Item added successfully
 
@@ -69,9 +68,9 @@ func add_item(Item_data: Node2D) -> bool:
 	Item_parent.add_child(Item_data)
 	return false  # No space available
 
-
+# Whenever an item Slot is clicked.
 func _on_item_slot_clicked(Index: int) -> void:
-	await get_tree().create_timer(0.001).timeout
+	await get_tree().create_timer(0.001).timeout # Timeout to avoid bugs
 	# reset if invalid Index or same as Selected
 	if Index < 0 or Index >= Inventory_slot_num or Selected == Index:
 		print("Invalid inventory index:", Index)
@@ -110,7 +109,6 @@ func drop_item():
 	Inventory_slots[Selected].toggle_item()
 	_reset_item_slot(Selected)
 
-	
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
 
@@ -131,6 +129,7 @@ func move_item(Index: int) -> void:
 		Inventory_slots[Index].toggle_item()
 	Items[Index] = holder
 	
+	# Change Item Slot statuses and Selected
 	_reset_item_slot(Selected)
 	_reset_item_slot(Index)
 
