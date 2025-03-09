@@ -1,4 +1,4 @@
-3 components
+	3 components
 health -> handles the object's health
 hitbox -> takes the damage
 hurtbox -> deals the damage

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_2ll6f"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
-[ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="8_5onck"]
+[ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Items/Inventory.tscn" id="8_5onck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4whj"]
 atlas = ExtResource("1_10uo1")

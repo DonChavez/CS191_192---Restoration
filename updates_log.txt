@@ -74,4 +74,3 @@ v0.0.4:
 	1. Added a new workflow that will keep track of all the updates
 	2. Fulfilled Portal Tutorial and LevelManager Tutorial
 	3. Fullfilled Level Manager
-

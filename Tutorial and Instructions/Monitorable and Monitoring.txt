@@ -15,3 +15,7 @@ Usage in the code:
 		the shield uses these functions in order to activate and deactivate itself
 		it's important to set both parameters to false or true, respectively, in order to ensure while it's deactivated, it won't affect anything in the scene
 		essentially, by setting both parameters to false, it basically looks like the shield has been queue_free()'d from the scene 
+	The Collectables:
+		Instances have a spawn animation and the Area2D Monitoring is set to false while it plays
+	The Items:
+		Instances have a spawn animation and the Area2D Monitoring is set to false while it plays

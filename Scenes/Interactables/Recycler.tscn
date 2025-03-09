@@ -1,0 +1,128 @@
+[gd_scene load_steps=9 format=3 uid="uid://3l055tt4lhc"]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/Recycler.gd" id="1_6hf5r"]
+[ext_resource type="Texture2D" uid="uid://dk6oo1vwet38a" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
+[ext_resource type="PackedScene" uid="uid://et7hu31mtlgf" path="res://Scenes/Interactables/ItemManager.tscn" id="2_c0ff1"]
+[ext_resource type="Script" path="res://Scripts/Interactables/RecyclerUI.gd" id="3_bw1r6"]
+[ext_resource type="Texture2D" uid="uid://cgdd0fkhu6fny" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
+[ext_resource type="PackedScene" uid="uid://brm8k3e0qaxpp" path="res://Scenes/Interactables/RecyclerButton.tscn" id="7_fohf1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_joq7y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fovvc"]
+
+[node name="RecyclerManager" type="StaticBody2D"]
+collision_layer = 1545
+collision_mask = 2
+script = ExtResource("1_6hf5r")
+
+[node name="ItemManager" parent="." instance=ExtResource("2_c0ff1")]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+scale = Vector2(2.08005, 3.10433)
+shape = SubResource("RectangleShape2D_joq7y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.229132, 0.229132)
+texture = ExtResource("1_j0jfi")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="DetectionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(3.11529, 4.10858)
+shape = SubResource("RectangleShape2D_fovvc")
+
+[node name="InputLabel" type="Label" parent="."]
+offset_left = -4.0
+offset_top = -56.0
+offset_right = 36.0
+offset_bottom = -33.0
+text = "F"
+
+[node name="RecyclerUI" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_left = -112.0
+offset_top = -56.0
+offset_right = -72.0
+offset_bottom = -16.0
+scale = Vector2(0.569697, 0.569697)
+script = ExtResource("3_bw1r6")
+
+[node name="RecyclerPanel" type="Panel" parent="RecyclerUI"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 200.0
+
+[node name="RecyclerLabel" type="Label" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 0
+offset_left = 56.1702
+offset_top = 14.0426
+offset_right = 121.17
+offset_bottom = 37.0426
+text = "Recycler"
+
+[node name="TextureRect" type="TextureRect" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 0
+offset_left = 305.424
+offset_top = 5.26611
+offset_right = 2353.42
+offset_bottom = 2053.27
+scale = Vector2(0.0171447, 0.0171447)
+texture = ExtResource("4_jwbys")
+
+[node name="TrashLabel" type="Label" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 0
+offset_left = 344.0
+offset_top = 13.266
+offset_right = 384.0
+offset_bottom = 36.266
+text = "0"
+
+[node name="CenterContainer" type="CenterContainer" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 2
+offset_top = 56.1702
+offset_right = 433.0
+offset_bottom = 96.1702
+
+[node name="RecyclerGrid" type="GridContainer" parent="RecyclerUI/RecyclerPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 91
+columns = 5
+
+[node name="RecyclerButton" parent="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid" instance=ExtResource("7_fohf1")]
+layout_mode = 2
+
+[node name="RecyclerButton2" parent="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid" instance=ExtResource("7_fohf1")]
+layout_mode = 2
+
+[node name="RecyclerButton3" parent="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid" instance=ExtResource("7_fohf1")]
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 2
+offset_top = 126.383
+offset_right = 400.0
+offset_bottom = 166.383
+
+[node name="RecyclerGrid2" type="GridContainer" parent="RecyclerUI/RecyclerPanel/CenterContainer2"]
+layout_mode = 2
+theme_override_constants/h_separation = 92
+columns = 5
+
+[node name="RecyclerButton" parent="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2" instance=ExtResource("7_fohf1")]
+layout_mode = 2
+
+[node name="RecyclerButton2" parent="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2" instance=ExtResource("7_fohf1")]
+layout_mode = 2
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid/RecyclerButton" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid/RecyclerButton2" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid/RecyclerButton3" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2/RecyclerButton" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2/RecyclerButton2" to="." method="_on_recycler_button_clicked"]

@@ -1,6 +1,6 @@
 Entire Inventory Management System:
-	Coin Management, Item Management, etc. still aren't here currently since I'm still Confused on how to do it and I've been getting a lot of errors recently - Julian
-	
+	Need more Items, Item effects, Resai Sprint 3 stuff.
+
 EliteEnemy:
 	fix the collision of the elite enemy
 	
