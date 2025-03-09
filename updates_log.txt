@@ -74,3 +74,16 @@ v0.0.4:
 	1. Added a new workflow that will keep track of all the updates
 	2. Fulfilled Portal Tutorial and LevelManager Tutorial
 	3. Fullfilled Level Manager
+---- Update from latest push (Sun Mar  9 20:30:43 PST 2025) ----
+branch: reset_resai
+v0.0.5:
+	1. Items now Use TextureRect
+	2. new Items in Item_Manager
+	3. New Temporary Item Icons
+	4. InventoryUI Image transfer is easier.
+	5. Trash pile now spawns random Trash collectible upon hit
+	
+	Others
+	1. More Comments
+	2. General Improvement on readability and Conventions
+
