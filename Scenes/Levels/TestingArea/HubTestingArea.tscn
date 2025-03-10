@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=32 format=4 uid="uid://cvpx21a28kpv3"]
 
 [ext_resource type="Texture2D" uid="uid://bap5b4sawqyuc" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://d2flw4hiw030l" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
@@ -12,8 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://dqitanht6fg3n" path="res://Scenes/TrashPile.tscn" id="10_6erel"]
 [ext_resource type="PackedScene" uid="uid://4ljjh7bbnlts" path="res://Scenes/TrashSmall.tscn" id="11_pu62g"]
 [ext_resource type="PackedScene" uid="uid://b8e1eypx76o43" path="res://Scenes/TrashMedium.tscn" id="12_svkrl"]
-[ext_resource type="PackedScene" uid="uid://b1pkh4gb852el" path="res://Scenes/Items/C001.tscn" id="13_3hr0k"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="14_epukc"]
+[ext_resource type="PackedScene" uid="uid://ctodd5mcr6l05" path="res://Scenes/Items/R001.tscn" id="15_ejw4h"]
+[ext_resource type="PackedScene" uid="uid://c3s5usamm82ak" path="res://Scenes/Items/R002.tscn" id="16_sxi5g"]
+[ext_resource type="PackedScene" uid="uid://b1pkh4gb852el" path="res://Scenes/Items/C001.tscn" id="17_60v86"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")
@@ -443,12 +445,17 @@ Spawn_animate = false
 position = Vector2(663, 289)
 Spawn_animate = false
 
-[node name="Item" parent="." instance=ExtResource("13_3hr0k")]
-position = Vector2(155, 326)
-Spawn_animate = false
-
 [node name="RecyclerManager" parent="." instance=ExtResource("14_epukc")]
 position = Vector2(325, 189)
+
+[node name="SpreadShot" parent="." instance=ExtResource("15_ejw4h")]
+position = Vector2(260, 396)
+
+[node name="Ricochet" parent="." instance=ExtResource("16_sxi5g")]
+position = Vector2(322, 399)
+
+[node name="Item" parent="." instance=ExtResource("17_60v86")]
+position = Vector2(428, 404)
 
 [connection signal="body_entered" from="NPC/Area2D" to="NPC" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="NPC/Area2D" to="NPC" method="_on_area_2d_body_exited"]

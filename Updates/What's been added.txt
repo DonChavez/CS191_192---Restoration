@@ -1,11 +1,27 @@
-branch: reset_resai
-v0.0.5:
-	1. Items now Use TextureRect
-	2. new Items in Item_Manager
-	3. New Temporary Item Icons
-	4. InventoryUI Image transfer is easier.
-	5. Trash pile now spawns random Trash collectible upon hit
-	
+branch: reset_sean
+v0.0.6:
+	1. Added 3 new items (SpeedTestItem - for testing, Ricochet, Spread Shot) - these are projectile items that modifies player projectiles
+	2. Projectile bounce overhaul 
+		- bounce() now just normally bounces off a surface instead of bouncing to an enemy nearby
+		- redirect_to_nearest_enemy() this is the old bounce function 
+		- added (@export var MaxBounces = 0) for bouncing functionality
+		- added (var bounce_count: int = 0 ) to track projectile bounces
+	3. Added new features to Player.gd
+		- added 2 new shooting variables 
+			- Projectile_bounce_count - total bounces of player projectiles
+			- Spread_shot_count - additional bullets to shoot per shot
+		- modified shoot_projectile to allow mutiple bullets at onnect
+		- added 2 new interaction variables
+			- Can_process_input - checks if it can read inputs (except movement)
+			- Can_process_movement - checks if it allows the player to move
+	4. Changed Inventory from node2d to CanvasLayer (to make sure it sticks to the viewport UI instead of the scene)
+	5. Added new functionality to inventory (it now applies every item effect inside invetory)
+	6. Added new items now inherit from class ItemObject
+	7. Player now cannot perform combat actions while inside the inventory UI and near the Recycler
+	8. Placed the 3 new items in the HubTestingArea
+	9. Added new functionality for LevelManager (to support transitions in the future and error handling)
+
 	Others
-	1. More Comments
-	2. General Improvement on readability and Conventions
+	1. Fixed bug (Collectables collide with player from previous location upon interacting with portal) 
+		- sets the player position to PlayerSpawn before adding it as a child to the scene
+	2. Fixed visual bug (screen tearing) - a bug in the Forward+ renderer and now tearing when game is exported

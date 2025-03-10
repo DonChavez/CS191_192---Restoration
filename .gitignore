@@ -2,3 +2,4 @@
 .godot/
 /android/
 updates_log.txt
+*.import

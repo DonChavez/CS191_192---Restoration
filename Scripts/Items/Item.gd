@@ -12,6 +12,9 @@ enum Existence { WORLD, INVENTORY, SHOP}
 @onready var Player: CharacterBody2D = null  
 @onready var Inventory: InventoryObject = null
 
+# Item effect-related properties
+var Effect_applied = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input_label.visible = false
@@ -56,3 +59,10 @@ func spawn_object_animation() -> void:
 		await get_tree().process_frame  # Wait for next frame
 	
 	$".".set_deferred("monitoring", true) 
+	
+# Override these in specific item scripts
+func apply_effect(player):
+	pass
+
+func remove_effect(player):
+	pass

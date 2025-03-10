@@ -26,7 +26,7 @@ extends CharacterBody2D
 @onready var Melee_hurtbox: HurtboxComponent = $MeleeHurtbox
 
 # Miscellenaous Variables
-@onready var Main = get_tree().current_scene
+@onready var Main = null
 @onready var Inventory: InventoryObject = $Inventory
 
 #-----local variables-----#
@@ -52,8 +52,12 @@ var Is_attacking : bool = false
 var Is_blocking : bool = false
 
 # Shooting Variables
+var Projectile_bounce_count : int = 0
+var Spread_shot_count: int = 0
 
 # Interaction Variables
+var Can_process_input : bool = true
+var Can_process_movement : bool = true
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -102,6 +106,8 @@ func _physics_process(_delta: float) -> void:
 
 #----------Input related functions----------#
 func input_handling() -> void:
+	if not Can_process_input:
+		return
 	# gets the position of the mouse and stores its vector values in mouse_direction
 	# this is primarily used in determining the direction the player faces when doing an action such as an attack
 	# this is also used for ranged/projectile calculation for the player
@@ -140,6 +146,8 @@ func get_object_spawn_position(Direction: String) -> Vector2:
 
 #----------movement related functions----------#
 func update_movement_input():
+	if !Can_process_movement:
+		return
 	# global var input direction is updated in this function
 	Input_direction = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -239,18 +247,34 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	Melee_hurtbox.visible = false 
 
 #----------shooting related functions----------#
+# Shoots projectile with spread functionality
 func shoot_projectile():
-	print("Im shooting mf")
-	var ProjectileInstance = Projectile.instantiate()
-	ProjectileInstance.Direction = Mouse_direction.normalized()
-	ProjectileInstance.SpawnPos = global_position
-	ProjectileInstance.Fired_by = "Player"
-	
-	# Main = get_tree calls the current scene
-	Main = get_tree().current_scene
-	if Main:
-		# this adds the projectile as a child of the scene itself, to ensure that if the object that called it dies, the projectile doesn't disappear too early
-		Main.add_child.call_deferred(ProjectileInstance)
+	print("Shooting with spread shot")
+
+	var Total_projectiles = 1 + Spread_shot_count
+	var Spread_angle = deg_to_rad(30)  # spread angle in radians
+
+	# calculate angle step for spreading projectiles evenly
+	var Spread_step = Spread_angle / max(1, Total_projectiles - 1)
+	var Center_index = Total_projectiles / 2
+
+	for i in range(Total_projectiles):
+		var Projectile_instance = Projectile.instantiate()
+
+		# ensure that one of the projectiles is going center
+		var Angle_offset = (i - Center_index) * Spread_step
+		if Total_projectiles % 2 == 0 and i == Center_index:
+			Angle_offset = 0.0 
+
+		Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
+		Projectile_instance.SpawnPos = global_position
+		Projectile_instance.Fired_by = "Player"
+		Projectile_instance.MaxBounces = Projectile_bounce_count
+
+		# add projectile to the current scene
+		Main = get_tree().current_scene
+		if Main:
+			Main.add_child(Projectile_instance)
 
 #----------blocking related functions----------#
 func block() -> void:
@@ -332,7 +356,7 @@ func _on_player_health_died() -> void:
 	# onnect the animation_finished signal to a handler function
 	await Player_sprite.animation_finished
 	
-func _on_player_health_damage_taken(Amount: float) -> void:
+func _on_player_health_damage_taken(_Amount: float) -> void:
 	var original_color = modulate  # Store the original color
 	modulate = Color(1, 0, 0)  # Flash red
 	
@@ -343,4 +367,3 @@ func _on_player_health_damage_taken(Amount: float) -> void:
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
-	

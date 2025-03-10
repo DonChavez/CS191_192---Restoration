@@ -2,14 +2,14 @@ PlayerManager is an autoloader that handles all things player related. This make
 it persists when changing scenes
 
 Variables
-    - player_scene_path: ath to the player scene.
-    - player_instance: stores the current player instance.
+	- player_scene_path: ath to the player scene.
+	- player_instance: stores the current player instance.
 
 Functions
-    - spawn_player()
-        ensures only one player instance exists and spawns it at "PlayerSpawn" node
-    
-    - transfer_player()
-        moves the player instance to the newly loaded scene and spawns them at "PlayerSpawn"
+	- spawn_player()
+		ensures only one player instance exists and spawns it at "PlayerSpawn" node
+	
+	- transfer_player()
+		moves the player instance to the newly loaded scene and spawns them at "PlayerSpawn"
 
-    
+	

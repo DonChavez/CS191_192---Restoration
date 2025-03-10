@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3s5usamm82ak"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Item.gd" id="1_ows0k"]
+[ext_resource type="Script" path="res://Scripts/Items/Ricochet.gd" id="1_5ik7n"]
 [ext_resource type="Texture2D" uid="uid://blcfm7sw3pg0r" path="res://Art/Items/R002.png" id="2_o46yk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Item" type="Node2D"]
+[node name="Ricochet" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_ows0k")
+script = ExtResource("1_5ik7n")
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0

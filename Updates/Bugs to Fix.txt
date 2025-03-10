@@ -1,3 +1,3 @@
-Visual bug:
-	Screen tearing when moving (only present in maximized mode, windowed mode, borderless windowed mode, full screen)
-	Collectables collide with player from previous location upon interacting with portal
+Player input bug:
+	When the inventory is open and exiting the recyler, it overwrites disable_player_input
+	and enables it while the inventory is still open

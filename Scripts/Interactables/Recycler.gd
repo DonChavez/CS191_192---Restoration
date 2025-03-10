@@ -33,11 +33,13 @@ func _on_area_2d_body_entered(Body: Node2D) -> void:
 	Input_label.visible = true
 	Player = Body
 	Inventory = Player.get_inventory()
+	PlayerManager.disable_player_input()
 
 # Interact button disappears
 func _on_area_2d_body_exited(Body: Node2D) -> void:
 	Input_label.visible = false
 	RecyclerUI.visible = false
+	PlayerManager.enable_player_input()
 
 # drop/spawn an item in world
 func drop_item(Item_instance: Node2D):
