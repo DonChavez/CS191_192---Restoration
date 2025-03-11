@@ -1,12 +1,12 @@
-[gd_scene load_steps=32 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=33 format=4 uid="uid://cvpx21a28kpv3"]
 
-[ext_resource type="Texture2D" uid="uid://bap5b4sawqyuc" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
-[ext_resource type="Texture2D" uid="uid://d2flw4hiw030l" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
-[ext_resource type="Texture2D" uid="uid://nltaetk6r2mu" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
-[ext_resource type="Texture2D" uid="uid://c35s1vsnuh3e7" path="res://Art/Objects/objects.png" id="4_yr3pd"]
+[ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
+[ext_resource type="Texture2D" uid="uid://bwulylwi3hx8f" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
+[ext_resource type="Texture2D" uid="uid://ceiwslpw05pft" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
+[ext_resource type="Texture2D" uid="uid://cwbfs1tqr1qpe" path="res://Art/Objects/objects.png" id="4_yr3pd"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="5_14g4i"]
 [ext_resource type="Script" path="res://Scripts/NPC.gd" id="6_eabib"]
-[ext_resource type="Texture2D" uid="uid://d0oap5nona40h" path="res://Art/Characters/player.png" id="6_q5b2d"]
+[ext_resource type="Texture2D" uid="uid://dahmg5t0k8ka1" path="res://Art/Characters/player.png" id="6_q5b2d"]
 [ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/Dialogue.tscn" id="8_qap6j"]
 [ext_resource type="PackedScene" uid="uid://bfkok3exx7cq4" path="res://Scenes/Coin.tscn" id="9_h28lj"]
 [ext_resource type="PackedScene" uid="uid://dqitanht6fg3n" path="res://Scenes/TrashPile.tscn" id="10_6erel"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ctodd5mcr6l05" path="res://Scenes/Items/R001.tscn" id="15_ejw4h"]
 [ext_resource type="PackedScene" uid="uid://c3s5usamm82ak" path="res://Scenes/Items/R002.tscn" id="16_sxi5g"]
 [ext_resource type="PackedScene" uid="uid://b1pkh4gb852el" path="res://Scenes/Items/C001.tscn" id="17_60v86"]
+[ext_resource type="PackedScene" uid="uid://cynttmdekvtbs" path="res://Scenes/TrashCan.tscn" id="17_hcbu8"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")
@@ -456,6 +457,9 @@ position = Vector2(322, 399)
 
 [node name="Item" parent="." instance=ExtResource("17_60v86")]
 position = Vector2(428, 404)
+
+[node name="TrashCan" parent="." instance=ExtResource("17_hcbu8")]
+position = Vector2(322, 319)
 
 [connection signal="body_entered" from="NPC/Area2D" to="NPC" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="NPC/Area2D" to="NPC" method="_on_area_2d_body_exited"]

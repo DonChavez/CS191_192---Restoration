@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0knvqogljs7"]
+
+[ext_resource type="Script" path="res://Scenes/Trees.gd" id="1_v1knk"]
+[ext_resource type="Texture2D" uid="uid://bayjfhnaanacw" path="res://Art/Objects/full_trash.png" id="2_doewu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl5c"]
+size = Vector2(147, 72)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovd2q"]
+size = Vector2(170, 56)
+
+[node name="TrashCan" type="StaticBody2D"]
+scale = Vector2(0.261706, 0.261706)
+collision_layer = 9
+collision_mask = 2
+script = ExtResource("1_v1knk")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8.00003, 4.57764e-05)
+scale = Vector2(0.225746, 0.225746)
+texture = ExtResource("2_doewu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9.5, 7)
+shape = SubResource("RectangleShape2D_cfl5c")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="InteractCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(9, 28)
+shape = SubResource("RectangleShape2D_ovd2q")
+
+[node name="InteractLabel" type="Label" parent="."]
+offset_left = -7.0
+offset_top = -105.0
+offset_right = 33.0
+offset_bottom = -82.0
+scale = Vector2(2.43756, 2.43756)
+text = "F"
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(150, 0)
+offset_left = -68.7796
+offset_top = 57.3163
+offset_right = 81.2204
+offset_bottom = 84.3163
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="CleaningTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="CleaningTimer" to="." method="_on_cleaning_timer_timeout"]
+[connection signal="timeout" from="CleaningTimer" to="." method="_update_cleaning_progress"]
