@@ -1,10 +1,11 @@
 branch: reset_resai
 v0.0.7:
-	1. Created Trash Can, cleanable item 
-	2. Created Trash Spawn which handles spawning of Trash Collectibles
+	1. Created Trash Can Scene, cleanable
+	2. Created Tree Scene, plantable
+	3. Created Trash Spawn Scene which handles spawning of Trash Collectibles
 		- Added it under Trash pile
 		- Added under Trash Can
-
+	4. Added more temporary images
 
 	Others
 	1. Fixed bug (Collectables collide with player from previous location upon interacting with portal) 

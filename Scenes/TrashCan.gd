@@ -20,6 +20,7 @@ extends StaticBody2D
 func _ready() -> void:
 	Interact_label.visible = false
 	Progress.value = 0
+	Progress.visible = false
 	var style_box := StyleBoxFlat.new()
 	style_box.bg_color = Color(0, 1, 0)  # Red color
 	Progress.add_theme_stylebox_override("fill", style_box)
@@ -48,9 +49,12 @@ func _start_cleaning() -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if Dirty:
 		Interact_label.visible = true
+		Progress.visible = true
+		
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	Interact_label.visible = false
+	Progress.visible = false
 
 # Occurs every 0.1 seconds
 func _update_cleaning_progress() -> void:
