@@ -5,9 +5,9 @@ v0.0.7:
 	3. Created Trash Spawn Scene which handles spawning of Trash Collectibles
 		- Added it under Trash pile
 		- Added under Trash Can
+		- Can now set chance of spawns
+		- Can now be given amount of trash to spawn
 	4. Added more temporary images
 
 	Others
-	1. Fixed bug (Collectables collide with player from previous location upon interacting with portal) 
-		- sets the player position to PlayerSpawn before adding it as a child to the scene
-	2. Fixed visual bug (screen tearing) - a bug in the Forward+ renderer and now tearing when game is exported
+	1. More Comments for readability

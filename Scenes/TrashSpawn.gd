@@ -1,12 +1,16 @@
 extends Node
 
+#-----onready variables-----#
 @onready var Parent = $".."
+
+#-----export variables-----#
 @export var Trash_spawn: Dictionary = {
 	preload("res://Scenes/TrashMedium.tscn")	: 30,
 	preload("res://Scenes/TrashSmall.tscn")	: 60,
 	null										: 10
 }
 
+# Acquire a random trash scene depending on chance from Trash_Spawn
 func get_random_trash() -> PackedScene:
 	var Random_pick = randi_range(1, 100)  # Always between 1 and 100
 	var Current_sum = 0
@@ -18,8 +22,7 @@ func get_random_trash() -> PackedScene:
 
 	return null  # Should never happen unless dictionary is empty
 
-
-
+# Spawn Amount of random Trash in the world
 func spawn_trash(Amount: int) -> void:
 	#Spawn trash scenes
 	var World_scene = get_tree().current_scene  # Get current game world

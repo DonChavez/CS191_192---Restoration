@@ -1,14 +1,13 @@
 extends Node2D
 
-# onready variables
+#-----onready variables-----#
 @onready var TP_sprite: Sprite2D = $TrashPileSprite
 @onready var TP_health: HealthComponent = $TrashPileHealth
 @onready var TP_hitbox: HitboxComponent = $TrashPileHitbox
 @onready var TP_trashspawn: Node = $TrashSpawn
 
+#-----export variables-----#
 @export var Amount_to_spawn: int = 1
-
-
 
 func _ready() -> void:
 	# default animation start
