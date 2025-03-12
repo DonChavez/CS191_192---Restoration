@@ -1,11 +1,13 @@
 extends Node2D
 
+#-----onready variables-----#
 @onready var Input_label = $InputLabel
 @onready var RecyclerUI = $RecyclerUI
 @onready var Recycler_slots1 = $RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid.get_children() #Slots
 @onready var Recycler_slots2 = $RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2.get_children() #Slots
 @onready var Item_manager = $ItemManager
 
+#-----local variables-----#
 @onready var Player: CharacterBody2D = null  
 @onready var Inventory: InventoryObject = null
 

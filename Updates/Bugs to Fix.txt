@@ -1,3 +1,8 @@
 Player input bug:
 	When the inventory is open and exiting the recyler, it overwrites disable_player_input
 	and enables it while the inventory is still open
+Trash Can Issue:
+	Cleaning Trash Can should stop upon another input after interact.
+	Unfortunately, _process is too fast and it triggers in the same key press.
+	Added an await with a set value to minimize and hide problem
+	Still an issue that needs a different implementation

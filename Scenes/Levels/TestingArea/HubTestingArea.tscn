@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=34 format=4 uid="uid://cvpx21a28kpv3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://b5l4bnjgh5qhd" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://ctodd5mcr6l05" path="res://Scenes/Items/R001.tscn" id="15_ejw4h"]
 [ext_resource type="PackedScene" uid="uid://c3s5usamm82ak" path="res://Scenes/Items/R002.tscn" id="16_sxi5g"]
 [ext_resource type="PackedScene" uid="uid://b1pkh4gb852el" path="res://Scenes/Items/C001.tscn" id="17_60v86"]
+[ext_resource type="PackedScene" uid="uid://cynttmdekvtbs" path="res://Scenes/TrashCan.tscn" id="17_hcbu8"]
+[ext_resource type="PackedScene" uid="uid://b0knvqogljs7" path="res://Scenes/Trees.tscn" id="18_585nw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")
@@ -456,6 +458,12 @@ position = Vector2(322, 399)
 
 [node name="Item" parent="." instance=ExtResource("17_60v86")]
 position = Vector2(428, 404)
+
+[node name="TrashCan" parent="." instance=ExtResource("17_hcbu8")]
+position = Vector2(322, 319)
+
+[node name="Trees" parent="." instance=ExtResource("18_585nw")]
+position = Vector2(190, 386)
 
 [connection signal="body_entered" from="NPC/Area2D" to="NPC" method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="NPC/Area2D" to="NPC" method="_on_area_2d_body_exited"]
