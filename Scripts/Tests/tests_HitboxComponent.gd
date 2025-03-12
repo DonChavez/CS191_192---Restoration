@@ -57,9 +57,10 @@ func test_healthcomponent_receivedamage_iframed():
  add_child(hitboxcomponent)
  await get_tree().process_frame  # Allow _ready() to execute
 
- hitboxcomponent.Time_since_last_damage = 0.01
+ hitboxcomponent.Time_since_last_damage = 0.001
+ hitboxcomponent.Damage_interval = 5.0
  hitboxcomponent.damage_received(75.0)
- assert_float(hitboxcomponent.Time_since_last_damage).is_equal(0.01)
+ assert_float(hitboxcomponent.Time_since_last_damage).is_equal(0.001)
  assert_float(hitboxcomponent.Health.Health).is_equal(100.0)
 
  healthcomponent.queue_free()
