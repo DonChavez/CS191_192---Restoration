@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://btpotfo7v6c50"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/TowerEnemy.gd" id="1_wyg77"]
-[ext_resource type="Texture2D" uid="uid://kiiqkupdl5om" path="res://Art/Characters/EyeofSauron.png" id="2_s8t23"]
+[ext_resource type="Texture2D" uid="uid://bek3akmj1sqk3" path="res://Art/Characters/EyeofSauron.png" id="2_s8t23"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_faeaw"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_7ldd5"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_taqc1"]

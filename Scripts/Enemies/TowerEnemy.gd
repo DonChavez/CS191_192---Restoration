@@ -70,7 +70,7 @@ func circle_attack():
 		ProjectileInstance.Direction = Direction.normalized()  
 		ProjectileInstance.Lifetime = 5.0
 		ProjectileInstance.SpawnPos = global_position  # Use spawnPos like the player does
-		ProjectileInstance.Fired_by = "Enemy"
+		ProjectileInstance.Fired_by = self
 
 		get_parent().add_child.call_deferred(ProjectileInstance)  # Ensure it spawns properly
 
