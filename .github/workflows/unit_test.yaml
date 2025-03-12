@@ -2,7 +2,7 @@ name: Unit Testing
 
 env:
   GODOT_VERSION: 4.3
-  TEST_PATH: res://Scripts/Test
+  TEST_PATH: res://Scripts/Tests
   
 on:
   push:
