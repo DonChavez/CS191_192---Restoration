@@ -1,13 +1,5 @@
-branch: reset_resai
-v0.0.7:
-	1. Created Trash Can Scene, cleanable
-	2. Created Tree Scene, plantable
-	3. Created Trash Spawn Scene which handles spawning of Trash Collectibles
-		- Added it under Trash pile
-		- Added under Trash Can
-		- Can now set chance of spawns
-		- Can now be given amount of trash to spawn
-	4. Added more temporary images
-
-	Others
-	1. More Comments for readability
+branch: reset_julian
+v0.0.7.1:
+	1. added parry variable in player.gd
+	2. changed the fired_by logic to using "self" instead of strings
+	3. changed redirect function to redirect_target() and redirect_random() for parrying and blocking respectively

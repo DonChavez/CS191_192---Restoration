@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Components/HealthBarComponent.gd" id="1_d11iy"]
 
-[node name="HealthBar" type="ProgressBar" node_paths=PackedStringArray("health_component")]
+[node name="HealthBar" type="ProgressBar"]
 offset_left = -6.535
 offset_top = 8.0
 offset_right = 23.465
@@ -10,4 +10,3 @@ offset_bottom = 12.0
 scale = Vector2(0.5, 0.5)
 show_percentage = false
 script = ExtResource("1_d11iy")
-health_component = NodePath("")

@@ -72,7 +72,7 @@ func shoot_projectile() -> void:
 	var ProjectileInstance = Projectile.instantiate()
 	ProjectileInstance.Direction = Direction.normalized()  
 	ProjectileInstance.SpawnPos = global_position  # Use spawnPos like the player does
-	ProjectileInstance.Fired_by = "Enemy"
+	ProjectileInstance.Fired_by = self
 
 	get_parent().add_child.call_deferred(ProjectileInstance)  # Ensure it spawns properly
 

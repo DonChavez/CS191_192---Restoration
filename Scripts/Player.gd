@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var Move_speed : float = 200.0
 @export var Attack_speed : float = 1.0
 @export var Projectile = load("res://Scenes/Objects/Projectile.tscn")
+# Blocking Variables
+@export var Is_parrying : bool = false
 
 #-----onready variables-----#
 # Animation Variables
@@ -50,6 +52,7 @@ var Is_attacking : bool = false
 
 # Blocking Variables
 var Is_blocking : bool = false
+var Parry_window : float = 0.5
 
 # Shooting Variables
 var Projectile_bounce_count : int = 0
@@ -268,7 +271,7 @@ func shoot_projectile():
 
 		Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
 		Projectile_instance.SpawnPos = global_position
-		Projectile_instance.Fired_by = "Player"
+		Projectile_instance.Fired_by = self
 		Projectile_instance.MaxBounces = Projectile_bounce_count
 
 		# add projectile to the current scene
@@ -278,6 +281,8 @@ func shoot_projectile():
 
 #----------blocking related functions----------#
 func block() -> void:
+	
+	
 	
 	# adjust collision timing to be if parrying
 	Is_blocking = true
@@ -301,6 +306,15 @@ func block() -> void:
 	TS_hitbox.monitorable = true
 	TS_hitbox.monitorable = true
 	TS_hitbox.visible = true
+	
+	# parrying
+	Is_parrying = true
+	print("I'm parrying")
+	
+	# wait for the parry window to end
+	await get_tree().create_timer(Parry_window).timeout
+	
+	Is_parrying = false
 	
 	#-----Shield WIP-----#
 	## rotate shield appropriately
@@ -355,6 +369,10 @@ func _on_player_health_died() -> void:
 
 	# onnect the animation_finished signal to a handler function
 	await Player_sprite.animation_finished
+	
+	# delay before queue free
+	await get_tree().create_timer(0.5).timeout
+	queue_free()
 	
 func _on_player_health_damage_taken(_Amount: float) -> void:
 	var original_color = modulate  # Store the original color

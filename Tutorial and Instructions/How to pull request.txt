@@ -6,13 +6,13 @@ Make sure to follow the format:
 
 branch name: [Insert branch name here]
 v0.0.1 # Update version here
-    [List of changes in the version]
+	[List of changes in the version]
 
 Example:
 
 branch name: reset_julian
 v0.0.1
-    1. Changed something
+	1. Changed something
 
 
 Review 
