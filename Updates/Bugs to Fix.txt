@@ -6,3 +6,6 @@ Trash Can Issue:
 	Unfortunately, _process is too fast and it triggers in the same key press.
 	Added an await with a set value to minimize and hide problem
 	Still an issue that needs a different implementation
+
+Pollution Level Bug: 
+	PL does not reset after switching levels

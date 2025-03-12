@@ -16,8 +16,8 @@
 [ext_resource type="PackedScene" uid="uid://ctodd5mcr6l05" path="res://Scenes/Items/R001.tscn" id="15_ejw4h"]
 [ext_resource type="PackedScene" uid="uid://c3s5usamm82ak" path="res://Scenes/Items/R002.tscn" id="16_sxi5g"]
 [ext_resource type="PackedScene" uid="uid://b1pkh4gb852el" path="res://Scenes/Items/C001.tscn" id="17_60v86"]
-[ext_resource type="PackedScene" uid="uid://cynttmdekvtbs" path="res://Scenes/TrashCan.tscn" id="17_hcbu8"]
-[ext_resource type="PackedScene" uid="uid://b0knvqogljs7" path="res://Scenes/Trees.tscn" id="18_585nw"]
+[ext_resource type="PackedScene" uid="uid://dqi04l68m3ba3" path="res://Scenes/TrashCan.tscn" id="17_hcbu8"]
+[ext_resource type="PackedScene" uid="uid://dd3fv2rspunln" path="res://Scenes/Trees.tscn" id="18_585nw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")

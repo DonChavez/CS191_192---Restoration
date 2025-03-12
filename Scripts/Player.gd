@@ -281,9 +281,6 @@ func shoot_projectile():
 
 #----------blocking related functions----------#
 func block() -> void:
-	
-	
-	
 	# adjust collision timing to be if parrying
 	Is_blocking = true
 	print("I'm blocking")

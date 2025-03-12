@@ -37,6 +37,7 @@ TSHitbox=""
 Player=""
 Enemy=""
 Shield=""
+PollutionReduction="Sucks the Green out of that bar"
 
 [gui]
 

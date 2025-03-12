@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0knvqogljs7"]
+[gd_scene load_steps=6 format=3 uid="uid://dd3fv2rspunln"]
 
 [ext_resource type="Script" path="res://Scenes/Trees.gd" id="1_v1knk"]
-[ext_resource type="Texture2D" uid="uid://dt24i5bj24okf" path="res://Art/Objects/Tree.png" id="2_le0mh"]
-[ext_resource type="Texture2D" uid="uid://dc8sgh1ux5eiv" path="res://Art/Objects/Area.png" id="3_v2qep"]
+[ext_resource type="Texture2D" uid="uid://c1hqha07u22pa" path="res://Art/Objects/Tree.png" id="2_le0mh"]
+[ext_resource type="Texture2D" uid="uid://j8sr2dx7rrf1" path="res://Art/Objects/Area.png" id="3_v2qep"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl5c"]
 size = Vector2(61.1373, 149.99)
@@ -10,7 +10,7 @@ size = Vector2(61.1373, 149.99)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovd2q"]
 size = Vector2(170, 101.853)
 
-[node name="Trees" type="StaticBody2D"]
+[node name="Trees" type="StaticBody2D" groups=["PollutionReduction"]]
 position = Vector2(-3, 0)
 scale = Vector2(0.261706, 0.261706)
 collision_layer = 9

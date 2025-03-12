@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://b6us2qurr7wx7"]
+[gd_scene load_steps=81 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Texture2D" uid="uid://borygxwb3hnfg" path="res://Art/Characters/player.png" id="1_10uo1"]
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_r6j8o"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
 [ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="8_5onck"]
+[ext_resource type="PackedScene" uid="uid://cxhbqksvqm0to" path="res://Scenes/Pollution/PollutionSystem.tscn" id="9_s2vsi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4whj"]
 atlas = ExtResource("1_10uo1")
@@ -609,6 +610,9 @@ limit_top = -100
 limit_right = 1255
 limit_bottom = 760
 editor_draw_limits = true
+
+[node name="PollutionSystem" parent="." instance=ExtResource("9_s2vsi")]
+position = Vector2(245, -90)
 
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]
