@@ -4,7 +4,7 @@ extends GdUnitTestSuite
 
 const ITEM_SCENE = "res://Scenes/Items/C001.tscn"  # Update with correct path
 
-func test_elite_enemy_ready():
+func test_item_ready():
 
  var item_scene = load(ITEM_SCENE)
  var item = item_scene.instantiate()

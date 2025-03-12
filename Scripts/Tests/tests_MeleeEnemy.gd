@@ -28,7 +28,7 @@ func test_melee_enemy_ready():
  add_child(melee_enemy)
  await get_tree().process_frame  # Allow _ready() to execute
 
- assert_float(melee_enemy.DashTimer.wait_time).is_equal(1)
+ assert_float(melee_enemy.DashTimer.wait_time).is_equal(1.0)
  assert_bool(melee_enemy.DashTimer.one_shot).is_false()
 
  melee_enemy.queue_free()
