@@ -1,4 +1,4 @@
-class_name HealthComponent_UnitTest
+class_name DE_HealthComponent_UnitTest
 extends GdUnitTestSuite
 
 # OG NOTEPAD FOR GENERAL TEST CASES HERE
