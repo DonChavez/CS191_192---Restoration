@@ -31,6 +31,18 @@ window/stretch/scale_mode="integer"
 window/physics_jitter_fix=0.0
 window/physics_interpolation=true
 
+[dotnet]
+
+project/assembly_name="Restoration Reset"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/common/update_notification_enabled=false
+
 [global_group]
 
 TSHitbox=""

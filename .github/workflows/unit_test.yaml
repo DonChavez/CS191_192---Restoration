@@ -1,0 +1,24 @@
+name: Unit Testing
+
+env:
+  GODOT_VERSION: 4.3
+  TEST_PATH: res://Scripts/Tests
+  
+on:
+  push:
+    branches:
+      - reset
+  pull_request:
+    branches: 
+      - reset
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: MikeSchulze/gdunit4-action@v1.1.5
+        with:
+          godot-version: ${{ env.GODOT_VERSION }} 
+          paths: ${{ env.TEST_PATH }}
+          publish-report: false
