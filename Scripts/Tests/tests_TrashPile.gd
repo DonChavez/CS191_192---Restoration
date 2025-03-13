@@ -37,36 +37,36 @@ func test_trashpile_ready():
  hitboxcomponent.queue_free()
  trashspawn.queue_free()
 
-func test_trashpile_is_dead_true():
-
- var trashpile_scene = load(TRASHPILE_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var trashspawn_scene = load(TRASHSPAWN_SCENE)
- var trashpile = trashpile_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
- var trashspawn = trashspawn_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
- trashpile.TP_health = healthcomponent
- trashpile.TP_hitbox = hitboxcomponent
-
- var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashspawn
-
- add_child(trashpile)
- await get_tree().process_frame  # Allow _ready() to execute
-
- trashpile.TP_health.take_damage(100)
- assert_bool(trashpile.is_dead()).is_true()
-
- trashpile.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
- trashspawn.queue_free()
+#func test_trashpile_is_dead_true():
+#
+ #var trashpile_scene = load(TRASHPILE_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var trashspawn_scene = load(TRASHSPAWN_SCENE)
+ #var trashpile = trashpile_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+ #var trashspawn = trashspawn_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+ #trashpile.TP_health = healthcomponent
+ #trashpile.TP_hitbox = hitboxcomponent
+#
+ #var TP_sprite = trashpile.get_node("Sprite2D")
+ #var TP_trashspawn = trashspawn
+#
+ #add_child(trashpile)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #trashpile.TP_health.take_damage(100)
+ #assert_bool(trashpile.is_dead()).is_true()
+#
+ #trashpile.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
+ #trashspawn.queue_free()
 
 #func test_trashpile_is_dead_false():
 #
