@@ -1,5 +1,6 @@
 [gd_scene load_steps=34 format=4 uid="uid://cvpx21a28kpv3"]
 
+
 [ext_resource type="Texture2D" uid="uid://rmf4rh1dh87l" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://c3jqvdyfuxjx7" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
 [ext_resource type="Texture2D" uid="uid://bxitnryn17ppe" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
@@ -9,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ccrxd0kij7qrl" path="res://Art/Characters/player.png" id="6_q5b2d"]
 [ext_resource type="PackedScene" path="res://Scenes/Dialogue.tscn" id="8_qap6j"]
 [ext_resource type="PackedScene" path="res://Scenes/Coin.tscn" id="9_h28lj"]
+
 [ext_resource type="PackedScene" uid="uid://dqitanht6fg3n" path="res://Scenes/TrashPile.tscn" id="10_6erel"]
 [ext_resource type="PackedScene" path="res://Scenes/TrashSmall.tscn" id="11_pu62g"]
 [ext_resource type="PackedScene" path="res://Scenes/TrashMedium.tscn" id="12_svkrl"]
