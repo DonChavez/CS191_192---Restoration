@@ -3,6 +3,7 @@ extends GdUnitTestSuite
 
 
 const TRASHPILE_SCENE = "res://Scenes/TrashPile.tscn"  # Update with correct path
+const TRASHSPAWN_SCENE = "res://Scenes/TrashSpawner.tscn"
 const HITBOXCOMPONENT_SCENE = "res://Scenes/Components/HitboxComponent.tscn"
 const HEALTHCOMPONENT_SCENE = "res://Scenes/Components/HealthComponent.tscn"
 
@@ -11,9 +12,11 @@ func test_trashpile_ready():
  var trashpile_scene = load(TRASHPILE_SCENE)
  var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
  var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ var trashspawn_scene = load(TRASHSPAWN_SCENE)
  var trashpile = trashpile_scene.instantiate()
  var healthcomponent = healthcomponent_scene.instantiate()
  var hitboxcomponent = hitboxcomponent_scene.instantiate()
+ var trashspawn = trashspawn_scene.instantiate()
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
@@ -22,7 +25,7 @@ func test_trashpile_ready():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("TrashSpawn")
+ var TP_trashspawn = trashspawn
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -32,15 +35,18 @@ func test_trashpile_ready():
  trashpile.queue_free()
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
+ trashspawn.queue_free()
 
 func test_trashpile_is_dead_true():
 
  var trashpile_scene = load(TRASHPILE_SCENE)
  var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
  var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ var trashspawn_scene = load(TRASHSPAWN_SCENE)
  var trashpile = trashpile_scene.instantiate()
  var healthcomponent = healthcomponent_scene.instantiate()
  var hitboxcomponent = hitboxcomponent_scene.instantiate()
+ var trashspawn = trashspawn_scene.instantiate()
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
@@ -49,7 +55,7 @@ func test_trashpile_is_dead_true():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("TrashSpawn")
+ var TP_trashspawn = trashspawn
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -60,15 +66,18 @@ func test_trashpile_is_dead_true():
  trashpile.queue_free()
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
+ trashspawn.queue_free()
 
 func test_trashpile_is_dead_false():
 
  var trashpile_scene = load(TRASHPILE_SCENE)
  var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
  var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ var trashspawn_scene = load(TRASHSPAWN_SCENE)
  var trashpile = trashpile_scene.instantiate()
  var healthcomponent = healthcomponent_scene.instantiate()
  var hitboxcomponent = hitboxcomponent_scene.instantiate()
+ var trashspawn = trashspawn_scene.instantiate()
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
@@ -77,7 +86,7 @@ func test_trashpile_is_dead_false():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("TrashSpawn")
+ var TP_trashspawn = trashspawn
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -88,15 +97,18 @@ func test_trashpile_is_dead_false():
  trashpile.queue_free()
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
+ trashspawn.queue_free()
 
 func test_trashpile_object_destroyed():
 
  var trashpile_scene = load(TRASHPILE_SCENE)
  var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
  var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ var trashspawn_scene = load(TRASHSPAWN_SCENE)
  var trashpile = trashpile_scene.instantiate()
  var healthcomponent = healthcomponent_scene.instantiate()
  var hitboxcomponent = hitboxcomponent_scene.instantiate()
+ var trashspawn = trashspawn_scene.instantiate()
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
@@ -105,7 +117,7 @@ func test_trashpile_object_destroyed():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("TrashSpawn")
+ var TP_trashspawn = trashspawn
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -116,15 +128,18 @@ func test_trashpile_object_destroyed():
  trashpile.queue_free()
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
+ trashspawn.queue_free()
 
 func test_trashpile_spawn():
 
  var trashpile_scene = load(TRASHPILE_SCENE)
  var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
  var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ var trashspawn_scene = load(TRASHSPAWN_SCENE)
  var trashpile = trashpile_scene.instantiate()
  var healthcomponent = healthcomponent_scene.instantiate()
  var hitboxcomponent = hitboxcomponent_scene.instantiate()
+ var trashspawn = trashspawn_scene.instantiate()
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
@@ -133,7 +148,7 @@ func test_trashpile_spawn():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("TrashSpawn")
+ var TP_trashspawn = trashspawn
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -145,3 +160,4 @@ func test_trashpile_spawn():
  trashpile.queue_free()
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
+ trashspawn.queue_free()
