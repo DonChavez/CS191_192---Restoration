@@ -1,5 +1,8 @@
 extends Area2D
 
+# signals
+signal EATTRASH(Amount : float)
+
 # Other Nodes
 @onready var Player: CharacterBody2D = null  
 @onready var Inventory: InventoryObject = null
@@ -45,6 +48,9 @@ func _process(Delta: float) -> void:
 			match Item_type:
 				ItemType.TRASH:
 					Inventory.add_trash(Value)
+					EATTRASH.emit(1.0)
+					# emit float value to decrease the pollution level: 1.0
+					# emit signal to increase/decrease ung pollution level
 				ItemType.COIN:
 					Inventory.add_coin(Value)
 			print("ding")
@@ -84,4 +90,3 @@ func spawn_object_animation() -> void:
 		await get_tree().process_frame  # Wait for next frame
 	
 	$".".set_deferred("monitoring", true) 
-	

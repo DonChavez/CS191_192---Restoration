@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cynttmdekvtbs"]
+[gd_scene load_steps=6 format=3 uid="uid://dqi04l68m3ba3"]
 
 [ext_resource type="Script" path="res://Scenes/TrashCan.gd" id="1_cfj6m"]
-[ext_resource type="Texture2D" uid="uid://bayjfhnaanacw" path="res://Art/Objects/full_trash.png" id="1_fs55p"]
-[ext_resource type="PackedScene" uid="uid://bufrw41udi8dw" path="res://Scenes/TrashSpawner.tscn" id="3_ecso7"]
+[ext_resource type="Texture2D" uid="uid://bfa5bjvbt8bwy" path="res://Art/Objects/full_trash.png" id="1_fs55p"]
+[ext_resource type="PackedScene" path="res://Scenes/TrashSpawner.tscn" id="3_ecso7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl5c"]
 size = Vector2(147, 72)
