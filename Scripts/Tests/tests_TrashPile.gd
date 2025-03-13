@@ -22,7 +22,7 @@ func test_trashpile_ready():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("Node")
+ var TP_trashspawn = trashpile.get_node("TrashSpawn")
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -49,7 +49,7 @@ func test_trashpile_is_dead_true():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("Node")
+ var TP_trashspawn = trashpile.get_node("TrashSpawn")
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -77,7 +77,7 @@ func test_trashpile_is_dead_false():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("Node")
+ var TP_trashspawn = trashpile.get_node("TrashSpawn")
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -105,7 +105,7 @@ func test_trashpile_object_destroyed():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("Node")
+ var TP_trashspawn = trashpile.get_node("TrashSpawn")
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -133,7 +133,7 @@ func test_trashpile_spawn():
  trashpile.TP_hitbox = hitboxcomponent
 
  var TP_sprite = trashpile.get_node("Sprite2D")
- var TP_trashspawn = trashpile.get_node("Node")
+ var TP_trashspawn = trashpile.get_node("TrashSpawn")
 
  add_child(trashpile)
  await get_tree().process_frame  # Allow _ready() to execute
