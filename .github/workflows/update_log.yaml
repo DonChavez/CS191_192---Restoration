@@ -13,38 +13,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the target branch
+      - name: Checkout the main branch
         uses: actions/checkout@v3
         with:
           ref: reset
           fetch-depth: 0  
-
-      - name: Check for changes in "What's been added.txt"
-        id: changes_check
+      - name: Check for merge conflicts in "What's been added.txt"
+        id: conflict_check
         run: |
-          git fetch origin reset
-          if git diff --quiet origin/reset -- "Updates/What's been added.txt"; then
-            echo "CHANGES_DETECTED=false" >> $GITHUB_ENV
+          if git ls-files -u | grep "Updates/What's been added.txt"; then
+            echo "conflict=true" >> $GITHUB_ENV
           else
-            echo "CHANGES_DETECTED=true" >> $GITHUB_ENV
+            echo "conflict=false" >> $GITHUB_ENV
           fi
+      - name: Exit if no conflicts
+        if: env.conflict == 'false'
+        run: echo "No conflicts detected. Exiting..." && exit 0
 
       - name: Check if log file exists
-        if: env.CHANGES_DETECTED == 'true'
         run: |
-          mkdir -p Updates
           touch Updates/updates_log.txt  # Create if it doesn't exist
-
       - name: Append new updates to the log file
-        if: env.CHANGES_DETECTED == 'true'
         run: |
           export TZ=Asia/Manila
           echo "---- Update from latest push ($(date)) ----" >> Updates/updates_log.txt
           cat "Updates/What's been added.txt" >> Updates/updates_log.txt
           echo "" >> Updates/updates_log.txt  # Add newline for formatting
-
       - name: Commit and push changes
-        if: env.CHANGES_DETECTED == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
