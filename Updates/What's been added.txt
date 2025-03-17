@@ -1,5 +1,13 @@
-branch: reset_julian
-v0.0.9:
-	1. Created PollutionSystem scene
-	2. created EATTRASH signal for trash_small, trash_medium, and trees to emit signals for pollution system
-	3. connected pollution system to player scene
+branch: reset_sean
+v0.1.0:
+    1. New Global Scene (Transition) - it manages the loading screen being displayed during scene change
+    2. Draft of Forest Level
+    3. Added a new tileset
+    4. Added new trees
+    5. Added loading screens (level concept arts)
+    6. Modified the forest scene with a draft of the new assets
+    7. Added title screen
+    8. Added a new scene (HUD)
+    9. Implemented Frankie sprite
+    10. Organized the files and folders
+    11. HUD displays and syncs with player health and shield durability

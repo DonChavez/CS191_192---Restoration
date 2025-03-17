@@ -46,6 +46,7 @@ enabled=PackedStringArray("res://addons/gdUnit4/plugin.cfg")
 folder_colors={
 "res://Art/": "red",
 "res://Art/Characters/": "red",
+"res://Art/Draft/": "purple",
 "res://Art/Font/": "gray",
 "res://Art/Items/": "red",
 "res://Art/UI/": "orange",

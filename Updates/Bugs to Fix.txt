@@ -9,3 +9,9 @@ Trash Can Issue:
 
 Pollution Level Bug: 
 	PL does not reset after switching levels
+
+HUD Information:
+	HUD is still not integrated yet with the backend
+
+Player Sprite:
+	No sprites yet for the animation
