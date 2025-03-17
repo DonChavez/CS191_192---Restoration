@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://brm8k3e0qaxpp"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/RecyclerButton.gd" id="1_6ah26"]
-[ext_resource type="Texture2D" uid="uid://sgsb6wdgkb3x" path="res://Art/Tilesets/grid.png" id="1_w48fd"]
+[ext_resource type="Texture2D" uid="uid://04xasw7lp1rq" path="res://Art/Tilesets/grid.png" id="1_w48fd"]
 
 [node name="RecyclerButton" type="TextureButton"]
 texture_normal = ExtResource("1_w48fd")

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://Scripts/Enemies/EliteEnemy.gd" id="1_q18po"]
 [ext_resource type="Texture2D" uid="uid://cdd61gcetfh44" path="res://Art/Characters/EliteEnemy/DragonDeath.png" id="2_f7wkg"]
-[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_3x10y"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/HealthComponent.tscn" id="3_3x10y"]
 [ext_resource type="Texture2D" uid="uid://cm3gvpx421e35" path="res://Art/Characters/EliteEnemy/DragonIdle.png" id="3_ksokq"]
 [ext_resource type="Texture2D" uid="uid://5ne4yjf7n2tl" path="res://Art/Characters/EliteEnemy/DragonWalk.png" id="4_a4cw3"]
-[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_2kw33"]
-[ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_0wwcd"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/HitboxComponent.tscn" id="5_2kw33"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_0wwcd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3f8uv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p21ad"]

@@ -11,23 +11,24 @@ config_version=5
 [application]
 
 config/name="Restoration Reset"
-run/main_scene="res://Scenes/Menu.tscn"
+run/main_scene="res://Scenes/UI/Menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+config/windows_native_icon="res://icon.ico"
 
 [autoload]
 
 LevelManager="*res://Globals/LevelManager.gd"
 PlayerManager="*res://Globals/PlayerManager.gd"
+Transition="*res://Globals/Transition.tscn"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=2
+window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/stretch/scale_mode="integer"
 window/physics_jitter_fix=0.0
 window/physics_interpolation=true
 

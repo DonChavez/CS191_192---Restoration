@@ -1,8 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://cxhbqksvqm0to"]
 
-[ext_resource type="Script" path="res://Scripts/PollutionSystem.gd" id="1_ft87q"]
+[ext_resource type="Script" path="res://Scripts/Pollution/PollutionSystem.gd" id="1_ft87q"]
 
-[node name="PollutionSystem" type="Node2D"]
+[node name="PollutionSystem" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_ft87q")
 
 [node name="PollutionLevel" type="ProgressBar" parent="."]

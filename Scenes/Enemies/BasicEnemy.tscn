@@ -1,10 +1,10 @@
 [gd_scene load_steps=25 format=3 uid="uid://dsucn6yegovhr"]
 
-[ext_resource type="Texture2D" uid="uid://cd744cipl537i" path="res://Art/Characters/slime.png" id="1_imy10"]
+[ext_resource type="Texture2D" uid="uid://c4ojhkc1fjkoj" path="res://Art/Characters/slime.png" id="1_imy10"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_y1unw"]
-[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_37op7"]
-[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_15032"]
-[ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="4_827q7"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/HealthComponent.tscn" id="2_37op7"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/HitboxComponent.tscn" id="3_15032"]
+[ext_resource type="PackedScene" path="res://Scenes/Components/HurtboxComponent.tscn" id="4_827q7"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="7_l4m78"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68bnb"]
