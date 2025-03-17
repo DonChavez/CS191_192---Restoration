@@ -1,10 +1,10 @@
 [gd_scene load_steps=22 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
-[ext_resource type="Texture2D" uid="uid://b7tf8elcrc7ce" path="res://Art/Characters/slime_green.png" id="2_2mu7m"]
-[ext_resource type="PackedScene" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
-[ext_resource type="PackedScene" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
-[ext_resource type="PackedScene" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
+[ext_resource type="Texture2D" uid="uid://u57isqd80tjo" path="res://Art/Characters/slime_green.png" id="2_2mu7m"]
+[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
+[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
+[ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_xthu2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjghk"]

@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=4 uid="uid://b0yvr61bobpcv"]
 
-[ext_resource type="Texture2D" uid="uid://rmf4rh1dh87l" path="res://Art/Tilesets/grass.png" id="1_7rn22"]
+[ext_resource type="Texture2D" uid="uid://kmyxtgchhfnb" path="res://Art/Tilesets/grass.png" id="1_7rn22"]
 [ext_resource type="PackedScene" uid="uid://btpotfo7v6c50" path="res://Scenes/Enemies/TowerEnemy.tscn" id="1_atxfv"]
-[ext_resource type="Texture2D" uid="uid://bdwdda3e0l3b2" path="res://Art/Tilesets/plains.png" id="2_rwe76"]
-[ext_resource type="Texture2D" uid="uid://bxitnryn17ppe" path="res://Art/Tilesets/fences.png" id="3_xpnao"]
-[ext_resource type="Texture2D" uid="uid://76uokpijfnft" path="res://Art/Objects/objects.png" id="4_ungxe"]
+[ext_resource type="Texture2D" uid="uid://b4rvbxk362tk8" path="res://Art/Tilesets/plains.png" id="2_rwe76"]
+[ext_resource type="Texture2D" uid="uid://d0k1acxohasuf" path="res://Art/Tilesets/fences.png" id="3_xpnao"]
+[ext_resource type="Texture2D" uid="uid://brwdfgioyx1pg" path="res://Art/Objects/objects.png" id="4_ungxe"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="6_p32p5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q4ujk"]

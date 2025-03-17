@@ -48,8 +48,6 @@ func _start_level_load_direct(New_level_path: String) -> void:
 	# Emit completion signal
 	load_complete.emit()
 
-
-
 func change_level(New_level_path: String) -> void:
 	if not New_level_path:
 		push_error("New level path is invalid!")

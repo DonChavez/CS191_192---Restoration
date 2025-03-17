@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://dd3fv2rspunln"]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/Trees.gd" id="1_v1knk"]
+[ext_resource type="Texture2D" uid="uid://dson8dhbhjei3" path="res://Art/Objects/Tree.png" id="2_le0mh"]
+[ext_resource type="Texture2D" uid="uid://bqmk676pgqx76" path="res://Art/Objects/Area.png" id="3_v2qep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl5c"]
+size = Vector2(61.1373, 149.99)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovd2q"]
+size = Vector2(170, 101.853)
+
+[node name="Trees" type="StaticBody2D" groups=["PollutionReduction"]]
+position = Vector2(-3, 0)
+scale = Vector2(0.261706, 0.261706)
+collision_layer = 9
+collision_mask = 2
+script = ExtResource("1_v1knk")
+
+[node name="TreeSprite" type="Sprite2D" parent="."]
+position = Vector2(7.64216, -118.454)
+scale = Vector2(0.0549948, 0.0549948)
+texture = ExtResource("2_le0mh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(11.4632, -31.9952)
+shape = SubResource("RectangleShape2D_cfl5c")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="InteractCollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(7.64216, 26.7476)
+shape = SubResource("RectangleShape2D_ovd2q")
+
+[node name="InteractLabel" type="Label" parent="."]
+offset_left = 45.853
+offset_top = -95.5271
+offset_right = 85.853
+offset_bottom = -72.5271
+scale = Vector2(2.43756, 2.43756)
+text = "F"
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(150, 0)
+offset_left = -64.9584
+offset_top = 91.706
+offset_right = 85.0416
+offset_bottom = 118.706
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="CleaningTimer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="AreaSprite" type="Sprite2D" parent="."]
+position = Vector2(8.50001, 28.6581)
+scale = Vector2(2.27293, 1.51719)
+texture = ExtResource("3_v2qep")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="CleaningTimer" to="." method="_update_planting_progress"]

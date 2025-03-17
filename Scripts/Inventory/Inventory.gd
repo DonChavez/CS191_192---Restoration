@@ -41,8 +41,7 @@ func add_trash(Amount: int):
 #-----for item methods-----#
 # Reset the status of an Inventory Slot and Selected
 func _reset_item_slot(Slot: int) -> void:
-	if Slot >= 0 and Slot < Inventory_slot_num:
-		Inventory_slots[Slot].reset()
+	Inventory_slots[Slot].reset()
 	Selected = -1
 
 # Get item from inventory array

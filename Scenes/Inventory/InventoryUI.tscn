@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://g0r5rj82grxe"]
 
 [ext_resource type="Script" path="res://Scripts/Inventory/InventoryUI.gd" id="1_fba0f"]
-[ext_resource type="Texture2D" uid="uid://r3egjg1awgeq" path="res://Art/Objects/trashbag.png" id="2_0cl4u"]
-[ext_resource type="Texture2D" uid="uid://coopx7nh4v6bp" path="res://Art/Objects/coin_pouch.png" id="3_287fq"]
+[ext_resource type="Texture2D" uid="uid://cgdd0fkhu6fny" path="res://Art/Objects/trashbag.png" id="2_0cl4u"]
+[ext_resource type="Texture2D" uid="uid://c0qot41quc24k" path="res://Art/Objects/coin_pouch.png" id="3_287fq"]
 [ext_resource type="PackedScene" uid="uid://c1c8vyfyanpjj" path="res://Scenes/Inventory/ItemSlot.tscn" id="4_cr87f"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rod21"]

@@ -1,13 +1,13 @@
 [gd_scene load_steps=34 format=4 uid="uid://cvpx21a28kpv3"]
 
-[ext_resource type="Texture2D" uid="uid://rmf4rh1dh87l" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
-[ext_resource type="Texture2D" uid="uid://c3jqvdyfuxjx7" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
-[ext_resource type="Texture2D" uid="uid://bxitnryn17ppe" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
-[ext_resource type="Texture2D" uid="uid://76uokpijfnft" path="res://Art/Objects/objects.png" id="4_yr3pd"]
+[ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
+[ext_resource type="Texture2D" uid="uid://l322ln6jdp8y" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
+[ext_resource type="Texture2D" uid="uid://ffhr1g6vo61q" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
+[ext_resource type="Texture2D" uid="uid://dcygb7neoi3oe" path="res://Art/Objects/objects.png" id="4_yr3pd"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="5_14g4i"]
-[ext_resource type="Script" path="res://Scripts/Interactables/NPC.gd" id="6_eabib"]
-[ext_resource type="Texture2D" uid="uid://ccrxd0kij7qrl" path="res://Art/Characters/player.png" id="6_q5b2d"]
-[ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/Interactables/Dialogue.tscn" id="8_qap6j"]
+[ext_resource type="Script" path="res://Scripts/Components/NPC.gd" id="6_eabib"]
+[ext_resource type="Texture2D" uid="uid://7ovpvlqrfm7a" path="res://Art/Characters/player.png" id="6_q5b2d"]
+[ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/UI/Dialogue.tscn" id="8_qap6j"]
 [ext_resource type="PackedScene" uid="uid://bfkok3exx7cq4" path="res://Scenes/Interactables/Coin.tscn" id="9_h28lj"]
 [ext_resource type="PackedScene" uid="uid://dqitanht6fg3n" path="res://Scenes/Interactables/TrashPile.tscn" id="10_6erel"]
 [ext_resource type="PackedScene" uid="uid://4ljjh7bbnlts" path="res://Scenes/Interactables/TrashSmall.tscn" id="11_pu62g"]
@@ -366,7 +366,6 @@ position = Vector2(557, 347)
 
 [node name="PortalToNext" parent="." instance=ExtResource("5_14g4i")]
 position = Vector2(457, 348)
-Target_level_path = "res://tenet.tscn"
 
 [node name="Label2" type="Label" parent="PortalToNext"]
 offset_left = -10.0
@@ -391,17 +390,17 @@ text = "base"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PortalToBase2" parent="." instance=ExtResource("5_14g4i")]
-position = Vector2(538, 465)
+[node name="PortalToForest" parent="." instance=ExtResource("5_14g4i")]
+position = Vector2(537, 434)
 Target_level_path = "res://Scenes/Levels/Forest.tscn"
 
-[node name="Label2" type="Label" parent="PortalToBase2"]
-offset_left = -10.0
+[node name="Label2" type="Label" parent="PortalToForest"]
+offset_left = -14.0
 offset_top = 13.0
-offset_right = 30.0
-offset_bottom = 32.0
+offset_right = 45.0
+offset_bottom = 36.0
 scale = Vector2(0.5, 0.5)
-text = "forest"
+text = "FOREST"
 horizontal_alignment = 1
 vertical_alignment = 1
 

@@ -1,5 +1,5 @@
 branch: reset_julian
 v0.0.9:
-	1. created PollutionSystem scene
+	1. Created PollutionSystem scene
 	2. created EATTRASH signal for trash_small, trash_medium, and trees to emit signals for pollution system
 	3. connected pollution system to player scene

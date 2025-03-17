@@ -18,4 +18,4 @@ func test_simulate_frames(timeout = 5000) -> void:
  #assert_object(box1.color).is_equal(Color.BLACK)
 
  # Simulate scene processing over 60 frames at normal speed
- #await runner.simulate_frames(3000)
+ await runner.simulate_frames(3000)
