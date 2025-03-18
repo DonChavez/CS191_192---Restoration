@@ -1,0 +1,488 @@
+[gd_scene load_steps=24 format=3 uid="uid://dybc7khnwy044"]
+
+[ext_resource type="Texture2D" uid="uid://cohgu3apanof7" path="res://Art/UI/icon_bg.png" id="2_u5r28"]
+[ext_resource type="FontFile" uid="uid://bwlr8ymoai0gi" path="res://Art/Font/Roboto-Regular.ttf" id="3_5hyxa"]
+[ext_resource type="Texture2D" uid="uid://d2taqcvowr32g" path="res://Art/UI/border.png" id="3_sip7q"]
+[ext_resource type="FontFile" uid="uid://dspxi5m2ck58b" path="res://Art/Font/Economica-Regular.ttf" id="5_pwk0g"]
+[ext_resource type="Texture2D" uid="uid://b4g6lcko0jev7" path="res://Art/Draft/weapons.png" id="6_3mvd7"]
+[ext_resource type="Texture2D" uid="uid://bawwh312mh7yd" path="res://Art/UI/medium-border.png" id="6_i42w1"]
+[ext_resource type="FontFile" uid="uid://cmwlpv802466h" path="res://Art/Font/Economica-Bold.ttf" id="7_b770i"]
+[ext_resource type="Texture2D" uid="uid://ctyp5g3s2xfpx" path="res://Art/UI/trash-icon.png" id="8_lld73"]
+[ext_resource type="Texture2D" uid="uid://ceu1x23sae3vb" path="res://Art/UI/big-border.png" id="9_4n5uk"]
+[ext_resource type="Texture2D" uid="uid://dtkp1umh7o8nx" path="res://Art/UI/objectives-icon.png" id="10_f0vor"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyhw2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msn0e"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tu524"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyr0a"]
+bg_color = Color(0.917647, 0.309804, 0.32549, 1)
+
+[sub_resource type="Theme" id="Theme_tyk6s"]
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 0
+ProgressBar/font_sizes/font_size = 16
+ProgressBar/fonts/font = ExtResource("3_5hyxa")
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_tu524")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_uyr0a")
+
+[sub_resource type="FontVariation" id="FontVariation_fpxtu"]
+base_font = ExtResource("5_pwk0g")
+spacing_glyph = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_paak6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wv6h"]
+bg_color = Color(0.211765, 0.666667, 0.807843, 1)
+
+[sub_resource type="Theme" id="Theme_bnbrt"]
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 0
+ProgressBar/font_sizes/font_size = 16
+ProgressBar/fonts/font = ExtResource("3_5hyxa")
+ProgressBar/styles/background = SubResource("StyleBoxEmpty_paak6")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_8wv6h")
+
+[sub_resource type="FontVariation" id="FontVariation_jsy21"]
+base_font = ExtResource("7_b770i")
+spacing_glyph = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f42uy"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.254902, 0.239216, 0.239216, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y845r"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0.74902, 0.388235, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
+[sub_resource type="Theme" id="Theme_n3i6l"]
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 1)
+ProgressBar/colors/font_outline_color = Color(0, 0, 0, 1)
+ProgressBar/constants/outline_size = 0
+ProgressBar/font_sizes/font_size = 16
+ProgressBar/fonts/font = ExtResource("3_5hyxa")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_f42uy")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_y845r")
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1280.0
+offset_bottom = -720.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PlayerInfo" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 113.0
+offset_top = 321.0
+offset_right = 113.0
+offset_bottom = 321.0
+grow_vertical = 0
+scale = Vector2(0.498089, 0.498089)
+pivot_offset = Vector2(-92, 384)
+
+[node name="Icon" type="TextureRect" parent="PlayerInfo"]
+layout_mode = 2
+offset_left = -92.0
+offset_top = 222.0
+offset_right = 508.0
+offset_bottom = 822.0
+scale = Vector2(0.26991, 0.26991)
+texture = ExtResource("2_u5r28")
+
+[node name="Backgorund" type="ColorRect" parent="PlayerInfo"]
+z_index = -1
+layout_mode = 0
+offset_left = 92.0
+offset_top = 249.0
+offset_right = 719.0
+offset_bottom = 294.0
+color = Color(0.396078, 0.254902, 0.258824, 1)
+
+[node name="DamageBar" type="ProgressBar" parent="PlayerInfo"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 91.0
+offset_top = 249.0
+offset_right = 719.0
+offset_bottom = 294.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_vyhw2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_msn0e")
+value = 80.0
+show_percentage = false
+
+[node name="Health" type="ProgressBar" parent="PlayerInfo"]
+layout_mode = 2
+offset_left = 91.0
+offset_top = 249.0
+offset_right = 719.0
+offset_bottom = 294.0
+theme = SubResource("Theme_tyk6s")
+value = 30.0
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="PlayerInfo/Health"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = -3.0
+offset_right = 632.0
+offset_bottom = 48.0
+texture = ExtResource("3_sip7q")
+
+[node name="CenterContainer" type="CenterContainer" parent="PlayerInfo/Health"]
+layout_direction = 1
+layout_mode = 0
+offset_left = -4.0
+offset_top = -3.0
+offset_right = 727.0
+offset_bottom = 45.0
+
+[node name="HealthLabel" type="RichTextLabel" parent="PlayerInfo/Health/CenterContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_fonts/normal_font = SubResource("FontVariation_fpxtu")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]100 / 100	[/center]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Backgorund2" type="ColorRect" parent="PlayerInfo"]
+z_index = -1
+layout_mode = 0
+offset_left = 91.0
+offset_top = 311.0
+offset_right = 781.0
+offset_bottom = 357.0
+color = Color(0.247059, 0.32549, 0.352941, 1)
+
+[node name="ShieldDamageBar" type="ProgressBar" parent="PlayerInfo"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 95.0
+offset_top = 313.0
+offset_right = 723.0
+offset_bottom = 358.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxEmpty_vyhw2")
+theme_override_styles/fill = SubResource("StyleBoxFlat_msn0e")
+value = 80.0
+show_percentage = false
+
+[node name="ShieldDurability" type="ProgressBar" parent="PlayerInfo"]
+layout_mode = 2
+offset_left = 91.0
+offset_top = 312.0
+offset_right = 780.0
+offset_bottom = 356.0
+theme = SubResource("Theme_bnbrt")
+value = 50.0
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="PlayerInfo/ShieldDurability"]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -4.0
+offset_right = 694.0
+offset_bottom = 47.0
+texture = ExtResource("3_sip7q")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerInfo"]
+position = Vector2(-7, 308)
+rotation = -2.70931
+scale = Vector2(9.04167, 9.04167)
+texture = ExtResource("6_3mvd7")
+hframes = 13
+vframes = 8
+frame = 14
+
+[node name="ColorRect" type="ColorRect" parent="PlayerInfo"]
+layout_mode = 0
+offset_left = -134.0
+offset_top = 160.0
+offset_right = 81.0
+offset_bottom = 206.0
+
+[node name="Label" type="Label" parent="PlayerInfo"]
+layout_mode = 0
+offset_left = -47.8312
+offset_top = 161.148
+offset_right = 127.169
+offset_bottom = 242.148
+scale = Vector2(0.5, 0.5)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("7_b770i")
+theme_override_font_sizes/font_size = 70
+text = "Melee"
+
+[node name="Inventory" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 852.0
+offset_top = 586.0
+offset_right = 852.0
+offset_bottom = 586.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="Inventory"]
+layout_mode = 2
+offset_right = 428.0
+offset_bottom = 135.0
+color = Color(0.254902, 0.239216, 0.239216, 0.498039)
+
+[node name="Top" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
+theme_override_constants/margin_left = 63
+theme_override_constants/margin_top = 62
+
+[node name="Header" type="HBoxContainer" parent="Top"]
+layout_mode = 2
+theme_override_constants/separation = 628
+
+[node name="Control" type="Control" parent="Top/Header"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Top/Header/Control"]
+layout_mode = 2
+offset_left = -1.0
+offset_right = 191.0
+offset_bottom = 161.0
+size_flags_vertical = 0
+theme_override_constants/separation = 119
+
+[node name="Trash" type="Control" parent="Top/Header/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Top/Header/Control/VBoxContainer/Trash"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 3.0
+offset_right = 494.0
+offset_bottom = 91.0
+color = Color(0.523907, 0.509526, 0.509522, 1)
+
+[node name="Border" type="TextureRect" parent="Top/Header/Control/VBoxContainer/Trash"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 498.0
+offset_bottom = 96.0
+texture = ExtResource("6_i42w1")
+
+[node name="TrashParts" type="Label" parent="Top/Header/Control/VBoxContainer/Trash"]
+layout_mode = 2
+offset_left = 96.0
+offset_top = 10.0
+offset_right = 460.0
+offset_bottom = 79.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 0.831373)
+theme_override_constants/shadow_offset_x = 5
+theme_override_fonts/font = ExtResource("7_b770i")
+theme_override_font_sizes/font_size = 60
+text = "911"
+horizontal_alignment = 2
+autowrap_mode = 2
+
+[node name="TrashIcon" type="TextureRect" parent="Top/Header/Control/VBoxContainer/Trash"]
+layout_mode = 2
+offset_left = 37.0
+offset_top = 18.0
+offset_right = 139.0
+offset_bottom = 158.0
+scale = Vector2(0.415, 0.415)
+texture = ExtResource("8_lld73")
+stretch_mode = 2
+
+[node name="Control" type="Control" parent="Top/Header/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="Top/Header/Control/VBoxContainer/Control"]
+layout_mode = 0
+offset_right = 496.0
+offset_bottom = 253.0
+color = Color(0.352941, 0.341176, 0.341176, 0.380392)
+
+[node name="MarginContainer" type="MarginContainer" parent="Top/Header/Control/VBoxContainer/Control"]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 192.0
+offset_bottom = 43.0
+theme_override_constants/margin_left = 31
+theme_override_constants/margin_top = 20
+
+[node name="Objectives" type="VBoxContainer" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Label" type="Label" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.443137, 0.027451, 0.027451, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 0
+theme_override_fonts/font = ExtResource("7_b770i")
+theme_override_font_sizes/font_size = 60
+text = "Objectives"
+
+[node name="Control" type="Control" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control"]
+layout_mode = 0
+offset_left = 3.0
+offset_right = 425.0
+offset_bottom = 144.0
+theme_override_constants/separation = 17
+
+[node name="MarginContainer" type="MarginContainer" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 7
+
+[node name="TextureRect" type="TextureRect" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture = ExtResource("10_f0vor")
+stretch_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control/HBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_fonts/font = SubResource("FontVariation_jsy21")
+theme_override_font_sizes/font_size = 50
+text = "Detroy The End of the World"
+autowrap_mode = 2
+
+[node name="PollutionLevel" type="Control" parent="Top/Header"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="Top/Header/PollutionLevel"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 1177.0
+offset_bottom = 91.0
+theme = SubResource("Theme_n3i6l")
+value = 50.0
+show_percentage = false
+
+[node name="TextureRect" type="TextureRect" parent="Top/Header/PollutionLevel"]
+layout_mode = 0
+offset_right = 1180.0
+offset_bottom = 94.0
+texture = ExtResource("9_4n5uk")
+
+[node name="CenterContainer" type="CenterContainer" parent="Top/Header/PollutionLevel"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1178.0
+offset_bottom = 93.0
+
+[node name="Label" type="Label" parent="Top/Header/PollutionLevel/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_b770i")
+theme_override_font_sizes/font_size = 50
+text = "Pollution Level"
+
+[node name="Timer" type="Control" parent="Top/Header"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect" type="ColorRect" parent="Top/Header/Timer"]
+layout_mode = 0
+offset_left = 686.0
+offset_top = 3.0
+offset_right = 1179.0
+offset_bottom = 91.0
+color = Color(0.352941, 0.341176, 0.341176, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Top/Header/Timer"]
+layout_mode = 0
+offset_left = 683.0
+offset_top = -1.0
+offset_right = 1182.0
+offset_bottom = 96.0
+texture = ExtResource("6_i42w1")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Top/Header/Timer"]
+layout_mode = 0
+offset_left = 720.0
+offset_top = 10.0
+offset_right = 1147.0
+offset_bottom = 79.0
+
+[node name="LevelName" type="Label" parent="Top/Header/Timer/HBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 0.831373)
+theme_override_constants/shadow_offset_x = 5
+theme_override_fonts/font = ExtResource("7_b770i")
+theme_override_font_sizes/font_size = 50
+text = "The Forest"
+
+[node name="Time" type="Label" parent="Top/Header/Timer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 0.831373)
+theme_override_constants/shadow_offset_x = 5
+theme_override_fonts/font = ExtResource("7_b770i")
+theme_override_font_sizes/font_size = 50
+text = "09:11"
+horizontal_alignment = 2

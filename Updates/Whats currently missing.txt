@@ -20,3 +20,12 @@ Testings:
 
 Dialogue Manager:
 	Needs to handle mutiple dialogues
+
+UI for title screen/game over/level name screen:
+	Need assets
+
+Audio:
+	Game still has no sounds
+
+Title Screen:
+	New game and continue implementation

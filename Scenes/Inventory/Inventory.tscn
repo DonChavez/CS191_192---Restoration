@@ -1,10 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8kph1r1jhejt"]
+[gd_scene load_steps=12 format=3 uid="uid://b8kph1r1jhejt"]
 
 [ext_resource type="Script" path="res://Scripts/Inventory/Inventory.gd" id="1_j5x7l"]
 [ext_resource type="Script" path="res://Scripts/Inventory/InventoryUI.gd" id="1_lloe7"]
-[ext_resource type="Texture2D" uid="uid://b0owony2siucp" path="res://Art/Objects/trashbag.png" id="3_obxsk"]
-[ext_resource type="Texture2D" uid="uid://7idg5jmo6h2a" path="res://Art/Objects/coin_pouch.png" id="4_fqtxd"]
+[ext_resource type="Texture2D" uid="uid://bxx1fnbelg0lt" path="res://Art/Objects/trashbag.png" id="3_obxsk"]
+[ext_resource type="Texture2D" uid="uid://dem8ysio7k10h" path="res://Art/Objects/coin_pouch.png" id="4_fqtxd"]
 [ext_resource type="PackedScene" uid="uid://c1c8vyfyanpjj" path="res://Scenes/Inventory/ItemSlot.tscn" id="5_cpe76"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eg0yy"]
+bg_color = Color(0.6, 0.6, 0.6, 0.596078)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rod21"]
 
@@ -43,6 +46,7 @@ script = ExtResource("1_lloe7")
 layout_mode = 0
 offset_right = 400.0
 offset_bottom = 235.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eg0yy")
 
 [node name="DropButton" type="Button" parent="InventoryUI/InventoryPanel"]
 layout_mode = 0

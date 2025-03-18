@@ -13,13 +13,40 @@ func start_game() -> void:
 	if not Starting_level:
 		push_error("Start level path is invalid!")
 		return
+	
+	# Load the first level immediately without a transition
+	_start_level_load_direct(Starting_level)
 
-	# Ensure the player is properly spawned
+func _start_level_load_direct(New_level_path: String) -> void:
+	# Ensure the path is valid
+	if not ResourceLoader.exists(New_level_path):
+		push_error("Invalid level path: %s" % New_level_path)
+		return
+
+	# Remove the old scene before loading the new one
+	var Old_scene = get_tree().current_scene
+	if Old_scene and Old_scene != get_tree().root:
+		Old_scene.queue_free()
+
+	# Load and instantiate the new scene
+	var new_scene = load(New_level_path).instantiate()
+	get_tree().root.add_child(new_scene)
+	get_tree().current_scene = new_scene
+
+	# Spawn the player after the new scene is loaded
 	if PlayerManager:
 		PlayerManager.spawn_player()
+		if not PlayerManager.Player_died.is_connected(_on_player_died):
+				PlayerManager.Player_died.connect(_on_player_died)
+	else:
+		push_error("PlayerManager is not found!")
+
+	# Reset loading state
+	_Loading_in_progress = false
+	_New_scene_path = ""
 	
-	# Change the level after spawning the player
-	change_level(Starting_level)
+	# Emit completion signal
+	load_complete.emit()
 
 func change_level(New_level_path: String) -> void:
 	if not New_level_path:
@@ -34,23 +61,31 @@ func change_level(New_level_path: String) -> void:
 	_Loading_in_progress = true
 	_New_scene_path = New_level_path
 	
+	# Start the transition effect before loading
+	if Transition:
+		Transition.play_transition(Callable(self, "_start_level_load"))
+	else:
+		_start_level_load()
+	
+	PlayerManager.disable_player()
+
+
+func _start_level_load() -> void:
 	# Remove the player from the current scene before switching
 	if PlayerManager and PlayerManager.Player_instance:
 		if PlayerManager.Player_instance.is_inside_tree():
 			PlayerManager.Player_instance.get_parent().remove_child(PlayerManager.Player_instance)
 			print("Player removed from scene tree")
-	
-	# emit load_start for transition in the future
-	load_start.emit()
-	
-	# load the new scene using ResourceLoader
-	var loader = ResourceLoader.load_threaded_request(New_level_path)
-	if not ResourceLoader.exists(New_level_path) or loader == null:
-		push_error("Invalid level path: %s" % New_level_path)
+			
+	var loader = ResourceLoader.load_threaded_request(_New_scene_path)
+	if not ResourceLoader.exists(_New_scene_path) or loader == null:
+		push_error("Invalid level path: %s" % _New_scene_path)
 		_Loading_in_progress = false
 		return
 	
-	# monitor the load status every 0.1 seconds
+	PlayerManager.enable_player()
+	
+	# Monitor the load status every 0.1 seconds
 	var Load_progress_timer = Timer.new()
 	Load_progress_timer.wait_time = 0.1
 	Load_progress_timer.timeout.connect(_monitor_load_status.bind(Load_progress_timer))
@@ -109,3 +144,19 @@ func _on_level_loaded(New_scene: Node) -> void:
 	
 	# future use for transitions
 	load_complete.emit()
+	
+func _on_player_died():
+	print("Player has died! Triggering game over screen...")
+
+	# Check if GameOverScreen already exists in the scene
+	var existing_game_over_screen = get_tree().current_scene.get_node_or_null("GameOverScreen")
+	if existing_game_over_screen:
+		existing_game_over_screen.show()
+		return
+
+	# If not, create and add it
+	var game_over_screen = preload("res://Scenes/UI/GameOverScreen.tscn").instantiate()
+	game_over_screen.name = "GameOverScreen"  # Ensure a consistent name
+	get_tree().current_scene.add_child(game_over_screen)  # Add to scene tree
+	game_over_screen.show()
+	

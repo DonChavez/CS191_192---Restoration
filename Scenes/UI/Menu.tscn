@@ -1,0 +1,85 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg5g6b3cie2qj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/StartButton.gd" id="1_7sdnx"]
+[ext_resource type="Texture2D" uid="uid://dwi5q7uifm46h" path="res://Art/Draft/title-screen.png" id="2_hplbn"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_7sdnx")
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 2540.0
+offset_bottom = 1580.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hplbn")
+stretch_mode = 3
+
+[node name="Continue" type="Button" parent="Menu"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 553.0
+offset_top = 285.0
+offset_right = 713.0
+offset_bottom = 329.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Start"
+
+[node name="New Game" type="Button" parent="Menu"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 553.0
+offset_top = 332.0
+offset_right = 713.0
+offset_bottom = 376.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Start"
+
+[node name="Exit" type="Button" parent="Menu"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 583.0
+offset_top = 382.0
+offset_right = 683.0
+offset_bottom = 426.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Start"
+
+[connection signal="pressed" from="Menu/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Menu/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Menu/Exit" to="." method="_on_exit_pressed"]

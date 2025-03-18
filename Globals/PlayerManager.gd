@@ -1,5 +1,7 @@
 extends Node
 
+signal Player_died
+
 var Player_scene_path: String = "res://Scenes/Player/Player.tscn"
 var Player_instance: Node = null  # the player instance
 
@@ -10,6 +12,12 @@ func spawn_player() -> void:
 		if Player_scene:
 			Player_instance = Player_scene.instantiate()
 			get_tree().current_scene.add_child(Player_instance)
+			
+			var health_component = Player_instance.get_node_or_null("PlayerHealth")
+			if health_component and health_component.has_signal("died"):
+				health_component.died.connect(_on_player_died)
+			else:
+				push_error("HealthComponent is missing or has no 'died' signal!")
 		else:
 			push_error("Player scene could not be loaded.")
 
@@ -48,3 +56,39 @@ func disable_player_movement() -> void:
 	
 func enable_player_movement() -> void:
 	Player_instance.Can_process_input = false
+	
+func disable_player() -> void:
+	if Player_instance:
+		Player_instance.set_physics_process(false)
+		disable_player_collisions()
+		
+		# Disable the HUD
+		var hud = Player_instance.get_node_or_null("UI Wrapper")
+		if hud:
+			hud.visible = false
+
+func enable_player() -> void:
+	if Player_instance:
+		Player_instance.set_physics_process(true)
+		enable_player_collisions()
+
+		# Enable the HUD
+		var hud = Player_instance.get_node_or_null("UI Wrapper")
+		if hud:
+			hud.visible = true
+	
+func disable_player_collisions() -> void:
+	if Player_instance:
+		for child in Player_instance.get_children():
+			if child is CollisionShape2D:
+				child.set_deferred("disabled", true)
+	
+func enable_player_collisions() -> void:
+	if Player_instance:
+		for child in Player_instance.get_children():
+			if child is CollisionShape2D:
+				child.set_deferred("disabled", false)
+
+func _on_player_died() -> void:
+	Player_died.emit()
+	Player_instance = null  # Clear reference to prevent errors
