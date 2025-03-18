@@ -33,7 +33,7 @@ var sfx_files: Array = []
 
 # Miscellenaous Variables
 @onready var Main = null
-@onready var Inventory: InventoryObject = $Inventory
+@onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
 
 #-----local variables-----#
 # input/direction variables
@@ -373,7 +373,6 @@ func _on_player_health_died() -> void:
 	
 	# delay before queue free
 	await get_tree().create_timer(0.5).timeout
-	queue_free()
 	
 func _on_player_health_damage_taken(_Amount: float) -> void:
 	var original_color = modulate  # Store the original color

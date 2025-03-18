@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 # class_name allows us to inherit functions/values in to or from other nodes
 class_name InventoryObject
 
@@ -6,7 +6,7 @@ class_name InventoryObject
 @onready var Inventory_ui = $InventoryUI
 @onready var Inventory_slots = $InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid.get_children() # Slots
 @onready var Inventory_slot_num: int = Inventory_slots.size() # number of slots
-@onready var Player: CharacterBody2D = get_parent()
+@onready var Player: CharacterBody2D = get_parent().get_parent()
 
 # Inventory Configuration
 @onready var Items: Array = []
