@@ -23,11 +23,13 @@ VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_323wq")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_cdjiu")
 VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_ch8b6")
 
-[node name="Inventory" type="CanvasLayer"]
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_j5x7l")
 
 [node name="InventoryUI" type="Control" parent="."]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

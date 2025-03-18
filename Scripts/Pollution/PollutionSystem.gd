@@ -1,6 +1,8 @@
-extends Node
+extends Control
 
 @onready var PollutionLevel: ProgressBar = $PollutionLevel
+
+signal pollution_updated(value: float)
 
 var Max_pollution : float = 100.0
 var Current_pollution : float = 0.0
@@ -11,10 +13,6 @@ func _ready():
 	# current pollution value
 	Current_pollution = Max_pollution
 	PollutionLevel.value = Current_pollution
-	# progressbar color
-	var style_box := StyleBoxFlat.new()
-	style_box.bg_color = Color(0, 1, 0)  # Red color
-	PollutionLevel.add_theme_stylebox_override("fill", style_box)
 	
 	# Connect to the scene tree's node_added signal to detect new trash
 	get_tree().connect("node_added", Callable(self, "_on_node_added"))
@@ -36,5 +34,5 @@ func _on_node_added(node):
 func _on_trash_affected(amount: int):
 	Current_pollution -= amount
 	PollutionLevel.value = Current_pollution
-	print("Pollution level changed by ", amount, ". New level: ", pollution_level)
-	# Add your logic here (e.g., update UI, trigger events if pollution is too high)
+	emit_signal("pollution_updated", Current_pollution)  # Emit pollution change
+	print("Pollution level changed by ", amount, ". New level: ", Current_pollution)

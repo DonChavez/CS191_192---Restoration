@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://b6us2qurr7wx7"]
+[gd_scene load_steps=101 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Texture2D" uid="uid://7ovpvlqrfm7a" path="res://Art/Characters/player.png" id="1_10uo1"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_fmgx4"]
@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
 [ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="8_5onck"]
-[ext_resource type="Script" path="res://Scripts/UI/HUD.gd" id="9_cx5j8"]
-[ext_resource type="PackedScene" uid="uid://cxhbqksvqm0to" path="res://Scenes/Pollution/PollutionSystem.tscn" id="9_s2vsi"]
+[ext_resource type="Script" path="res://Scripts/UI/UIWrapper.gd" id="9_48qhq"]
 [ext_resource type="PackedScene" uid="uid://dybc7khnwy044" path="res://Scenes/UI/HUD.tscn" id="10_kcxfu"]
+[ext_resource type="PackedScene" uid="uid://dpdisv8unuwy0" path="res://Scenes/UI/GameOverScreen.tscn" id="11_t5804"]
+[ext_resource type="PackedScene" uid="uid://r4v4npadga3m" path="res://Scenes/UI/PauseScreen.tscn" id="11_tbdxu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m4whj"]
 atlas = ExtResource("1_10uo1")
@@ -723,14 +724,21 @@ process_callback = 0
 editor_draw_limits = true
 
 [node name="UI Wrapper" type="CanvasLayer" parent="."]
-script = ExtResource("9_cx5j8")
+process_mode = 3
+script = ExtResource("9_48qhq")
 
 [node name="HUD" parent="UI Wrapper" instance=ExtResource("10_kcxfu")]
 
-[node name="PollutionSystem" parent="UI Wrapper" instance=ExtResource("9_s2vsi")]
-position = Vector2(1229, 130)
+[node name="Inventory" parent="UI Wrapper" instance=ExtResource("8_5onck")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Inventory" parent="." instance=ExtResource("8_5onck")]
+[node name="GameOver" parent="UI Wrapper" instance=ExtResource("11_t5804")]
+
+[node name="PauseScreen" parent="UI Wrapper" instance=ExtResource("11_tbdxu")]
 
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]

@@ -7,20 +7,19 @@ extends Node
 var Health_component: HealthComponent  # Player health component
 var Shield_component: HealthComponent  # Shield durability component
 
-@onready var HealthBar: ProgressBar = $HUD/PlayerInfo/Health
-@onready var DamageBar: ProgressBar = $HUD/PlayerInfo/DamageBar
+@onready var HealthBar: ProgressBar = $HUD/PlayerInfo/Health		# Player health
+@onready var DamageBar: ProgressBar = $HUD/PlayerInfo/DamageBar		# Cool effect for player health
 @onready var HealthLabel: RichTextLabel = $HUD/PlayerInfo/Health/CenterContainer/HealthLabel  # Health text label
 @onready var ShieldBar: ProgressBar = $HUD/PlayerInfo/ShieldDurability  # Shield durability bar
 @onready var ShieldDamageBar: ProgressBar = $HUD/PlayerInfo/ShieldDamageBar  # Shield damage bar
 @onready var LevelName: Label = $HUD/Top/Header/Timer/HBoxContainer/LevelName  # Level name label
 
-var last_health: float = 0
-var last_shield: float = 0
-var damage_timer: float = 0.0
-var shield_damage_timer: float = 0.0
+var Last_health: float = 0
+var Last_shield: float = 0
+var Damage_timer: float = 0.0
+var Shield_damage_timer: float = 0.0
 
 func _ready() -> void:
-	print("connecting")
 	_initialize_health_components()
 
 func _initialize_health_components() -> void:
@@ -52,7 +51,7 @@ func _initialize_health_components() -> void:
 	DamageBar.max_value = Health_component.Max_health
 	DamageBar.value = Health_component.Health
 
-	last_health = Health_component.Health
+	Last_health = Health_component.Health
 	_on_health_changed(Health_component.Health)
 
 	if Shield_component:
@@ -66,19 +65,19 @@ func _initialize_health_components() -> void:
 		ShieldDamageBar.value = Shield_component.Health
 		ShieldDamageBar.visible = true
 
-		last_shield = Shield_component.Health
+		Last_shield = Shield_component.Health
 
 func _physics_process(delta: float) -> void:
 	if not Health_component:
 		return
 
-	if HealthBar.value != last_health:
-		last_health = HealthBar.value
-		damage_timer = Damage_delay
+	if HealthBar.value != Last_health:
+		Last_health = HealthBar.value
+		Damage_timer = Damage_delay
 		DamageBar.visible = true
 	else:
-		if damage_timer > 0:
-			damage_timer -= delta
+		if Damage_timer > 0:
+			Damage_timer -= delta
 		elif DamageBar.value > HealthBar.value:
 			DamageBar.value = lerp(DamageBar.value, HealthBar.value, delta * Damage_lerp_speed)
 			if abs(DamageBar.value - HealthBar.value) < 0.1:
@@ -86,13 +85,13 @@ func _physics_process(delta: float) -> void:
 		else:
 			DamageBar.visible = false
 
-	if Shield_component and ShieldBar.value != last_shield:
-		last_shield = ShieldBar.value
-		shield_damage_timer = Shield_damage_delay
+	if Shield_component and ShieldBar.value != Last_shield:
+		Last_shield = ShieldBar.value
+		Shield_damage_timer = Shield_damage_delay
 		ShieldDamageBar.visible = true
 	else:
-		if shield_damage_timer > 0:
-			shield_damage_timer -= delta
+		if Shield_damage_timer > 0:
+			Shield_damage_timer -= delta
 		elif ShieldDamageBar.value > ShieldBar.value:
 			ShieldDamageBar.value = lerp(ShieldDamageBar.value, ShieldBar.value, delta * Damage_lerp_speed)
 			if abs(ShieldDamageBar.value - ShieldBar.value) < 0.1:
@@ -129,6 +128,3 @@ func _update_health_label() -> void:
 func _on_level_loaded() -> void:
 	_initialize_health_components()
 	call_deferred("_update_level_name")
-
-
-		
