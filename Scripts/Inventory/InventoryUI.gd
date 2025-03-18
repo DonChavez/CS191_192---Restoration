@@ -9,7 +9,7 @@ extends Control
 func _ready():
 	self.visible = false
 
-#Toggle to see or not the Inventory UI
+# Toggle to see or not the Inventory UI
 func toggle_inventory():
 	self.visible = !self.visible
 

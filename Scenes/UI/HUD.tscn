@@ -1,5 +1,6 @@
-[gd_scene load_steps=24 format=3 uid="uid://dybc7khnwy044"]
+[gd_scene load_steps=26 format=3 uid="uid://dybc7khnwy044"]
 
+[ext_resource type="Script" path="res://Scripts/UI/PlayerInfo.gd" id="1_ka6yk"]
 [ext_resource type="Texture2D" uid="uid://cohgu3apanof7" path="res://Art/UI/icon_bg.png" id="2_u5r28"]
 [ext_resource type="FontFile" uid="uid://bwlr8ymoai0gi" path="res://Art/Font/Roboto-Regular.ttf" id="3_5hyxa"]
 [ext_resource type="Texture2D" uid="uid://d2taqcvowr32g" path="res://Art/UI/border.png" id="3_sip7q"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://ctyp5g3s2xfpx" path="res://Art/UI/trash-icon.png" id="8_lld73"]
 [ext_resource type="Texture2D" uid="uid://ceu1x23sae3vb" path="res://Art/UI/big-border.png" id="9_4n5uk"]
 [ext_resource type="Texture2D" uid="uid://dtkp1umh7o8nx" path="res://Art/UI/objectives-icon.png" id="10_f0vor"]
+[ext_resource type="Script" path="res://Scripts/Pollution/PollutionSystem.gd" id="11_si86v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyhw2"]
 
@@ -109,6 +111,7 @@ offset_bottom = 321.0
 grow_vertical = 0
 scale = Vector2(0.498089, 0.498089)
 pivot_offset = Vector2(-92, 384)
+script = ExtResource("1_ka6yk")
 
 [node name="Icon" type="TextureRect" parent="PlayerInfo"]
 layout_mode = 2
@@ -408,10 +411,11 @@ theme_override_font_sizes/font_size = 50
 text = "Detroy The End of the World"
 autowrap_mode = 2
 
-[node name="PollutionLevel" type="Control" parent="Top/Header"]
+[node name="PollutionSystem" type="Control" parent="Top/Header"]
 layout_mode = 2
+script = ExtResource("11_si86v")
 
-[node name="ProgressBar" type="ProgressBar" parent="Top/Header/PollutionLevel"]
+[node name="PollutionLevel" type="ProgressBar" parent="Top/Header/PollutionSystem"]
 layout_mode = 0
 offset_left = 5.0
 offset_top = 4.0
@@ -421,20 +425,20 @@ theme = SubResource("Theme_n3i6l")
 value = 50.0
 show_percentage = false
 
-[node name="TextureRect" type="TextureRect" parent="Top/Header/PollutionLevel"]
+[node name="TextureRect" type="TextureRect" parent="Top/Header/PollutionSystem"]
 layout_mode = 0
 offset_right = 1180.0
 offset_bottom = 94.0
 texture = ExtResource("9_4n5uk")
 
-[node name="CenterContainer" type="CenterContainer" parent="Top/Header/PollutionLevel"]
+[node name="CenterContainer" type="CenterContainer" parent="Top/Header/PollutionSystem"]
 layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 1178.0
 offset_bottom = 93.0
 
-[node name="Label" type="Label" parent="Top/Header/PollutionLevel/CenterContainer"]
+[node name="Label" type="Label" parent="Top/Header/PollutionSystem/CenterContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("7_b770i")
 theme_override_font_sizes/font_size = 50
