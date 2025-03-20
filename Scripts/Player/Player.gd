@@ -53,6 +53,8 @@ const Death : String = "Death"
 #---Action Variables---#
 # Melee Variables
 var Is_attacking : bool = false
+var Has_melee: int = 0
+
 
 # Blocking Variables
 var Is_blocking : bool = false
@@ -61,6 +63,13 @@ var Parry_window : float = 0.5
 # Shooting Variables
 var Projectile_bounce_count : int = 0
 var Spread_shot_count: int = 0
+var Multi_shot_count: int = 1
+var Reloading: bool = false
+var Has_range: int = 0
+
+# Projectile Variables
+var Live_time_addition:int = 0
+var Pierce_addition:int = 1
 
 # Interaction Variables
 var Can_process_input : bool = true
@@ -131,9 +140,9 @@ func input_handling() -> void:
 	# note that the player can only equip either a melee or a projectile weapon so this will be adjusted eventually
 	# Player should not be able to do anything while blocking
 	if !Is_blocking:
-		if Input.is_action_just_pressed("attack") and not Is_attacking:
+		if Input.is_action_just_pressed("attack") and not Is_attacking and Has_melee:
 			melee_attack()
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_just_pressed("shoot") and not Reloading and Has_range:
 			shoot_projectile()
 
 # determines where the player attacks based on the mouse position
@@ -256,6 +265,7 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 #----------shooting related functions----------#
 # Shoots projectile with spread functionality
 func shoot_projectile():
+	Reloading = true
 	print("Shooting with spread shot")
 
 	var Total_projectiles = 1 + Spread_shot_count
@@ -265,23 +275,30 @@ func shoot_projectile():
 	var Spread_step = Spread_angle / max(1, Total_projectiles - 1)
 	var Center_index = Total_projectiles / 2
 
-	for i in range(Total_projectiles):
-		var Projectile_instance = Projectile.instantiate()
+	for k in range(Multi_shot_count):
+		for i in range(Total_projectiles):
+			var Projectile_instance = Projectile.instantiate()
+			# ensure that one of the projectiles is going center
+			var Angle_offset = (i - Center_index) * Spread_step
+			if Total_projectiles % 2 == 0 and i == Center_index:
+				Angle_offset = 0.0 
 
-		# ensure that one of the projectiles is going center
-		var Angle_offset = (i - Center_index) * Spread_step
-		if Total_projectiles % 2 == 0 and i == Center_index:
-			Angle_offset = 0.0 
+			Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
+			Projectile_instance.SpawnPos = global_position
+			Projectile_instance.Fired_by = self
+			Projectile_instance.MaxBounces = Projectile_bounce_count
+			Projectile_instance.Lifetime += Live_time_addition
+			Projectile_instance.MaxPierce += Pierce_addition
+			# add projectile to the current scene
+			Main = get_tree().current_scene
+			if Main:
+				Main.add_child(Projectile_instance)
+		await get_tree().create_timer(0.09).timeout
+	reloaded()
 
-		Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
-		Projectile_instance.SpawnPos = global_position
-		Projectile_instance.Fired_by = self
-		Projectile_instance.MaxBounces = Projectile_bounce_count
-
-		# add projectile to the current scene
-		Main = get_tree().current_scene
-		if Main:
-			Main.add_child(Projectile_instance)
+func reloaded() -> void:
+	await get_tree().create_timer(0.75).timeout
+	Reloading = false
 
 #----------blocking related functions----------#
 func block() -> void:
@@ -385,3 +402,9 @@ func _on_player_health_damage_taken(_Amount: float) -> void:
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
+
+func get_range(Value: int) -> void:
+	Has_range = Value
+func get_melee(Value: int) -> void:
+	Has_melee = Value
+	

@@ -1,32 +1,21 @@
-branch: reset_sean
-v0.1.1:
-    1. New Global Scene (UIManager) - handles anything UI related
-    2. Added new art assets 
-        - New Tileset (https://schwarnhild.itch.io/summer-plains-tileset-and-asset-pack-32x32-pixels)
-            - Recolored to match the game
-            - Added new trees and bushes
-        - Draft Main Menu - draft idea for main menu design
-        - Added temporary weapons assets for HUD
-    3. Organized scenes and scripts - did the relocation
-    4. FOLDER COLORS - added folder colors for easy access (grey folders are usually untouched)
-    5. Added new UI elements
-        - Game Over Screen - New scene when the player dies with buttons
-        - Pause Screen - New scene when the player presses the pause button ("escape")
-        - Menu - Main Menu when the game launches
-        - HUD - New scene for the HUD display following the viewport
-    6. Added a new shader - just used it for making the background blurry
-    7. Changed Inventory from (CanvasLayer -> Control)
-    8. Modified PollutionMeter (Now integrated with the HUD)
-    9. Added a UI Wrapper in the player to contain UI elements
-    10. Moved Inventory and PollutionSystem to UI Wrapper
-    11. Synced Player Health, Shield durability, Level Name, and Pollution with HUD
-    12. Added a pollution_updated signal to PollutionSystem (This is used to sync to HUD)
-    13. Added pausing to the game - will pause the game when it is paused
-    14. Added restart to the game - player can now restart the level
-    15. Added exit to the game - Main Menu and Pause Screen makes player exit the game when clicked
-    16. Changed the viewport of the game (from Maximized -> Exclusive Full Screen)
-    17. Responsive Design UI - UI elements will be responsive to different screen sizes like websites
-    18. Added new input map ("escape") - activates when the ESC is pressed
-    19. Refactored PlayerManager to be more readable
-    20. Refactored UIManager to be more readable
-
+branch: reset_resai
+v0.1.2:
+	1. Moved toggle_inventory method from InvetoryUI -> Inventory
+	2. Several changes to fix Color for Inventory and Items
+		- New update_slot_ui function in ItemSlot
+	3. Created Pierce Item and Tiers
+		- Proctile pierce increased only for player
+	4. Created Ricochet Tiers
+	5. Created Spreadshot Tiers
+	6. Created Projectile Live Item and Tiers
+		- Proctile time life increased only for player
+	7. Created Multishot Item and Tiers
+		- Number of Projectiles shot continuously from a single attack
+	8. Added reloaded function and reloading variable in player
+		- Player no longer able to spam projectiles
+	9. Improved and streamlined Item Spawner from Recycler
+	10. Inventory now includes description of selected item
+	11. Right click to deselect Item
+	12. Player cannot attack or shoot if they don't have a weapon of the same type
+Other:
+	1. Created spreadsheet with values of items for different tiers and IDs

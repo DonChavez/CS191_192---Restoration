@@ -1,19 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://sdjf7krt6co3"]
+[gd_scene load_steps=4 format=3 uid="uid://h5aphehtfr43"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Item.gd" id="1_ej0mv"]
-[ext_resource type="Texture2D" uid="uid://cvwwafwaqmbi6" path="res://Art/Items/L001.png" id="2_kyu4d"]
+[ext_resource type="Script" path="res://Scripts/Items/SpreadShot.gd" id="1_h4i6b"]
+[ext_resource type="Texture2D" uid="uid://coacfmo0d7qed" path="res://Art/Items/Spreadshot.png" id="2_eyso4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Item" type="Node2D"]
+[node name="SpreadShot" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_ej0mv")
+script = ExtResource("1_h4i6b")
+Item_ID = "0003"
+Item_name = "Spread Shot"
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_kyu4d")
+texture = ExtResource("2_eyso4")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

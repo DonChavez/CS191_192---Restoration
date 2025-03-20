@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var Speed = 100
 @export var Lifetime = 2.0  
 @export var MaxBounces = 0
+@export var MaxPierce = 0
 
 # projectile textures
 @export var Player_projectile_texture: Texture2D
@@ -120,5 +121,15 @@ func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void
 		fireblaster(Fired_by)
 		
 		return  # Do NOT queue_free()
+	if MaxPierce == 0:
+		queue_free()  # Destroy if it hits anything else
+	else:
+		MaxPierce -=1
 
-	queue_free()  # Destroy if it hits anything else
+# Handles Increasing Live time
+func add_live_time(Added_time: int):
+	Lifetime += Added_time
+	
+# Handles adding Pierce
+func add_pierce_count(Added_pierce: int):
+	MaxPierce += Added_pierce
