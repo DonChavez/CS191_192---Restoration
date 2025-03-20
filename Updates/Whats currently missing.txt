@@ -1,5 +1,5 @@
 Entire Inventory Management System:
-	Need more Items, Item effects, Resai Sprint 3 stuff.
+	Need more Items, Item effects, Upgrades
 
 EliteEnemy:
 	fix the collision of the elite enemy

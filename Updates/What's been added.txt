@@ -4,7 +4,7 @@ v0.1.2:
 	2. Several changes to fix Color for Inventory and Items
 		- New update_slot_ui function in ItemSlot
 	3. Created Pierce Item and Tiers
-		- Proctile pierce increased only for player
+		- Projectile pierce increased only for player
 	4. Created Ricochet Tiers
 	5. Created Spreadshot Tiers
 	6. Created Projectile Live Item and Tiers
@@ -16,6 +16,8 @@ v0.1.2:
 	9. Improved and streamlined Item Spawner from Recycler
 	10. Inventory now includes description of selected item
 	11. Right click to deselect Item
+	12. Created Spin Sword Item and Tiers
+		- Edits the hitbox collision size and location
 	13. Edited Player:
 		- Player cannot attack or shoot if they don't have a weapon of the same type
 		- Edited activate_melee_hurtbox()
@@ -24,4 +26,4 @@ v0.1.2:
 	14. Edited HurtboxComponent
 		- Hitbox is now 2 lists and a dictionary that is processed allowing multiple enemy hits while keeping damage interval
 Other:
-	1. Created spreadsheet with values of items for different tiers and IDs
+	1. Created spreadsheet (discord) with values of items for different tiers and IDs WIP
