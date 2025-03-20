@@ -32,6 +32,7 @@ var sfx_files: Array = []
 @onready var Melee_hurtbox: HurtboxComponent = $MeleeHurtbox
 
 # Miscellenaous Variables
+@onready var Melee_collision: CollisionShape2D = $MeleeHurtbox/CollisionShape2D
 @onready var Main = null
 @onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
 
@@ -53,7 +54,10 @@ const Death : String = "Death"
 #---Action Variables---#
 # Melee Variables
 var Is_attacking : bool = false
-var Has_melee: int = 0
+var Has_melee: int = 1
+var Spinning: bool = false
+var Melee_x_additional: int = 0
+var Melee_y_additional: int = 0
 
 
 # Blocking Variables
@@ -257,11 +261,41 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	Melee_hurtbox.visible = true
 	Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
 	
+	if Spinning:
+		Melee_hurtbox.position = Vector2(0,0)
+	var Attack_direction = use_melee_weapon("")
+	
 	# Disable after a short duration
 	await get_tree().create_timer(Duration, false, true).timeout
 	Melee_hurtbox.monitoring = false  
 	Melee_hurtbox.visible = false 
+	use_melee_weapon(Attack_direction)
 
+func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String) -> void:
+	if Weapon == "Spin Sword":
+		Spinning = !Spinning
+	Melee_x_additional = Melee_x
+	Melee_y_additional = Melee_y
+func use_melee_weapon(Direction: String) -> String:
+	var Usage = -1
+	if not Direction:
+		Direction = Facing_direction
+		Usage = 1
+	var shape = Melee_collision.shape	
+	match Direction:	
+		"left":
+			shape.extents.x += (Melee_x_additional) * Usage
+			shape.extents.y += (Melee_y_additional) * Usage
+		"right":
+			shape.extents.x += (Melee_x_additional) * Usage
+			shape.extents.y += (Melee_y_additional) * Usage
+		"up":
+			shape.extents.x += (Melee_y_additional) * Usage
+			shape.extents.y += (Melee_x_additional) * Usage
+		"down":
+			shape.extents.x += (Melee_y_additional) * Usage
+			shape.extents.y += (Melee_x_additional) * Usage
+	return Direction
 #----------shooting related functions----------#
 # Shoots projectile with spread functionality
 func shoot_projectile():

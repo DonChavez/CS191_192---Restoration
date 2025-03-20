@@ -20,9 +20,9 @@ func apply_tier(Tier:int) -> void:
 		2:
 			ADDITIONAL_SHOT_COUNT = 1  # Rare Blue
 		3:
-			ADDITIONAL_SHOT_COUNT = 3  # Epic Purple
+			ADDITIONAL_SHOT_COUNT = 2  # Epic Purple
 		4:
-			ADDITIONAL_SHOT_COUNT = 5  # Legendary Red
+			ADDITIONAL_SHOT_COUNT = 3  # Legendary Red
 
 func apply_effect(player):
 	if !Effect_applied:

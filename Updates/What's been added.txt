@@ -16,6 +16,12 @@ v0.1.2:
 	9. Improved and streamlined Item Spawner from Recycler
 	10. Inventory now includes description of selected item
 	11. Right click to deselect Item
-	12. Player cannot attack or shoot if they don't have a weapon of the same type
+	13. Edited Player:
+		- Player cannot attack or shoot if they don't have a weapon of the same type
+		- Edited activate_melee_hurtbox()
+		- Added apply_melee_weapon
+		- Added use_melee_weapon
+	14. Edited HurtboxComponent
+		- Hitbox is now 2 lists and a dictionary that is processed allowing multiple enemy hits while keeping damage interval
 Other:
 	1. Created spreadsheet with values of items for different tiers and IDs
