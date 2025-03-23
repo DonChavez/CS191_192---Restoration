@@ -28,7 +28,8 @@ func toggle_item(Item: ItemObject)-> void:
 func reset() -> void:
 	Clicked = false
 	update_slot_ui()
-	
+
+# Change color tints
 func update_slot_ui() -> void:
 	if Item_color.a != 0:
 		self_modulate = Item_color
@@ -38,6 +39,7 @@ func update_slot_ui() -> void:
 		self_modulate += Color(2.0, 2.0, 0.8)
 	elif Hover:
 		self_modulate += Color(1.2,1.2,1.2)
+		
 # Set Index of a wider array for inventory or recycler
 func set_index(Index:int):
 	Array_indx = Index
@@ -46,7 +48,6 @@ func _on_mouse_entered():
 	if not Clicked:
 		self_modulate += Color(1.2, 1.2, 1.2)  # Slightly brighter when hovered
 	Hover = true
-	
 	
 func _on_mouse_exited():
 	if not Clicked:# and Hover:

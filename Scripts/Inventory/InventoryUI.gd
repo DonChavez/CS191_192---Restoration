@@ -2,7 +2,7 @@ extends Control
 
 @onready var Inventory_manager = $".."
 @onready var Grid = $InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid.get_children()
-@onready var Trashlabel = $InventoryPanel/TrashLabel
+@onready var Trashlabel = $InventoryPanel/TrashLabel if is_instance_valid($InventoryPanel/TrashLabel) else null
 @onready var Coinlabel = $InventoryPanel/CoinLabel
 
 # Called when the node enters the scene tree for the first time.

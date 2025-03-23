@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=27 format=4 uid="uid://cvpx21a28kpv3"]
 
 [ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://bwulylwi3hx8f" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://dfjvxrjh6jt1g" path="res://Scenes/Items/0ProjectileLife.tscn" id="18_fant8"]
 [ext_resource type="PackedScene" uid="uid://v1dle5t75pan" path="res://Scenes/Interactables/PawnShop.tscn" id="20_a0338"]
 [ext_resource type="PackedScene" uid="uid://h5aphehtfr43" path="res://Scenes/Items/0SpreadShot.tscn" id="20_injys"]
+[ext_resource type="PackedScene" uid="uid://bj61jhrq7i7u1" path="res://Scenes/Interactables/Trainer.tscn" id="20_tempy"]
 [ext_resource type="PackedScene" uid="uid://bgk1yki43amh" path="res://Scenes/Items/0Pierce.tscn" id="21_x7ygo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
@@ -361,6 +362,7 @@ Spawn_animate = false
 
 [node name="Coin3" parent="." instance=ExtResource("9_h28lj")]
 position = Vector2(618, 416)
+Value = 1000
 Spawn_animate = false
 
 [node name="TrashPile" parent="." instance=ExtResource("10_6erel")]
@@ -405,3 +407,6 @@ Item_ID = "3003"
 
 [node name="NPC2" parent="." instance=ExtResource("20_a0338")]
 position = Vector2(861, 253)
+
+[node name="NPC3" parent="." instance=ExtResource("20_tempy")]
+position = Vector2(950, 498)

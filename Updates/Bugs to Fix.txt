@@ -15,3 +15,9 @@ HUD Information:
 
 Player Sprite:
 	No sprites yet for the animation
+
+Player Health Bar:
+	Upgraded Health % is not 100%
+
+Recycler and Trainer:
+	Redo PanelUI and texts

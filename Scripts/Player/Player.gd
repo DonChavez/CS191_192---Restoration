@@ -43,7 +43,17 @@ var Facing_direction : String = "right"
 var Mouse_direction : Vector2 = Vector2.ZERO
 
 # Status Variables
-var upgrade_status_count: Dictionary = {}
+var Upgrade_status_count: Dictionary = {
+		0: {
+			0: 0,
+			1: 0,
+			2: 0
+		},
+		1: {
+			0: 0,
+			1: 0
+		}
+	}
 var Max_health: float = 100.0
 # Move_speed: int
 # Attack_speed: int
@@ -345,12 +355,13 @@ func shoot_projectile():
 			Main = get_tree().current_scene
 			if Main:
 				Main.add_child(Projectile_instance)
+				
 			Projectile_instance.implement_damage(Projectile_dmg)
 		await get_tree().create_timer(0.09).timeout
 	reloaded()
 
 func reloaded() -> void:
-	await get_tree().create_timer(0.75).timeout
+	await get_tree().create_timer(1/Attack_speed).timeout
 	Reloading = false
 
 #----------blocking related functions----------#
@@ -462,6 +473,13 @@ func get_melee(Value: int) -> void:
 	Has_melee = Value
 	
 #----------status upgrade related functions----------#
+func get_curr_upgrade(ID: int, Index: int) -> int:
+	return Upgrade_status_count[ID][Index]
+func add_curr_upgrade(ID: int, Index: int) -> void:
+	Upgrade_status_count[ID][Index] += 1
+	
+func get_upgrade_counter() -> Dictionary:
+	return Upgrade_status_count
 # These set new values for the statuses
 func new_max_health(Amount: float) -> void:
 	Max_health = Amount
@@ -480,4 +498,21 @@ func new_attack_speed(Amount: float) -> void:
 func new_movement_speed(Amount: float) -> void:
 	Move_speed = Amount
 
+# ------- Add new values
+func add_max_health(Amount: float) -> void:
+	Max_health += Amount
+	Player_health.apply_new_health(Max_health)
+	
+func add_melee_damage(Amount: float) -> void:
+	Melee_dmg += Amount
+	Melee_hurtbox.hurtbox_implement_damage(Melee_dmg)
+
+func add_projectile_damage(Amount: float) -> void:
+	Projectile_dmg += Amount
+
+func add_attack_speed(Amount: float) -> void:
+	Attack_speed += Amount
+
+func add_movement_speed(Amount: float) -> void:
+	Move_speed += Amount
 	

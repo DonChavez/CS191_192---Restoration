@@ -7,17 +7,16 @@ extends Control
 @onready var Inventory_slot_num: int = Inventory_slots.size() # number of slots
 @onready var Player: CharacterBody2D
 @onready var Inventory: InventoryObject
-@onready var Trainer: CharacterBody2D
+@onready var Owner: CharacterBody2D
 
 
 # Inventory Configuration
 @onready var Items: Array = []
-@onready var Coins: int = 0
 @onready var Selected: int = -1
 @onready var Range_items: int = 0
 @onready var Melee_items: int = 0
 
-var Item_convertion: Dictionary = {	0: 1,
+var Item_cost_convertion: Dictionary = {	0: 1,
 									1: 3,
 									2: 5,
 									3: 10,
@@ -42,9 +41,10 @@ func _process(delta: float) -> void:
 
 
 # Toggle to see or not the Inventory UI
-func toggle_selling():
+func toggle_tab():
 	self.visible = !self.visible
 	if self.visible:
+		Inventory_ui.update_coin(Inventory.Coins)
 		Items = Inventory.get_inventory_array().duplicate()
 		for I in range(Inventory_slot_num):
 			if Items[I]:
@@ -62,13 +62,9 @@ func send_player(Player_body: CharacterBody2D):
 	Player = Player_body
 	Inventory = Player.get_inventory()
 
-func send_trainer(Trainer_body: CharacterBody2D):
-	Trainer = Trainer_body
+func send_owner(Owner_body: CharacterBody2D):
+	Owner = Owner_body
 
-# Updates collectible amounts
-func add_coin(Amount: int):
-	Coins += Amount
-	Inventory_ui.update_coin(Coins)
 
 #-----for item methods-----#
 # Reset the status of an Inventory Slot and Selected
@@ -117,9 +113,10 @@ func sell_item() -> void:
 	print("Now Null")
 	Items[Selected] = null  # Remove from inventory
 	
-	var Profit = Item_convertion[Item_instance.get_item_tier()]
-	add_coin(Profit)
+	var Profit = Item_cost_convertion[Item_instance.get_item_tier()]
 	Inventory.add_coin(Profit)
+	Inventory_ui.update_coin(Inventory.Coins)
+
 	print("Finished Profit")
 	# Change Item Slot statuses
 	Inventory_slots[Selected].toggle_item(null)
@@ -153,4 +150,4 @@ func move_item(Index: int) -> void:
 	
 func get_description() -> void:  
 	var Item = Items[Selected]
-	Description.text = Item.Title +" ("+ str(Item_convertion[Item.get_item_tier()]) + " Gold)"+"\n" + Item.Description
+	Description.text = Item.Title +" ("+ str(Item_cost_convertion[Item.get_item_tier()]) + " Gold)"+"\n" + Item.Description

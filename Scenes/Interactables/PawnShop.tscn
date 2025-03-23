@@ -1,9 +1,9 @@
 [gd_scene load_steps=30 format=3 uid="uid://v1dle5t75pan"]
 
-[ext_resource type="Script" path="res://Scripts/PawnShop.gd" id="1_44lvi"]
+[ext_resource type="Script" path="res://Scripts/Interactables/NPCTab.gd" id="1_44lvi"]
 [ext_resource type="Texture2D" uid="uid://dahmg5t0k8ka1" path="res://Art/Characters/player.png" id="2_doxdg"]
 [ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/UI/Dialogue.tscn" id="3_bjrrm"]
-[ext_resource type="Script" path="res://Scripts/PawnShopInventory.gd" id="4_ilsyw"]
+[ext_resource type="Script" path="res://Scripts/Interactables/PawnShopTab.gd" id="4_ilsyw"]
 [ext_resource type="Script" path="res://Scripts/Inventory/InventoryUI.gd" id="5_vwjpk"]
 [ext_resource type="Texture2D" uid="uid://b4w3dtepsdun8" path="res://Art/Objects/coin_pouch.png" id="7_v5uso"]
 [ext_resource type="PackedScene" uid="uid://c1c8vyfyanpjj" path="res://Scenes/Inventory/ItemSlot.tscn" id="8_oyt86"]
@@ -144,7 +144,7 @@ offset_bottom = 24.0
 scale = Vector2(0.5, 0.5)
 text = "F to speak"
 
-[node name="InventorySell" type="Control" parent="."]
+[node name="Tab" type="Control" parent="."]
 z_index = 1
 layout_mode = 3
 anchors_preset = 0
@@ -153,7 +153,7 @@ offset_bottom = 40.0
 scale = Vector2(0.32088, 0.32088)
 script = ExtResource("4_ilsyw")
 
-[node name="InventoryUI" type="Control" parent="InventorySell"]
+[node name="InventoryUI" type="Control" parent="Tab"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -169,23 +169,23 @@ grow_vertical = 2
 scale = Vector2(2.49067, 2.49067)
 script = ExtResource("5_vwjpk")
 
-[node name="InventoryPanel" type="Panel" parent="InventorySell/InventoryUI"]
+[node name="InventoryPanel" type="Panel" parent="Tab/InventoryUI"]
 layout_mode = 0
 offset_top = -18.8704
 offset_right = 400.0
 offset_bottom = 231.13
 theme_override_styles/panel = SubResource("StyleBoxFlat_yuy0q")
 
-[node name="SellButton" type="Button" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="SellButton" type="Button" parent="Tab/InventoryUI/InventoryPanel"]
 layout_mode = 0
 offset_left = 303.131
 offset_top = 194.325
 offset_right = 381.131
 offset_bottom = 221.325
 pivot_offset = Vector2(19, 13)
-text = "Drop Item"
+text = "Sell Item"
 
-[node name="InventoryLabel" type="Label" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="InventoryLabel" type="Label" parent="Tab/InventoryUI/InventoryPanel"]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 2.81049
@@ -193,7 +193,7 @@ offset_right = 107.0
 offset_bottom = 25.8105
 text = "Item Sale"
 
-[node name="Button" type="Button" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="Button" type="Button" parent="Tab/InventoryUI/InventoryPanel"]
 layout_mode = 0
 offset_left = 381.423
 offset_top = 4.01496
@@ -202,7 +202,7 @@ offset_bottom = 31.015
 scale = Vector2(0.754708, 0.754708)
 text = "X"
 
-[node name="CoinImage" type="TextureRect" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="CoinImage" type="TextureRect" parent="Tab/InventoryUI/InventoryPanel"]
 layout_mode = 0
 offset_left = 231.0
 offset_top = -2.80957
@@ -211,7 +211,7 @@ offset_bottom = 1179.19
 scale = Vector2(0.0260892, 0.0260892)
 texture = ExtResource("7_v5uso")
 
-[node name="CoinLabel" type="Label" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="CoinLabel" type="Label" parent="Tab/InventoryUI/InventoryPanel"]
 layout_mode = 0
 offset_left = 264.0
 offset_top = 6.39401
@@ -219,7 +219,7 @@ offset_right = 304.0
 offset_bottom = 29.394
 text = "0"
 
-[node name="ScrollDescription" type="ScrollContainer" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="ScrollDescription" type="ScrollContainer" parent="Tab/InventoryUI/InventoryPanel"]
 layout_mode = 2
 offset_left = 19.6734
 offset_top = 187.098
@@ -227,13 +227,13 @@ offset_right = 289.673
 offset_bottom = 237.098
 theme = SubResource("Theme_58mhd")
 
-[node name="Description" type="Label" parent="InventorySell/InventoryUI/InventoryPanel/ScrollDescription"]
+[node name="Description" type="Label" parent="Tab/InventoryUI/InventoryPanel/ScrollDescription"]
 custom_minimum_size = Vector2(250, 80)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 autowrap_mode = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="InventorySell/InventoryUI/InventoryPanel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Tab/InventoryUI/InventoryPanel"]
 custom_minimum_size = Vector2(360, 150)
 layout_mode = 2
 offset_left = 20.4764
@@ -242,144 +242,144 @@ offset_right = 380.476
 offset_bottom = 177.703
 theme = SubResource("Theme_nyfi1")
 
-[node name="CenterContainer" type="CenterContainer" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer"]
 layout_mode = 2
 
-[node name="InventoryGrid" type="GridContainer" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer"]
+[node name="InventoryGrid" type="GridContainer" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer"]
 layout_mode = 2
 columns = 8
 
-[node name="ItemSlot" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot2" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot2" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot3" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot3" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot4" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot4" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot5" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot5" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot6" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot6" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot7" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot7" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot8" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot8" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot9" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot9" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot10" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot10" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot11" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot11" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot12" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot12" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot13" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot13" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot14" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot14" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot15" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot15" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot16" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot16" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot17" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot17" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot18" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot18" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot19" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot19" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot20" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot20" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot21" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot21" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot22" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot22" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot23" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot23" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot24" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot24" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot25" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot25" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot26" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot26" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot27" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot27" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot28" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot28" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot29" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot29" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot30" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot30" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot31" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot31" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
-[node name="ItemSlot32" parent="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
+[node name="ItemSlot32" parent="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid" instance=ExtResource("8_oyt86")]
 layout_mode = 2
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="pressed" from="InventorySell/InventoryUI/InventoryPanel/SellButton" to="InventorySell" method="sell_item"]
-[connection signal="pressed" from="InventorySell/InventoryUI/InventoryPanel/Button" to="." method="exit"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot2" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot3" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot4" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot5" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot6" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot7" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot8" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot9" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot10" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot11" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot12" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot13" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot14" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot15" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot16" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot17" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot18" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot19" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot20" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot21" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot22" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot23" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot24" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot25" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot26" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot27" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot28" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot29" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot30" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot31" to="InventorySell" method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventorySell/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot32" to="InventorySell" method="_on_item_slot_clicked"]
+[connection signal="pressed" from="Tab/InventoryUI/InventoryPanel/SellButton" to="Tab" method="sell_item"]
+[connection signal="pressed" from="Tab/InventoryUI/InventoryPanel/Button" to="." method="exit"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot2" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot3" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot4" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot5" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot6" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot7" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot8" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot9" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot10" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot11" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot12" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot13" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot14" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot15" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot16" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot17" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot18" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot19" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot20" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot21" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot22" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot23" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot24" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot25" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot26" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot27" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot28" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot29" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot30" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot31" to="Tab" method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="Tab/InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot32" to="Tab" method="_on_item_slot_clicked"]
 
 [editable path="Dialogue"]
