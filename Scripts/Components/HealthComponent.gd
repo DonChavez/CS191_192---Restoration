@@ -54,3 +54,7 @@ func heal(Amount: float) -> void:
 	Health = min(Health, Max_health)  
 	regen.emit(Amount)
 	changed.emit(Health)
+
+func apply_new_health(Amount: float) -> void:
+	Max_health = Amount
+	heal(Max_health-Amount)

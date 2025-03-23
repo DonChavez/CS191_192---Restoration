@@ -29,6 +29,7 @@ func _ready() -> void:
 	rotation = Direction.angle()
 	
 	fireblaster(Fired_by)
+	print(ProjectileHurtbox)
 
 	# Schedule the projectile to be destroyed after its time is over
 	get_tree().create_timer(Lifetime).timeout.connect(queue_free)
@@ -133,3 +134,8 @@ func add_live_time(Added_time: int):
 # Handles adding Pierce
 func add_pierce_count(Added_pierce: int):
 	MaxPierce += Added_pierce
+
+
+func implement_damage(New_damage: float) -> void:
+	
+	ProjectileHurtbox.hurtbox_implement_damage(New_damage)

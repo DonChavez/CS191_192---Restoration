@@ -92,6 +92,10 @@ func apply_tier(Tier:int) -> void:
 	
 func get_default_color() -> Color:
 	return Default_color
+	
+func get_item_tier() -> int:
+	return Item_tier
+
 # Override these in specific item scripts
 func apply_effect(player):
 	pass

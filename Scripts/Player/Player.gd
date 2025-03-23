@@ -42,6 +42,14 @@ var Input_direction : Vector2 = Vector2.ZERO
 var Facing_direction : String = "right"
 var Mouse_direction : Vector2 = Vector2.ZERO
 
+# Status Variables
+var upgrade_status_count: Dictionary = {}
+var Max_health: float = 100.0
+# Move_speed: int
+# Attack_speed: int
+var Projectile_dmg: float = 10.0
+var Melee_dmg: float = 10.0
+
 # death flag
 var Player_is_dead = false
 
@@ -54,10 +62,12 @@ const Death : String = "Death"
 #---Action Variables---#
 # Melee Variables
 var Is_attacking : bool = false
-var Has_melee: int = 1
+var Has_melee: int = 0
 var Spinning: bool = false
 var Melee_x_additional: int = 0
 var Melee_y_additional: int = 0
+var Sword_list: Array
+
 
 
 # Blocking Variables
@@ -95,6 +105,8 @@ func _ready() -> void:
 	TS_hitbox.monitorable = false	#Fix
 	TS_hitbox.visible = false
 	
+	new_max_health(Max_health)
+	new_melee_damage(Melee_dmg)
 	#-----Shield WIP-----#
 	#Shield.visible = false
 	#Shield_hitbox.monitoring = false
@@ -261,24 +273,29 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	Melee_hurtbox.visible = true
 	Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
 	
-	if Spinning:
+	if "Spin Sword" in Sword_list:
 		Melee_hurtbox.position = Vector2(0,0)
-	var Attack_direction = use_melee_weapon("")
+	var Attack_direction = use_melee_weapon("")		# any shape changes are temporary
 	
 	# Disable after a short duration
 	await get_tree().create_timer(Duration, false, true).timeout
 	Melee_hurtbox.monitoring = false  
 	Melee_hurtbox.visible = false 
-	use_melee_weapon(Attack_direction)
+	use_melee_weapon(Attack_direction)				# Removed here with the same direction
 
-func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String) -> void:
-	if Weapon == "Spin Sword":
-		Spinning = !Spinning
-	Melee_x_additional = Melee_x
-	Melee_y_additional = Melee_y
+func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool) -> void:
+	if Weapon in Sword_list and not Equip:
+		Sword_list.erase(Weapon)
+		Melee_x_additional -= Melee_x
+		Melee_y_additional -= Melee_y
+	elif Weapon not in Sword_list and Equip:
+		Sword_list.append(Weapon)
+		Melee_x_additional += Melee_x
+		Melee_y_additional += Melee_y
+	
 func use_melee_weapon(Direction: String) -> String:
 	var Usage = -1
-	if not Direction:
+	if not Direction:	# Determines if adding or removing
 		Direction = Facing_direction
 		Usage = 1
 	var shape = Melee_collision.shape	
@@ -316,17 +333,19 @@ func shoot_projectile():
 			var Angle_offset = (i - Center_index) * Spread_step
 			if Total_projectiles % 2 == 0 and i == Center_index:
 				Angle_offset = 0.0 
-
+			
 			Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
 			Projectile_instance.SpawnPos = global_position
 			Projectile_instance.Fired_by = self
 			Projectile_instance.MaxBounces = Projectile_bounce_count
 			Projectile_instance.Lifetime += Live_time_addition
 			Projectile_instance.MaxPierce += Pierce_addition
+			
 			# add projectile to the current scene
 			Main = get_tree().current_scene
 			if Main:
 				Main.add_child(Projectile_instance)
+			Projectile_instance.implement_damage(Projectile_dmg)
 		await get_tree().create_timer(0.09).timeout
 	reloaded()
 
@@ -436,9 +455,29 @@ func _on_player_health_damage_taken(_Amount: float) -> void:
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
-
+# Value used to check we have a weapon
 func get_range(Value: int) -> void:
 	Has_range = Value
 func get_melee(Value: int) -> void:
 	Has_melee = Value
+	
+#----------status upgrade related functions----------#
+# These set new values for the statuses
+func new_max_health(Amount: float) -> void:
+	Max_health = Amount
+	Player_health.apply_new_health(Amount)
+	
+func new_melee_damage(Amount: float) -> void:
+	Melee_dmg = Amount
+	Melee_hurtbox.hurtbox_implement_damage(Amount)
+
+func new_projectile_damage(Amount: float) -> void:
+	Projectile_dmg = Amount
+
+func new_attack_speed(Amount: float) -> void:
+	Attack_speed = Amount
+
+func new_movement_speed(Amount: float) -> void:
+	Move_speed = Amount
+
 	

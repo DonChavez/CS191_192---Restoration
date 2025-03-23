@@ -55,3 +55,5 @@ func _physics_process(delta: float) -> void:
 					hit.emit(Hitbox, Damage_amount)
 					Hitbox_dict[Hitbox] = 0.0
 					
+func hurtbox_implement_damage(Amount: float) -> void:
+	Damage_amount = Amount

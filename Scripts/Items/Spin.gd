@@ -31,9 +31,9 @@ func apply_tier(Tier:int) -> void:
 
 func apply_effect(player):
 	if !Effect_applied:
-		player.apply_melee_weapon(MELEE_X_ADDITIONAL, MELEE_Y_ADDITIONAL, Item_name)
+		player.apply_melee_weapon(MELEE_X_ADDITIONAL, MELEE_Y_ADDITIONAL, Item_name, 1)
 		Effect_applied = true
 
 func remove_effect(player):
-	player.apply_melee_weapon(-MELEE_X_ADDITIONAL, -MELEE_Y_ADDITIONAL, Item_name)
+	player.apply_melee_weapon(-MELEE_X_ADDITIONAL, -MELEE_Y_ADDITIONAL, Item_name, -1)
 	Effect_applied = false

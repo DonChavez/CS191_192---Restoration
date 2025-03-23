@@ -9,39 +9,39 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eg0yy"]
 bg_color = Color(0.6, 0.6, 0.6, 0.596078)
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d3aib"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_er81x"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hauld"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f45o8"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a4y2o"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ob8ue"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_viqlf"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1v5l"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a1sxe"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jq87s"]
 
 [sub_resource type="Theme" id="Theme_fafpq"]
-VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_d3aib")
-VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_hauld")
-VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_a4y2o")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_viqlf")
-VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_a1sxe")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_er81x")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_f45o8")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_ob8ue")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_n1v5l")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_jq87s")
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rod21"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_s3pfj"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_323wq"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q37ys"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cdjiu"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_krmyt"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ch8b6"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j3234"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ipec5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l00ux"]
 
 [sub_resource type="Theme" id="Theme_pjwnp"]
-VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_rod21")
-VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_323wq")
-VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_cdjiu")
-VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_ch8b6")
-VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_ipec5")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_s3pfj")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_q37ys")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_krmyt")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_j3234")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_l00ux")
 
 [node name="Inventory" type="Control"]
 layout_mode = 3
@@ -253,35 +253,35 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="pressed" from="InventoryUI/InventoryPanel/DropButton" to="." method="drop_item"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot2" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot3" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot4" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot5" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot6" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot7" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot8" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot9" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot10" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot11" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot12" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot13" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot14" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot15" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot16" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot17" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot18" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot19" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot20" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot21" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot22" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot23" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot24" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot25" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot26" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot27" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot28" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot29" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot30" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot31" to="." method="_on_item_slot_clicked"]
-[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot32" to="." method="_on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot2" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot3" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot4" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot5" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot6" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot7" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot8" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot9" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot10" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot11" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot12" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot13" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot14" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot15" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot16" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot17" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot18" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot19" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot20" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot21" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot22" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot23" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot24" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot25" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot26" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot27" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot28" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot29" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot30" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot31" to="." method="on_item_slot_clicked"]
+[connection signal="CLICKED" from="InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid/ItemSlot32" to="." method="on_item_slot_clicked"]

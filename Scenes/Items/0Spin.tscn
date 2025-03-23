@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="SpreadShot" type="Node2D"]
+[node name="Spin Sword" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_14qpa")
 Item_ID = "4006"
