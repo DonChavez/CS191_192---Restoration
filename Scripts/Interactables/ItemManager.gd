@@ -29,7 +29,14 @@ const Item_database = {
 	"1005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
 	"2005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
 	"3005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
-	"4005": preload("res://Scenes/Items/0ProjectileLife.tscn")
+	"4005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
+	
+	"0006": preload("res://Scenes/Items/0Spin.tscn"),
+	"1006": preload("res://Scenes/Items/0Spin.tscn"),
+	"2006": preload("res://Scenes/Items/0Spin.tscn"),
+	"3006": preload("res://Scenes/Items/0Spin.tscn"),
+	"4006": preload("res://Scenes/Items/0Spin.tscn")
+	
 #	"006": preload(),
 #	"007": preload(),
 
