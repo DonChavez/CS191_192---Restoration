@@ -224,7 +224,7 @@ func test_simulate_Block(timeout = 10000) -> void:
  runner.simulate_key_release(KEY_W)
 
  runner.simulate_key_press(KEY_D)
- await runner.simulate_frames(120)
+ await runner.simulate_frames(110)
  runner.simulate_key_release(KEY_D)
  
  runner.set_mouse_pos(Vector2(1400, 380))
