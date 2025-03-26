@@ -32,6 +32,7 @@ var sfx_files: Array = []
 @onready var Melee_hurtbox: HurtboxComponent = $MeleeHurtbox
 
 # Miscellenaous Variables
+@onready var Melee_collision: CollisionShape2D = $MeleeHurtbox/CollisionShape2D
 @onready var Main = null
 @onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
 
@@ -40,6 +41,24 @@ var sfx_files: Array = []
 var Input_direction : Vector2 = Vector2.ZERO
 var Facing_direction : String = "right"
 var Mouse_direction : Vector2 = Vector2.ZERO
+
+# Status Variables
+var Upgrade_status_count: Dictionary = {
+		0: {
+			0: 0,
+			1: 0,
+			2: 0
+		},
+		1: {
+			0: 0,
+			1: 0
+		}
+	}
+var Max_health: float = 100.0
+# Move_speed: int
+# Attack_speed: int
+var Projectile_dmg: float = 10.0
+var Melee_dmg: float = 10.0
 
 # death flag
 var Player_is_dead = false
@@ -53,6 +72,13 @@ const Death : String = "Death"
 #---Action Variables---#
 # Melee Variables
 var Is_attacking : bool = false
+var Has_melee: int = 0
+var Spinning: bool = false
+var Melee_x_additional: int = 0
+var Melee_y_additional: int = 0
+var Sword_list: Array
+
+
 
 # Blocking Variables
 var Is_blocking : bool = false
@@ -61,6 +87,13 @@ var Parry_window : float = 0.5
 # Shooting Variables
 var Projectile_bounce_count : int = 0
 var Spread_shot_count: int = 0
+var Multi_shot_count: int = 1
+var Reloading: bool = false
+var Has_range: int = 0
+
+# Projectile Variables
+var Live_time_addition:int = 0
+var Pierce_addition:int = 1
 
 # Interaction Variables
 var Can_process_input : bool = true
@@ -82,6 +115,8 @@ func _ready() -> void:
 	TS_hitbox.monitorable = false	#Fix
 	TS_hitbox.visible = false
 	
+	new_max_health(Max_health)
+	new_melee_damage(Melee_dmg)
 	#-----Shield WIP-----#
 	#Shield.visible = false
 	#Shield_hitbox.monitoring = false
@@ -131,9 +166,9 @@ func input_handling() -> void:
 	# note that the player can only equip either a melee or a projectile weapon so this will be adjusted eventually
 	# Player should not be able to do anything while blocking
 	if !Is_blocking:
-		if Input.is_action_just_pressed("attack") and not Is_attacking:
+		if Input.is_action_just_pressed("attack") and not Is_attacking and Has_melee:
 			melee_attack()
-		if Input.is_action_just_pressed("shoot"):
+		if Input.is_action_just_pressed("shoot") and not Reloading and Has_range:
 			shoot_projectile()
 
 # determines where the player attacks based on the mouse position
@@ -248,14 +283,50 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	Melee_hurtbox.visible = true
 	Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
 	
+	if "Spin Sword" in Sword_list:
+		Melee_hurtbox.position = Vector2(0,0)
+	var Attack_direction = use_melee_weapon("")		# any shape changes are temporary
+	
 	# Disable after a short duration
 	await get_tree().create_timer(Duration, false, true).timeout
 	Melee_hurtbox.monitoring = false  
 	Melee_hurtbox.visible = false 
+	use_melee_weapon(Attack_direction)				# Removed here with the same direction
 
+func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool) -> void:
+	if Weapon in Sword_list and not Equip:
+		Sword_list.erase(Weapon)
+		Melee_x_additional -= Melee_x
+		Melee_y_additional -= Melee_y
+	elif Weapon not in Sword_list and Equip:
+		Sword_list.append(Weapon)
+		Melee_x_additional += Melee_x
+		Melee_y_additional += Melee_y
+	
+func use_melee_weapon(Direction: String) -> String:
+	var Usage = -1
+	if not Direction:	# Determines if adding or removing
+		Direction = Facing_direction
+		Usage = 1
+	var shape = Melee_collision.shape	
+	match Direction:	
+		"left":
+			shape.extents.x += (Melee_x_additional) * Usage
+			shape.extents.y += (Melee_y_additional) * Usage
+		"right":
+			shape.extents.x += (Melee_x_additional) * Usage
+			shape.extents.y += (Melee_y_additional) * Usage
+		"up":
+			shape.extents.x += (Melee_y_additional) * Usage
+			shape.extents.y += (Melee_x_additional) * Usage
+		"down":
+			shape.extents.x += (Melee_y_additional) * Usage
+			shape.extents.y += (Melee_x_additional) * Usage
+	return Direction
 #----------shooting related functions----------#
 # Shoots projectile with spread functionality
 func shoot_projectile():
+	Reloading = true
 	print("Shooting with spread shot")
 
 	var Total_projectiles = 1 + Spread_shot_count
@@ -265,23 +336,33 @@ func shoot_projectile():
 	var Spread_step = Spread_angle / max(1, Total_projectiles - 1)
 	var Center_index = Total_projectiles / 2
 
-	for i in range(Total_projectiles):
-		var Projectile_instance = Projectile.instantiate()
+	for k in range(Multi_shot_count):
+		for i in range(Total_projectiles):
+			var Projectile_instance = Projectile.instantiate()
+			# ensure that one of the projectiles is going center
+			var Angle_offset = (i - Center_index) * Spread_step
+			if Total_projectiles % 2 == 0 and i == Center_index:
+				Angle_offset = 0.0 
+			
+			Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
+			Projectile_instance.SpawnPos = global_position
+			Projectile_instance.Fired_by = self
+			Projectile_instance.MaxBounces = Projectile_bounce_count
+			Projectile_instance.Lifetime += Live_time_addition
+			Projectile_instance.MaxPierce += Pierce_addition
+			
+			# add projectile to the current scene
+			Main = get_tree().current_scene
+			if Main:
+				Main.add_child(Projectile_instance)
+				
+			Projectile_instance.implement_damage(Projectile_dmg)
+		await get_tree().create_timer(0.09).timeout
+	reloaded()
 
-		# ensure that one of the projectiles is going center
-		var Angle_offset = (i - Center_index) * Spread_step
-		if Total_projectiles % 2 == 0 and i == Center_index:
-			Angle_offset = 0.0 
-
-		Projectile_instance.Direction = Mouse_direction.rotated(Angle_offset).normalized()
-		Projectile_instance.SpawnPos = global_position
-		Projectile_instance.Fired_by = self
-		Projectile_instance.MaxBounces = Projectile_bounce_count
-
-		# add projectile to the current scene
-		Main = get_tree().current_scene
-		if Main:
-			Main.add_child(Projectile_instance)
+func reloaded() -> void:
+	await get_tree().create_timer(1/Attack_speed).timeout
+	Reloading = false
 
 #----------blocking related functions----------#
 func block() -> void:
@@ -385,3 +466,53 @@ func _on_player_health_damage_taken(_Amount: float) -> void:
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
+# Value used to check we have a weapon
+func get_range(Value: int) -> void:
+	Has_range = Value
+func get_melee(Value: int) -> void:
+	Has_melee = Value
+	
+#----------status upgrade related functions----------#
+func get_curr_upgrade(ID: int, Index: int) -> int:
+	return Upgrade_status_count[ID][Index]
+func add_curr_upgrade(ID: int, Index: int) -> void:
+	Upgrade_status_count[ID][Index] += 1
+	
+func get_upgrade_counter() -> Dictionary:
+	return Upgrade_status_count
+# These set new values for the statuses
+func new_max_health(Amount: float) -> void:
+	Max_health = Amount
+	Player_health.apply_new_health(Amount)
+	
+func new_melee_damage(Amount: float) -> void:
+	Melee_dmg = Amount
+	Melee_hurtbox.hurtbox_implement_damage(Amount)
+
+func new_projectile_damage(Amount: float) -> void:
+	Projectile_dmg = Amount
+
+func new_attack_speed(Amount: float) -> void:
+	Attack_speed = Amount
+
+func new_movement_speed(Amount: float) -> void:
+	Move_speed = Amount
+
+# ------- Add new values
+func add_max_health(Amount: float) -> void:
+	Max_health += Amount
+	Player_health.apply_new_health(Max_health)
+	
+func add_melee_damage(Amount: float) -> void:
+	Melee_dmg += Amount
+	Melee_hurtbox.hurtbox_implement_damage(Melee_dmg)
+
+func add_projectile_damage(Amount: float) -> void:
+	Projectile_dmg += Amount
+
+func add_attack_speed(Amount: float) -> void:
+	Attack_speed += Amount
+
+func add_movement_speed(Amount: float) -> void:
+	Move_speed += Amount
+	

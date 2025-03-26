@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var Speed = 100
 @export var Lifetime = 2.0  
 @export var MaxBounces = 0
+@export var MaxPierce = 0
 
 # projectile textures
 @export var Player_projectile_texture: Texture2D
@@ -28,6 +29,7 @@ func _ready() -> void:
 	rotation = Direction.angle()
 	
 	fireblaster(Fired_by)
+	print(ProjectileHurtbox)
 
 	# Schedule the projectile to be destroyed after its time is over
 	get_tree().create_timer(Lifetime).timeout.connect(queue_free)
@@ -120,5 +122,20 @@ func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void
 		fireblaster(Fired_by)
 		
 		return  # Do NOT queue_free()
+	if MaxPierce == 0:
+		queue_free()  # Destroy if it hits anything else
+	else:
+		MaxPierce -=1
 
-	queue_free()  # Destroy if it hits anything else
+# Handles Increasing Live time
+func add_live_time(Added_time: int):
+	Lifetime += Added_time
+	
+# Handles adding Pierce
+func add_pierce_count(Added_pierce: int):
+	MaxPierce += Added_pierce
+
+
+func implement_damage(New_damage: float) -> void:
+	
+	ProjectileHurtbox.hurtbox_implement_damage(New_damage)

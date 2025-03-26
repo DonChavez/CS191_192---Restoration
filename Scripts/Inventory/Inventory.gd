@@ -3,6 +3,7 @@ extends Control
 class_name InventoryObject
 
 #-----onready variables-----#
+@onready var Description = $InventoryUI/InventoryPanel/ScrollDescription/Description
 @onready var Inventory_ui = $InventoryUI
 @onready var Inventory_slots = $InventoryUI/InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid.get_children() # Slots
 @onready var Inventory_slot_num: int = Inventory_slots.size() # number of slots
@@ -12,9 +13,14 @@ class_name InventoryObject
 @onready var Items: Array = []
 @onready var Coins: int = 0
 @onready var Trash: int = 0
-@onready var Selected: int = 0
+@onready var Selected: int = -1
+@onready var Range_items: int = 0
+@onready var Melee_items: int = 0
+@onready var Disable: bool = false
+
 
 enum Existence { WORLD, INVENTORY, SHOP}
+enum ItemType {RANGE, MELEE, PASSIVE}
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,12 +29,23 @@ func _ready():	# Empty inventory at the start (Change)
 		Items.append(null)  # Empty slot
 		Inventory_slots[I].set_index(I) # Sets the index of each slot (item_slot)
 	Inventory_ui.update_inventory() # InventoryUI updates UI (child)
+	self.visible = false
 
 func _process(Delta: float) -> void:
-	if Input.is_action_just_pressed("inventory"):
-		Inventory_ui.toggle_inventory()
-		_reset_item_slot(Selected)
-		Player.Can_process_input = !Player.Can_process_input
+	if not Disable:
+		if Input.is_action_just_pressed("inventory"):
+			toggle_inventory()
+			reset_item_slot(Selected)
+			Inventory_ui.update_inventory() # InventoryUI update (child)
+			Player.Can_process_input = !Player.Can_process_input
+		if Input.is_action_just_pressed("block"):
+			reset_item_slot(Selected)
+			Inventory_ui.update_inventory() # InventoryUI update (child)
+
+# Toggle to see or not the Inventory UI
+func toggle_inventory():
+	self.visible = !self.visible
+
 
 # Updates collectible amounts
 func add_coin(Amount: int):
@@ -40,9 +57,10 @@ func add_trash(Amount: int):
 
 #-----for item methods-----#
 # Reset the status of an Inventory Slot and Selected
-func _reset_item_slot(Slot: int) -> void:
+func reset_item_slot(Slot: int) -> void:
 	Inventory_slots[Slot].reset()
 	Selected = -1
+	Description.text = ""
 
 # Get item from inventory array
 func get_item(Index):
@@ -50,6 +68,17 @@ func get_item(Index):
 		return Items[Index]
 	return null
 
+func add_item_type(Item: ItemObject) -> void:
+	if Item.Item_type == ItemType.RANGE:
+		Range_items += 1
+	elif Item.Item_type == ItemType.MELEE:
+		Melee_items += 1	
+
+func remove_item_type(Item: ItemObject) -> void:
+	if Item.Item_type == ItemType.RANGE:
+		Range_items -= 1
+	elif Item.Item_type == ItemType.MELEE:
+		Melee_items -= 1	
 # Add an item to the inventory
 func add_item(Item_data: Node2D) -> bool:
 	var Item_parent = Item_data.get_parent()
@@ -61,9 +90,12 @@ func add_item(Item_data: Node2D) -> bool:
 			Items[I] = Item_data
 			print("Added:", Item_data["name"])
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
-			Inventory_slots[I].toggle_item() # Lets Item Slot know it has an item
+			Inventory_slots[I].toggle_item(Item_data) # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
 			
+			add_item_type(Item_data)
+			Player.get_range(Range_items)
+			Player.get_melee(Melee_items)
 			# Apply effect of item
 			if Item_data:
 				Item_data.apply_effect(Player)
@@ -75,16 +107,17 @@ func add_item(Item_data: Node2D) -> bool:
 	return false  # No space available
 
 # Whenever an item Slot is clicked.
-func _on_item_slot_clicked(Index: int) -> void:
+func on_item_slot_clicked(Index: int) -> void:
 	await get_tree().create_timer(0.001).timeout # Timeout to avoid bugs
 	# reset if invalid Index or same as Selected
 	if Index < 0 or Index >= Inventory_slot_num or Selected == Index:
 		print("Invalid inventory index:", Index)
-		_reset_item_slot(Selected)
+		reset_item_slot(Selected)
 		return
 	# If no selected and Index has Item, Select
 	elif Selected == -1 and Items[Index]:
 		Selected = Index
+		get_description()
 	# If valid index and already selected, Move items
 	if Selected != -1:
 		move_item(Index)
@@ -112,9 +145,11 @@ func drop_item():
 	Item_instance.visible = true  # Ensure it's visible in the world
 	
 	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item()
-	_reset_item_slot(Selected)
-	
+	Inventory_slots[Selected].toggle_item(null)
+	reset_item_slot(Selected)
+	remove_item_type(Item_instance)
+	Player.get_range(Range_items)
+	Player.get_melee(Melee_items)
 	# Remove effect of item
 	if Item_instance:
 		Item_instance.remove_effect(Player)
@@ -135,15 +170,43 @@ func move_item(Index: int) -> void:
 	else:
 		Items[Selected] = null
 		# Change Item Slot statuses
-		Inventory_slots[Selected].toggle_item()
-		Inventory_slots[Index].toggle_item()
 	Items[Index] = holder
-	
+	Inventory_slots[Selected].toggle_item(Items[Selected])
+	Inventory_slots[Index].toggle_item(Items[Index])
 	# Change Item Slot statuses and Selected
-	_reset_item_slot(Selected)
-	_reset_item_slot(Index)
-
+	reset_item_slot(Selected)
+	reset_item_slot(Index)
 	# Update UI after move/swap
 	Inventory_ui.update_inventory()
 
+func get_description() -> void:
+	Description.text = Items[Selected].Title +"\n" + Items[Selected].Description
+
+func get_inventory_array() -> Array:
+	return Items
+
+func delete_item(Index: int) -> void:
+	# Retrieve the item node from the inventory array
+	var Item_instance = Items[Index]
+	if not Item_instance:
+		print("No item at index:", Selected)
+		return
+	Items[Selected] = null  # Remove from inventory
 	
+	
+	# Change Item Slot statuses
+	Inventory_slots[Selected].toggle_item(null)
+	reset_item_slot(Selected)
+	remove_item_type(Item_instance)
+	Player.get_range(Range_items)
+	Player.get_melee(Melee_items)
+	# Remove effect of item
+	if Item_instance:
+		Item_instance.remove_effect(Player)
+		
+	Item_instance.queue_free()
+	# Update visuals
+	Inventory_ui.update_inventory() # InventoryUI (child)
+
+func disable_toggle() -> void:
+	Disable = !Disable

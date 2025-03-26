@@ -1,19 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://6pjfskgkk2n0"]
+[gd_scene load_steps=4 format=3 uid="uid://dfjvxrjh6jt1g"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Item.gd" id="1_7tk6f"]
-[ext_resource type="Texture2D" uid="uid://bornrti405fg4" path="res://Art/Items/L002.png" id="2_pjtor"]
+[ext_resource type="Script" path="res://Scripts/Items/ProjectileLife.gd" id="1_gua0g"]
+[ext_resource type="Texture2D" uid="uid://buhipjla5ho2a" path="res://Art/Items/ProjectileLife.png" id="2_gh8le"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Item" type="Node2D"]
+[node name="ProjectileLife" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_7tk6f")
+script = ExtResource("1_gua0g")
+Item_ID = "0005"
+Item_name = "Projectile Life"
+Item_type = 2
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_pjtor")
+texture = ExtResource("2_gh8le")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

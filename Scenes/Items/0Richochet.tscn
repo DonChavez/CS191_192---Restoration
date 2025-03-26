@@ -1,19 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc7k61ipacrgi"]
+[gd_scene load_steps=4 format=3 uid="uid://kb63wl84mtd3"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Item.gd" id="1_0gyxm"]
-[ext_resource type="Texture2D" uid="uid://36cnecxnroxj" path="res://Art/Items/E002.png" id="2_0jovt"]
+[ext_resource type="Script" path="res://Scripts/Items/Ricochet.gd" id="1_mrlxq"]
+[ext_resource type="Texture2D" uid="uid://dvn7cjj0pahvx" path="res://Art/Items/Ricochet.png" id="2_c3r11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Item" type="Node2D"]
+[node name="Ricochet" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_0gyxm")
+script = ExtResource("1_mrlxq")
+Item_ID = "0001"
+Item_name = "Ricochet"
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_0jovt")
+texture = ExtResource("2_c3r11")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

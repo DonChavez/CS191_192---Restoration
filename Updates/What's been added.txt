@@ -1,32 +1,21 @@
-branch: reset_sean
-v0.1.1:
-    1. New Global Scene (UIManager) - handles anything UI related
-    2. Added new art assets 
-        - New Tileset (https://schwarnhild.itch.io/summer-plains-tileset-and-asset-pack-32x32-pixels)
-            - Recolored to match the game
-            - Added new trees and bushes
-        - Draft Main Menu - draft idea for main menu design
-        - Added temporary weapons assets for HUD
-    3. Organized scenes and scripts - did the relocation
-    4. FOLDER COLORS - added folder colors for easy access (grey folders are usually untouched)
-    5. Added new UI elements
-        - Game Over Screen - New scene when the player dies with buttons
-        - Pause Screen - New scene when the player presses the pause button ("escape")
-        - Menu - Main Menu when the game launches
-        - HUD - New scene for the HUD display following the viewport
-    6. Added a new shader - just used it for making the background blurry
-    7. Changed Inventory from (CanvasLayer -> Control)
-    8. Modified PollutionMeter (Now integrated with the HUD)
-    9. Added a UI Wrapper in the player to contain UI elements
-    10. Moved Inventory and PollutionSystem to UI Wrapper
-    11. Synced Player Health, Shield durability, Level Name, and Pollution with HUD
-    12. Added a pollution_updated signal to PollutionSystem (This is used to sync to HUD)
-    13. Added pausing to the game - will pause the game when it is paused
-    14. Added restart to the game - player can now restart the level
-    15. Added exit to the game - Main Menu and Pause Screen makes player exit the game when clicked
-    16. Changed the viewport of the game (from Maximized -> Exclusive Full Screen)
-    17. Responsive Design UI - UI elements will be responsive to different screen sizes like websites
-    18. Added new input map ("escape") - activates when the ESC is pressed
-    19. Refactored PlayerManager to be more readable
-    20. Refactored UIManager to be more readable
-
+branch: reset_resai
+v0.1.3:
+	1.  Edited Player:
+		- Added Stat variables
+		- Added functions to change melee and projectile damage
+		- Improved Melee weapon application
+		- Added Stats variables
+		- Added Functions to edit stat variables
+		- Added Upgrade counter to keep track of stats and upgrade no.
+	2. Edited Projectiles
+	3. Edited HurtboxComponent to have function to change damage amount
+	4. Added Pawn Shop
+		- Can Sell items for coin here
+		- Clicks are paralled into Inventory
+		- Build is similar to Inventory
+	5. Added Trainer
+		- Can train certain stats here
+		- Costs ramps up
+		- Similar to Recycler
+Other:
+	1. Comments

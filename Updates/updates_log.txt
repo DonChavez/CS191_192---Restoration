@@ -247,5 +247,3 @@ v0.1.1:
     18. Added new input map ("escape") - activates when the ESC is pressed
     19. Refactored PlayerManager to be more readable
     20. Refactored UIManager to be more readable
-
-

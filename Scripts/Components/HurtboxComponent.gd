@@ -13,7 +13,10 @@ signal hit(Hitbox: HitboxComponent, amount: float)  # Signal for hit event
 
 # local variables
 var Time_since_last_damage: float = 0.0
-var Hitbox: HitboxComponent = null
+var Hitbox_dict = {}
+var Hitbox_list: Array[HitboxComponent] = []
+var Processing_list: Array[HitboxComponent] = []
+
 
 func _ready() -> void:
 	# if player hitbox collision is entered by another hitbox component, it calls the on_hitbox_entered function
@@ -24,24 +27,33 @@ func _ready() -> void:
 func _on_hitbox_entered(Area: Area2D) -> void:
 	# check if the area entered is a hitbox
 	# essentially 2-factor authentication
+	print(Area)
 	if Area is HitboxComponent and monitoring:  # Check if valid hitbox
-		Hitbox = Area
-		Time_since_last_damage = Damage_interval
+		Hitbox_dict[Area] = Damage_interval
+		Hitbox_list.append(Area)
 		#Hitbox.damage_received(Damage_amount)  # Apply damage
 		# animation signal
 		# tells the player they were hit
 		#hit.emit(hitbox, damage_amount)  # Notify listeners
 		
 func _on_hitbox_exited(Area: Area2D) -> void:
-	if Area is HitboxComponent and Hitbox == Area:
-		Hitbox = null
+	if Area is HitboxComponent and Area in Hitbox_dict:
+		Hitbox_dict.erase(Area)
+		Processing_list.erase(Area)
 
 func _physics_process(delta: float) -> void:
-	if Hitbox and monitoring:
-		Time_since_last_damage += delta
-		if Time_since_last_damage >= Damage_interval:
-			if Hitbox.has_method("damage_received"):
-				print("I deal damage")
-				Hitbox.damage_received(Damage_amount)
-				hit.emit(Hitbox, Damage_amount)
-				Time_since_last_damage = 0.0
+	if Hitbox_list:
+		Processing_list.append(Hitbox_list.pop_front())
+
+	if Processing_list and monitoring:
+		for Hitbox in Processing_list:
+			Hitbox_dict[Hitbox] += delta
+			if Hitbox_dict[Hitbox] >= Damage_interval:
+				if Hitbox.has_method("damage_received"):
+					print("I deal damage")
+					Hitbox.damage_received(Damage_amount)
+					hit.emit(Hitbox, Damage_amount)
+					Hitbox_dict[Hitbox] = 0.0
+					
+func hurtbox_implement_damage(Amount: float) -> void:
+	Damage_amount += Amount

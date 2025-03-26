@@ -1,19 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctodd5mcr6l05"]
+[gd_scene load_steps=4 format=3 uid="uid://bc3c7o8s02iwd"]
 
-[ext_resource type="Script" path="res://Scripts/Items/SpreadShot.gd" id="1_8sbjn"]
-[ext_resource type="Texture2D" uid="uid://cu6me3gx2n43h" path="res://Art/Items/R001.png" id="2_77f80"]
+[ext_resource type="Script" path="res://Scripts/Items/Spin.gd" id="1_14qpa"]
+[ext_resource type="Texture2D" uid="uid://bh8h4ko06fivd" path="res://Art/Items/Spin.png" id="2_47q3c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="SpreadShot" type="Node2D"]
+[node name="Spin Sword" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_8sbjn")
+script = ExtResource("1_14qpa")
+Item_ID = "4006"
+Item_name = "Spin Sword"
+Item_type = 1
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_77f80")
+texture = ExtResource("2_47q3c")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032
@@ -31,6 +34,7 @@ offset_right = 65.3644
 offset_bottom = -53.0931
 scale = Vector2(4.12728, 4.12728)
 text = "F"
+metadata/_edit_use_anchors_ = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
