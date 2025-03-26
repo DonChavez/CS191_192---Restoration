@@ -476,5 +476,12 @@ offset_right = 135.0
 offset_bottom = 49.0
 Health_component = NodePath("../EliteEnemyHealth")
 
+[node name="EliteLOS" type="RayCast2D" parent="."]
+target_position = Vector2(129, 0)
+collision_mask = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dsucn6yegovhr"]
 
-[ext_resource type="Texture2D" uid="uid://cd744cipl537i" path="res://Art/Characters/slime.png" id="1_imy10"]
+[ext_resource type="Texture2D" uid="uid://dn580sqvsth1" path="res://Art/Characters/slime.png" id="1_imy10"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_y1unw"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_37op7"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_15032"]
@@ -152,7 +152,6 @@ position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_skdr7")
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(0, 1)
 collision_layer = 0
 collision_mask = 2
@@ -186,5 +185,13 @@ offset_right = 21.0
 offset_bottom = 13.0
 Health_component = NodePath("../BasicEnemyHealth")
 
+[node name="EnemyLOS" type="RayCast2D" parent="."]
+target_position = Vector2(48, 0)
+collision_mask = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

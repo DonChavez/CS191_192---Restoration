@@ -564,6 +564,7 @@ collision_mask = 5
 script = ExtResource("1_r6j8o")
 
 [node name="Inventory" parent="." instance=ExtResource("8_5onck")]
+visible = false
 
 [node name="AnimatedPlayer2D" type="AnimatedSprite2D" parent="."]
 physics_interpolation_mode = 2
@@ -590,7 +591,7 @@ shape = SubResource("RectangleShape2D_d4m5w")
 
 [node name="MeleeHurtbox" parent="." instance=ExtResource("5_0jedd")]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 12
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHurtbox"]
 shape = SubResource("RectangleShape2D_wt541")
@@ -612,6 +613,7 @@ limit_bottom = 760
 editor_draw_limits = true
 
 [node name="PollutionSystem" parent="." instance=ExtResource("9_s2vsi")]
+visible = false
 position = Vector2(245, -90)
 
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]

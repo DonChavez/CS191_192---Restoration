@@ -20,3 +20,7 @@ Testings:
 
 Dialogue Manager:
 	Needs to handle mutiple dialogues
+
+Level 1: 
+	Level 0 and Level 1 scenes were deleted from laptop for some reason, needing to remake
+	Level 0 is currently being redone, while Level 1 can't yet

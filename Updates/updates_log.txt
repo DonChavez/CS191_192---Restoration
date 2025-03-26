@@ -139,4 +139,3 @@ v0.0.7.1:
 	1. added parry variable in player.gd
 	2. changed the fired_by logic to using "self" instead of strings
 	3. changed redirect function to redirect_target() and redirect_random() for parrying and blocking respectively
-
