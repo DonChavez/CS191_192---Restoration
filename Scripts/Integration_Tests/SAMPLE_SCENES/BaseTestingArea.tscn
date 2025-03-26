@@ -1,9 +1,9 @@
-[gd_scene load_steps=20 format=4 uid="uid://dtdpe3f7npn3p"]
+[gd_scene load_steps=22 format=4 uid="uid://dtdpe3f7npn3p"]
 
-[ext_resource type="Texture2D" uid="uid://bug1ifaxj266p" path="res://Art/Tilesets/grass.png" id="1_yk7mn"]
-[ext_resource type="Texture2D" uid="uid://p38xar45m02x" path="res://Art/Tilesets/plains.png" id="2_q71gd"]
-[ext_resource type="Texture2D" uid="uid://dylx0hxir7fgn" path="res://Art/Tilesets/fences.png" id="3_nb3jy"]
-[ext_resource type="Texture2D" uid="uid://bj1vxhfhu3tdq" path="res://Art/Objects/objects.png" id="4_k7lgd"]
+[ext_resource type="Texture2D" uid="uid://ba5fljn8mopr" path="res://Art/Tilesets/grass.png" id="1_yk7mn"]
+[ext_resource type="Texture2D" uid="uid://bwrw0d3rur1ku" path="res://Art/Tilesets/plains.png" id="2_q71gd"]
+[ext_resource type="Texture2D" uid="uid://dllh363chc8oa" path="res://Art/Tilesets/fences.png" id="3_nb3jy"]
+[ext_resource type="Texture2D" uid="uid://cfygbpt431hyo" path="res://Art/Objects/objects.png" id="4_k7lgd"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="5_ycw00"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="6_3auqn"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="7_sogi1"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="10_cq6ei"]
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="11_iooop"]
 [ext_resource type="PackedScene" uid="uid://w4pei5wpkesa" path="res://Scripts/Integration_Tests/SAMPLE_SCENES/Player.tscn" id="12_nn16d"]
+[ext_resource type="PackedScene" uid="uid://hyncjqdp6maq" path="res://Scripts/Integration_Tests/SAMPLE_SCENES/0SpreadShot.tscn" id="13_ohhyr"]
+[ext_resource type="PackedScene" uid="uid://cynl8s0fg7ew3" path="res://Scripts/Integration_Tests/SAMPLE_SCENES/0Spin.tscn" id="14_t4j52"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_laih6"]
 texture = ExtResource("1_yk7mn")
@@ -626,6 +628,12 @@ position = Vector2(61, 335)
 
 [node name="Player" parent="." instance=ExtResource("12_nn16d")]
 position = Vector2(60, 331)
+
+[node name="SpreadShot" parent="." instance=ExtResource("13_ohhyr")]
+position = Vector2(-22, 362)
+
+[node name="Spin Sword" parent="." instance=ExtResource("14_t4j52")]
+position = Vector2(-23, 334)
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="Stairs" to="Stairs" method="_on_body_exited"]
