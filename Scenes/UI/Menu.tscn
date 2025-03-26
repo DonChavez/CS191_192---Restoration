@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cg5g6b3cie2qj"]
 
 [ext_resource type="Script" path="res://Scripts/UI/StartButton.gd" id="1_7sdnx"]
-[ext_resource type="Texture2D" uid="uid://dwi5q7uifm46h" path="res://Art/Draft/title-screen.png" id="2_hplbn"]
-[ext_resource type="FontFile" uid="uid://cmwlpv802466h" path="res://Art/Font/Economica-Bold.ttf" id="3_buubt"]
+[ext_resource type="Texture2D" uid="uid://c31nqny2srnhl" path="res://Art/Draft/title-screen.png" id="2_hplbn"]
+[ext_resource type="FontFile" uid="uid://bvvb25gyq041m" path="res://Art/Font/Economica-Bold.ttf" id="3_buubt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ofl1j"]
 
