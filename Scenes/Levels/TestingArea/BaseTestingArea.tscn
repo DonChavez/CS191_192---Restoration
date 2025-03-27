@@ -1,9 +1,9 @@
 [gd_scene load_steps=20 format=4 uid="uid://cuuy8aqddjprb"]
 
-[ext_resource type="Texture2D" uid="uid://bug1ifaxj266p" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
-[ext_resource type="Texture2D" uid="uid://p38xar45m02x" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
-[ext_resource type="Texture2D" uid="uid://dylx0hxir7fgn" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
-[ext_resource type="Texture2D" uid="uid://bj1vxhfhu3tdq" path="res://Art/Objects/objects.png" id="5_scw7s"]
+[ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
+[ext_resource type="Texture2D" uid="uid://dycx224aw04sf" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
+[ext_resource type="Texture2D" uid="uid://ffhr1g6vo61q" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
+[ext_resource type="Texture2D" uid="uid://dcygb7neoi3oe" path="res://Art/Objects/objects.png" id="5_scw7s"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="6_dgjc6"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="7_xo2jl"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="8_yyyly"]
@@ -11,13 +11,13 @@
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="10_dqwsc"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="11_p6r5m"]
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="12_1c86e"]
-[ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0Spin.tscn" id="12_gqfes"]
+[ext_resource type="PackedScene" path="res://Scenes/Items/0Spin.tscn" id="12_gqfes"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_laih6"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c12ks"]
 texture = ExtResource("2_da6o1")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dohjw"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fvr5o"]
 texture = ExtResource("3_lhkxd")
 0:0/0 = 0
 0:0/0/terrain_set = 0
@@ -292,10 +292,10 @@ terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 terrain_set_1/mode = 0
 terrain_set_1/terrain_0/name = "Hill"
 terrain_set_1/terrain_0/color = Color(0.193186, 0.446503, 0.255738, 1)
-sources/0 = SubResource("TileSetAtlasSource_laih6")
-sources/1 = SubResource("TileSetAtlasSource_dohjw")
+sources/0 = SubResource("TileSetAtlasSource_c12ks")
+sources/1 = SubResource("TileSetAtlasSource_fvr5o")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdqkk"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jtgtw"]
 texture = ExtResource("4_pq8yq")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -330,7 +330,7 @@ texture = ExtResource("4_pq8yq")
 3:3/0 = 0
 3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jk5ar"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_djw7r"]
 texture = ExtResource("5_scw7s")
 0:0/0 = 0
 0:0/0/y_sort_origin = 3
@@ -548,8 +548,8 @@ texture = ExtResource("5_scw7s")
 
 [sub_resource type="TileSet" id="TileSet_c2c00"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_xdqkk")
-sources/1 = SubResource("TileSetAtlasSource_jk5ar")
+sources/0 = SubResource("TileSetAtlasSource_jtgtw")
+sources/1 = SubResource("TileSetAtlasSource_djw7r")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v2n4e"]
 size = Vector2(58, 38)

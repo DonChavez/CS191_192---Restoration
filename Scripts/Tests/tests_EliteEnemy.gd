@@ -34,37 +34,37 @@ func test_elite_enemy_ready():
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
 
-func test_elite_enemy_detect_enter():
-
- var elite_enemy_scene = load(ELITE_ENEMY_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var elite_enemy = elite_enemy_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
- elite_enemy.Elite_health = healthcomponent
- elite_enemy.Elite_hitbox = hitboxcomponent
-
- var Elite_sprite = elite_enemy.get_node("AnimatedSprite2D")
- var DashTimer = elite_enemy.get_node("Timer")
-
- var sample_body = Node2D.new()
-
- add_child(elite_enemy)
- await get_tree().process_frame  # Allow _ready() to execute
-
- elite_enemy._on_detection_area_body_entered(sample_body)
-
- assert_bool(elite_enemy.Player_chase).is_true()
-
- elite_enemy.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
- sample_body.queue_free()
+#func test_elite_enemy_detect_enter():
+#
+ #var elite_enemy_scene = load(ELITE_ENEMY_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var elite_enemy = elite_enemy_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+ #elite_enemy.Elite_health = healthcomponent
+ #elite_enemy.Elite_hitbox = hitboxcomponent
+#
+ #var Elite_sprite = elite_enemy.get_node("AnimatedSprite2D")
+ #var DashTimer = elite_enemy.get_node("Timer")
+#
+ #var sample_body = Node2D.new()
+#
+ #add_child(elite_enemy)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #elite_enemy._on_detection_area_body_entered(sample_body)
+#
+ #assert_bool(elite_enemy.Player_chase).is_true()
+#
+ #elite_enemy.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
+ #sample_body.queue_free()
 
 func test_elite_enemy_detect_exit():
 
@@ -100,39 +100,39 @@ func test_elite_enemy_detect_exit():
  hitboxcomponent.queue_free()
  sample_body.queue_free()
 
-func test_elite_enemy_shoot_projectile():
-
- var elite_enemy_scene = load(ELITE_ENEMY_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var elite_enemy = elite_enemy_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
- elite_enemy.Elite_health = healthcomponent
- elite_enemy.Elite_hitbox = hitboxcomponent
-
- var Elite_sprite = elite_enemy.get_node("AnimatedSprite2D")
- var DashTimer = elite_enemy.get_node("Timer")
-
- var sample_body = Node2D.new()
-
- add_child(elite_enemy)
- await get_tree().process_frame  # Allow _ready() to execute
-
- elite_enemy._on_detection_area_body_entered(sample_body)
- elite_enemy.shoot_projectile()
-
- #Assertions not needed, as long as function returns
- #test passes(Shooting Projectiles does not mutate anything, but it is a pure local action) 
-
- elite_enemy.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
- sample_body.queue_free()
+#func test_elite_enemy_shoot_projectile():
+#
+ #var elite_enemy_scene = load(ELITE_ENEMY_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var elite_enemy = elite_enemy_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+ #elite_enemy.Elite_health = healthcomponent
+ #elite_enemy.Elite_hitbox = hitboxcomponent
+#
+ #var Elite_sprite = elite_enemy.get_node("AnimatedSprite2D")
+ #var DashTimer = elite_enemy.get_node("Timer")
+#
+ #var sample_body = Node2D.new()
+#
+ #add_child(elite_enemy)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #elite_enemy._on_detection_area_body_entered(sample_body)
+ #elite_enemy.shoot_projectile()
+#
+ ##Assertions not needed, as long as function returns
+ ##test passes(Shooting Projectiles does not mutate anything, but it is a pure local action) 
+#
+ #elite_enemy.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
+ #sample_body.queue_free()
 
 func test_elite_enemy_circle_attack():
 

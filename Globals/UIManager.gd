@@ -95,7 +95,6 @@ func _update_level_name() -> void:
 		reinitialize_ui()
 		if not LevelName:
 			push_error("LevelName label still not found in UI!")
-			return
 
 	if LevelManager and LevelManager.current_level_name:
 		LevelName.text = LevelManager.current_level_name

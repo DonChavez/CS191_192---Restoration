@@ -1,7 +1,7 @@
 [gd_scene load_steps=21 format=3 uid="uid://drw6aay8lkvx6"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/RangedEnemy.gd" id="1_qc07w"]
-[ext_resource type="Texture2D" uid="uid://blewjyxqigito" path="res://Art/Characters/Shooter.png" id="2_5s71k"]
+[ext_resource type="Texture2D" uid="uid://cwiimxay4t2vd" path="res://Art/Characters/Shooter.png" id="2_5s71k"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_8bud7"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_di4qy"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_1nxr0"]
@@ -155,5 +155,13 @@ offset_left = -4.0
 offset_right = 12.0
 Health_component = NodePath("../RangedEnemyHealth")
 
+[node name="RangedLOS" type="RayCast2D" parent="."]
+target_position = Vector2(-102, 0)
+collision_mask = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

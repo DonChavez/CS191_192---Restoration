@@ -4,6 +4,8 @@ extends CharacterBody2D
 @onready var Ranged_sprite: AnimatedSprite2D = $RangedEnemySprite
 @onready var Ranged_health: HealthComponent = $RangedEnemyHealth
 @onready var Ranged_hitbox: HitboxComponent = $RangedEnemyHitbox
+@onready var Ranged_los: RayCast2D = $RangedLOS
+@onready var Wait_timer: Timer = $WaitTimer
 
 # exportable variables
 @export var Projectile = load("res://Scenes/Objects/Projectile.tscn")
@@ -14,6 +16,8 @@ extends CharacterBody2D
 
 # movemovent variables
 var Speed = 50
+var Last_direction : Vector2 = Vector2.ZERO
+var Is_waiting :  bool = false
 
 # player variables
 var Player_chase = false
@@ -22,6 +26,8 @@ var Player = null
 func _ready() -> void:
 	# default animation start
 	Ranged_sprite.play("Idle")
+	Ranged_los.enabled = true
+	Wait_timer.timeout.connect(_on_wait_timer_timeout)
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
@@ -30,6 +36,22 @@ func _physics_process(delta: float) -> void:
 		
 		# Required to start shooting the player
 		Attack_timer += delta
+		
+		# Handle line of sight check if player is detected
+		if Player != null and !Is_waiting:
+			# Point the RayCast2D towards the player
+			Ranged_los.target_position = Player.global_position - global_position
+			# Force update to get immediate collision result
+			Ranged_los.force_raycast_update()
+			# Check if RayCast2D hits the player directly
+			if Ranged_los.is_colliding() and Ranged_los.get_collider() == Player:
+				Player_chase = true
+				Last_direction = (Player.position - position).normalized()
+				# Optional debug print
+				# print("I see you!")
+			else:
+				Player_chase = false
+				# print("Where are you?!")
 		
 		if Player_chase:
 			# chases the player
@@ -44,6 +66,12 @@ func _physics_process(delta: float) -> void:
 			
 			# flip animation if player is on the left
 			Ranged_sprite.flip_h = Player.position.x > position.x
+		
+		elif Is_waiting:
+			# Move in last direction during waiting period
+			velocity = Last_direction * Speed
+			Ranged_sprite.play("Move")
+			#Ranged_sprite.flip_h = Last_direction.x < 0
 			
 		else:
 			Ranged_sprite.play("Idle")
@@ -55,16 +83,31 @@ func _physics_process(delta: float) -> void:
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	# whatever enters the detection area is set to body
 	# since only the player collides with this detection area, we set the body as the player
-	Player = body
-	# enemy will now chase the player
-	Player_chase = true
-	print("Enemy on sight")
+	#Player = body
+	## enemy will now chase the player
+	#Player_chase = true
+	if body.is_in_group("Player"):
+		Player = body
+		print("Enemy on sight")
+		if Is_waiting:
+			Is_waiting = false # reset timer 
+			Wait_timer.stop()
 
 func _on_detection_area_body_exited(_body: Node2D) -> void:
 	# we want to stop chasing the player once they exit
-	Player = null
-	Player_chase = false
-	print("Bravo six going dark")
+	#Player = null
+	#Player_chase = false
+	if _body == Player and Player_chase:
+		# Player left the detection area; start 10-second movement
+		Is_waiting = true
+		Player_chase = false
+		Wait_timer.start()
+
+func _on_wait_timer_timeout() -> void:
+	if Is_waiting:
+		Is_waiting = false 
+		Player = null
+		print("Bravo six going dark")
 
 func shoot_projectile() -> void: 
 	var Direction = (Player.position - position).normalized()

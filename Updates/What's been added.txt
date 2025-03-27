@@ -1,21 +1,16 @@
-branch: reset_resai
-v0.1.3:
-	1.  Edited Player:
-		- Added Stat variables
-		- Added functions to change melee and projectile damage
-		- Improved Melee weapon application
-		- Added Stats variables
-		- Added Functions to edit stat variables
-		- Added Upgrade counter to keep track of stats and upgrade no.
-	2. Edited Projectiles
-	3. Edited HurtboxComponent to have function to change damage amount
-	4. Added Pawn Shop
-		- Can Sell items for coin here
-		- Clicks are paralled into Inventory
-		- Build is similar to Inventory
-	5. Added Trainer
-		- Can train certain stats here
-		- Costs ramps up
-		- Similar to Recycler
-Other:
-	1. Comments
+branch: reset_julian
+v0.1.5.1:
+	1. Implemented Raycasting for each enemy type to integrate Line of Sight onto the player
+		- Enemy only moves towards player if there's no obstacle in between the LOS
+		- Enemy continuously moves for 5 seconds in 1 direction looking for the player after the player leaves the detection circle
+		- Enemy returns to Idle state if player is not found
+		- Enemy search duration is reset everytime it sees the player
+	2. Added breakable log object
+		- Utilizes layers 1 and 3, environment and enemy
+		- Player cannot pass through the object
+		- Player can destroy the Object
+		- Spawns 2 trash parts after breakage
+	3. Level0
+		- Created Scenes for Part 1, 2, 3, and 4
+		- Populated and Completed details for Part 1 and Part 2
+		- Item shops were substituted for regular items since there are no shops yet (as of this push)

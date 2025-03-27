@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
-[ext_resource type="Texture2D" uid="uid://u57isqd80tjo" path="res://Art/Characters/slime_green.png" id="2_2mu7m"]
+[ext_resource type="Texture2D" uid="uid://c34me3qo7dg3n" path="res://Art/Characters/slime_green.png" id="2_2mu7m"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
@@ -161,5 +161,13 @@ offset_right = 21.0
 offset_bottom = 11.0
 Health_component = NodePath("../MeleeEnemyHealth")
 
+[node name="MeleeLOS" type="RayCast2D" parent="."]
+target_position = Vector2(48, 0)
+collision_mask = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
