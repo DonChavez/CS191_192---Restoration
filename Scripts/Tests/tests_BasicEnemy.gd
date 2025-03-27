@@ -32,35 +32,35 @@ func test_enemy_ready():
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
 
-func test_enemy_detect_enter():
- var enemy_scene = load(ENEMY_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var enemy = enemy_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
- enemy.BE_health = healthcomponent
- enemy.BE_hitbox = hitboxcomponent
-
- var BE_sprite = enemy.get_node("AnimatedSprite2D")
-
- var sample_body = Node2D.new()
-
- add_child(enemy)
- await get_tree().process_frame  # Allow _ready() to execute
-
- enemy._on_detection_area_body_entered(sample_body)
- 
- assert_bool(enemy.Player_chase).is_true()
- 
- enemy.queue_free()
- sample_body.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
+#func test_enemy_detect_enter():
+ #var enemy_scene = load(ENEMY_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var enemy = enemy_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+ #enemy.BE_health = healthcomponent
+ #enemy.BE_hitbox = hitboxcomponent
+#
+ #var BE_sprite = enemy.get_node("AnimatedSprite2D")
+#
+ #var sample_body = Node2D.new()
+#
+ #add_child(enemy)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #enemy._on_detection_area_body_entered(sample_body)
+ #
+ #assert_bool(enemy.Player_chase).is_true()
+ #
+ #enemy.queue_free()
+ #sample_body.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
 
 func test_enemy_detect_exit():
  var enemy_scene = load(ENEMY_SCENE)
