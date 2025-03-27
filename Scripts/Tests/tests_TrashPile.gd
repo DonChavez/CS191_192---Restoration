@@ -2,8 +2,8 @@ class_name TrashPile_UnitTest
 extends GdUnitTestSuite
 
 
-const TRASHPILE_SCENE = "res://Scenes/TrashPile.tscn"  # Update with correct path
-const TRASHSPAWN_SCENE = "res://Scenes/TrashSpawner.tscn"
+const TRASHPILE_SCENE = "res://Scenes/Interactables/TrashPile.tscn"  # Update with correct path
+const TRASHSPAWN_SCENE = "res://Scenes/Interactables/TrashSpawner.tscn"
 const HITBOXCOMPONENT_SCENE = "res://Scenes/Components/HitboxComponent.tscn"
 const HEALTHCOMPONENT_SCENE = "res://Scenes/Components/HealthComponent.tscn"
 

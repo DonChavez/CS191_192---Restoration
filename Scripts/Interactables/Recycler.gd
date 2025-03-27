@@ -20,7 +20,8 @@ func _ready() -> void:
 	for I in range(Recycler_slots2.size()):
 		Recycler_slots2[I].set_index(I) 
 		Recycler_slots2[I].set_id(1) 
-		
+	
+	RecyclerUI.get_labels(["Common(1)", "Uncommon(5)", "Rare(10)", "Epic(25)", "Legendary(50)"])
 	Input_label.visible = false
 	RecyclerUI.visible = false
 

@@ -3,10 +3,25 @@ class_name ItemObject
 
 enum Existence { WORLD, INVENTORY, SHOP}
 @onready var Input_label = $InputLabel
-@onready var Item_ID:String = ""
+@onready var Icon = $Icon
+@export var Item_ID:String
+@export var Item_name:String
 @onready var Exist_in: Existence = Existence.WORLD 
-@onready var Stackable: bool = false
+
 @export var Spawn_animate: bool = true
+enum ItemType {RANGE, MELEE, PASSIVE}
+@export var Item_type: ItemType
+@onready var Item_tier:int
+@onready var Default_color: Color
+
+# For Description
+@onready var Description: String
+@onready var Title: String
+const Tier_to_text = {	0:"Common",
+						1:"Uncommon",
+						2:"Rare",
+						3:"Epic",
+						4:"Legendary"	}
 
 # Other Nodes
 @onready var Player: CharacterBody2D = null  
@@ -19,7 +34,13 @@ var Effect_applied = false
 func _ready() -> void:
 	Input_label.visible = false
 	spawn_object_animation()
+	Item_tier = int(Item_ID[0])
 
+func get_ID(ID: String) -> void:
+	Item_ID = ID
+	Item_tier = int(Item_ID[0])
+
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(Delta: float) -> void:	# Add to Inventory if interacted
 	if Exist_in == Existence.WORLD:
@@ -59,7 +80,22 @@ func spawn_object_animation() -> void:
 		await get_tree().process_frame  # Wait for next frame
 	
 	$".".set_deferred("monitoring", true) 
+
+func apply_tier(Tier:int) -> void:
+	match Tier:
+		0: Default_color = Color(1.0, 1.0, 1.0)  # Common White
+		1: Default_color = Color(0.53, 1.0, 0.53)  # Uncommon Green
+		2: Default_color = Color(0.53, 0.53, 1.0)  # Rare Blue
+		3: Default_color = Color(0.8, 0.4, 0.8)  # Epic Purple (Fixed)
+		4: Default_color = Color(1.0, 0.4, 0.4)   # Legendary Red
+	Icon.self_modulate = Default_color
 	
+func get_default_color() -> Color:
+	return Default_color
+	
+func get_item_tier() -> int:
+	return Item_tier
+
 # Override these in specific item scripts
 func apply_effect(player):
 	pass

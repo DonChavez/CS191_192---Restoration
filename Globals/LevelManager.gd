@@ -8,18 +8,53 @@ signal load_complete()
 
 var _Loading_in_progress: bool = false  # prevent concurrent loading
 var _New_scene_path: String = ""  # Store the path of the new scene
+var current_level_name: String = ""
 
 func start_game() -> void:
 	if not Starting_level:
 		push_error("Start level path is invalid!")
 		return
+	
+	# Load the first level immediately without a transition
+	_start_level_load_direct(Starting_level)
 
-	# Ensure the player is properly spawned
+func _start_level_load_direct(New_level_path: String) -> void:
+	# Ensure the path is valid
+	if not ResourceLoader.exists(New_level_path):
+		push_error("Invalid level path: %s" % New_level_path)
+		return
+
+	# Remove the old scene before loading the new one
+	var Old_scene = get_tree().current_scene
+	if Old_scene and Old_scene != get_tree().root:
+		Old_scene.queue_free()
+
+	# Load and instantiate the new scene
+	var new_scene = load(New_level_path).instantiate()
+	get_tree().root.add_child(new_scene)
+	get_tree().current_scene = new_scene
+	
+	# set name
+	current_level_name = new_scene.name
+
+	# Spawn the player after the new scene is loaded
 	if PlayerManager:
 		PlayerManager.spawn_player()
+	else:
+		push_error("PlayerManager is not found!")
+		
+	# spawn the hud
+	if UIManager:
+		UIManager.init_ui()
+	else:
+		push_error("UIManager is not found!")
+
+	# Reset loading state
+	_Loading_in_progress = false
+	_New_scene_path = ""
 	
-	# Change the level after spawning the player
-	change_level(Starting_level)
+	# Emit completion signal
+	load_complete.emit()
 
 func change_level(New_level_path: String) -> void:
 	if not New_level_path:
@@ -34,23 +69,30 @@ func change_level(New_level_path: String) -> void:
 	_Loading_in_progress = true
 	_New_scene_path = New_level_path
 	
+	# Start the transition effect before loading
+	if Transition:
+		Transition.play_transition(Callable(self, "_start_level_load"))
+	else:
+		_start_level_load()
+	
+	PlayerManager.disable_player()
+
+func _start_level_load() -> void:
 	# Remove the player from the current scene before switching
 	if PlayerManager and PlayerManager.Player_instance:
 		if PlayerManager.Player_instance.is_inside_tree():
 			PlayerManager.Player_instance.get_parent().remove_child(PlayerManager.Player_instance)
 			print("Player removed from scene tree")
-	
-	# emit load_start for transition in the future
-	load_start.emit()
-	
-	# load the new scene using ResourceLoader
-	var loader = ResourceLoader.load_threaded_request(New_level_path)
-	if not ResourceLoader.exists(New_level_path) or loader == null:
-		push_error("Invalid level path: %s" % New_level_path)
+			
+	var loader = ResourceLoader.load_threaded_request(_New_scene_path)
+	if not ResourceLoader.exists(_New_scene_path) or loader == null:
+		push_error("Invalid level path: %s" % _New_scene_path)
 		_Loading_in_progress = false
 		return
 	
-	# monitor the load status every 0.1 seconds
+	PlayerManager.enable_player()
+	
+	# Monitor the load status every 0.1 seconds
 	var Load_progress_timer = Timer.new()
 	Load_progress_timer.wait_time = 0.1
 	Load_progress_timer.timeout.connect(_monitor_load_status.bind(Load_progress_timer))
@@ -84,28 +126,43 @@ func _monitor_load_status(timer: Timer) -> void:
 			timer.queue_free()
 			# Instantiate and handle the loaded scene
 			var new_scene = ResourceLoader.load_threaded_get(_New_scene_path).instantiate()
+			print("LevelManager: Calling _on_level_loaded() with", _New_scene_path)
 			_on_level_loaded(new_scene)
+
 			return
 
 func _on_level_loaded(New_scene: Node) -> void:
-	# remove the old scene
+	current_level_name = New_scene.name
+
+	# Remove the old scene
 	var Old_scene = get_tree().current_scene
 	if Old_scene and Old_scene != get_tree().root:
 		Old_scene.queue_free()
 	
-	# add the new scene to the tree and set it as current
+	# Add the new scene and set it as current
 	get_tree().root.add_child(New_scene)
 	get_tree().current_scene = New_scene
 	
-	# transfer the player to the new scene with its position pre-set
+	# Find UIManager and reinitialize it
+	var ui_manager = get_tree().get_first_node_in_group("UIManager")
+	if ui_manager:
+		print("LevelManager: Calling UIManager._on_level_loaded()")
+		ui_manager._on_level_loaded()
+	else:
+		print("LevelManager: UIManager not found!")
+
+	# Transfer the player to the new scene with its position pre-set
 	if PlayerManager:
 		PlayerManager.transfer_player()
 	else:
 		push_error("PlayerManager is not found!")
-	
-	# reset state
+
+	# Reset state
 	_Loading_in_progress = false
 	_New_scene_path = ""
-	
-	# future use for transitions
+
+	# Emit the level load complete signal
 	load_complete.emit()
+	
+func get_current_level_name() -> String:
+	return current_level_name

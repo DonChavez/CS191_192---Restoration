@@ -1,6 +1,26 @@
 extends ItemObject
 
-const ADDITIONAL_SPREAD_SHOT_COUNT = 2
+@onready var ADDITIONAL_SPREAD_SHOT_COUNT: int
+
+func _ready() -> void:
+	super()
+	apply_tier(Item_tier)
+	Title = Tier_to_text[Item_tier]+" "+Item_name
+	Description = "Shoot "+str(ADDITIONAL_SPREAD_SHOT_COUNT)+" additional projectiles in a cone"
+
+func apply_tier(Tier:int) -> void:
+	super(Tier)
+	match Tier:
+		0:
+			ADDITIONAL_SPREAD_SHOT_COUNT = 0  # Common White
+		1:
+			ADDITIONAL_SPREAD_SHOT_COUNT = 0  # Uncommon Green
+		2:
+			ADDITIONAL_SPREAD_SHOT_COUNT = 2  # Rare Blue
+		3:
+			ADDITIONAL_SPREAD_SHOT_COUNT = 3  # Epic Purple
+		4:
+			ADDITIONAL_SPREAD_SHOT_COUNT = 5  # Legendary Red
 
 func apply_effect(player):
 	if !Effect_applied:
