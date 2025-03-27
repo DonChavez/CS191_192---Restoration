@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://btpotfo7v6c50" path="res://Scenes/Enemies/TowerEnemy.tscn" id="12_dxdlq"]
 [ext_resource type="Script" path="res://Scripts/NPC.gd" id="13_6wuwc"]
 [ext_resource type="Texture2D" uid="uid://borygxwb3hnfg" path="res://Art/Characters/player.png" id="14_j6vly"]
-[ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/Dialogue.tscn" id="15_k7y1j"]
+[ext_resource type="PackedScene" path="res://Scenes/Dialogue.tscn" id="15_k7y1j"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="16_qvtmj"]
 [ext_resource type="Script" path="res://Scripts/Stairs.gd" id="17_p0ark"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="18_ive18"]
