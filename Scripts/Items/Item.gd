@@ -36,7 +36,7 @@ func _ready() -> void:
 	spawn_object_animation()
 	Item_tier = int(Item_ID[0])
 
-func get_ID(ID: String) -> void:
+func change_ID(ID: String) -> void:
 	Item_ID = ID
 	Item_tier = int(Item_ID[0])
 
@@ -95,10 +95,14 @@ func get_default_color() -> Color:
 	
 func get_item_tier() -> int:
 	return Item_tier
+func get_id() -> String:
+	return Item_ID
+func applied_toggle() -> void:
+	Effect_applied = !Effect_applied
 
 # Override these in specific item scripts
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	pass
 
-func remove_effect(player):
+func remove_effect(Player:CharacterBody2D):
 	pass

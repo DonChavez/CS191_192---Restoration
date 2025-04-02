@@ -21,7 +21,7 @@ class_name InventoryObject
 
 enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
-
+var Effect_manager: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	# Empty inventory at the start (Change)
@@ -30,6 +30,7 @@ func _ready():	# Empty inventory at the start (Change)
 		Inventory_slots[I].set_index(I) # Sets the index of each slot (item_slot)
 	Inventory_ui.update_inventory() # InventoryUI updates UI (child)
 	self.visible = false
+	Effect_manager = Player.get_effect_manager()
 
 func _process(Delta: float) -> void:
 	if not Disable:
@@ -210,3 +211,7 @@ func delete_item(Index: int) -> void:
 
 func disable_toggle() -> void:
 	Disable = !Disable
+
+func reapply_item_effects() -> void:
+	for Item in Items:
+		Effect_manager.apply_item(Item,Player)

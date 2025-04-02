@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
 #-----exportable variables-----#
-@export var Move_speed : float = 170.0
-@export var Attack_speed : float = 1.0
+
 @export var Projectile = load("res://Scenes/Objects/Projectile.tscn")
 # Blocking Variables
 @export var Is_parrying : bool = false
@@ -35,6 +34,7 @@ var sfx_files: Array = []
 @onready var Melee_collision: CollisionShape2D = $MeleeHurtbox/CollisionShape2D
 @onready var Main = null
 @onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
+@onready var Effect_manager: Node = $EffectManager
 
 #-----local variables-----#
 # input/direction variables
@@ -44,22 +44,25 @@ var Mouse_direction : Vector2 = Vector2.ZERO
 
 # Status Variables
 var Upgrade_status_count: Dictionary = {
-		0: {
-			0: 0,
-			1: 0,
-			2: 0
-		},
-		1: {
-			0: 0,
-			1: 0
-		}
+	"Upgrade Health": 0,
+	"Upgrade Melee": 0,
+	"Upgrade Range": 0,
+	"Upgrade Attack Speed": 0,
+	"Upgrade Speed": 0
 	}
-var Max_health: float = 100.0
-# Move_speed: int
-# Attack_speed: int
-var Projectile_dmg: float = 10.0
-var Melee_dmg: float = 10.0
+# Base Stats holder
+@onready var Base_Move_speed : float = 170.0
+@onready var Base_Attack_speed : float = 1.0
+@onready var Base_Max_health: float = 100.0
+@onready var Base_Projectile_dmg: float = 10.0
+@onready var Base_Melee_dmg: float = 10.0
 
+# Use Stats for player
+@onready var Used_Move_speed : float = Base_Move_speed
+@onready var Used_Attack_speed : float = Base_Attack_speed
+@onready var Used_Max_health: float = Base_Max_health
+@onready var Used_Projectile_dmg: float = Base_Projectile_dmg
+@onready var Used_Melee_dmg: float = Base_Melee_dmg
 # death flag
 var Player_is_dead = false
 
@@ -77,8 +80,6 @@ var Spinning: bool = false
 var Melee_x_additional: int = 0
 var Melee_y_additional: int = 0
 var Sword_list: Array
-
-
 
 # Blocking Variables
 var Is_blocking : bool = false
@@ -115,8 +116,6 @@ func _ready() -> void:
 	TS_hitbox.monitorable = false	#Fix
 	TS_hitbox.visible = false
 	
-	new_max_health(Max_health)
-	new_melee_damage(Melee_dmg)
 	#-----Shield WIP-----#
 	#Shield.visible = false
 	#Shield_hitbox.monitoring = false
@@ -134,7 +133,7 @@ func _physics_process(delta: float) -> void:
 		if Is_blocking:
 			velocity = Vector2.ZERO
 		else:
-			velocity = Input_direction * Move_speed
+			velocity = Input_direction * Used_Move_speed
 		
 		# move_and_collide ensures that the player doesn't inherit the velicoty when colliding with walls
 		# velocity is multiplied with the delta to ensure that movement is based on ticks
@@ -223,7 +222,7 @@ func update_animations() -> void:
 				# adjust animation speed based on movement speed
 			if velocity.length() > 0:
 				var base_speed = 75.0  # Set this to the move speed where animation looks normal
-				Player_sprite.speed_scale = Move_speed / base_speed
+				Player_sprite.speed_scale = Used_Move_speed / base_speed
 			else:
 				Player_sprite.speed_scale = 1.0  # Reset when idle
 			Player_sprite.play(Move + Facing_direction)
@@ -242,7 +241,7 @@ func melee_attack() -> void:
 	# make the player face the mouse when attacking
 	Facing_direction = get_mouse_direction()
 	# adjust the animation speed based on attack speed
-	Player_sprite.speed_scale = Attack_speed
+	Player_sprite.speed_scale = Used_Attack_speed
 	#-------Attack Animation Handling-------#
 	# update the animations to play the attack animation
 	update_animations()
@@ -251,7 +250,7 @@ func melee_attack() -> void:
 	var Attack_animation_name : String = Attack + Facing_direction
 	var Attack_animation_speed : float = Player_sprite.get_sprite_frames().get_animation_speed(Attack_animation_name) # the speed in which the whole animation plays out
 	var Attack_animation_frames : float = Player_sprite.get_sprite_frames().get_frame_count(Attack_animation_name) # the nmumber of frames in the animation
-	var Attack_animation_length : float = (Attack_animation_frames / Attack_animation_speed) / Attack_speed # the length of the whole animation
+	var Attack_animation_length : float = (Attack_animation_frames / Attack_animation_speed) / Used_Attack_speed # the length of the whole animation
 	var Attack_frame_speed : float = Attack_animation_length / Attack_animation_frames # the duration of each frame
 	
 	var Hurtbox_delay = Attack_frame_speed
@@ -356,12 +355,12 @@ func shoot_projectile():
 			if Main:
 				Main.add_child(Projectile_instance)
 				
-			Projectile_instance.implement_damage(Projectile_dmg)
+			Projectile_instance.implement_damage(Used_Projectile_dmg)
 		await get_tree().create_timer(0.09).timeout
 	reloaded()
 
 func reloaded() -> void:
-	await get_tree().create_timer(1/Attack_speed).timeout
+	await get_tree().create_timer(1/Used_Attack_speed).timeout
 	Reloading = false
 
 #----------blocking related functions----------#
@@ -473,46 +472,85 @@ func get_melee(Value: int) -> void:
 	Has_melee = Value
 	
 #----------status upgrade related functions----------#
-func get_curr_upgrade(ID: int, Index: int) -> int:
-	return Upgrade_status_count[ID][Index]
-func add_curr_upgrade(ID: int, Index: int) -> void:
-	Upgrade_status_count[ID][Index] += 1
+func get_effect_manager() -> Node:
+	return Effect_manager
+
+func get_curr_upgrade(Stat_name: String) -> int:
+	return Upgrade_status_count[Stat_name]
+	
+func add_curr_upgrade(Stat_name: String) -> void:
+	Upgrade_status_count[Stat_name] += 1
 	
 func get_upgrade_counter() -> Dictionary:
 	return Upgrade_status_count
-# These set new values for the statuses
-func new_max_health(Amount: float) -> void:
-	Max_health = Amount
-	Player_health.apply_new_health(Amount)
-	
-func new_melee_damage(Amount: float) -> void:
-	Melee_dmg = Amount
-	Melee_hurtbox.hurtbox_implement_damage(Amount)
 
-func new_projectile_damage(Amount: float) -> void:
-	Projectile_dmg = Amount
+func reset_attributes() -> void:
+	Used_Max_health = Base_Max_health
+	Player_health.apply_new_health(Base_Max_health)
+	Used_Melee_dmg = Base_Melee_dmg
+	Melee_hurtbox.hurtbox_implement_damage(Base_Melee_dmg)
+	Used_Projectile_dmg = Base_Projectile_dmg
+	Used_Attack_speed = Base_Attack_speed
+	Used_Move_speed = Base_Move_speed
+	# ---
+	Has_melee = 0
+	Spinning = false
+	Melee_x_additional = 0
+	Melee_y_additional = 0
+	Sword_list = []
+	Projectile_bounce_count= 0
+	Spread_shot_count= 0
+	Multi_shot_count = 1
+	Has_range= 0
+	Live_time_addition= 0
+	Pierce_addition = 1
 
-func new_attack_speed(Amount: float) -> void:
-	Attack_speed = Amount
+# This increase base attribute
+func get_base_attributes(Attribute: String):
+	match Attribute:
+		"Health":
+			return Base_Max_health
+		"Melee Damage":
+			return Base_Melee_dmg
+		"Projectile Damage":
+			return Base_Projectile_dmg
+		"Attack Speed":
+			return Base_Attack_speed
+		"Movement Speed":
+			return Base_Move_speed
+	#Inventory.reapply_stats()
 
-func new_movement_speed(Amount: float) -> void:
-	Move_speed = Amount
+# This increase base attribute
+func new_base_attributes(Amount: float, Attribute: String):
+	match Attribute:
+		"Health":
+			Base_Max_health += Amount
+			Player_health.apply_new_health(Base_Max_health)
+		"Melee Damage":
+			Base_Melee_dmg += Amount
+			Melee_hurtbox.hurtbox_implement_damage(Base_Melee_dmg)
+		"Projectile Damage":
+			Base_Projectile_dmg += Amount
+		"Attack Speed":
+			Base_Attack_speed += Amount
+		"Movement Speed":
+			Base_Move_speed += Amount
 
-# ------- Add new values
-func add_max_health(Amount: float) -> void:
-	Max_health += Amount
-	Player_health.apply_new_health(Max_health)
-	
-func add_melee_damage(Amount: float) -> void:
-	Melee_dmg += Amount
-	Melee_hurtbox.hurtbox_implement_damage(Melee_dmg)
 
-func add_projectile_damage(Amount: float) -> void:
-	Projectile_dmg += Amount
-
-func add_attack_speed(Amount: float) -> void:
-	Attack_speed += Amount
-
-func add_movement_speed(Amount: float) -> void:
-	Move_speed += Amount
+# This increase base attribute
+func change_used_attributes(Amount: float, Attribute: String):
+	match Attribute:
+		"Health":
+			Used_Max_health = Amount
+			Player_health.apply_new_health(Used_Max_health)
+		"Melee Damage":
+			Used_Melee_dmg = Amount
+			Melee_hurtbox.hurtbox_implement_damage(Used_Melee_dmg)
+		"Projectile Damage":
+			Used_Projectile_dmg = Amount
+		"Attack Speed":
+			Used_Attack_speed = Amount
+		"Movement Speed":
+			Used_Move_speed = Amount
+	#Inventory.reapply_stats()
 	

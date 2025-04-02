@@ -65,7 +65,7 @@ size = Vector2(8, 11)
 radius = 31.0161
 
 [node name="NPC" type="CharacterBody2D"]
-position = Vector2(561, 218)
+position = Vector2(566, 214)
 script = ExtResource("1_b3n58")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -108,29 +108,32 @@ scale = Vector2(0.5, 0.5)
 text = "F to speak"
 
 [node name="Tab" type="Control" parent="."]
+z_index = 1
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.5, 0.5)
 script = ExtResource("4_bp487")
 
-[node name="UpgradeUI" type="Control" parent="Tab"]
-z_index = 1
-layout_mode = 3
-anchors_preset = 0
-offset_left = -112.0
-offset_top = -56.0
-offset_right = -72.0
-offset_bottom = -16.0
-scale = Vector2(0.569697, 0.569697)
+[node name="UpgradePanel" type="Panel" parent="Tab"]
+clip_contents = true
+layout_mode = 0
+offset_left = -300.0
+offset_top = -126.0
+offset_right = 300.0
+offset_bottom = 174.0
 script = ExtResource("5_37a45")
 
-[node name="UpgradePanel" type="Panel" parent="Tab/UpgradeUI"]
-layout_mode = 0
-offset_right = 400.0
-offset_bottom = 200.0
+[node name="RichTextLabel" type="RichTextLabel" parent="Tab/UpgradePanel"]
+layout_mode = 2
+offset_left = 224.0
+offset_top = 48.0
+offset_right = 576.0
+offset_bottom = 354.0
+text = "eereasas"
 
-[node name="UpgradeLabel" type="Label" parent="Tab/UpgradeUI/UpgradePanel"]
+[node name="UpgradeLabel" type="Label" parent="Tab/UpgradePanel"]
 layout_mode = 0
 offset_left = 56.1702
 offset_top = 14.0426
@@ -138,81 +141,54 @@ offset_right = 121.17
 offset_bottom = 37.0426
 text = "Trainer"
 
-[node name="CoinImage" type="TextureRect" parent="Tab/UpgradeUI/UpgradePanel"]
+[node name="CoinImage" type="TextureRect" parent="Tab/UpgradePanel"]
 layout_mode = 0
-offset_left = 307.181
-offset_top = 5.26595
-offset_right = 1507.18
-offset_bottom = 1187.27
+offset_left = 400.0
+offset_top = 6.0
+offset_right = 1600.0
+offset_bottom = 1188.0
 scale = Vector2(0.0260892, 0.0260892)
 texture = ExtResource("7_v5uso")
 
-[node name="CoinLabel" type="Label" parent="Tab/UpgradeUI/UpgradePanel"]
+[node name="CoinLabel" type="Label" parent="Tab/UpgradePanel"]
 layout_mode = 0
-offset_left = 344.0
-offset_top = 13.266
-offset_right = 384.0
-offset_bottom = 36.266
+offset_left = 442.0
+offset_top = 13.0
+offset_right = 555.0
+offset_bottom = 36.0
 text = "0"
 
-[node name="CenterContainer" type="CenterContainer" parent="Tab/UpgradeUI/UpgradePanel"]
-layout_mode = 2
-offset_top = 56.1702
-offset_right = 433.0
-offset_bottom = 96.1702
+[node name="ScrollContainer" type="ScrollContainer" parent="Tab/UpgradePanel"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 47.0
+offset_right = 208.0
+offset_bottom = 272.0
 
-[node name="UpgradeGrid" type="GridContainer" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer"]
+[node name="UpgradeGrid" type="GridContainer" parent="Tab/UpgradePanel/ScrollContainer"]
 layout_mode = 2
-theme_override_constants/h_separation = 91
-columns = 5
 
-[node name="UpgradeButton" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
+[node name="UpgraderButton" parent="Tab/UpgradePanel/ScrollContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
 layout_mode = 2
-texture_normal = null
 
-[node name="UpgradeButton2" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
+[node name="UpgraderButton2" parent="Tab/UpgradePanel/ScrollContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
 layout_mode = 2
-texture_normal = null
 
-[node name="UpgradeButton3" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
+[node name="UpgraderButton3" parent="Tab/UpgradePanel/ScrollContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
 layout_mode = 2
-texture_normal = null
 
-[node name="CenterContainer2" type="CenterContainer" parent="Tab/UpgradeUI/UpgradePanel"]
+[node name="UpgraderButton4" parent="Tab/UpgradePanel/ScrollContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
 layout_mode = 2
-offset_top = 126.383
-offset_right = 400.0
-offset_bottom = 166.383
 
-[node name="UpgradeGrid2" type="GridContainer" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer2"]
+[node name="UpgraderButton5" parent="Tab/UpgradePanel/ScrollContainer/UpgradeGrid" instance=ExtResource("6_bpgnt")]
 layout_mode = 2
-theme_override_constants/h_separation = 92
-columns = 5
-
-[node name="UpgradeButton" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2" instance=ExtResource("6_bpgnt")]
-layout_mode = 2
-texture_normal = null
-
-[node name="UpgradeButton2" parent="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2" instance=ExtResource("6_bpgnt")]
-layout_mode = 2
-texture_normal = null
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="CLICKED" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton" to="Tab" method="_on_upgrade_button_clicked"]
-[connection signal="mouse_entered" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton" to="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton" to="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton" method="_on_mouse_exited"]
-[connection signal="CLICKED" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton2" to="Tab" method="_on_upgrade_button_clicked"]
-[connection signal="mouse_entered" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton2" to="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton2" to="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton2" method="_on_mouse_exited"]
-[connection signal="CLICKED" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton3" to="Tab" method="_on_upgrade_button_clicked"]
-[connection signal="mouse_entered" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton3" to="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton3" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton3" to="Tab/UpgradeUI/UpgradePanel/CenterContainer/UpgradeGrid/UpgradeButton3" method="_on_mouse_exited"]
-[connection signal="CLICKED" from="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton" to="Tab" method="_on_upgrade_button_clicked"]
-[connection signal="mouse_entered" from="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton" to="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton" to="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton" method="_on_mouse_exited"]
-[connection signal="CLICKED" from="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton2" to="Tab" method="_on_upgrade_button_clicked"]
-[connection signal="mouse_entered" from="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton2" to="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton2" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton2" to="Tab/UpgradeUI/UpgradePanel/CenterContainer2/UpgradeGrid2/UpgradeButton2" method="_on_mouse_exited"]
+[connection signal="CLICKED" from="Tab/UpgradePanel/ScrollContainer/UpgradeGrid/UpgraderButton" to="Tab" method="_on_upgrade_button_clicked"]
+[connection signal="CLICKED" from="Tab/UpgradePanel/ScrollContainer/UpgradeGrid/UpgraderButton2" to="Tab" method="_on_upgrade_button_clicked"]
+[connection signal="CLICKED" from="Tab/UpgradePanel/ScrollContainer/UpgradeGrid/UpgraderButton3" to="Tab" method="_on_upgrade_button_clicked"]
+[connection signal="CLICKED" from="Tab/UpgradePanel/ScrollContainer/UpgradeGrid/UpgraderButton4" to="Tab" method="_on_upgrade_button_clicked"]
+[connection signal="CLICKED" from="Tab/UpgradePanel/ScrollContainer/UpgradeGrid/UpgraderButton5" to="Tab" method="_on_upgrade_button_clicked"]
 
 [editable path="Dialogue"]

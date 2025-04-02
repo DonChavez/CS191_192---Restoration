@@ -46,7 +46,6 @@ const Item_database = {
 func get_item_scene(Item_id: String) -> PackedScene:
 	return Item_database.get(Item_id, null)  # Returns null if item ID doesn't exist
 
-
 # Filters the Item_database keys with numeric values
 func filter_keys_by_key_range(Start_key: int, End_key: int) -> Array:
 	var Valid_keys = []
@@ -83,5 +82,5 @@ func get_random_item(Tier: int) -> Node2D:
 	var Item_scene: PackedScene = get_item_scene(Tiered_item_id)
 	var Item_instance: Node2D = Item_scene.instantiate()
 
-	Item_instance.get_ID(Tiered_item_id)
+	Item_instance.change_ID(Tiered_item_id)
 	return Item_instance

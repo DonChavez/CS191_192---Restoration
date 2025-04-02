@@ -24,11 +24,11 @@ func apply_tier(Tier:int) -> void:
 		4:
 			ADDITIONAL_SHOT_COUNT = 3  # Legendary Red
 
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		player.Multi_shot_count += ADDITIONAL_SHOT_COUNT
+		Player.Multi_shot_count += ADDITIONAL_SHOT_COUNT
 		Effect_applied = true
 
-func remove_effect(player):
-	player.Multi_shot_count -= ADDITIONAL_SHOT_COUNT
+func remove_effect(Player:CharacterBody2D):
+	Player.Multi_shot_count -= ADDITIONAL_SHOT_COUNT
 	Effect_applied = false
