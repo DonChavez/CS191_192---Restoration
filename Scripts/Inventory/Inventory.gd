@@ -21,7 +21,6 @@ class_name InventoryObject
 
 enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
-var Effect_manager: Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready():	# Empty inventory at the start (Change)
@@ -30,7 +29,6 @@ func _ready():	# Empty inventory at the start (Change)
 		Inventory_slots[I].set_index(I) # Sets the index of each slot (item_slot)
 	Inventory_ui.update_inventory() # InventoryUI updates UI (child)
 	self.visible = false
-	Effect_manager = Player.get_effect_manager()
 
 func _process(Delta: float) -> void:
 	if not Disable:
@@ -98,8 +96,7 @@ func add_item(Item_data: Node2D) -> bool:
 			Player.get_range(Range_items)
 			Player.get_melee(Melee_items)
 			# Apply effect of item
-			if Item_data:
-				Item_data.apply_effect(Player)
+			apply_item_effect(Item_data)
 				
 			return true  # Item added successfully
 
@@ -152,8 +149,11 @@ func drop_item():
 	Player.get_range(Range_items)
 	Player.get_melee(Melee_items)
 	# Remove effect of item
-	if Item_instance:
+	if Item_instance.get_stacking():
 		Item_instance.remove_effect(Player)
+	else:
+		reapply_removed_item_effect(Item_instance)
+
 
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
@@ -202,16 +202,55 @@ func delete_item(Index: int) -> void:
 	Player.get_range(Range_items)
 	Player.get_melee(Melee_items)
 	# Remove effect of item
-	if Item_instance:
+	if Item_instance.get_stacking():
 		Item_instance.remove_effect(Player)
-		
+	else:
+		reapply_removed_item_effect(Item_instance)
+	
 	Item_instance.queue_free()
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
 
+func apply_item_effect(New_item: Node2D) -> void:
+	if not New_item.get_stacking():
+		var New_item_id = New_item.get_item_id().substr(1)
+		var New_item_tier = New_item.get_item_tier()
+		for Item in Items:
+			if Item:
+				if Item.get_item_id().substr(1) == New_item_id and Item.get_applied():
+					if Item.get_item_tier() < New_item_tier:
+						Item.remove_effect(Player)
+						New_item.apply_effect(Player)
+						print("removed")
+						return
+					else:
+						return
+		# Loop removes the current tier that is working to apply only better tier
+	New_item.apply_effect(Player)
+
+
+
 func disable_toggle() -> void:
 	Disable = !Disable
 
-func reapply_item_effects() -> void:
+
+func reapply_removed_item_effect(Removed_item:Node2D) -> void:
+	# If not applied, lower tier, no need to do anything
+	if not Removed_item.get_applied():	
+		return
+
+	var Removed_id = Removed_item.get_item_id().substr(1)	# Removes Item Tier and checks only ID
+	var Removed_tier = Removed_item.get_item_tier()		# Removes Item Tier and checks only ID
+	var Replacement_item = null
 	for Item in Items:
-		Effect_manager.apply_item(Item,Player)
+		if Item:
+			if not Item.get_applied() and Item.get_item_id().substr(1) == Removed_id:
+				if not Replacement_item:
+					Replacement_item = Item
+				if Item.get_item_tier() > Removed_tier:
+					Replacement_item = Item
+	# loop finds best item tier of the same type as removed item and applies it
+	# Remove item of current item
+	Removed_item.remove_effect(Player)
+	if Replacement_item:	# Apply replacement item if it exists
+		Replacement_item.apply_effect(Player)

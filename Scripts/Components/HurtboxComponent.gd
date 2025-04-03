@@ -27,7 +27,6 @@ func _ready() -> void:
 func _on_hitbox_entered(Area: Area2D) -> void:
 	# check if the area entered is a hitbox
 	# essentially 2-factor authentication
-	print(Area)
 	if Area is HitboxComponent and monitoring:  # Check if valid hitbox
 		Hitbox_dict[Area] = Damage_interval
 		Hitbox_list.append(Area)

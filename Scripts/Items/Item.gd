@@ -13,6 +13,7 @@ enum ItemType {RANGE, MELEE, PASSIVE}
 @export var Item_type: ItemType
 @onready var Item_tier:int
 @onready var Default_color: Color
+@onready var Stacking: bool
 
 # For Description
 @onready var Description: String
@@ -24,11 +25,10 @@ const Tier_to_text = {	0:"Common",
 						4:"Legendary"	}
 
 # Other Nodes
-@onready var Player: CharacterBody2D = null  
 @onready var Inventory: InventoryObject = null
 
 # Item effect-related properties
-var Effect_applied = false
+@onready var Effect_applied = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,9 +49,7 @@ func _process(Delta: float) -> void:	# Add to Inventory if interacted
 
 # Pick up button appears
 func _on_area_2d_body_entered(Body: Node2D):
-	if !Player: # Creates connection between Item and Inventory
-		Player = Body
-		Inventory = Player.get_inventory()
+	Inventory = Body.get_inventory()
 	if Exist_in == Existence.WORLD:
 		Input_label.visible = true
 
@@ -95,8 +93,14 @@ func get_default_color() -> Color:
 	
 func get_item_tier() -> int:
 	return Item_tier
-func get_id() -> String:
+func get_item_id() -> String:
 	return Item_ID
+func get_applied() -> bool:
+	return Effect_applied
+
+func get_stacking() -> bool:
+	return Stacking
+
 func applied_toggle() -> void:
 	Effect_applied = !Effect_applied
 

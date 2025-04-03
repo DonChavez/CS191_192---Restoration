@@ -293,16 +293,16 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	use_melee_weapon(Attack_direction)				# Removed here with the same direction
 
 func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool) -> void:
-	if Weapon in Sword_list and not Equip:
+	if not Equip:
 		Sword_list.erase(Weapon)
-		Melee_x_additional -= Melee_x
-		Melee_y_additional -= Melee_y
-	elif Weapon not in Sword_list and Equip:
+	else:
 		Sword_list.append(Weapon)
-		Melee_x_additional += Melee_x
-		Melee_y_additional += Melee_y
+	Melee_x_additional += Melee_x
+	Melee_y_additional += Melee_y
+	
 	
 func use_melee_weapon(Direction: String) -> String:
+	print(Melee_x_additional,", ",Melee_y_additional)
 	var Usage = -1
 	if not Direction:	# Determines if adding or removing
 		Direction = Facing_direction

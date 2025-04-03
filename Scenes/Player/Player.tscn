@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=3 uid="uid://b6us2qurr7wx7"]
+[gd_scene load_steps=101 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Texture2D" uid="uid://dahmg5t0k8ka1" path="res://Art/Characters/player.png" id="1_10uo1"]
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_fmgx4"]
@@ -10,7 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
 [ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="8_5onck"]
 [ext_resource type="Script" path="res://Scripts/UI/UIWrapper.gd" id="9_48qhq"]
-[ext_resource type="PackedScene" uid="uid://4fkr5htt4frx" path="res://Scenes/Inventory/EffectManager.tscn" id="9_67pwq"]
 [ext_resource type="PackedScene" uid="uid://dybc7khnwy044" path="res://Scenes/UI/HUD.tscn" id="10_kcxfu"]
 [ext_resource type="PackedScene" uid="uid://dpdisv8unuwy0" path="res://Scenes/UI/GameOverScreen.tscn" id="11_t5804"]
 [ext_resource type="PackedScene" uid="uid://r4v4npadga3m" path="res://Scenes/UI/PauseScreen.tscn" id="11_tbdxu"]
@@ -723,8 +722,6 @@ position = Vector2(2, 1)
 zoom = Vector2(2.5, 2.5)
 process_callback = 0
 editor_draw_limits = true
-
-[node name="EffectManager" parent="." instance=ExtResource("9_67pwq")]
 
 [node name="UI Wrapper" type="CanvasLayer" parent="."]
 process_mode = 3

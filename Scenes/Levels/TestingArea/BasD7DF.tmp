@@ -628,7 +628,7 @@ position = Vector2(61, 335)
 position = Vector2(165, 310)
 
 [node name="SpreadShot2" parent="." instance=ExtResource("12_gqfes")]
-position = Vector2(201, 274)
+position = Vector2(165, 310)
 Item_ID = "1006"
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
