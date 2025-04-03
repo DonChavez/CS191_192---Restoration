@@ -35,7 +35,7 @@ func _ready() -> void:
 		Recycler_slots[I].set_index(I) 
 
 	
-	RecyclerUI.get_labels(["Common(1)", "Uncommon(5)", "Rare(10)", "Epic(25)", "Legendary(50)"])
+	RecyclerUI.add_labels(Item_cost_map)
 	Input_label.visible = false
 	RecyclerUI.visible = false
 
@@ -43,6 +43,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:	# Remove if interacted with
 	if Input_label.visible and Input.is_action_just_pressed("interact"):
 		RecyclerUI.toggle_recycler()
+		Selected = -1
 		RecyclerUI.update_trash(Inventory.Trash)
 
 # Interact button appears
@@ -56,6 +57,7 @@ func _on_area_2d_body_entered(Body: Node2D) -> void:
 func _on_area_2d_body_exited(Body: Node2D) -> void:
 	Input_label.visible = false
 	RecyclerUI.visible = false
+	Selected = -1
 	PlayerManager.enable_player_input()
 
 # drop/spawn an item in world
@@ -71,6 +73,7 @@ func _drop_item(Item_instance: Node2D):
 func _on_recycler_button_clicked(Index: int) -> void:
 	if Selected != Index:
 		Selected = Index
+		RecyclerUI.add_description(Index)
 		#text
 	else:
 		var Item: Node2D

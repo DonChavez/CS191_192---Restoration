@@ -84,13 +84,12 @@ offset_top = -36.0
 offset_right = 524.0
 offset_bottom = 264.0
 
-[node name="RichTextLabel" type="RichTextLabel" parent="RecyclerUI/RecyclerPanel"]
+[node name="DescriptionTextLabel" type="RichTextLabel" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0
 offset_left = 242.0
 offset_top = 44.0
 offset_right = 578.0
 offset_bottom = 321.0
-text = "eereasas"
 
 [node name="RecyclerLabel" type="Label" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0

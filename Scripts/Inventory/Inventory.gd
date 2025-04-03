@@ -44,7 +44,8 @@ func _process(Delta: float) -> void:
 # Toggle to see or not the Inventory UI
 func toggle_inventory():
 	self.visible = !self.visible
-
+func disable_toggle() -> void:
+	Disable = !Disable
 
 # Updates collectible amounts
 func add_coin(Amount: int):
@@ -54,18 +55,25 @@ func add_trash(Amount: int):
 	Trash += Amount
 	Inventory_ui.update_trash(Trash)
 
-#-----for item methods-----#
-# Reset the status of an Inventory Slot and Selected
-func reset_item_slot(Slot: int) -> void:
-	Inventory_slots[Slot].reset()
-	Selected = -1
-	Description.text = ""
+#-----for getting values methods-----#
+func get_description() -> void:
+	Description.text = Items[Selected].Title +"\n" + Items[Selected].Description
+
+func get_inventory_array() -> Array:
+	return Items
 
 # Get item from inventory array
 func get_item(Index):
 	if Index >= 0 and Index < Inventory_slot_num:
 		return Items[Index]
 	return null
+
+#-----for item methods-----#
+# Reset the status of an Inventory Slot and Selected
+func reset_item_slot(Slot: int) -> void:
+	Inventory_slots[Slot].reset()
+	Selected = -1
+	Description.text = ""
 
 func add_item_type(Item: ItemObject) -> void:
 	if Item.Item_type == ItemType.RANGE:
@@ -158,6 +166,30 @@ func drop_item():
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
 
+func delete_item(Index: int) -> void:
+	# Retrieve the item node from the inventory array
+	var Item_instance = Items[Index]
+	if not Item_instance:
+		print("No item at index:", Selected)
+		return
+	Items[Selected] = null  # Remove from inventory
+	
+	# Change Item Slot statuses
+	Inventory_slots[Selected].toggle_item(null)
+	reset_item_slot(Selected)
+	remove_item_type(Item_instance)
+	Player.get_range(Range_items)
+	Player.get_melee(Melee_items)
+	# Remove effect of item
+	if Item_instance.get_stacking():
+		Item_instance.remove_effect(Player)
+	else:
+		reapply_removed_item_effect(Item_instance)
+	
+	Item_instance.queue_free()
+	# Update visuals
+	Inventory_ui.update_inventory() # InventoryUI (child)
+
 # Move an item from one item slot to another
 # or switch with another item location
 func move_item(Index: int) -> void:
@@ -180,37 +212,6 @@ func move_item(Index: int) -> void:
 	# Update UI after move/swap
 	Inventory_ui.update_inventory()
 
-func get_description() -> void:
-	Description.text = Items[Selected].Title +"\n" + Items[Selected].Description
-
-func get_inventory_array() -> Array:
-	return Items
-
-func delete_item(Index: int) -> void:
-	# Retrieve the item node from the inventory array
-	var Item_instance = Items[Index]
-	if not Item_instance:
-		print("No item at index:", Selected)
-		return
-	Items[Selected] = null  # Remove from inventory
-	
-	
-	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
-	reset_item_slot(Selected)
-	remove_item_type(Item_instance)
-	Player.get_range(Range_items)
-	Player.get_melee(Melee_items)
-	# Remove effect of item
-	if Item_instance.get_stacking():
-		Item_instance.remove_effect(Player)
-	else:
-		reapply_removed_item_effect(Item_instance)
-	
-	Item_instance.queue_free()
-	# Update visuals
-	Inventory_ui.update_inventory() # InventoryUI (child)
-
 func apply_item_effect(New_item: Node2D) -> void:
 	if not New_item.get_stacking():
 		var New_item_id = New_item.get_item_id().substr(1)
@@ -227,12 +228,6 @@ func apply_item_effect(New_item: Node2D) -> void:
 						return
 		# Loop removes the current tier that is working to apply only better tier
 	New_item.apply_effect(Player)
-
-
-
-func disable_toggle() -> void:
-	Disable = !Disable
-
 
 func reapply_removed_item_effect(Removed_item:Node2D) -> void:
 	# If not applied, lower tier, no need to do anything

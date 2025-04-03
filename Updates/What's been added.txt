@@ -8,3 +8,12 @@ v0.1.5.1:
 	2. Player Attributes buffs
 		- Reformed Player attributes to base attributes and used attributes
 		- Streamlined attribute functions
+	3. Inventory Item Application and removal
+		- Added apply_item_effect to:
+			- apply item effect if first time/stacking
+			- if non stacking and lower tier to current, do nothing
+			- if non stacking and higher tier to current, replace application
+		- Added reapply_removed_item_effect to
+			- remove item effect if non stacking
+			- if there is a replacement, apply that effect instead
+			

@@ -18,6 +18,3 @@ Player Sprite:
 
 Player Health Bar:
 	Upgraded Health % is not 100%
-
-Recycler and Trainer:
-	Redo PanelUI and texts

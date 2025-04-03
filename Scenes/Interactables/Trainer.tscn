@@ -125,13 +125,12 @@ offset_right = 300.0
 offset_bottom = 174.0
 script = ExtResource("5_37a45")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Tab/UpgradePanel"]
+[node name="DescriptionTextLabel" type="RichTextLabel" parent="Tab/UpgradePanel"]
 layout_mode = 2
 offset_left = 224.0
 offset_top = 48.0
 offset_right = 576.0
 offset_bottom = 354.0
-text = "eereasas"
 
 [node name="UpgradeLabel" type="Label" parent="Tab/UpgradePanel"]
 layout_mode = 0

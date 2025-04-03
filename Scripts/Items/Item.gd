@@ -88,9 +88,11 @@ func apply_tier(Tier:int) -> void:
 		4: Default_color = Color(1.0, 0.4, 0.4)   # Legendary Red
 	Icon.self_modulate = Default_color
 	
+	
+#-----for getting values methods-----#
 func get_default_color() -> Color:
 	return Default_color
-	
+
 func get_item_tier() -> int:
 	return Item_tier
 func get_item_id() -> String:
@@ -100,6 +102,7 @@ func get_applied() -> bool:
 
 func get_stacking() -> bool:
 	return Stacking
+#-----Application methods-----#
 
 func applied_toggle() -> void:
 	Effect_applied = !Effect_applied

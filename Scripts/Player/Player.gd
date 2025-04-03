@@ -44,11 +44,11 @@ var Mouse_direction : Vector2 = Vector2.ZERO
 
 # Status Variables
 var Upgrade_status_count: Dictionary = {
-	"Upgrade Health": 0,
-	"Upgrade Melee": 0,
-	"Upgrade Range": 0,
-	"Upgrade Attack Speed": 0,
-	"Upgrade Speed": 0
+	"Health": 0,
+	"Melee": 0,
+	"Range": 0,
+	"Attack Speed": 0,
+	"Speed": 0
 	}
 # Base Stats holder
 @onready var Base_Move_speed : float = 170.0
@@ -508,7 +508,7 @@ func reset_attributes() -> void:
 # This increase base attribute
 func get_base_attributes(Attribute: String):
 	match Attribute:
-		"Health":
+		"Max Health":
 			return Base_Max_health
 		"Melee Damage":
 			return Base_Melee_dmg
@@ -523,7 +523,7 @@ func get_base_attributes(Attribute: String):
 # This increase base attribute
 func new_base_attributes(Amount: float, Attribute: String):
 	match Attribute:
-		"Health":
+		"Max Health":
 			Base_Max_health += Amount
 			Player_health.apply_new_health(Base_Max_health)
 		"Melee Damage":
@@ -540,7 +540,7 @@ func new_base_attributes(Amount: float, Attribute: String):
 # This increase base attribute
 func change_used_attributes(Amount: float, Attribute: String):
 	match Attribute:
-		"Health":
+		"Max Health":
 			Used_Max_health = Amount
 			Player_health.apply_new_health(Used_Max_health)
 		"Melee Damage":

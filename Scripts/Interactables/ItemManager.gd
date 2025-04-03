@@ -75,7 +75,7 @@ func get_random_item(Tier: int) -> Node2D:
 		4:
 			Filtered = filter_keys_by_key_range(4000, 4999)
 
-	#Gets the item scene and creates an instance
+	#Gets the item ID
 	var Tiered_item_id: String = Filtered.pick_random()
 
 	#Gets the item scene and creates an instance
