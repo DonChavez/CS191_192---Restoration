@@ -11,10 +11,10 @@ extends Control
 
 # Costs when upgrading stats
 const Upgrade_cost_map = {
-	0: 1,
-	1: 5,
-	2: 10,
-	3: 20,
+	0: 5,
+	1: 10,
+	2: 20,
+	3: 30,
 	4: 50,
 	5: -1
 }

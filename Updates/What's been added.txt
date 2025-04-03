@@ -1,10 +1,14 @@
-branch: reset_julian
-v0.1.5.1:
+branch: reset_resai
+v0.1.6.1:
 	1. Changed Recycler and Trainer UI
 		- Reformed Nodes used in UI and streamlined Slot indexing
 		- Changed Several variables and function inputs
 		- Renamed a few functions
 		- Streamlined Recyclerbutton signals
+		- Better UIs
+		- Changed Costs for both 
+	2. Pawn Shop
+		- Changed Selling amount
 	2. Player Attributes buffs
 		- Reformed Player attributes to base attributes and used attributes
 		- Streamlined attribute functions
@@ -16,4 +20,4 @@ v0.1.5.1:
 		- Added reapply_removed_item_effect to
 			- remove item effect if non stacking
 			- if there is a replacement, apply that effect instead
-			
+	

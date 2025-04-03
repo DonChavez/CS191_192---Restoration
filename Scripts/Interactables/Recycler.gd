@@ -22,11 +22,11 @@ var Item_category_map = {	# Temp printing
 }
 # Cost mapping
 var Item_cost_map = {
-	0: 1,
-	1: 5,
-	2: 10,
-	3: 25,
-	4: 50
+	0: 5,
+	1: 10,
+	2: 20,
+	3: 35,
+	4: 60
 }
 
 # Called when the node enters the scene tree for the first time.

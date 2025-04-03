@@ -18,3 +18,6 @@ Player Sprite:
 
 Player Health Bar:
 	Upgraded Health % is not 100%
+
+Player screen UI:
+	Blocks button presses on Recyclers and stuff.

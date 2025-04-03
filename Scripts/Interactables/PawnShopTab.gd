@@ -16,11 +16,11 @@ extends Control
 @onready var Range_items: int = 0
 @onready var Melee_items: int = 0
 
-var Item_cost_convertion: Dictionary = {	0: 1,
-									1: 3,
-									2: 5,
-									3: 10,
-									4: 20}
+var Item_cost_convertion: Dictionary = {	0: 2,
+									1: 4,
+									2: 8,
+									3: 14,
+									4: 24}
 
 enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
