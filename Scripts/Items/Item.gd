@@ -6,6 +6,8 @@ enum Existence { WORLD, INVENTORY, SHOP}
 @onready var Icon = $Icon
 @export var Item_ID:String
 @export var Item_name:String
+@export var Stacking: bool
+
 @onready var Exist_in: Existence = Existence.WORLD 
 
 @export var Spawn_animate: bool = true
@@ -13,7 +15,7 @@ enum ItemType {RANGE, MELEE, PASSIVE}
 @export var Item_type: ItemType
 @onready var Item_tier:int
 @onready var Default_color: Color
-@onready var Stacking: bool
+
 
 # For Description
 @onready var Description: String

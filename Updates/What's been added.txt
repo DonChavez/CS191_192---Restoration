@@ -24,9 +24,11 @@ v0.1.6.2:
 			- if there is a replacement, apply that effect instead
 	4. Hurt Box Component
 		- Added success signal and checker 
+		- emits signal to Player of the damage dealt
 	5. Hit Box Component
 		- Added Damage Reduction
+		- returns actual damage taken to hurt box
 
 ITEMS
-	Sword Hate: Sword that deals an increased percent damage for every successful successive hit
-	
+	Sword Hate: Sword that deals an increased percent damage for every successful successive hit Stacking
+	Sword Life: Sword that has life steal Stacking

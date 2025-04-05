@@ -55,7 +55,7 @@ var Upgrade_status_count: Dictionary = {
 @onready var Base_Attack_speed : float = 1.0
 @onready var Base_Max_health: float = 100.0
 @onready var Base_Projectile_dmg: float = 10.0
-@onready var Base_Melee_dmg: float = 10.0
+@onready var Base_Melee_dmg: float = 20.0
 # Increment Stats for player
 @onready var Incr_Move_speed : float = 0
 @onready var Incr_Attack_speed : float = 0
@@ -89,6 +89,7 @@ var Spinning: bool = false
 var Melee_x_additional: int = 0
 var Melee_y_additional: int = 0
 var Sword_list: Array
+var Life_steal:float = 0
 
 # Blocking Variables
 var Is_blocking : bool = false
@@ -272,6 +273,7 @@ func melee_attack() -> void:
 	
 	# wait for the attack animation to finish
 	# Attack_animation_length - Attack_frame_speed is done in order to prevent extra frames from playing
+	Melee_hurtbox.apply_interval(Attack_animation_length - Attack_frame_speed)
 	await get_tree().create_timer(Attack_animation_length - Attack_frame_speed, false, true).timeout
 	#activate_melee_hurtbox(Hurtbox_duration)
 	
@@ -490,6 +492,11 @@ func get_melee(Value: int) -> void:
 
 func add_successful_hits() -> void:
 	Successful_hits += 1
+
+func do_life_steal(Damage_dealt:float) -> void:
+	print("Lifesteal: ", Life_steal)
+	Player_health.heal(Damage_dealt*Life_steal)
+	 
 	
 #----------status upgrade related functions----------#
 func get_effect_manager() -> Node:
@@ -583,7 +590,7 @@ func add_incr_movement_speed(Amount: float) -> void:
 
 # This is for percent amount increase
 func add_percent_max_health(Amount: int) -> void:
-	Percent_max_health_bonus += Amount
+	Percent_max_health_bonus += (Amount*0.01)
 	find_used_max_health()
 	
 func add_percent_melee_damage(Amount: int) -> void:
@@ -598,6 +605,7 @@ func find_used_max_health() -> void:
 func find_used_melee_damage() -> void:
 	var Used_percent = Percent_melee_damage_bonus * Successful_hits
 	Used_Melee_dmg = (Base_Melee_dmg + Incr_Melee_dmg) * (1 + Used_percent)
+	print("Calculated damage: ", Used_Melee_dmg)
 	Melee_hurtbox.hurtbox_implement_damage(Used_Melee_dmg)
 
 func find_used_projectile_damage() -> void:
@@ -624,3 +632,6 @@ func add_used_live_time_addition(Amount: int) -> void:
 
 func add_used_pierce_addition(Amount: int) -> void:
 	Pierce_addition += Amount
+
+func add_used_lifesteal_percent(Amount: int) -> void:
+	Life_steal += (Amount*0.01)

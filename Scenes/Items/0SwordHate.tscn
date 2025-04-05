@@ -11,6 +11,7 @@ scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_lmjuu")
 Item_ID = "0007"
 Item_name = "Sword Hate"
+Stacking = true
 Item_type = 1
 
 [node name="Icon" type="TextureRect" parent="."]

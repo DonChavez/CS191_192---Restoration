@@ -705,6 +705,8 @@ shape = SubResource("RectangleShape2D_d4m5w")
 [node name="MeleeHurtbox" parent="." instance=ExtResource("5_0jedd")]
 collision_layer = 0
 collision_mask = 12
+Damage_amount = 0.0
+Damage_interval = 0.2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHurtbox"]
 shape = SubResource("RectangleShape2D_wt541")
@@ -742,5 +744,6 @@ grow_vertical = 2
 
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]
+[connection signal="damage_dealt" from="MeleeHurtbox" to="." method="do_life_steal"]
 [connection signal="success" from="MeleeHurtbox" to="." method="add_successful_hits"]
 [connection signal="body_entered" from="TempoShield" to="." method="_on_tempo_shield_body_entered"]

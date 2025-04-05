@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://cuuy8aqddjprb"]
+[gd_scene load_steps=22 format=4 uid="uid://cuuy8aqddjprb"]
 
 [ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
 [ext_resource type="Texture2D" uid="uid://b4vlxbslijteg" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="12_1c86e"]
 [ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0SwordSpin.tscn" id="12_gqfes"]
 [ext_resource type="PackedScene" uid="uid://dr3o55x38an4q" path="res://Scenes/Items/0SwordHate.tscn" id="13_sy1rq"]
+[ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLife.tscn" id="14_w3stw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c12ks"]
 texture = ExtResource("2_da6o1")
@@ -634,6 +635,19 @@ Item_ID = "1006"
 
 [node name="SwordHate" parent="." instance=ExtResource("13_sy1rq")]
 position = Vector2(94, 262)
+Item_ID = "4007"
+
+[node name="SwordLife" parent="." instance=ExtResource("14_w3stw")]
+position = Vector2(142, 213)
+Item_ID = "4008"
+
+[node name="SwordLife2" parent="." instance=ExtResource("14_w3stw")]
+position = Vector2(188, 218)
+Item_ID = "4008"
+
+[node name="SwordLife3" parent="." instance=ExtResource("14_w3stw")]
+position = Vector2(241, 229)
+Item_ID = "4008"
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="Stairs" to="Stairs" method="_on_body_exited"]

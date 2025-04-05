@@ -8,7 +8,6 @@ func _ready() -> void:
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
 	Description = "Projectiles bounces off of objects "+str(ADDITIONAL_BOUNCE_COUNT)+" time"
-	Stacking = true
 
 func apply_tier(Tier:int) -> void:
 	super(Tier)

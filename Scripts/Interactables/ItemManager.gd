@@ -41,7 +41,13 @@ const Item_database = {
 	"1007": preload("res://Scenes/Items/0SwordHate.tscn"),
 	"2007": preload("res://Scenes/Items/0SwordHate.tscn"),
 	"3007": preload("res://Scenes/Items/0SwordHate.tscn"),
-	"4007": preload("res://Scenes/Items/0SwordHate.tscn")
+	"4007": preload("res://Scenes/Items/0SwordHate.tscn"),
+	
+	"0008": preload("res://Scenes/Items/0SwordLife.tscn"),
+	"1008": preload("res://Scenes/Items/0SwordLife.tscn"),
+	"2008": preload("res://Scenes/Items/0SwordLife.tscn"),
+	"3008": preload("res://Scenes/Items/0SwordLife.tscn"),
+	"4008": preload("res://Scenes/Items/0SwordLife.tscn")
 #	"006": preload(),
 #	"007": preload(),
 

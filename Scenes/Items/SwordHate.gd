@@ -8,7 +8,7 @@ func _ready() -> void:
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
 	Description = "Increase Sword Damage by ("+str(MELEE_DAMAGE_PERCENT) +"% for every successful successive hit"
-	Stacking = false
+
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:
