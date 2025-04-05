@@ -136,8 +136,9 @@ offset_bottom = 237.098
 theme = SubResource("Theme_fafpq")
 
 [node name="Description" type="Label" parent="InventoryUI/InventoryPanel/ScrollDescription"]
-custom_minimum_size = Vector2(250, 80)
+custom_minimum_size = Vector2(250, 150)
 layout_mode = 2
+theme_override_font_sizes/font_size = 15
 autowrap_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="InventoryUI/InventoryPanel"]

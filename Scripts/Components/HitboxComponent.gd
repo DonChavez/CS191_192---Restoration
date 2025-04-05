@@ -36,8 +36,8 @@ func _physics_process(delta: float) -> void:
 	if Time_since_last_damage < Damage_interval:
 		Time_since_last_damage += delta
 
-func add_damage_reduction(Amount: float):
-	Damage_reduction += (Amount*0.01)
+func set_damage_reduction(Amount: float):
+	Damage_reduction = Amount
 
 func get_damage_reduction() -> bool:
 	return Damage_reduction

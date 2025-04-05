@@ -2,7 +2,7 @@ extends Control
 
 @onready var Grid: Array = $RecyclerPanel/ScrollContainer/RecycleGrid.get_children() #Slots
 @onready var Trashlabel: Label = $RecyclerPanel/TrashLabel
-@onready var Description_box:RichTextLabel = $RecyclerPanel/DescriptionTextLabel
+@onready var Description_box:RichTextLabel = $RecyclerPanel/ScrollContainer2/DescriptionTextLabel
 @onready var Costs:Dictionary 
 const Tier_to_text = {	0:"Common",
 						1:"Uncommon",
@@ -19,12 +19,18 @@ const Number_to_roman1 = {	0:"I",
 @onready var Tier_items:Dictionary ={
 	0:"""	Pierce
 	Projectile Life
-	Spin Sword
+	Sword Spin
+	Sword Hate
+	Sword Life
+	Stone Skin
+	Double Time
 """,
 	1:"""	Ricochet
 """,
 	2:"""	Spread Shot
 	Multi Shot
+	Glass Cannon
+	Dash Boots
 """,
 	3:"""""",
 	4:"""""",

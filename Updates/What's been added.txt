@@ -1,7 +1,7 @@
 branch: reset_resai
 v0.1.6.2:
 	1. Changed Recycler and Trainer UI
-		- Reformed Nodes used in UI and streamlined Slot indexing
+		- Reformed Nodes used in UI and streamlined Slot indexing (Major Change)
 		- Changed Several variables and function inputs
 		- Renamed a few functions
 		- Streamlined Recyclerbutton signals
@@ -9,11 +9,13 @@ v0.1.6.2:
 		- Changed Costs for both 
 	2. Pawn Shop
 		- Changed Selling amount
-	2. Player Attributes buffs
+	2. Player
 		- Reformed Player attributes to Base, Increment and Used attributes
 		- Used Attribute calculated from Base and Increment and more
 		- Added Percentage Increases for attributes
 		- Weapon Properties are not the same as Attributes (All changes must be due to items)
+		- Dash Mechanic with safety check for object collision only
+		- Many item exclusive functions
 	3. Inventory Item Application and removal
 		- Added apply_item_effect to:
 			- apply item effect if first time/stacking
@@ -31,4 +33,8 @@ v0.1.6.2:
 
 ITEMS
 	Sword Hate: Sword that deals an increased percent damage for every successful successive hit Stacking
-	Sword Life: Sword that has life steal Stacking
+	Sword Life: Sword that has percent life steal Stacking
+	Stone Skin: Reduce incoming damage by percent
+	Double Time: Increase Movement Speed by percent
+	Glass Cannon: 1 hit to die, 100% increase to projectile dmg, 200% increase to melee dmg
+	Dash Boots: Enables Dashing, tiers lower dash cooldown

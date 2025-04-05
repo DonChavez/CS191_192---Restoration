@@ -34,7 +34,6 @@ func add_description(Index: int, Value: float) -> void:
 	else:
 		Description_box.text = "Cost: "+ str(Costs[Player_upgrade_count[Item_name]])+" coin\n"
 		Description_box.text = Description_box.text+"Upgrade "+Item_category[Index]+". Increasing it by "+str(Value) 
-		Description_box.text = Description_box.text + "\n Maxed at V"
 
 
 # Updates the Coin amount

@@ -7,8 +7,12 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Increase Sword Damage by ("+str(MELEE_DAMAGE_PERCENT) +"% for every successful successive hit"
-
+	Description = "Increase Sword Damage by "+str(MELEE_DAMAGE_PERCENT) +"% for every successful successive hit. Reset upon miss."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
+		
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:
@@ -26,10 +30,10 @@ func apply_tier(Tier:int) -> void:
 func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
 		Player.apply_melee_weapon(0, 0, Item_name, 1)
-		Player.add_percent_melee_damage(MELEE_DAMAGE_PERCENT)
+		Player.add_percent_hate_damage(MELEE_DAMAGE_PERCENT)
 		Effect_applied = true
 
 func remove_effect(Player:CharacterBody2D):
 	Player.apply_melee_weapon(0, 0, Item_name, 0)
-	Player.add_percent_melee_damage(-MELEE_DAMAGE_PERCENT)
+	Player.add_percent_hate_damage(-MELEE_DAMAGE_PERCENT)
 	Effect_applied = false

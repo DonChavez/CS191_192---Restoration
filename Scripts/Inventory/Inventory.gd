@@ -78,9 +78,10 @@ func reset_item_slot(Slot: int) -> void:
 func add_item_type(Item: ItemObject) -> void:
 	if Item.Item_type == ItemType.RANGE:
 		Range_items += 1
+		Player.get_range(Range_items)
 	elif Item.Item_type == ItemType.MELEE:
 		Melee_items += 1	
-
+		Player.get_melee(Melee_items)
 func remove_item_type(Item: ItemObject) -> void:
 	if Item.Item_type == ItemType.RANGE:
 		Range_items -= 1
@@ -94,17 +95,16 @@ func add_item(Item_data: Node2D) -> bool:
 
 	for I in range(Inventory_slot_num):
 		if Items[I] == null:  # Find empty slot in the Inventory
+			
+			# Apply effect of item
+			apply_item_effect(Item_data)
+
+			add_item_type(Item_data)
 			Items[I] = Item_data
 			print("Added:", Item_data["name"])
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
 			Inventory_slots[I].toggle_item(Item_data) # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
-			
-			add_item_type(Item_data)
-			Player.get_range(Range_items)
-			Player.get_melee(Melee_items)
-			# Apply effect of item
-			apply_item_effect(Item_data)
 				
 			return true  # Item added successfully
 
@@ -230,12 +230,12 @@ func apply_item_effect(New_item: Node2D) -> void:
 	New_item.apply_effect(Player)
 
 func reapply_removed_item_effect(Removed_item:Node2D) -> void:
-	# If not applied, lower tier, no need to do anything
+	# If not applied, meaning lower tier, no need to do anything
 	if not Removed_item.get_applied():	
 		return
 
 	var Removed_id = Removed_item.get_item_id().substr(1)	# Removes Item Tier and checks only ID
-	var Removed_tier = Removed_item.get_item_tier()		# Removes Item Tier and checks only ID
+	var Removed_tier = Removed_item.get_item_tier()		# Checks Item Tier
 	var Replacement_item = null
 	for Item in Items:
 		if Item:

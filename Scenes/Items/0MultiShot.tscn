@@ -9,7 +9,7 @@ size = Vector2(22.1679, 21.1539)
 [node name="MultiShot" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_qwsdn")
-Item_ID = "0004"
+Item_ID = "2004"
 Item_name = "Multi Shot"
 Stacking = true
 

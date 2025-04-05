@@ -47,7 +47,29 @@ const Item_database = {
 	"1008": preload("res://Scenes/Items/0SwordLife.tscn"),
 	"2008": preload("res://Scenes/Items/0SwordLife.tscn"),
 	"3008": preload("res://Scenes/Items/0SwordLife.tscn"),
-	"4008": preload("res://Scenes/Items/0SwordLife.tscn")
+	"4008": preload("res://Scenes/Items/0SwordLife.tscn"),
+	
+	"0009": preload("res://Scenes/Items/0StoneSkin.tscn"),
+	"1009": preload("res://Scenes/Items/0StoneSkin.tscn"),
+	"2009": preload("res://Scenes/Items/0StoneSkin.tscn"),
+	"3009": preload("res://Scenes/Items/0StoneSkin.tscn"),
+	"4009": preload("res://Scenes/Items/0StoneSkin.tscn"),
+
+	"0010": preload("res://Scenes/Items/0DoubleTime.tscn"),
+	"1010": preload("res://Scenes/Items/0DoubleTime.tscn"),
+	"2010": preload("res://Scenes/Items/0DoubleTime.tscn"),
+	"3010": preload("res://Scenes/Items/0DoubleTime.tscn"),
+	"4010": preload("res://Scenes/Items/0DoubleTime.tscn"),
+	
+	"2011": preload("res://Scenes/Items/0GlassCannon.tscn"),
+	"3011": preload("res://Scenes/Items/0GlassCannon.tscn"),
+	"4011": preload("res://Scenes/Items/0GlassCannon.tscn"),
+	
+	"2012": preload("res://Scenes/Items/0DashBoots.tscn"),
+	"3012": preload("res://Scenes/Items/0DashBoots.tscn"),
+	"4012": preload("res://Scenes/Items/0DashBoots.tscn")
+	
+	
 #	"006": preload(),
 #	"007": preload(),
 

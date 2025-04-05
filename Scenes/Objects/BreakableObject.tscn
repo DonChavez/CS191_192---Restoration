@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://fdn4rdyqyfd8"]
 
-[ext_resource type="Script" path="res://Scripts/BreakableObject.gd" id="1_e5vff"]
-[ext_resource type="Texture2D" uid="uid://dhtw8xkrkxp23" path="res://Art/Objects/wooden log.png" id="1_u82lr"]
+[ext_resource type="Script" path="res://Scripts/Environment/BreakableObject.gd" id="1_e5vff"]
+[ext_resource type="Texture2D" uid="uid://dfxd23mqob41k" path="res://Art/Objects/wooden log.png" id="1_u82lr"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_qrpcr"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_yg4eo"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="4_86txv"]

@@ -6,8 +6,12 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Shoot "+str(ADDITIONAL_SPREAD_SHOT_COUNT)+" additional projectiles in a cone"
-
+	Description = "Shoot "+str(ADDITIONAL_SPREAD_SHOT_COUNT)+" additional projectiles in a cone."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
+		
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:

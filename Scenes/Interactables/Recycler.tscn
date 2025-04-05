@@ -84,12 +84,19 @@ offset_top = -36.0
 offset_right = 524.0
 offset_bottom = 264.0
 
-[node name="DescriptionTextLabel" type="RichTextLabel" parent="RecyclerUI/RecyclerPanel"]
+[node name="ScrollContainer2" type="ScrollContainer" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0
-offset_left = 242.0
-offset_top = 44.0
-offset_right = 578.0
-offset_bottom = 321.0
+offset_left = 246.0
+offset_top = 46.0
+offset_right = 580.0
+offset_bottom = 270.0
+theme = SubResource("Theme_or8to")
+
+[node name="DescriptionTextLabel" type="RichTextLabel" parent="RecyclerUI/RecyclerPanel/ScrollContainer2"]
+clip_contents = false
+custom_minimum_size = Vector2(334, 338)
+layout_mode = 2
+text = "easasaer"
 
 [node name="RecyclerLabel" type="Label" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0

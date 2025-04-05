@@ -8,8 +8,11 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Increase Sword length by ("+str(MELEE_X_ADDITIONAL) +", "+ str(MELEE_Y_ADDITIONAL)+")"
-
+	Description = "Increase Sword length by ("+str(MELEE_X_ADDITIONAL) +", "+ str(MELEE_Y_ADDITIONAL)+")."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:

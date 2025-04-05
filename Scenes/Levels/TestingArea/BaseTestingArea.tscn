@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://cuuy8aqddjprb"]
+[gd_scene load_steps=26 format=4 uid="uid://cuuy8aqddjprb"]
 
 [ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
 [ext_resource type="Texture2D" uid="uid://b4vlxbslijteg" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
@@ -14,6 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0SwordSpin.tscn" id="12_gqfes"]
 [ext_resource type="PackedScene" uid="uid://dr3o55x38an4q" path="res://Scenes/Items/0SwordHate.tscn" id="13_sy1rq"]
 [ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLife.tscn" id="14_w3stw"]
+[ext_resource type="PackedScene" uid="uid://dxeofmwydwwey" path="res://Scenes/Items/0StoneSkin.tscn" id="15_mggr4"]
+[ext_resource type="PackedScene" uid="uid://bxqyk2ppf3nal" path="res://Scenes/Items/0DoubleTime.tscn" id="16_e0gvr"]
+[ext_resource type="PackedScene" uid="uid://jiamupj0x6pd" path="res://Scenes/Items/0GlassCannon.tscn" id="17_jvr30"]
+[ext_resource type="PackedScene" uid="uid://b313um8gt4per" path="res://Scenes/Items/0DashBoots.tscn" id="18_aye6b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c12ks"]
 texture = ExtResource("2_da6o1")
@@ -648,6 +652,24 @@ Item_ID = "4008"
 [node name="SwordLife3" parent="." instance=ExtResource("14_w3stw")]
 position = Vector2(241, 229)
 Item_ID = "4008"
+
+[node name="StoneSkin" parent="." instance=ExtResource("15_mggr4")]
+position = Vector2(225, 377)
+Item_ID = "4009"
+
+[node name="DoubleTime" parent="." instance=ExtResource("16_e0gvr")]
+position = Vector2(332, 404)
+Item_ID = "4010"
+
+[node name="GlassCannon" parent="." instance=ExtResource("17_jvr30")]
+position = Vector2(302, 455)
+
+[node name="DashBoots" parent="." instance=ExtResource("18_aye6b")]
+position = Vector2(373, 436)
+
+[node name="DashBoots2" parent="." instance=ExtResource("18_aye6b")]
+position = Vector2(373, 436)
+Item_ID = "4012"
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="Stairs" to="Stairs" method="_on_body_exited"]

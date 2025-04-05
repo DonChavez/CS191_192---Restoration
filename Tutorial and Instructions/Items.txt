@@ -4,7 +4,7 @@ The way the Item Scenes work
 There are 3 types of Items, Melee, Range, and Passives
 There are two ways they affect the player.
 
-Either the player stats get changed upon getting the item
-or the player stats get changed upon activating what the item affects
+Items Affect base values for weapons
+Items affect percentage, increment, and others for attributes
 
-Creating New items, Must input Name, 4 digit ID, Type, and new Icon
+Creating New items, Must input Name, 4 digit ID, Type, and new Icon,

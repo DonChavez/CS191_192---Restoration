@@ -9,7 +9,7 @@ size = Vector2(22.1679, 21.1539)
 [node name="SpreadShot" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_h4i6b")
-Item_ID = "0003"
+Item_ID = "2003"
 Item_name = "Spread Shot"
 Stacking = true
 

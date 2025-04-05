@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dr3o55x38an4q"]
 
-[ext_resource type="Script" path="res://Scenes/Items/SwordHate.gd" id="1_lmjuu"]
+[ext_resource type="Script" path="res://Scripts/Items/SwordHate.gd" id="1_lmjuu"]
 [ext_resource type="Texture2D" uid="uid://ca08lvj5isjn6" path="res://Art/Items/Hate.png" id="2_6vbvj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]

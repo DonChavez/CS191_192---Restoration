@@ -90,7 +90,7 @@ func apply_tier(Tier:int) -> void:
 		4: Default_color = Color(1.0, 0.4, 0.4)   # Legendary Red
 	Icon.self_modulate = Default_color
 	
-	
+
 #-----for getting values methods-----#
 func get_default_color() -> Color:
 	return Default_color
