@@ -1,5 +1,5 @@
 branch: reset_resai
-v0.1.6.1:
+v0.1.6.2:
 	1. Changed Recycler and Trainer UI
 		- Reformed Nodes used in UI and streamlined Slot indexing
 		- Changed Several variables and function inputs
@@ -10,8 +10,10 @@ v0.1.6.1:
 	2. Pawn Shop
 		- Changed Selling amount
 	2. Player Attributes buffs
-		- Reformed Player attributes to base attributes and used attributes
-		- Streamlined attribute functions
+		- Reformed Player attributes to Base, Increment and Used attributes
+		- Used Attribute calculated from Base and Increment and more
+		- Added Percentage Increases for attributes
+		- Weapon Properties are not the same as Attributes (All changes must be due to items)
 	3. Inventory Item Application and removal
 		- Added apply_item_effect to:
 			- apply item effect if first time/stacking
@@ -20,4 +22,11 @@ v0.1.6.1:
 		- Added reapply_removed_item_effect to
 			- remove item effect if non stacking
 			- if there is a replacement, apply that effect instead
+	4. Hurt Box Component
+		- Added success signal and checker 
+	5. Hit Box Component
+		- Added Damage Reduction
+
+ITEMS
+	Sword Hate: Sword that deals an increased percent damage for every successful successive hit
 	

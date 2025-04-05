@@ -56,13 +56,22 @@ var Upgrade_status_count: Dictionary = {
 @onready var Base_Max_health: float = 100.0
 @onready var Base_Projectile_dmg: float = 10.0
 @onready var Base_Melee_dmg: float = 10.0
-
+# Increment Stats for player
+@onready var Incr_Move_speed : float = 0
+@onready var Incr_Attack_speed : float = 0
+@onready var Incr_Max_health: float = 0
+@onready var Incr_Projectile_dmg: float = 0
+@onready var Incr_Melee_dmg: float = 0
 # Use Stats for player
 @onready var Used_Move_speed : float = Base_Move_speed
 @onready var Used_Attack_speed : float = Base_Attack_speed
 @onready var Used_Max_health: float = Base_Max_health
 @onready var Used_Projectile_dmg: float = Base_Projectile_dmg
 @onready var Used_Melee_dmg: float = Base_Melee_dmg
+# Variables for specific items
+@onready var Successful_hits: int = 0
+@onready var Percent_melee_damage_bonus: float = 0
+@onready var Percent_max_health_bonus: float = 0
 # death flag
 var Player_is_dead = false
 
@@ -242,6 +251,8 @@ func melee_attack() -> void:
 	Facing_direction = get_mouse_direction()
 	# adjust the animation speed based on attack speed
 	Player_sprite.speed_scale = Used_Attack_speed
+	find_used_melee_damage()
+	
 	#-------Attack Animation Handling-------#
 	# update the animations to play the attack animation
 	update_animations()
@@ -279,6 +290,8 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	# monitoring allows the hurtbox to exist functionally
 	# visible allows to see the hurtbox appear
 	Melee_hurtbox.monitoring = true
+	var Holder = Successful_hits
+	Melee_hurtbox.success_check()
 	Melee_hurtbox.visible = true
 	Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
 	
@@ -288,8 +301,12 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	
 	# Disable after a short duration
 	await get_tree().create_timer(Duration, false, true).timeout
-	Melee_hurtbox.monitoring = false  
-	Melee_hurtbox.visible = false 
+	Melee_hurtbox.monitoring = false
+	if "Sword Hate" not in Sword_list or Successful_hits == Holder:# For checking consecutive hits
+		Successful_hits = 0
+	Melee_hurtbox.visible = false
+	print("Successful hits: ",Successful_hits)
+	print("Damage: ",Used_Melee_dmg) 
 	use_melee_weapon(Attack_direction)				# Removed here with the same direction
 
 func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool) -> void:
@@ -470,6 +487,9 @@ func get_range(Value: int) -> void:
 	Has_range = Value
 func get_melee(Value: int) -> void:
 	Has_melee = Value
+
+func add_successful_hits() -> void:
+	Successful_hits += 1
 	
 #----------status upgrade related functions----------#
 func get_effect_manager() -> Node:
@@ -505,52 +525,102 @@ func reset_attributes() -> void:
 	Live_time_addition= 0
 	Pierce_addition = 1
 
-# This increase base attribute
-func get_base_attributes(Attribute: String):
-	match Attribute:
-		"Max Health":
-			return Base_Max_health
-		"Melee Damage":
-			return Base_Melee_dmg
-		"Projectile Damage":
-			return Base_Projectile_dmg
-		"Attack Speed":
-			return Base_Attack_speed
-		"Movement Speed":
-			return Base_Move_speed
-	#Inventory.reapply_stats()
 
-# This increase base attribute
-func new_base_attributes(Amount: float, Attribute: String):
-	match Attribute:
-		"Max Health":
-			Base_Max_health += Amount
-			Player_health.apply_new_health(Base_Max_health)
-		"Melee Damage":
-			Base_Melee_dmg += Amount
-			Melee_hurtbox.hurtbox_implement_damage(Base_Melee_dmg)
-		"Projectile Damage":
-			Base_Projectile_dmg += Amount
-		"Attack Speed":
-			Base_Attack_speed += Amount
-		"Movement Speed":
-			Base_Move_speed += Amount
+#----------get base status functions----------#
 
+func get_max_health() -> float:
+	return Base_Max_health
 
-# This increase base attribute
-func change_used_attributes(Amount: float, Attribute: String):
-	match Attribute:
-		"Max Health":
-			Used_Max_health = Amount
-			Player_health.apply_new_health(Used_Max_health)
-		"Melee Damage":
-			Used_Melee_dmg = Amount
-			Melee_hurtbox.hurtbox_implement_damage(Used_Melee_dmg)
-		"Projectile Damage":
-			Used_Projectile_dmg = Amount
-		"Attack Speed":
-			Used_Attack_speed = Amount
-		"Movement Speed":
-			Used_Move_speed = Amount
-	#Inventory.reapply_stats()
+func get_melee_damage() -> float:
+	return Base_Melee_dmg
+
+func get_projectile_damage() -> float:
+	return Base_Projectile_dmg
+
+func get_attack_speed() -> float:
+	return Base_Attack_speed
+
+func get_movement_speed() -> float:
+	return Base_Move_speed
+
+#----------Edit base status functions----------#
+# This is for Trainer
+func add_max_health(Amount: float) -> void:
+	Base_Max_health += Amount
+	find_used_max_health()
+
+func add_melee_damage(Amount: float) -> void:
+	Base_Melee_dmg += Amount
+	find_used_melee_damage()
+
+func add_projectile_damage(Amount: float) -> void:
+	Base_Projectile_dmg += Amount
+	find_used_projectile_damage()
+func add_attack_speed(Amount: float) -> void:
+	Base_Attack_speed += Amount
+	find_used_attack_speed()
+func add_movement_speed(Amount: float) -> void:
+	Base_Move_speed += Amount
+	find_used_movement_speed()
+# This is for flat amount increase
+func add_incr_max_health(Amount: float) -> void:
+	Incr_Max_health += Amount
+	find_used_max_health()
+
+func add_incr_melee_damage(Amount: float) -> void:
+	Incr_Melee_dmg += Amount
+	find_used_melee_damage()
+
+func add_incr_projectile_damage(Amount: float) -> void:
+	Incr_Projectile_dmg += Amount
+	find_used_projectile_damage()
+func add_incr_attack_speed(Amount: float) -> void:
+	Incr_Attack_speed += Amount
+	find_used_attack_speed()
+func add_incr_movement_speed(Amount: float) -> void:
+	Incr_Move_speed += Amount
+	find_used_movement_speed()
+
+# This is for percent amount increase
+func add_percent_max_health(Amount: int) -> void:
+	Percent_max_health_bonus += Amount
+	find_used_max_health()
 	
+func add_percent_melee_damage(Amount: int) -> void:
+	Percent_melee_damage_bonus += (Amount*0.01)
+	find_used_melee_damage()
+	
+#----------find used status functions----------#
+func find_used_max_health() -> void:
+	Used_Max_health = (Base_Max_health + Incr_Max_health) * (1 + Percent_max_health_bonus)
+	Player_health.apply_new_health(Used_Max_health)
+
+func find_used_melee_damage() -> void:
+	var Used_percent = Percent_melee_damage_bonus * Successful_hits
+	Used_Melee_dmg = (Base_Melee_dmg + Incr_Melee_dmg) * (1 + Used_percent)
+	Melee_hurtbox.hurtbox_implement_damage(Used_Melee_dmg)
+
+func find_used_projectile_damage() -> void:
+	Used_Projectile_dmg = Base_Projectile_dmg + Incr_Projectile_dmg
+
+func find_used_attack_speed() -> void:
+	Used_Attack_speed = Base_Attack_speed + Incr_Attack_speed
+
+func find_used_movement_speed() -> void:
+	Used_Move_speed = Base_Move_speed + Incr_Move_speed
+
+# Melee and Range Weapon Flat Amount
+func add_used_projectile_bounce_count(Amount: int) -> void:
+	Projectile_bounce_count += Amount
+
+func add_used_spread_shot_count(Amount: int) -> void:
+	Spread_shot_count += Amount
+
+func add_used_multi_shot_count(Amount: int) -> void:
+	Multi_shot_count += Amount
+
+func add_used_live_time_addition(Amount: int) -> void:
+	Live_time_addition += Amount	#Projectile life time
+
+func add_used_pierce_addition(Amount: int) -> void:
+	Pierce_addition += Amount

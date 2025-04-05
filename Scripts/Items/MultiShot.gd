@@ -27,9 +27,9 @@ func apply_tier(Tier:int) -> void:
 
 func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		Player.Multi_shot_count += ADDITIONAL_SHOT_COUNT
+		Player.add_used_multi_shot_count(ADDITIONAL_SHOT_COUNT)
 		Effect_applied = true
 
 func remove_effect(Player:CharacterBody2D):
-	Player.Multi_shot_count -= ADDITIONAL_SHOT_COUNT
+	Player.add_used_multi_shot_count(-ADDITIONAL_SHOT_COUNT)
 	Effect_applied = false

@@ -742,4 +742,5 @@ grow_vertical = 2
 
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]
+[connection signal="success" from="MeleeHurtbox" to="." method="add_successful_hits"]
 [connection signal="body_entered" from="TempoShield" to="." method="_on_tempo_shield_body_entered"]

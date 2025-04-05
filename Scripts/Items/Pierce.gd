@@ -25,11 +25,11 @@ func apply_tier(Tier:int) -> void:
 		4:
 			ADDITIONAL_PIERCE_COUNT = 4  # Legendary Red
 
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		player.Pierce_addition += ADDITIONAL_PIERCE_COUNT
+		Player.add_used_pierce_addition(ADDITIONAL_PIERCE_COUNT)
 		Effect_applied = true
 
-func remove_effect(player):
-	player.Pierce_addition -= ADDITIONAL_PIERCE_COUNT
+func remove_effect(Player:CharacterBody2D):
+	Player.add_used_pierce_addition(-ADDITIONAL_PIERCE_COUNT)
 	Effect_applied = false

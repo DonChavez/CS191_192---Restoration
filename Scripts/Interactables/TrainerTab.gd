@@ -96,13 +96,13 @@ func upgrade_stat(Stat_name: String) -> void:
 	var Value = stat_upgrade_map[Stat_name]
 	match Stat_name:
 		"Health":
-			Player.new_base_attributes(Value, "Max Health")
+			Player.add_max_health(Value)
 		"Melee":
-			Player.new_base_attributes(Value, "Melee Damage")
+			Player.add_melee_damage(Value)
 		"Range":
-			Player.new_base_attributes(Value, "Projectile Damage")
+			Player.add_projectile_damage(Value)
 		"Attack Speed":
-			Player.new_base_attributes(Value, "Attack Speed")		
+			Player.add_attack_speed(Value)		
 		"Speed":
-			Player.new_base_attributes(Value, "Movement Speed")
+			Player.add_movement_speed(Value)
 			

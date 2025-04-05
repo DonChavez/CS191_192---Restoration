@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://cuuy8aqddjprb"]
+[gd_scene load_steps=21 format=4 uid="uid://cuuy8aqddjprb"]
 
 [ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
 [ext_resource type="Texture2D" uid="uid://b4vlxbslijteg" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
@@ -11,7 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="10_dqwsc"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="11_p6r5m"]
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="12_1c86e"]
-[ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0Spin.tscn" id="12_gqfes"]
+[ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0SwordSpin.tscn" id="12_gqfes"]
+[ext_resource type="PackedScene" uid="uid://dr3o55x38an4q" path="res://Scenes/Items/0SwordHate.tscn" id="13_sy1rq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c12ks"]
 texture = ExtResource("2_da6o1")
@@ -630,6 +631,9 @@ position = Vector2(165, 310)
 [node name="SpreadShot2" parent="." instance=ExtResource("12_gqfes")]
 position = Vector2(201, 274)
 Item_ID = "1006"
+
+[node name="SwordHate" parent="." instance=ExtResource("13_sy1rq")]
+position = Vector2(94, 262)
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="Stairs" to="Stairs" method="_on_body_exited"]
