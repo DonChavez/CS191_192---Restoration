@@ -1,16 +1,6 @@
 branch: reset_julian
-v0.1.5.1:
-	1. Implemented Raycasting for each enemy type to integrate Line of Sight onto the player
-		- Enemy only moves towards player if there's no obstacle in between the LOS
-		- Enemy continuously moves for 5 seconds in 1 direction looking for the player after the player leaves the detection circle
-		- Enemy returns to Idle state if player is not found
-		- Enemy search duration is reset everytime it sees the player
-	2. Added breakable log object
-		- Utilizes layers 1 and 3, environment and enemy
-		- Player cannot pass through the object
-		- Player can destroy the Object
-		- Spawns 2 trash parts after breakage
-	3. Level0
-		- Created Scenes for Part 1, 2, 3, and 4
-		- Populated and Completed details for Part 1 and Part 2
-		- Item shops were substituted for regular items since there are no shops yet (as of this push)
+v0.1.5.2:
+	1. Boss has been added
+		- Currently has the same assets for elite enemy
+		- light shield is in place
+		- cannot damage the boss for as long as the light shield is still active
