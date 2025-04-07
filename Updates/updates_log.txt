@@ -229,3 +229,45 @@ v0.1.5.2:
 		- light shield is in place
 		- cannot damage the boss for as long as the light shield is still active
 
+---- Update from latest push (Mon Apr  7 22:52:15 PST 2025) ----
+branch: reset_resai
+v0.1.6.2:
+	1. Changed Recycler and Trainer UI
+		- Reformed Nodes used in UI and streamlined Slot indexing (Major Change)
+		- Changed Several variables and function inputs
+		- Renamed a few functions
+		- Streamlined Recyclerbutton signals
+		- Better UIs
+		- Changed Costs for both 
+	2. Pawn Shop
+		- Changed Selling amount
+	2. Player
+		- Reformed Player attributes to Base, Increment and Used attributes
+		- Used Attribute calculated from Base and Increment and more
+		- Added Percentage Increases for attributes
+		- Weapon Properties are not the same as Attributes (All changes must be due to items)
+		- Dash Mechanic with safety check for object collision only
+		- Many item exclusive functions
+	3. Inventory Item Application and removal
+		- Added apply_item_effect to:
+			- apply item effect if first time/stacking
+			- if non stacking and lower tier to current, do nothing
+			- if non stacking and higher tier to current, replace application
+		- Added reapply_removed_item_effect to
+			- remove item effect if non stacking
+			- if there is a replacement, apply that effect instead
+	4. Hurt Box Component
+		- Added success signal and checker 
+		- emits signal to Player of the damage dealt
+	5. Hit Box Component
+		- Added Damage Reduction
+		- returns actual damage taken to hurt box
+
+ITEMS
+	Sword Hate: Sword that deals an increased percent damage for every successful successive hit Stacking
+	Sword Life: Sword that has percent life steal Stacking
+	Stone Skin: Reduce incoming damage by percent
+	Double Time: Increase Movement Speed by percent
+	Glass Cannon: 1 hit to die, 100% increase to projectile dmg, 200% increase to melee dmg
+	Dash Boots: Enables Dashing, tiers lower dash cooldown
+
