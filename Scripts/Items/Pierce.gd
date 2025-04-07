@@ -7,9 +7,12 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Projectiles passes through "+str(ADDITIONAL_PIERCE_COUNT)+" Enemies"
-
-
+	Description = "Projectiles passes through "+str(ADDITIONAL_PIERCE_COUNT)+" Enemies."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
+		
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:
@@ -24,11 +27,11 @@ func apply_tier(Tier:int) -> void:
 		4:
 			ADDITIONAL_PIERCE_COUNT = 4  # Legendary Red
 
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		player.Pierce_addition += ADDITIONAL_PIERCE_COUNT
+		Player.add_used_pierce_addition(ADDITIONAL_PIERCE_COUNT)
 		Effect_applied = true
 
-func remove_effect(player):
-	player.Pierce_addition -= ADDITIONAL_PIERCE_COUNT
+func remove_effect(Player:CharacterBody2D):
+	Player.add_used_pierce_addition(-ADDITIONAL_PIERCE_COUNT)
 	Effect_applied = false

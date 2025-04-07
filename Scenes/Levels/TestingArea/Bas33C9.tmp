@@ -1,10 +1,9 @@
-[gd_scene load_steps=26 format=4 uid="uid://cuuy8aqddjprb"]
+[gd_scene load_steps=20 format=4 uid="uid://cuuy8aqddjprb"]
 
-
-[ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
-[ext_resource type="Texture2D" uid="uid://cbfd1bxgojamu" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
-[ext_resource type="Texture2D" uid="uid://cvorohdpce8lg" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
-[ext_resource type="Texture2D" uid="uid://u1cp43hebimg" path="res://Art/Objects/objects.png" id="5_scw7s"]
+[ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
+[ext_resource type="Texture2D" uid="uid://b4vlxbslijteg" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
+[ext_resource type="Texture2D" uid="uid://ceiwslpw05pft" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
+[ext_resource type="Texture2D" uid="uid://cwbfs1tqr1qpe" path="res://Art/Objects/objects.png" id="5_scw7s"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="6_dgjc6"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="7_xo2jl"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="8_yyyly"]
@@ -12,13 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="10_dqwsc"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="11_p6r5m"]
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="12_1c86e"]
-[ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0SwordSpin.tscn" id="12_gqfes"]
-[ext_resource type="PackedScene" uid="uid://dr3o55x38an4q" path="res://Scenes/Items/0SwordHate.tscn" id="13_sy1rq"]
-[ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLife.tscn" id="14_w3stw"]
-[ext_resource type="PackedScene" uid="uid://dxeofmwydwwey" path="res://Scenes/Items/0StoneSkin.tscn" id="15_mggr4"]
-[ext_resource type="PackedScene" uid="uid://bxqyk2ppf3nal" path="res://Scenes/Items/0DoubleTime.tscn" id="16_e0gvr"]
-[ext_resource type="PackedScene" uid="uid://jiamupj0x6pd" path="res://Scenes/Items/0GlassCannon.tscn" id="17_jvr30"]
-[ext_resource type="PackedScene" uid="uid://b313um8gt4per" path="res://Scenes/Items/0DashBoots.tscn" id="18_aye6b"]
+[ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0Spin.tscn" id="12_gqfes"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c12ks"]
 texture = ExtResource("2_da6o1")
@@ -635,42 +628,8 @@ position = Vector2(61, 335)
 position = Vector2(165, 310)
 
 [node name="SpreadShot2" parent="." instance=ExtResource("12_gqfes")]
-position = Vector2(201, 274)
+position = Vector2(165, 310)
 Item_ID = "1006"
-
-[node name="SwordHate" parent="." instance=ExtResource("13_sy1rq")]
-position = Vector2(94, 262)
-Item_ID = "4007"
-
-[node name="SwordLife" parent="." instance=ExtResource("14_w3stw")]
-position = Vector2(142, 213)
-Item_ID = "4008"
-
-[node name="SwordLife2" parent="." instance=ExtResource("14_w3stw")]
-position = Vector2(188, 218)
-Item_ID = "4008"
-
-[node name="SwordLife3" parent="." instance=ExtResource("14_w3stw")]
-position = Vector2(241, 229)
-Item_ID = "4008"
-
-[node name="StoneSkin" parent="." instance=ExtResource("15_mggr4")]
-position = Vector2(225, 377)
-Item_ID = "4009"
-
-[node name="DoubleTime" parent="." instance=ExtResource("16_e0gvr")]
-position = Vector2(332, 404)
-Item_ID = "4010"
-
-[node name="GlassCannon" parent="." instance=ExtResource("17_jvr30")]
-position = Vector2(302, 455)
-
-[node name="DashBoots" parent="." instance=ExtResource("18_aye6b")]
-position = Vector2(373, 436)
-
-[node name="DashBoots2" parent="." instance=ExtResource("18_aye6b")]
-position = Vector2(373, 436)
-Item_ID = "4012"
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="Stairs" to="Stairs" method="_on_body_exited"]

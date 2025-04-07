@@ -11,6 +11,7 @@ scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_mrlxq")
 Item_ID = "0001"
 Item_name = "Ricochet"
+Stacking = true
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0

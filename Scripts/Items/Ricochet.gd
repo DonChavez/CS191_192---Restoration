@@ -7,7 +7,11 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Projectiles bounces off of objects "+str(ADDITIONAL_BOUNCE_COUNT)+" time"
+	Description = "Projectiles bounces off of objects "+str(ADDITIONAL_BOUNCE_COUNT)+" time."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
 
 func apply_tier(Tier:int) -> void:
 	super(Tier)
@@ -23,11 +27,11 @@ func apply_tier(Tier:int) -> void:
 		4:
 			ADDITIONAL_BOUNCE_COUNT = 5  # Legendary Red
 
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		player.Projectile_bounce_count += ADDITIONAL_BOUNCE_COUNT
+		Player.add_used_projectile_bounce_count(ADDITIONAL_BOUNCE_COUNT)
 		Effect_applied = true
 
-func remove_effect(player):
-	player.Projectile_bounce_count -= ADDITIONAL_BOUNCE_COUNT
+func remove_effect(Player:CharacterBody2D):
+	Player.add_used_projectile_bounce_count(-ADDITIONAL_BOUNCE_COUNT)
 	Effect_applied = false

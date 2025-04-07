@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cynl8s0fg7ew3"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Spin.gd" id="1_oh6fx"]
-[ext_resource type="Texture2D" uid="uid://c061wywk60qao" path="res://Art/Items/Spin.png" id="2_0dokn"]
+[ext_resource type="Script" path="res://Scripts/Items/SwordSpin.gd" id="1_oh6fx"]
+[ext_resource type="Texture2D" uid="uid://bh8h4ko06fivd" path="res://Art/Items/Spin.png" id="2_0dokn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(218.881, 177.308)

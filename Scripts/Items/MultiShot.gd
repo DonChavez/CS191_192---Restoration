@@ -7,9 +7,12 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Upon shooting projectiles, shoots an additional "+str(ADDITIONAL_SHOT_COUNT)+" time"
-
-
+	Description = "Upon shooting projectiles, shoots an additional "+str(ADDITIONAL_SHOT_COUNT)+" time."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
+		
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:
@@ -24,11 +27,11 @@ func apply_tier(Tier:int) -> void:
 		4:
 			ADDITIONAL_SHOT_COUNT = 3  # Legendary Red
 
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		player.Multi_shot_count += ADDITIONAL_SHOT_COUNT
+		Player.add_used_multi_shot_count(ADDITIONAL_SHOT_COUNT)
 		Effect_applied = true
 
-func remove_effect(player):
-	player.Multi_shot_count -= ADDITIONAL_SHOT_COUNT
+func remove_effect(Player:CharacterBody2D):
+	Player.add_used_multi_shot_count(-ADDITIONAL_SHOT_COUNT)
 	Effect_applied = false

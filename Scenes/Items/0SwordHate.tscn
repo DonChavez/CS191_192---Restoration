@@ -1,22 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgk1yki43amh"]
+[gd_scene load_steps=4 format=3 uid="uid://dr3o55x38an4q"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Pierce.gd" id="1_uyaaj"]
-[ext_resource type="Texture2D" uid="uid://i1dbi8cokn4v" path="res://Art/Items/Pierce.png" id="2_2rq2a"]
+[ext_resource type="Script" path="res://Scripts/Items/SwordHate.gd" id="1_lmjuu"]
+[ext_resource type="Texture2D" uid="uid://ca08lvj5isjn6" path="res://Art/Items/Hate.png" id="2_6vbvj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Pierce" type="Node2D"]
+[node name="SwordHate" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_uyaaj")
-Item_ID = "1002"
-Item_name = "Pierce"
+script = ExtResource("1_lmjuu")
+Item_ID = "0007"
+Item_name = "Sword Hate"
 Stacking = true
+Item_type = 1
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_2rq2a")
+texture = ExtResource("2_6vbvj")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

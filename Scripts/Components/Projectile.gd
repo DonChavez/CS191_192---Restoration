@@ -29,7 +29,6 @@ func _ready() -> void:
 	rotation = Direction.angle()
 	
 	fireblaster(Fired_by)
-	print(ProjectileHurtbox)
 
 	# Schedule the projectile to be destroyed after its time is over
 	get_tree().create_timer(Lifetime).timeout.connect(queue_free)

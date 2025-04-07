@@ -8,8 +8,11 @@ func _ready() -> void:
 	super()
 	apply_tier(Item_tier)
 	Title = Tier_to_text[Item_tier]+" "+Item_name
-	Description = "Increase Sword length by ("+str(MELEE_X_ADDITIONAL) +", "+ str(MELEE_Y_ADDITIONAL)+")"
-
+	Description = "Increase Sword length by ("+str(MELEE_X_ADDITIONAL) +", "+ str(MELEE_Y_ADDITIONAL)+")."
+	if Stacking:
+		Description += " (Stacks)"
+	else:
+		Description += " (Does not stack)"
 func apply_tier(Tier:int) -> void:
 	super(Tier)
 	match Tier:
@@ -29,11 +32,11 @@ func apply_tier(Tier:int) -> void:
 			MELEE_X_ADDITIONAL = 25 
 			MELEE_Y_ADDITIONAL = 20  # Legendary Red
 
-func apply_effect(player):
+func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
-		player.apply_melee_weapon(MELEE_X_ADDITIONAL, MELEE_Y_ADDITIONAL, Item_name, 1)
+		Player.apply_melee_weapon(MELEE_X_ADDITIONAL, MELEE_Y_ADDITIONAL, Item_name, 1)
 		Effect_applied = true
 
-func remove_effect(player):
-	player.apply_melee_weapon(-MELEE_X_ADDITIONAL, -MELEE_Y_ADDITIONAL, Item_name, -1)
+func remove_effect(Player:CharacterBody2D):
+	Player.apply_melee_weapon(-MELEE_X_ADDITIONAL, -MELEE_Y_ADDITIONAL, Item_name, -1)
 	Effect_applied = false

@@ -22,7 +22,6 @@ class_name InventoryObject
 enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():	# Empty inventory at the start (Change)
 	for I in range(Inventory_slot_num):
@@ -45,7 +44,8 @@ func _process(Delta: float) -> void:
 # Toggle to see or not the Inventory UI
 func toggle_inventory():
 	self.visible = !self.visible
-
+func disable_toggle() -> void:
+	Disable = !Disable
 
 # Updates collectible amounts
 func add_coin(Amount: int):
@@ -55,12 +55,12 @@ func add_trash(Amount: int):
 	Trash += Amount
 	Inventory_ui.update_trash(Trash)
 
-#-----for item methods-----#
-# Reset the status of an Inventory Slot and Selected
-func reset_item_slot(Slot: int) -> void:
-	Inventory_slots[Slot].reset()
-	Selected = -1
-	Description.text = ""
+#-----for getting values methods-----#
+func get_description() -> void:
+	Description.text = Items[Selected].Title +"\n" + Items[Selected].Description
+
+func get_inventory_array() -> Array:
+	return Items
 
 # Get item from inventory array
 func get_item(Index):
@@ -68,12 +68,20 @@ func get_item(Index):
 		return Items[Index]
 	return null
 
+#-----for item methods-----#
+# Reset the status of an Inventory Slot and Selected
+func reset_item_slot(Slot: int) -> void:
+	Inventory_slots[Slot].reset()
+	Selected = -1
+	Description.text = ""
+
 func add_item_type(Item: ItemObject) -> void:
 	if Item.Item_type == ItemType.RANGE:
 		Range_items += 1
+		Player.get_range(Range_items)
 	elif Item.Item_type == ItemType.MELEE:
 		Melee_items += 1	
-
+		Player.get_melee(Melee_items)
 func remove_item_type(Item: ItemObject) -> void:
 	if Item.Item_type == ItemType.RANGE:
 		Range_items -= 1
@@ -87,18 +95,16 @@ func add_item(Item_data: Node2D) -> bool:
 
 	for I in range(Inventory_slot_num):
 		if Items[I] == null:  # Find empty slot in the Inventory
+			
+			# Apply effect of item
+			apply_item_effect(Item_data)
+
+			add_item_type(Item_data)
 			Items[I] = Item_data
 			print("Added:", Item_data["name"])
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
 			Inventory_slots[I].toggle_item(Item_data) # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
-			
-			add_item_type(Item_data)
-			Player.get_range(Range_items)
-			Player.get_melee(Melee_items)
-			# Apply effect of item
-			if Item_data:
-				Item_data.apply_effect(Player)
 				
 			return true  # Item added successfully
 
@@ -151,9 +157,36 @@ func drop_item():
 	Player.get_range(Range_items)
 	Player.get_melee(Melee_items)
 	# Remove effect of item
-	if Item_instance:
+	if Item_instance.get_stacking():
 		Item_instance.remove_effect(Player)
+	else:
+		reapply_removed_item_effect(Item_instance)
 
+
+	# Update visuals
+	Inventory_ui.update_inventory() # InventoryUI (child)
+
+func delete_item(Index: int) -> void:
+	# Retrieve the item node from the inventory array
+	var Item_instance = Items[Index]
+	if not Item_instance:
+		print("No item at index:", Selected)
+		return
+	Items[Selected] = null  # Remove from inventory
+	
+	# Change Item Slot statuses
+	Inventory_slots[Selected].toggle_item(null)
+	reset_item_slot(Selected)
+	remove_item_type(Item_instance)
+	Player.get_range(Range_items)
+	Player.get_melee(Melee_items)
+	# Remove effect of item
+	if Item_instance.get_stacking():
+		Item_instance.remove_effect(Player)
+	else:
+		reapply_removed_item_effect(Item_instance)
+	
+	Item_instance.queue_free()
 	# Update visuals
 	Inventory_ui.update_inventory() # InventoryUI (child)
 
@@ -179,34 +212,40 @@ func move_item(Index: int) -> void:
 	# Update UI after move/swap
 	Inventory_ui.update_inventory()
 
-func get_description() -> void:
-	Description.text = Items[Selected].Title +"\n" + Items[Selected].Description
+func apply_item_effect(New_item: Node2D) -> void:
+	if not New_item.get_stacking():
+		var New_item_id = New_item.get_item_id().substr(1)
+		var New_item_tier = New_item.get_item_tier()
+		for Item in Items:
+			if Item:
+				if Item.get_item_id().substr(1) == New_item_id and Item.get_applied():
+					if Item.get_item_tier() < New_item_tier:
+						Item.remove_effect(Player)
+						New_item.apply_effect(Player)
+						print("removed")
+						return
+					else:
+						return
+		# Loop removes the current tier that is working to apply only better tier
+	New_item.apply_effect(Player)
 
-func get_inventory_array() -> Array:
-	return Items
-
-func delete_item(Index: int) -> void:
-	# Retrieve the item node from the inventory array
-	var Item_instance = Items[Index]
-	if not Item_instance:
-		print("No item at index:", Selected)
+func reapply_removed_item_effect(Removed_item:Node2D) -> void:
+	# If not applied, meaning lower tier, no need to do anything
+	if not Removed_item.get_applied():	
 		return
-	Items[Selected] = null  # Remove from inventory
-	
-	
-	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
-	reset_item_slot(Selected)
-	remove_item_type(Item_instance)
-	Player.get_range(Range_items)
-	Player.get_melee(Melee_items)
-	# Remove effect of item
-	if Item_instance:
-		Item_instance.remove_effect(Player)
-		
-	Item_instance.queue_free()
-	# Update visuals
-	Inventory_ui.update_inventory() # InventoryUI (child)
 
-func disable_toggle() -> void:
-	Disable = !Disable
+	var Removed_id = Removed_item.get_item_id().substr(1)	# Removes Item Tier and checks only ID
+	var Removed_tier = Removed_item.get_item_tier()		# Checks Item Tier
+	var Replacement_item = null
+	for Item in Items:
+		if Item:
+			if not Item.get_applied() and Item.get_item_id().substr(1) == Removed_id:
+				if not Replacement_item:
+					Replacement_item = Item
+				if Item.get_item_tier() > Removed_tier:
+					Replacement_item = Item
+	# loop finds best item tier of the same type as removed item and applies it
+	# Remove item of current item
+	Removed_item.remove_effect(Player)
+	if Replacement_item:	# Apply replacement item if it exists
+		Replacement_item.apply_effect(Player)

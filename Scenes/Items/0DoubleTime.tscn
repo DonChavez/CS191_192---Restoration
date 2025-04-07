@@ -1,22 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc3c7o8s02iwd"]
+[gd_scene load_steps=4 format=3 uid="uid://bxqyk2ppf3nal"]
 
-[ext_resource type="Script" path="res://Scripts/Items/Spin.gd" id="1_14qpa"]
-[ext_resource type="Texture2D" uid="uid://bh8h4ko06fivd" path="res://Art/Items/Spin.png" id="2_47q3c"]
+[ext_resource type="Script" path="res://Scripts/Items/DoubleTime.gd" id="1_uefu1"]
+[ext_resource type="Texture2D" uid="uid://dhctogo606vqa" path="res://Art/Items/DoubleTime.png" id="2_6xmuj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Spin Sword" type="Node2D"]
+[node name="DoubleTime" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_14qpa")
-Item_ID = "4006"
-Item_name = "Spin Sword"
-Item_type = 1
+script = ExtResource("1_uefu1")
+Item_ID = "0010"
+Item_name = "Double Time"
+Stacking = true
+Item_type = 2
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_47q3c")
+texture = ExtResource("2_6xmuj")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

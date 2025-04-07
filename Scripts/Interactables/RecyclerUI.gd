@@ -1,18 +1,54 @@
 extends Control
 
-@onready var Grid1 = $RecyclerPanel/CenterContainer/RecyclerGrid.get_children() #Slots
-@onready var Grid2 = $RecyclerPanel/CenterContainer2/RecyclerGrid2.get_children() #Slots
-@onready var Trashlabel = $RecyclerPanel/TrashLabel
+@onready var Grid: Array = $RecyclerPanel/ScrollContainer/RecycleGrid.get_children() #Slots
+@onready var Trashlabel: Label = $RecyclerPanel/TrashLabel
+@onready var Description_box:RichTextLabel = $RecyclerPanel/ScrollContainer2/DescriptionTextLabel
+@onready var Costs:Dictionary 
+const Tier_to_text = {	0:"Common",
+						1:"Uncommon",
+						2:"Rare",
+						3:"Epic",
+						4:"Legendary"	}
+						
+const Number_to_roman1 = {	0:"I",
+							1:"II",
+							2:"III",
+							3:"IV",
+							4:"V"	}
+						
+@onready var Tier_items:Dictionary ={
+	0:"""	Pierce
+	Projectile Life
+	Sword Spin
+	Sword Hate
+	Sword Life
+	Stone Skin
+	Double Time
+""",
+	1:"""	Ricochet
+""",
+	2:"""	Spread Shot
+	Multi Shot
+	Glass Cannon
+	Dash Boots
+""",
+	3:"""""",
+	4:"""""",
+}
 
-var Builder: Array
 
-func get_labels(Labels: Array) -> void:
-	Builder = Labels.duplicate()
-	for I in range(Grid1.size()):
-		Grid1[I].change_label(Builder[I])
+func add_labels(Cost: Dictionary) -> void:
+	Costs = Cost
+	var Builder: String
+	for I in range(Grid.size()):
+		Builder = Tier_to_text[I] + " Item"
+		Grid[I].change_label(Builder)
 
-	for I in range(Grid2.size()):
-		Grid2[I].change_label(Builder[I+3])
+func add_description(Index: int) -> void:
+	Description_box.text = "Cost: "+str(Costs[Index])+" trash\n"
+	Description_box.text = Description_box.text+"Randomly Produce a "+Tier_to_text[Index]+" item\n" + "Current Item Pool:\n"
+	for I in range(Index+1):
+		Description_box.text = Description_box.text + Tier_items[I]
 
 #Toggle to see or not the Inventory UI
 func toggle_recycler():
