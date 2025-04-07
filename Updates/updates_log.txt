@@ -221,3 +221,11 @@ v0.1.5.1:
 		- Created Scenes for Part 1, 2, 3, and 4
 		- Populated and Completed details for Part 1 and Part 2
 		- Item shops were substituted for regular items since there are no shops yet (as of this push)
+---- Update from latest push (Mon Apr  7 22:47:36 PST 2025) ----
+branch: reset_julian
+v0.1.5.2:
+	1. Boss has been added
+		- Currently has the same assets for elite enemy
+		- light shield is in place
+		- cannot damage the boss for as long as the light shield is still active
+
