@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bem41oocvbrkw"]
+
+[ext_resource type="Script" path="res://Scenes/TrashSpawn.gd" id="1_8ykw3"]
+
+[node name="TrashSpawn" type="Node"]
+script = ExtResource("1_8ykw3")
