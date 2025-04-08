@@ -28,7 +28,7 @@ const Tier_to_text = {	0:"Common",
 
 # Other Nodes
 @onready var Inventory: InventoryObject = null
-
+@onready var User: CharacterBody2D = null
 # Item effect-related properties
 @onready var Effect_applied = false
 
@@ -105,6 +105,11 @@ func get_applied() -> bool:
 func get_stacking() -> bool:
 	return Stacking
 #-----Application methods-----#
+func acquire_user(Player:CharacterBody2D):
+	User = Player
+
+func update_item_status() -> void:		# Can be used for changing descriptions
+	pass
 
 func applied_toggle() -> void:
 	Effect_applied = !Effect_applied

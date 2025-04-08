@@ -94,6 +94,7 @@ const Attack : String = "Attack_"
 const Death : String = "Death"
 
 #---Action Variables---#
+var Can_attack: bool = true
 # Melee Variables
 var Is_attacking : bool = false
 var Has_melee: int = 0
@@ -187,7 +188,7 @@ func input_handling() -> void:
 	# player should not be able to attack while blocking
 	# note that the player can only equip either a melee or a projectile weapon so this will be adjusted eventually
 	# Player should not be able to do anything while blocking
-	if !Is_blocking:
+	if !Is_blocking and Can_attack:
 		if Input.is_action_just_pressed("attack") and not Is_attacking and Has_melee:
 			melee_attack()
 		if Input.is_action_just_pressed("shoot") and not Reloading and Has_range:
@@ -554,6 +555,9 @@ func toggle_dash(Value: bool) -> void:
 func set_dash_cooldown(Value: float) -> void:
 	Dash_cooldown = Value
 
+func toggle_can_attack() -> void:
+	Can_attack = !Can_attack
+
 #----------status upgrade related functions----------#
 func get_effect_manager() -> Node:
 	return Effect_manager
@@ -589,78 +593,100 @@ func get_movement_speed() -> float:
 # This is for Trainer
 func add_max_health(Amount: float) -> void:
 	Base_max_health += Amount
+	Inventory.update_items()
 	find_used_max_health()
 
 func add_melee_damage(Amount: float) -> void:
 	Base_melee_dmg += Amount
+	Inventory.update_items()
 	find_used_melee_damage()
 
 func add_projectile_damage(Amount: float) -> void:
 	Base_projectile_dmg += Amount
+	Inventory.update_items()
 	find_used_projectile_damage()
+	
 func add_attack_speed(Amount: float) -> void:
 	Base_attack_speed += Amount
+	Inventory.update_items()
 	find_used_attack_speed()
+	
 func add_movement_speed(Amount: float) -> void:
 	Base_move_speed += Amount
+	Inventory.update_items()
 	find_used_movement_speed()
 # This is for flat amount increase
 func add_incr_max_health(Amount: float) -> void:
 	Incr_max_health += Amount
+	Inventory.update_items()
 	find_used_max_health()
 
 func add_incr_melee_damage(Amount: float) -> void:
 	Incr_melee_dmg += Amount
+	Inventory.update_items()
 	find_used_melee_damage()
 
 func add_incr_projectile_damage(Amount: float) -> void:
 	Incr_projectile_dmg += Amount
+	Inventory.update_items()
 	find_used_projectile_damage()
+	
 func add_incr_attack_speed(Amount: float) -> void:
 	Incr_attack_speed += Amount
+	Inventory.update_items()
 	find_used_attack_speed()
+	
 func add_incr_movement_speed(Amount: float) -> void:
 	Incr_move_speed += Amount
+	Inventory.update_items()
 	find_used_movement_speed()
 
 # This is for percent amount increase
 func add_percent_max_health(Amount: int) -> void:
 	Percent_max_health_bonus += (Amount*0.01)
+	Inventory.update_items()
 	find_used_max_health()
 	
 func add_percent_melee_damage(Amount: int) -> void:
 	Percent_melee_damage_bonus += (Amount*0.01)
 	print("Percent Melee ", Percent_melee_damage_bonus)
+	Inventory.update_items()
 	find_used_melee_damage()
 	
 func add_percent_range_damage(Amount: int) -> void:
 	Percent_Projectile_damage += (Amount*0.01)
+	Inventory.update_items()
 	find_used_projectile_damage()
 	
 func add_percent_movement_speed(Amount: int) -> void:
 	Percent_movement_speed_bonus += (Amount*0.01)
+	Inventory.update_items()
 	find_used_movement_speed()
 
 #----------find used status functions----------#
-func find_used_max_health() -> void:
+func find_used_max_health() -> float:
 	Used_max_health = (Base_max_health + Incr_max_health) * (1 + Percent_max_health_bonus)
 	Player_health.set_new_health(Used_max_health)
-
-func find_used_melee_damage() -> void:
+	return Used_max_health
 	
+func find_used_melee_damage() -> float:
 	var Used_percent = Percent_melee_damage_bonus + (Percent_hate_damage_bonus * Successful_hits)
 	Used_melee_dmg = (Base_melee_dmg + Incr_melee_dmg) * (1 + Used_percent)
 	print("Calculated damage: ", Used_melee_dmg)
 	Melee_hurtbox.hurtbox_implement_damage(Used_melee_dmg)
+	return Used_melee_dmg
 
-func find_used_projectile_damage() -> void:
+func find_used_projectile_damage() -> float:
 	Used_projectile_dmg = (Base_projectile_dmg + Incr_projectile_dmg)* (1 + Percent_Projectile_damage)
-
-func find_used_attack_speed() -> void:
+	return Used_projectile_dmg
+	
+func find_used_attack_speed() -> float:
 	Used_attack_speed = Base_attack_speed + Incr_attack_speed
+	return Used_attack_speed
 
-func find_used_movement_speed() -> void:
+func find_used_movement_speed() -> float:
 	Used_move_speed = (Base_move_speed + Incr_move_speed) * (1+Percent_movement_speed_bonus)
+	return Used_move_speed
 
 # Melee and Range Weapon Flat Amount
 func add_used_projectile_bounce_count(Amount: int) -> void:
