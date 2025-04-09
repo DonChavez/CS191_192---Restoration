@@ -22,7 +22,7 @@ func apply_tier(Tier:int) -> void:
 			Icon.texture = load("res://Art/Items/riposte_1.png")
 		1:
 			BONUS_DAMAGE = 20
-			APPLIED_TIME = 1  # Uncommon Green
+			APPLIED_TIME = 0.5  # Uncommon Green
 			Icon.texture = load("res://Art/Items/riposte_2.png")
 		2:
 			BONUS_DAMAGE = 30
@@ -30,11 +30,11 @@ func apply_tier(Tier:int) -> void:
 			Icon.texture = load("res://Art/Items/riposte_3.png")
 		3:
 			BONUS_DAMAGE = 40
-			APPLIED_TIME = 1.5  # Epic Purple
+			APPLIED_TIME = 1  # Epic Purple
 			Icon.texture = load("res://Art/Items/riposte_4.png")
 		4:
 			BONUS_DAMAGE = 50
-			APPLIED_TIME = 2  # Legendary Red
+			APPLIED_TIME = 1  # Legendary Red
 			Icon.texture = load("res://Art/Items/riposte_5.png")
 
 func apply_effect(Player:CharacterBody2D):

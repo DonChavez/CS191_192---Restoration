@@ -17,21 +17,23 @@ const Number_to_roman1 = {	0:"I",
 							4:"V"	}
 						
 @onready var Tier_items:Dictionary ={
-	0:"""	Pierce
-	Projectile Life
-	Sword Spin
-	Sword Hate
-	Sword Life
-	Stone Skin
-	Double Time
+	0:"""	Double Time
 	Life Crystal
+	Parry Mantle
+	Riposte Gauntlet
+	Stone Skin
+	Sword Hate
+	Sword Leech
+	Sword Light
+	Sword Spinf
 """,
-	1:"""	Ricochet
+	1:"""	Pierce
+	Ricochet
 """,
-	2:"""	Spread Shot
-	Multi Shot
+	2:"""	Dash Boots
 	Glass Cannon
-	Dash Boots
+	Multi Shot
+	Spread Shot
 """,
 	3:"""	Fire Tank""",
 	4:"""""",

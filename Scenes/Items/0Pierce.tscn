@@ -8,7 +8,7 @@ size = Vector2(22.1679, 21.1539)
 [node name="Pierce" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_uyaaj")
-Item_ID = "1002"
+Item_ID = "0002"
 Item_name = "Pierce"
 Stacking = true
 

@@ -12,7 +12,8 @@ func _calculate_damage(Health:float) -> void:
 	Fire_hurtbox_instance.hurtbox_implement_damage(Damage)
 
 func update_item_status() -> void:
-	_calculate_damage(User.find_used_max_health())
+	if User:
+		_calculate_damage(User.find_used_max_health())
 
 func _ready() -> void:
 	super()
