@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal SUCCESSFUL_PARRY()
+
 # exportables
 @export var Speed = 100
 @export var Lifetime = 2.0  
@@ -29,7 +31,8 @@ func _ready() -> void:
 	rotation = Direction.angle()
 	
 	fireblaster(Fired_by)
-
+	
+	connect_to_player()
 	# Schedule the projectile to be destroyed after its time is over
 	get_tree().create_timer(Lifetime).timeout.connect(queue_free)
 
@@ -37,18 +40,22 @@ func fireblaster(Name: Node2D) -> void:
 	#if Name == "Player":
 	if Name and Name.is_in_group("Player"):
 		set_collision_layer_value(5, true)		# Make projectile body as player projectile
+		set_collision_mask_value(8, false)   # Added for parry sword
 		ProjectileHurtbox.set_collision_layer_value(5, true)		# Assign it as player projectile
 		ProjectileHurtbox.set_collision_layer_value(6, false)
 		ProjectileHurtbox.set_collision_mask_value(3, true)			# Can collide with enemies
 		ProjectileHurtbox.set_collision_mask_value(2, false)		# No collision with player
+		ProjectileHurtbox.set_collision_mask_value(8, false)   # Can collide with hitbox
 		ProjectileSprite.texture = Player_projectile_texture
 		Speed = 200									# More projecetile speed for player
 	if Name and Name.is_in_group("Enemy"):
 		set_collision_layer_value(6, true)		# Make projectile body as enemy projectile
+		set_collision_mask_value(8, true)   # Added for parry sword
 		ProjectileHurtbox.set_collision_layer_value(5, false)
 		ProjectileHurtbox.set_collision_layer_value(6, true)		# Assign it as enemy projectile
 		ProjectileHurtbox.set_collision_mask_value(2, true) 		# Can collide with player
-		ProjectileHurtbox.set_collision_mask_value(3, false)		# No collision with other enemies
+		ProjectileHurtbox.set_collision_mask_value(8, true)   # Can collide with hitbox
+		ProjectileHurtbox.set_collision_mask_value(3, false)  # No collision with other enemies
 		ProjectileSprite.texture = Enemy_projectile_texture
 		
 # Bounce the projectile off a surface with random direction
@@ -114,6 +121,7 @@ func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void
 		#redirect_to_nearest_enemy(Normal)  # Reflect the projectile
 		if PlayerManager.Player_instance.Is_parrying:
 			redirect_target()
+			SUCCESSFUL_PARRY.emit()
 			#pass
 		else:
 			redirect_random()
@@ -127,6 +135,19 @@ func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void
 	else:
 		MaxPierce -=1
 
+
+func connect_to_player():
+	# Get all nodes in the "Player" group
+	var Players = get_tree().get_nodes_in_group("Player")
+	if Players.size() > 0:
+		# Connect to the first Player (assuming one Player)
+		var Player = Players[0]
+		# Connect to the first Player (assuming one Player)
+		connect("SUCCESSFUL_PARRY", Callable(Player, "on_projectile_parry"))
+	else:
+		print("Warning: No Player found in group 'Player'")
+
+
 # Handles Increasing Live time
 func add_live_time(Added_time: int):
 	Lifetime += Added_time
@@ -135,7 +156,5 @@ func add_live_time(Added_time: int):
 func add_pierce_count(Added_pierce: int):
 	MaxPierce += Added_pierce
 
-
 func implement_damage(New_damage: float) -> void:
-
 	ProjectileHurtbox.hurtbox_implement_damage(New_damage)

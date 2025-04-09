@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgk1yki43amh"]
+[gd_scene load_steps=3 format=3 uid="uid://bgk1yki43amh"]
 
 [ext_resource type="Script" path="res://Scripts/Items/Pierce.gd" id="1_uyaaj"]
-[ext_resource type="Texture2D" uid="uid://i1dbi8cokn4v" path="res://Art/Items/Pierce.png" id="2_2rq2a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
@@ -9,14 +8,14 @@ size = Vector2(22.1679, 21.1539)
 [node name="Pierce" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_uyaaj")
-Item_ID = "1002"
+Item_ID = "0002"
 Item_name = "Pierce"
 Stacking = true
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_2rq2a")
+expand_mode = 3
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

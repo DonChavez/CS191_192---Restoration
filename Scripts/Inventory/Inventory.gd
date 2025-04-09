@@ -103,7 +103,7 @@ func add_item(Item_data: Node2D) -> bool:
 			Items[I] = Item_data
 			print("Added:", Item_data["name"])
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
-			Inventory_slots[I].toggle_item(Item_data) # Lets Item Slot know it has an item
+			Inventory_slots[I].toggle_item(true) # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
 				
 			return true  # Item added successfully
@@ -151,7 +151,7 @@ func drop_item():
 	Item_instance.visible = true  # Ensure it's visible in the world
 	
 	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
+	Inventory_slots[Selected].toggle_item(false)
 	reset_item_slot(Selected)
 	remove_item_type(Item_instance)
 	Player.get_range(Range_items)
@@ -175,7 +175,7 @@ func delete_item(Index: int) -> void:
 	Items[Selected] = null  # Remove from inventory
 	
 	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
+	Inventory_slots[Selected].toggle_item(false)
 	reset_item_slot(Selected)
 	remove_item_type(Item_instance)
 	Player.get_range(Range_items)
@@ -204,8 +204,8 @@ func move_item(Index: int) -> void:
 		Items[Selected] = null
 		# Change Item Slot statuses
 	Items[Index] = holder
-	Inventory_slots[Selected].toggle_item(Items[Selected])
-	Inventory_slots[Index].toggle_item(Items[Index])
+	Inventory_slots[Selected].toggle_item(true)
+	Inventory_slots[Index].toggle_item(true)
 	# Change Item Slot statuses and Selected
 	reset_item_slot(Selected)
 	reset_item_slot(Index)

@@ -14,7 +14,6 @@ enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
 @export var Item_type: ItemType
 @onready var Item_tier:int
-@onready var Default_color: Color
 
 
 # For Description
@@ -82,18 +81,10 @@ func spawn_object_animation() -> void:
 	$".".set_deferred("monitoring", true) 
 
 func apply_tier(Tier:int) -> void:
-	match Tier:
-		0: Default_color = Color(1.0, 1.0, 1.0)  # Common White
-		1: Default_color = Color(0.53, 1.0, 0.53)  # Uncommon Green
-		2: Default_color = Color(0.53, 0.53, 1.0)  # Rare Blue
-		3: Default_color = Color(0.8, 0.4, 0.8)  # Epic Purple (Fixed)
-		4: Default_color = Color(1.0, 0.4, 0.4)   # Legendary Red
-	Icon.self_modulate = Default_color
+	pass
 	
 
 #-----for getting values methods-----#
-func get_default_color() -> Color:
-	return Default_color
 
 func get_item_tier() -> int:
 	return Item_tier

@@ -1,12 +1,15 @@
 branch: reset_resai
-v0.1.6.3:
-	Player:
-		Find Used attributes return the computed values
-		Changing any variable that changes computed values now trigger Item Update from inventory
-	Inventory:
-		Update Item function goes through Items which calls an Item function
-			Currently only one using is Fire Tank Item
-
-ITEMS
-	Life Crystal: Increase Health percentage
-	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
+v0.1.9:
+	Inventory and Pawnshop UI and Item:
+		Removed Tinting
+	Itemslot:
+		Added textureRect node for ItemIcons
+	Items:
+		Removed tinting
+		Used proper icon images
+	Levels:
+		Cleaned up Some test Levels
+ITEMS:
+	Light Sword: Disables Block, attacks now parry
+	Parry This: Become invincible for a few seconds upon successful parry
+	Riposte Gauntlet: Increase melee damage for a short time upon successful parry

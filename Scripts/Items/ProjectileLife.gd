@@ -18,14 +18,19 @@ func apply_tier(Tier:int) -> void:
 	match Tier:
 		0:
 			ADDITIONAL_LIFE_COUNT = 1  # Common White
+			Icon.texture = load("res://Art/Items/ProjectileLife.png")
 		1:
 			ADDITIONAL_LIFE_COUNT = 2  # Uncommon Green
+			Icon.texture = load("res://Art/Items/ProjectileLife.png")
 		2:
 			ADDITIONAL_LIFE_COUNT = 3  # Rare Blue
+			Icon.texture = load("res://Art/Items/ProjectileLife.png")
 		3:
 			ADDITIONAL_LIFE_COUNT = 4  # Epic Purple
+			Icon.texture = load("res://Art/Items/ProjectileLife.png")
 		4:
 			ADDITIONAL_LIFE_COUNT = 5  # Legendary Red
+			Icon.texture = load("res://Art/Items/ProjectileLife.png")
 
 func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:

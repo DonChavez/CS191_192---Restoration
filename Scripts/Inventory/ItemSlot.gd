@@ -3,42 +3,43 @@ extends TextureButton
 signal CLICKED(Index: int)  # Define signal with a bool parameter
 @onready var Array_indx: int = -1
 
+@onready var Item_icon: TextureRect = $ItemIcon
 
 @onready var Clicked: bool = false
-@onready var Item_color: Color = Color(0,0,0,0)
 @onready var Hover: bool = false
-@onready var Show_desc: bool = false
+@onready var Has_item: bool = false
 
 func _on_pressed() -> void:
 	CLICKED.emit(Array_indx)
-	if Item_color.a != 0:
+	if Has_item:
 		Clicked = !Clicked
 		if Clicked:
 			self_modulate += Color(2.0, 2.0, 0.8)  # Slightly darker when pressed
 			self_modulate -= Color(1.2, 1.2, 1.2)  # Remove hover color tint
 # If item slot has item or not
-func toggle_item(Item: ItemObject)-> void:
-	if Item:
-		Item_color = Item.get_default_color()
-
-	else:
-		Item_color.a = 0
+func toggle_item(Has: bool)-> void:
+	Has_item = Has
 	
-# Reset its visuals and status
-func reset() -> void:
-	Clicked = false
-	update_slot_ui()
-
-# Change color tints
 func update_slot_ui() -> void:
-	if Item_color.a != 0:
-		self_modulate = Item_color
-	else:
-		self_modulate = Color(1,1,1)  # Reset to normal
+	self_modulate = Color(1,1,1)  # Reset to normal
 	if Clicked:
 		self_modulate += Color(2.0, 2.0, 0.8)
 	elif Hover:
 		self_modulate += Color(1.2,1.2,1.2)
+
+
+func toggle_item_ui(Item_texture) -> void:
+	if Item_texture:
+		Item_icon.texture = Item_texture
+	else:
+		Item_icon.texture = null
+	update_slot_ui()
+	
+
+# Reset its visuals and status
+func reset() -> void:
+	Clicked = false
+	update_slot_ui()
 		
 # Set Index of a wider array for inventory or recycler
 func set_index(Index:int):
