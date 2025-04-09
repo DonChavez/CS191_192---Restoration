@@ -327,3 +327,20 @@ ITEMS
 	Life Crystal: Increase Health percentage
 	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
 
+---- Update from latest push (Wed Apr  9 21:53:57 PST 2025) ----
+branch: reset_resai
+v0.1.9:
+	Inventory and Pawnshop UI and Item:
+		Removed Tinting
+	Itemslot:
+		Added textureRect node for ItemIcons
+	Items:
+		Removed tinting
+		Used proper icon images
+	Levels:
+		Cleaned up Some test Levels
+ITEMS:
+	Light Sword: Disables Block, attacks now parry
+	Parry This: Become invincible for a few seconds upon successful parry
+	Riposte Gauntlet: Increase melee damage for a short time upon successful parry
+
