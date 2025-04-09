@@ -162,13 +162,13 @@ func input_handling() -> void:
 	
 	if Input.is_action_just_pressed("dash") and Can_dash:
 		dash()
-    
+	
 	# Player is now blocking
 	if Input.is_action_pressed("block") and not Is_blocking and Can_block:
 		block()
 	elif Input.is_action_just_released("block") and Is_blocking:
 		end_block()
-    
+	
 	# if melee button is pressed and previously not doing a melee attack
 	# player should not be able to attack while blocking
 	# note that the player can only equip either a melee or a projectile weapon so this will be adjusted eventually
@@ -474,80 +474,6 @@ func reloaded() -> void:
 	await get_tree().create_timer(1/Used_attack_speed).timeout
 	Reloading = false
 
-#----------blocking related functions----------#
-func block() -> void:
-	# adjust collision timing to be if parrying
-	Is_blocking = true
-	print("I'm blocking")
-	# turn off player health damage
-	Player_hitbox.monitoring = false
-	Player_hitbox.monitorable = false
-
-	
-	# get Shield Direction
-	Facing_direction = get_mouse_direction()
-	
-	# Enable Temporary Shield
-	Tempo_shield.position = get_object_spawn_position(Facing_direction)
-	Tempo_shield.visible = true
-	Tempo_shield.monitoring = true
-	Tempo_shield.monitorable = true
-	Tempo_shield.monitoring = true
-	Tempo_shield.monitorable = true
-	TS_hitbox.monitoring = true
-	TS_hitbox.monitorable = true
-	TS_hitbox.monitorable = true
-	TS_hitbox.visible = true
-	
-	# parrying
-	Is_parrying = true
-	print("I'm parrying")
-	
-	# wait for the parry window to end
-	await get_tree().create_timer(Parry_window).timeout
-	
-	Is_parrying = false
-	
-	#-----Shield WIP-----#
-	## rotate shield appropriately
-	#if Facing_direction == "up":
-		#Shield.rotation = deg_to_rad(90)
-	#elif Facing_direction == "down":
-		#Shield.rotation = deg_to_rad(270)
-	#else:
-		#Shield.rotation = deg_to_rad(0)
-	#
-	## activate the shield
-	#Shield.position = get_object_spawn_position(Facing_direction)
-	#Shield.visible = true
-	#Shield_collision.disabled = false
-	## activate the shield hitbox
-	#Shield_hitbox.monitoring = true
-	#Shield_hitbox.visible = true
-	#-----Shield WIP-----#
-	
-func end_block() -> void:
-	Is_blocking = false
-	print("I'm done blocking")
-	# turn on health damage
-	Player_hitbox.monitoring = true
-	Player_hitbox.monitorable = true
-	
-	Tempo_shield.visible = false
-	Tempo_shield.monitorable = false
-	Tempo_shield.monitoring = false
-	TS_hitbox.monitoring = false
-	TS_hitbox.monitorable = false
-	TS_hitbox.visible = false
-	TS_hitbox.monitorable = false
-	
-	# disable the shield again
-	#-----Shield WIP-----#
-	#Shield.visible = false
-	#Shield_collision.disabled = true
-	#Shield_hitbox.monitoring = false
-	#Shield_hitbox.visible = false
-	#-----Shield WIP-----#
 var Timer_dictionary: Dictionary = {}
 func set_up_timer(ID: String, Time_amount: float) -> void:
 	if Timer_dictionary.has(ID):

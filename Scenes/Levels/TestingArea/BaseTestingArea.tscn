@@ -1,9 +1,9 @@
 [gd_scene load_steps=19 format=4 uid="uid://cuuy8aqddjprb"]
 
-[ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
-[ext_resource type="Texture2D" uid="uid://b4vlxbslijteg" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
-[ext_resource type="Texture2D" uid="uid://ceiwslpw05pft" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
-[ext_resource type="Texture2D" uid="uid://cwbfs1tqr1qpe" path="res://Art/Objects/objects.png" id="5_scw7s"]
+[ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
+[ext_resource type="Texture2D" uid="uid://dycx224aw04sf" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
+[ext_resource type="Texture2D" uid="uid://ffhr1g6vo61q" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
+[ext_resource type="Texture2D" uid="uid://dcygb7neoi3oe" path="res://Art/Objects/objects.png" id="5_scw7s"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="6_dgjc6"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="7_xo2jl"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="8_yyyly"]
