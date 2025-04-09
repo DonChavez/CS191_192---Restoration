@@ -1,11 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://3l055tt4lhc"]
+[gd_scene load_steps=17 format=3 uid="uid://3l055tt4lhc"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Recycler.gd" id="1_6hf5r"]
-[ext_resource type="Texture2D" uid="uid://b5waaboblqwti" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
+[ext_resource type="Texture2D" uid="uid://muv3gtr72kf0" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
 [ext_resource type="PackedScene" uid="uid://et7hu31mtlgf" path="res://Scenes/Interactables/ItemManager.tscn" id="2_c0ff1"]
 [ext_resource type="Script" path="res://Scripts/Interactables/RecyclerUI.gd" id="3_bw1r6"]
-[ext_resource type="Texture2D" uid="uid://bbgcpktgpyph2" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
+[ext_resource type="Texture2D" uid="uid://bxx1fnbelg0lt" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
 [ext_resource type="PackedScene" uid="uid://brm8k3e0qaxpp" path="res://Scenes/Interactables/RecyclerButton.tscn" id="7_fohf1"]
+[ext_resource type="AudioStream" uid="uid://cpn30m2vptd3s" path="res://Music/SFX/recycler_spit.mp3" id="7_qhtvr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joq7y"]
 
@@ -14,14 +15,44 @@
 [sub_resource type="ImageTexture" id="ImageTexture_1c7js"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_un1sj"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vwa04"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d47ai"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spnkm"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5xt1u"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="Theme" id="Theme_or8to"]
 VScrollBar/icons/decrement = SubResource("ImageTexture_1c7js")
@@ -148,6 +179,9 @@ layout_mode = 2
 
 [node name="RecycleButton5" parent="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid" instance=ExtResource("7_fohf1")]
 layout_mode = 2
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_qhtvr")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

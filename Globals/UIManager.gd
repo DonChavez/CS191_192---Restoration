@@ -9,7 +9,6 @@ var PollutionLevelUI: ProgressBar
 var Initialized: bool = false
 
 func init_ui() -> void:
-	# to prevent multiple calls
 	if Initialized:
 		return
 	Initialized = true
@@ -17,19 +16,18 @@ func init_ui() -> void:
 	print("UIManager initializing...")
 	add_to_group("UIManager")
 	
-	# connect load_complete signal to know if level is fully loaded
 	if LevelManager and not LevelManager.load_complete.is_connected(_on_level_loaded):
 		LevelManager.load_complete.connect(_on_level_loaded)
+	
+	if PlayerManager and not PlayerManager.Player_spawned.is_connected(_on_player_spawned):
+		PlayerManager.Player_spawned.connect(_on_player_spawned)
 
+	# Initial setup
+	await get_tree().process_frame
 	reinitialize_ui()
 
 # Reload UI
 func reinitialize_ui() -> void:
-	call_deferred("_initialize_UI_elements")
-
-# init the HUD
-func _initialize_UI_elements() -> void:
-	await get_tree().process_frame
 	_update_player()
 	_update_hud()
 	_update_pollution_manager()
@@ -61,7 +59,7 @@ func _update_hud() -> void:
 		push_error("HUD not found inside UIWrapper!")
 		return
 
-	# HUD elements to be updated
+	# Reassign HUD elements
 	LevelName = hud.get_node_or_null("Top/Header/Timer/HBoxContainer/LevelName")
 	PlayerInfoUI = hud.get_node_or_null("PlayerInfo")
 	PollutionLevelUI = hud.get_node_or_null("Top/Header/PollutionSystem/PollutionLevel")
@@ -75,36 +73,36 @@ func _update_hud() -> void:
 	if PlayerInfoUI.has_method("_initialize_UI_elements"):
 		PlayerInfoUI._initialize_UI_elements()
 
-# sync pollution meter with pollution manager
+# Sync pollution meter with pollution manager
 func _update_pollution_manager() -> void:
 	var pollution_manager = get_tree().get_first_node_in_group("PollutionManager")
 	if pollution_manager and not pollution_manager.is_connected("pollution_updated", _update_pollution_ui):
 		pollution_manager.pollution_updated.connect(_update_pollution_ui)
-		
-# sync pollution to progress bar
+
+# Sync pollution to progress bar
 func _update_pollution_ui(value: float) -> void:
-	if PollutionLevelUI:
+	if PollutionLevelUI and is_instance_valid(PollutionLevelUI):
 		PollutionLevelUI.value = value
 
-# sync level name to the scene name
+# Sync level name to the scene name
 func _update_level_name() -> void:
-	if not LevelName:
-		print("LevelName is null. Attempting to reinitialize UI...")
-		await get_tree().process_frame
-		await get_tree().process_frame
-		reinitialize_ui()
-		if not LevelName:
-			push_error("LevelName label still not found in UI!")
-
+	var level_name_text: String = "Unknown Level"  # Default value
+	
 	if LevelManager and LevelManager.current_level_name:
-		LevelName.text = LevelManager.current_level_name
+		level_name_text = LevelManager.current_level_name
+	
+	if LevelName and is_instance_valid(LevelName):
+		LevelName.text = level_name_text
+		print("Updated Level Name to: ", level_name_text)
 	else:
-		LevelName.text = "Unknown Level"
+		print("LevelName not ready yet, defaulting to: ", level_name_text)
 
-	print("Updated Level Name to: ", LevelName.text)
-
-# reload the hud after scene load
+# Reload the HUD after scene load
 func _on_level_loaded() -> void:
 	print("Reinitializing UIManager after level load")
-	_update_level_name()
+	reinitialize_ui()
+
+# Reinitialize UI when a new player spawns
+func _on_player_spawned() -> void:
+	print("Player spawned, reinitializing UI elements")
 	reinitialize_ui()

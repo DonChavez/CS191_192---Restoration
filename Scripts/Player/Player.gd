@@ -1,14 +1,14 @@
 extends CharacterBody2D
 
 #-----exportable variables-----#
-
 @export var Projectile = load("res://Scenes/Objects/Projectile.tscn")
 # Blocking Variables
 @export var Is_parrying : bool = false
 # Audio Variables
-@export var Audio_player: AudioStreamPlayer2D
-@export var sfx_folder: String = "res://Music/SFX/Grass/"
-var sfx_files: Array = []
+@export var Attack_sound = preload("res://Music/SFX/Player/melee_attack.mp3")
+@export var Ranged_sound = preload("res://Music/SFX/Player/ranged_attack.mp3")
+
+
 
 #-----onready variables-----#
 # Animation Variables
@@ -18,23 +18,20 @@ var sfx_files: Array = []
 @onready var TS_durability: HealthComponent = $TempoShield/TSDurability
 @onready var TS_hitbox: HitboxComponent = $TempoShield/TSHitbox
 
-#-----Shield WIP-----#
-#@onready var Shield: StaticBody2D = $Shield
-#@onready var Shield_durability: HealthComponent = $Shield/ShieldDurability
-#@onready var Shield_hitbox: HitboxComponent = $Shield/ShieldHitbox
-#@onready var Shield_collision: CollisionShape2D = $Shield/ShieldCollision
-#-----Shield WIP-----#
-
 # Component Variables
 @onready var Player_health: HealthComponent = $PlayerHealth
 @onready var Player_hitbox: HitboxComponent = $PlayerHitbox
 @onready var Melee_hurtbox: HurtboxComponent = $MeleeHurtbox
 
-# Miscellenaous Variables
+# Miscellaneous Variables
 @onready var Melee_collision: CollisionShape2D = $MeleeHurtbox/CollisionShape2D
 @onready var Main = null
 @onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
 @onready var Effect_manager: Node = $EffectManager
+@onready var Player_sfx: AudioStreamPlayer2D = $PlayerSFX
+@onready var Player_walking_sfx: AudioStreamPlayer2D = $PlayerWalkingSFX
+
+
 
 #-----local variables-----#
 # input/direction variables
@@ -49,7 +46,7 @@ var Upgrade_status_count: Dictionary = {
 	"Range": 0,
 	"Attack Speed": 0,
 	"Speed": 0
-	}
+}
 # Base Stats holder
 @onready var Base_move_speed : float = 170.0
 @onready var Base_attack_speed : float = 1.0
@@ -82,7 +79,7 @@ var Upgrade_status_count: Dictionary = {
 
 @onready var Last_direction: Vector2 = Vector2.ZERO
 @onready var Percent_damage_reduction: float = 0
-@onready var Percent_life_steal:float = 0
+@onready var Percent_life_steal: float = 0
 
 # death flag
 var Player_is_dead = false
@@ -92,6 +89,7 @@ const Idle : String = "Idle_"
 const Move : String = "Move_"
 const Attack : String = "Attack_"
 const Death : String = "Death"
+const Shield : String = "Shield_"
 
 #---Action Variables---#
 var Can_attack: bool = true
@@ -120,8 +118,8 @@ var Reloading: bool = false
 var Has_range: int = 0
 
 # Projectile Variables
-var Live_time_addition:int = 0
-var Pierce_addition:int = 1
+var Live_time_addition: int = 0
+var Pierce_addition: int = 1
 
 # Interaction Variables
 var Can_process_input : bool = true
@@ -129,67 +127,48 @@ var Can_process_movement : bool = true
 
 func _ready() -> void:
 	await get_tree().process_frame
-	# Idle right is the default animation
 	Player_sprite.play("Idle_right")
-	# melee attack hurtbox is off by default
 	Melee_hurtbox.monitoring = false
 	Melee_hurtbox.visible = false
 	
-	# initialize the shield
 	Tempo_shield.visible = false
 	Tempo_shield.monitoring = false
-	Tempo_shield.monitorable = false	#Fix
+	Tempo_shield.monitorable = false
 	TS_hitbox.monitoring = false
-	TS_hitbox.monitorable = false	#Fix
+	TS_hitbox.monitorable = false
 	TS_hitbox.visible = false
 	
-	#-----Shield WIP-----#
-	#Shield.visible = false
-	#Shield_hitbox.monitoring = false
-	#Shield_hitbox.visible = false
-	#Shield_collision.disabled = true
-	#-----Shield WIP-----#
+	# Connect signal for projectile modification
+	Tempo_shield.connect("area_entered", _on_tempo_shield_area_entered)
 
 func _physics_process(delta: float) -> void:
-	# check if player is alive on every tick
 	if !Player_is_dead:
-		# determines what the player inputs
 		input_handling()
-		# velocity and move_and_collide is essential for character movement
-		# player cannot move while blocking
 		if Is_blocking:
 			velocity = Vector2.ZERO
 		else:
 			velocity = Input_direction * Used_move_speed
 		
-		# move_and_collide ensures that the player doesn't inherit the velicoty when colliding with walls
-		# velocity is multiplied with the delta to ensure that movement is based on ticks
 		move_and_slide()
-		
-		# updates the input direction of the player every tick
 		update_movement_input()
-		
-		# update the animation of the player
 		update_animations()
 
 #----------Input related functions----------#
 func input_handling() -> void:
 	if not Can_process_input:
 		return
-	# gets the position of the mouse and stores its vector values in mouse_direction
-	# this is primarily used in determining the direction the player faces when doing an action such as an attack
-	# this is also used for ranged/projectile calculation for the player
 	var Mouse_position = get_global_mouse_position()
 	Mouse_direction = (Mouse_position - global_position).normalized()
 	
 	if Input.is_action_just_pressed("dash") and Can_dash:
 		dash()
-		
+    
 	# Player is now blocking
 	if Input.is_action_pressed("block") and not Is_blocking and Can_block:
 		block()
 	elif Input.is_action_just_released("block") and Is_blocking:
 		end_block()
+    
 	# if melee button is pressed and previously not doing a melee attack
 	# player should not be able to attack while blocking
 	# note that the player can only equip either a melee or a projectile weapon so this will be adjusted eventually
@@ -200,13 +179,11 @@ func input_handling() -> void:
 		if Input.is_action_just_pressed("shoot") and not Reloading and Has_range:
 			shoot_projectile()
 
-# determines where the player attacks based on the mouse position
 func get_mouse_direction() -> String:
 	if abs(Mouse_direction.x) > abs(Mouse_direction.y):
 		return "right" if Mouse_direction.x > 0 else "left"
 	return "down" if Mouse_direction.y > 0 else "up"
 
-# adjust the position of either the attack or the shield
 func get_object_spawn_position(Direction: String) -> Vector2:
 	match Direction:
 		"up": return Vector2(0, -10)
@@ -217,17 +194,13 @@ func get_object_spawn_position(Direction: String) -> Vector2:
 
 #----------movement related functions----------#
 func update_movement_input():
-	if !Can_process_movement:
+	if !Can_process_movement or Is_blocking:  # Prevent direction updates while blocking
 		return
-	# global var input direction is updated in this function
 	Input_direction = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
 		Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
-	).normalized() # .normalized() returns resultant vector if multiple inputs are pressed
-	# .normalized is important to eliminate velocity discrepancies
+	).normalized()
 	
-	# used to determine the position the player is facing
-	# used for idle animations in the idle_animations
 	if Input_direction != Vector2.ZERO:
 		if Input_direction.x > 0:
 			Facing_direction = "right"
@@ -242,111 +215,153 @@ func update_movement_input():
 func dash() -> void:
 	if !Can_process_movement:
 		return
-	# global var input direction is updated in this function
-
-	# If no direction is provided, use the last facing direction or default
+		
+	if Player_sfx:
+		Player_sfx.stream = preload("res://Music/SFX/Player/dash.mp3")
+		Player_sfx.play()
 	if Last_direction == Vector2.ZERO:
-		Last_direction = Vector2.RIGHT  # Default direction if idle
+		Last_direction = Vector2.RIGHT
 	
-	# Calculate the dash increment
 	var dash_vector = Last_direction.normalized() * Dash_distance
 	var target_position = global_position + dash_vector
 	
-	# Test for collision
 	var space_state = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(global_position, target_position)
-	query.collide_with_areas = false  # Adjust if you need to collide with areas
+	query.collide_with_areas = false
 	query.collide_with_bodies = true
-	query.collision_mask = 1 << 0  # Layer 1 (index 0)	
+	query.collision_mask = 1 << 0
 	var result = space_state.intersect_ray(query)
 	
-	# Adjust position based on collision
 	if result:
-		# Move to just before the collision
-		var safe_position = result.position - (Last_direction.normalized() * 2)  # Small offset
+		var safe_position = result.position - (Last_direction.normalized() * 2)
 		global_position = safe_position
 	else:
-		# No collision, move to target
 		global_position = target_position
 	
-	# Start cooldown
 	Can_dash = false
-	await get_tree().create_timer(Dash_cooldown).timeout  # Await the timer
+	await get_tree().create_timer(Dash_cooldown).timeout
 	Can_dash = true
 
 #----------animation related functions----------#
-# handles the animations of the player
 func update_animations() -> void:
-	# if player is facing left, flip the sprite
 	Player_sprite.flip_h = (Facing_direction == "left")
 	
-	# if player is blocking, other animations shouldn't play
-	if !Is_blocking:
+	if Is_blocking:
+		match Facing_direction:
+			"up":
+				Player_sprite.play(Shield + "up")
+			"down":
+				Player_sprite.play(Shield + "down")
+			"left", "right":
+				Player_sprite.play(Shield + "side")
+				Player_sprite.flip_h = (Facing_direction == "left")
+	else:
 		if Is_attacking:
 			Player_sprite.play(Attack + Facing_direction)
 		elif velocity != Vector2.ZERO:
-				# adjust animation speed based on movement speed
 			if velocity.length() > 0:
-				var base_speed = 75.0  # Set this to the move speed where animation looks normal
+				var base_speed = 75.0
 				Player_sprite.speed_scale = Used_move_speed / base_speed
 			else:
-				Player_sprite.speed_scale = 1.0  # Reset when idle
+				Player_sprite.speed_scale = 1.0
 			Player_sprite.play(Move + Facing_direction)
-		# play the Idle Animation Again for the condition that the player is not moving while not blocking
+			if Player_walking_sfx  and not Player_walking_sfx.playing:
+				Player_walking_sfx.play()
 		else:
 			Player_sprite.play(Idle + Facing_direction)
-	# play idle animation if player is not moving
-	else:
-		Player_sprite.play(Idle + Facing_direction)
-		# note: autoplay is set to idle_left
+			if Player_walking_sfx and Player_walking_sfx.playing:
+				Player_walking_sfx.stop()
+
+#----------blocking related functions----------#
+func block() -> void:
+	Is_blocking = true
+	print("I'm blocking")
+	
+	Player_hitbox.monitoring = false
+	Player_hitbox.monitorable = false
+	
+	Facing_direction = get_mouse_direction()  # Set direction once at block start
+	
+	# Position TS_hitbox based on direction
+	Tempo_shield.position = get_object_spawn_position(Facing_direction)
+	Tempo_shield.monitoring = true
+	Tempo_shield.monitorable = true
+	TS_hitbox.monitoring = true
+	TS_hitbox.monitorable = true
+	TS_hitbox.visible = true  
+	
+	Is_parrying = true
+	print("I'm parrying")
+	
+	await get_tree().create_timer(Parry_window).timeout
+	Is_parrying = false
+
+func end_block() -> void:
+	Is_blocking = false
+	print("I'm done blocking")
+	
+	Player_hitbox.monitoring = true
+	Player_hitbox.monitorable = true
+	
+	Tempo_shield.monitoring = false
+	Tempo_shield.monitorable = false
+	TS_hitbox.monitoring = false
+	TS_hitbox.monitorable = false
+	TS_hitbox.visible = false
+	
+	# Reset animation based on current state
+	update_animations()
+
+func _on_tempo_shield_area_entered(area: Area2D) -> void:
+	if Is_blocking and area.is_in_group("Projectile"):
+		if Is_parrying:
+			# Reflect projectile based on Facing_direction
+			match Facing_direction:
+				"up": area.Direction = Vector2(0, -1)
+				"down": area.Direction = Vector2(0, 1)
+				"left": area.Direction = Vector2(-1, 0)
+				"right": area.Direction = Vector2(1, 0)
+			area.Fired_by = self
+			print("Projectile parried!")
+		else:
+			area.Direction *= 0.2  # Slow projectile
+			print("Projectile blocked!")
 
 #----------melee related functions----------#
 func melee_attack() -> void: 
 	print("haha i attack u")
 	Is_attacking = true
-	# make the player face the mouse when attacking
 	Facing_direction = get_mouse_direction()
-	# adjust the animation speed based on attack speed
 	Player_sprite.speed_scale = Used_attack_speed
 	find_used_melee_damage()
 	
-	#-------Attack Animation Handling-------#
-	# update the animations to play the attack animation
+	if Player_sfx and Attack_sound: 
+		Player_sfx.stream = Attack_sound
+		Player_sfx.play()
+		
 	update_animations()
 	
-	# animation length determines how long the attack animation plays for
 	var Attack_animation_name : String = Attack + Facing_direction
-	var Attack_animation_speed : float = Player_sprite.get_sprite_frames().get_animation_speed(Attack_animation_name) # the speed in which the whole animation plays out
-	var Attack_animation_frames : float = Player_sprite.get_sprite_frames().get_frame_count(Attack_animation_name) # the nmumber of frames in the animation
-	var Attack_animation_length : float = (Attack_animation_frames / Attack_animation_speed) / Used_attack_speed # the length of the whole animation
-	var Attack_frame_speed : float = Attack_animation_length / Attack_animation_frames # the duration of each frame
+	var Attack_animation_speed : float = Player_sprite.get_sprite_frames().get_animation_speed(Attack_animation_name)
+	var Attack_animation_frames : float = Player_sprite.get_sprite_frames().get_frame_count(Attack_animation_name)
+	var Attack_animation_length : float = (Attack_animation_frames / Attack_animation_speed) / Used_attack_speed
+	var Attack_frame_speed : float = Attack_animation_length / Attack_animation_frames
 	
 	var Hurtbox_delay = Attack_frame_speed
-	var Hurtbox_duration = Attack_frame_speed * 1 # based on the animations, the attack part of the sprite plays for 1 frames
+	var Hurtbox_duration = Attack_frame_speed * 1
 	
-	# call activate the melee hurtbox
 	activate_melee_hurtbox(Hurtbox_delay, Hurtbox_duration)
 	
-	# wait for the attack animation to finish
-	# Attack_animation_length - Attack_frame_speed is done in order to prevent extra frames from playing
 	Melee_hurtbox.apply_interval(Attack_animation_length - Attack_frame_speed)
 	await get_tree().create_timer(Attack_animation_length - Attack_frame_speed, false, true).timeout
-	#activate_melee_hurtbox(Hurtbox_duration)
-	
-	# end attack animation after
 	end_attack_animation()
-	#-------Attack Animation Handling-------#
 
 func end_attack_animation() -> void: 
 	Is_attacking = false
-	Player_sprite.speed_scale = 1.0  # Reset the animation speed to normal
+	Player_sprite.speed_scale = 1.0
 
 func activate_melee_hurtbox(Delay : float, Duration : float) -> void: 
-	# wait for the attack animation to swing the sword
 	await get_tree().create_timer(Delay, false, true).timeout
-	# activate the meleehurtbox
-	# monitoring allows the hurtbox to exist functionally
-	# visible allows to see the hurtbox appear
 	Melee_hurtbox.monitoring = true
 	var Holder = Successful_hits
 	Melee_hurtbox.success_check()
@@ -373,7 +388,6 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	
 			# any shape changes are temporary
 	
-	# Disable after a short duration
 	await get_tree().create_timer(Duration, false, true).timeout
 	Melee_hurtbox.monitoring = false
 	Melee_hurtbox.visible = false
@@ -401,7 +415,7 @@ func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool)
 func use_melee_weapon(Direction: String,Collision) -> String:
 #	print(Melee_x_additional,", ",Melee_y_additional)
 	var Usage = -1
-	if not Direction:	# Determines if adding or removing
+	if not Direction:
 		Direction = Facing_direction
 		Usage = 1
 	var shape = Collision.shape	
@@ -419,23 +433,24 @@ func use_melee_weapon(Direction: String,Collision) -> String:
 			shape.extents.x += (Melee_y_additional) * Usage
 			shape.extents.y += (Melee_x_additional) * Usage
 	return Direction
+
 #----------shooting related functions----------#
-# Shoots projectile with spread functionality
 func shoot_projectile():
+	
+	if Player_sfx and Ranged_sound: 
+		Player_sfx.stream = Ranged_sound
+		Player_sfx.play()
+		
 	Reloading = true
 	print("Shooting with spread shot")
-
 	var Total_projectiles = 1 + Spread_shot_count
-	var Spread_angle = deg_to_rad(30)  # spread angle in radians
-
-	# calculate angle step for spreading projectiles evenly
+	var Spread_angle = deg_to_rad(30)
 	var Spread_step = Spread_angle / max(1, Total_projectiles - 1)
 	var Center_index = Total_projectiles / 2
 
 	for k in range(Multi_shot_count):
 		for i in range(Total_projectiles):
 			var Projectile_instance = Projectile.instantiate()
-			# ensure that one of the projectiles is going center
 			var Angle_offset = (i - Center_index) * Spread_step
 			if Total_projectiles % 2 == 0 and i == Center_index:
 				Angle_offset = 0.0 
@@ -447,7 +462,6 @@ func shoot_projectile():
 			Projectile_instance.Lifetime += Live_time_addition
 			Projectile_instance.MaxPierce += Pierce_addition
 			
-			# add projectile to the current scene
 			Main = get_tree().current_scene
 			if Main:
 				Main.add_child(Projectile_instance)
@@ -584,53 +598,46 @@ func on_projectile_parry() -> void:
 		else:
 			print("Timer 017 not initialized yet!")
 		
-		
 
 #----------component related functions----------#
 func _on_player_health_died() -> void:
 	if Player_is_dead:
-		return  # exit if already dead
-	Player_is_dead = true  # set death flag to prevent multiple calls
-
+		return
+	Player_is_dead = true
 	Player_sprite.play("Death")
-	# Ensure that the player doesn't take damage anymore
 	Player_hitbox.monitoring = false
-
-	# onnect the animation_finished signal to a handler function
 	await Player_sprite.animation_finished
-	
-	# delay before queue free
 	await get_tree().create_timer(0.5).timeout
-	
+
 func _on_player_health_damage_taken(_Amount: float) -> void:
-	var original_color = modulate  # Store the original color
-	Player_sprite.modulate = Color(1, 0, 0)  # Flash red
-	
-	# Return to the original color after a short delay
+	var original_color = modulate
+	Player_sprite.modulate = Color(1, 0, 0)
 	await get_tree().create_timer(0.2).timeout
 	Player_sprite.modulate = original_color
-	
+
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
-# Value used to check we have a weapon
+
 func get_range(Value: int) -> void:
 	Has_range = Value
+
 func get_melee(Value: int) -> void:
 	Has_melee = Value
 
 func add_successful_hits() -> void:
 	Successful_hits += 1
 
-func do_life_steal(Damage_dealt:float) -> void:
+func do_life_steal(Damage_dealt: float) -> void:
 	print("Lifesteal: ", Percent_life_steal)
-	Player_health.heal(Damage_dealt*Percent_life_steal)
-	
+	Player_health.heal(Damage_dealt * Percent_life_steal)
+
 func add_percent_hate_damage(Amount: int) -> void:
-	Percent_hate_damage_bonus += (Amount*0.01)
-	
+	Percent_hate_damage_bonus += (Amount * 0.01)
+
 func toggle_dash(Value: bool) -> void:
 	Can_dash = Value
+
 func set_dash_cooldown(Value: float) -> void:
 	Dash_cooldown = Value
 
@@ -661,16 +668,14 @@ func get_effect_manager() -> Node:
 
 func get_curr_upgrade(Stat_name: String) -> int:
 	return Upgrade_status_count[Stat_name]
-	
+
 func add_curr_upgrade(Stat_name: String) -> void:
 	Upgrade_status_count[Stat_name] += 1
-	
+
 func get_upgrade_counter() -> Dictionary:
 	return Upgrade_status_count
 
-
 #----------get base status functions----------#
-
 func get_max_health() -> float:
 	return Base_max_health
 
@@ -687,7 +692,6 @@ func get_movement_speed() -> float:
 	return Base_move_speed
 
 #----------Edit base status functions----------#
-# This is for Trainer
 func add_max_health(Amount: float) -> void:
 	Base_max_health += Amount
 	Inventory.update_items()
@@ -702,17 +706,16 @@ func add_projectile_damage(Amount: float) -> void:
 	Base_projectile_dmg += Amount
 	Inventory.update_items()
 	find_used_projectile_damage()
-	
 func add_attack_speed(Amount: float) -> void:
 	Base_attack_speed += Amount
 	Inventory.update_items()
 	find_used_attack_speed()
-	
+  
 func add_movement_speed(Amount: float) -> void:
 	Base_move_speed += Amount
 	Inventory.update_items()
 	find_used_movement_speed()
-# This is for flat amount increase
+
 func add_incr_max_health(Amount: float) -> void:
 	Incr_max_health += Amount
 	Inventory.update_items()
@@ -727,34 +730,33 @@ func add_incr_projectile_damage(Amount: float) -> void:
 	Incr_projectile_dmg += Amount
 	Inventory.update_items()
 	find_used_projectile_damage()
-	
+
 func add_incr_attack_speed(Amount: float) -> void:
 	Incr_attack_speed += Amount
 	Inventory.update_items()
 	find_used_attack_speed()
-	
+
 func add_incr_movement_speed(Amount: float) -> void:
 	Incr_move_speed += Amount
 	Inventory.update_items()
 	find_used_movement_speed()
 
-# This is for percent amount increase
 func add_percent_max_health(Amount: int) -> void:
 	Percent_max_health_bonus += (Amount*0.01)
 	Inventory.update_items()
 	find_used_max_health()
-	
+
 func add_percent_melee_damage(Amount: int) -> void:
 	Percent_melee_damage_bonus += (Amount*0.01)
 	print("Percent Melee ", Percent_melee_damage_bonus)
 	Inventory.update_items()
 	find_used_melee_damage()
-	
+
 func add_percent_range_damage(Amount: int) -> void:
 	Percent_Projectile_damage += (Amount*0.01)
 	Inventory.update_items()
 	find_used_projectile_damage()
-	
+
 func add_percent_movement_speed(Amount: int) -> void:
 	Percent_movement_speed_bonus += (Amount*0.01)
 	Inventory.update_items()
@@ -769,7 +771,6 @@ func find_used_max_health() -> float:
 func find_used_melee_damage() -> float:
 	var Used_percent = Percent_melee_damage_bonus + (Percent_hate_damage_bonus * Successful_hits)
 	Used_melee_dmg = (Base_melee_dmg + Incr_melee_dmg) * (1 + Used_percent)
-	print("Calculated damage: ", Used_melee_dmg)
 	Melee_hurtbox.hurtbox_implement_damage(Used_melee_dmg)
 	return Used_melee_dmg
 
@@ -785,7 +786,6 @@ func find_used_movement_speed() -> float:
 	Used_move_speed = (Base_move_speed + Incr_move_speed) * (1+Percent_movement_speed_bonus)
 	return Used_move_speed
 
-# Melee and Range Weapon Flat Amount
 func add_used_projectile_bounce_count(Amount: int) -> void:
 	Projectile_bounce_count += Amount
 
@@ -796,15 +796,14 @@ func add_used_multi_shot_count(Amount: int) -> void:
 	Multi_shot_count += Amount
 
 func add_used_live_time_addition(Amount: int) -> void:
-	Live_time_addition += Amount	#Projectile life time
+	Live_time_addition += Amount
 
 func add_used_pierce_addition(Amount: int) -> void:
 	Pierce_addition += Amount
 
 func add_used_lifesteal_percent(Amount: int) -> void:
-	Percent_life_steal += (Amount*0.01)
-	
+	Percent_life_steal += (Amount * 0.01)
+
 func add_used_damage_reduction_percent(Amount: int) -> void:
-	Percent_damage_reduction += (Amount*0.01)
+	Percent_damage_reduction += (Amount * 0.01)
 	Player_hitbox.set_damage_reduction(Percent_damage_reduction)
-	

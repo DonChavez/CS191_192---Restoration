@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bfkok3exx7cq4"]
+[gd_scene load_steps=18 format=3 uid="uid://c0scvsyxn0nnp"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Collectable.gd" id="1_0hh02"]
 [ext_resource type="Texture2D" uid="uid://dxkxsq8rrln5m" path="res://Art/Objects/coin.png" id="2_yn34m"]
@@ -123,5 +123,7 @@ speed_scale = 4.0
 [node name="CollectionArea" type="CollisionShape2D" parent="."]
 scale = Vector2(4.89379, 4.89379)
 shape = SubResource("CircleShape2D_tuomk")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
