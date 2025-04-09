@@ -25,11 +25,11 @@ const Item_database = {
 	"3004": preload("res://Scenes/Items/0MultiShot.tscn"),
 	"4004": preload("res://Scenes/Items/0MultiShot.tscn"),
 	
-	"0005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
-	"1005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
-	"2005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
-	"3005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
-	"4005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
+#	"0005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
+#	"1005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
+#	"2005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
+#	"3005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
+#	"4005": preload("res://Scenes/Items/0ProjectileLife.tscn"),
 	
 	"0006": preload("res://Scenes/Items/0SwordSpin.tscn"),
 	"1006": preload("res://Scenes/Items/0SwordSpin.tscn"),
@@ -43,11 +43,11 @@ const Item_database = {
 	"3007": preload("res://Scenes/Items/0SwordHate.tscn"),
 	"4007": preload("res://Scenes/Items/0SwordHate.tscn"),
 	
-	"0008": preload("res://Scenes/Items/0SwordLife.tscn"),
-	"1008": preload("res://Scenes/Items/0SwordLife.tscn"),
-	"2008": preload("res://Scenes/Items/0SwordLife.tscn"),
-	"3008": preload("res://Scenes/Items/0SwordLife.tscn"),
-	"4008": preload("res://Scenes/Items/0SwordLife.tscn"),
+	"0008": preload("res://Scenes/Items/0SwordLeech.tscn"),
+	"1008": preload("res://Scenes/Items/0SwordLeech.tscn"),
+	"2008": preload("res://Scenes/Items/0SwordLeech.tscn"),
+	"3008": preload("res://Scenes/Items/0SwordLeech.tscn"),
+	"4008": preload("res://Scenes/Items/0SwordLeech.tscn"),
 	
 	"0009": preload("res://Scenes/Items/0StoneSkin.tscn"),
 	"1009": preload("res://Scenes/Items/0StoneSkin.tscn"),
@@ -77,6 +77,24 @@ const Item_database = {
 	"2014": preload("res://Scenes/Items/0LifeCrystal.tscn"),
 	"3014": preload("res://Scenes/Items/0LifeCrystal.tscn"),
 	"4014": preload("res://Scenes/Items/0LifeCrystal.tscn"),
+	
+	"0015": preload("res://Scenes/Items/0SwordLight.tscn"),
+	"1015": preload("res://Scenes/Items/0SwordLight.tscn"),
+	"2015": preload("res://Scenes/Items/0SwordLight.tscn"),
+	"3015": preload("res://Scenes/Items/0SwordLight.tscn"),
+	"4015": preload("res://Scenes/Items/0SwordLight.tscn"),
+	
+	"0016": preload("res://Scenes/Items/0ParryMantle.tscn"),
+	"1016": preload("res://Scenes/Items/0ParryMantle.tscn"),
+	"2016": preload("res://Scenes/Items/0ParryMantle.tscn"),
+	"3016": preload("res://Scenes/Items/0ParryMantle.tscn"),
+	"4016": preload("res://Scenes/Items/0ParryMantle.tscn"),
+	
+	"0017": preload("res://Scenes/Items/0RiposteGauntlet.tscn"),
+	"1017": preload("res://Scenes/Items/0RiposteGauntlet.tscn"),
+	"2017": preload("res://Scenes/Items/0RiposteGauntlet.tscn"),
+	"3017": preload("res://Scenes/Items/0RiposteGauntlet.tscn"),
+	"4017": preload("res://Scenes/Items/0RiposteGauntlet.tscn"),
 #	"006": preload(),
 #	"007": preload(),
 

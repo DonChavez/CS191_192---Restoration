@@ -102,10 +102,15 @@ var Spinning: bool = false
 var Melee_x_additional: int = 0
 var Melee_y_additional: int = 0
 var Sword_list: Array
+var Light_sword:HitboxComponent
 
 # Blocking Variables
 var Is_blocking : bool = false
 var Parry_window : float = 0.5
+var Can_block: bool = true
+var Disappear_time: float = 0
+var Parry_bonus: float = 0
+var Parry_bonus_time: float = 0
 
 # Shooting Variables
 var Projectile_bounce_count : int = 0
@@ -179,8 +184,9 @@ func input_handling() -> void:
 	
 	if Input.is_action_just_pressed("dash") and Can_dash:
 		dash()
+		
 	# Player is now blocking
-	if Input.is_action_pressed("block") and not Is_blocking:
+	if Input.is_action_pressed("block") and not Is_blocking and Can_block:
 		block()
 	elif Input.is_action_just_released("block") and Is_blocking:
 		end_block()
@@ -345,21 +351,44 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	var Holder = Successful_hits
 	Melee_hurtbox.success_check()
 	Melee_hurtbox.visible = true
-	Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
 	
+	var Attack_direction2 = null
+
 	if "Spin Sword" in Sword_list:
 		Melee_hurtbox.position = Vector2(0,0)
-	var Attack_direction = use_melee_weapon("")		# any shape changes are temporary
+		if Light_sword:
+			Light_sword.position = Vector2(0,0)
+			Attack_direction2 = use_melee_weapon("",Light_sword.Collision)
+			Is_parrying = true
+			Light_sword.toggle()
+	else:
+		Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
+		if Light_sword:
+			Light_sword.position = get_object_spawn_position(Facing_direction)
+			Attack_direction2 = use_melee_weapon("",Light_sword.Collision)
+			Is_parrying = true
+			Light_sword.toggle()
+	
+	var Attack_direction = use_melee_weapon("",Melee_collision)		# any shape changes are temporary
+	
+			# any shape changes are temporary
 	
 	# Disable after a short duration
 	await get_tree().create_timer(Duration, false, true).timeout
 	Melee_hurtbox.monitoring = false
+	Melee_hurtbox.visible = false
+	
 	if "Sword Hate" not in Sword_list or Successful_hits == Holder:# For checking consecutive hits
 		Successful_hits = 0
-	Melee_hurtbox.visible = false
+
 	print("Successful hits: ",Successful_hits)
 	print("Damage: ",Used_melee_dmg) 
-	use_melee_weapon(Attack_direction)				# Removed here with the same direction
+	use_melee_weapon(Attack_direction,Melee_collision)				# Removed here with the same direction
+	
+	if Attack_direction2	:
+		use_melee_weapon(Attack_direction2,Light_sword.Collision)
+		Is_parrying = false
+		Light_sword.toggle()
 
 func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool) -> void:
 	if not Equip:
@@ -369,14 +398,13 @@ func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool)
 	Melee_x_additional += Melee_x
 	Melee_y_additional += Melee_y
 	
-	
-func use_melee_weapon(Direction: String) -> String:
-	print(Melee_x_additional,", ",Melee_y_additional)
+func use_melee_weapon(Direction: String,Collision) -> String:
+#	print(Melee_x_additional,", ",Melee_y_additional)
 	var Usage = -1
 	if not Direction:	# Determines if adding or removing
 		Direction = Facing_direction
 		Usage = 1
-	var shape = Melee_collision.shape	
+	var shape = Collision.shape	
 	match Direction:	
 		"left":
 			shape.extents.x += (Melee_x_additional) * Usage
@@ -506,6 +534,57 @@ func end_block() -> void:
 	#Shield_hitbox.monitoring = false
 	#Shield_hitbox.visible = false
 	#-----Shield WIP-----#
+var Timer_dictionary: Dictionary = {}
+func set_up_timer(ID: String, Time_amount: float) -> void:
+	if Timer_dictionary.has(ID):
+
+		Timer_dictionary[ID].wait_time = 0
+		print("Updated timer for ID:", ID, "to time:", Time_amount)
+	else:
+		# Create new timer
+		Timer_dictionary[ID] = Timer.new()
+		Timer_dictionary[ID].one_shot = true
+		Timer_dictionary[ID].wait_time = 0
+		print(Timer_dictionary[ID].wait_time)
+		add_child(Timer_dictionary[ID])
+		Timer_dictionary[ID].wait_time = 0
+		Timer_dictionary[ID].connect("timeout", Callable(self, "_on_parry_timer_timeout").bind(ID))
+		print("Timer set up for ID:", ID, "with time:", Time_amount)
+	print(Timer_dictionary[ID].wait_time)
+func _on_parry_timer_timeout(ID) -> void:
+	match ID:
+		"016":
+			Player_hitbox.monitorable = true
+		"017":
+			print("Not yet")
+			add_percent_melee_damage(-Parry_bonus)
+	
+
+func on_projectile_parry() -> void:
+	# Example durations (could be parameters or constants)
+	print("Parried")
+	if Disappear_time > 0:
+		if Timer_dictionary.has("016"):
+			Timer_dictionary["016"].wait_time = Disappear_time
+			if Timer_dictionary["016"].is_stopped():
+				Player_hitbox.monitorable = false  # Disable collision layer 2
+				Timer_dictionary["016"].start()
+			print("Timer 016 reset to:", Disappear_time, "remaining:", Timer_dictionary["016"].time_left)
+		else:
+			print("Timer 016 not initialized yet!")
+	
+	if Parry_bonus_time > 0:
+		print(Timer_dictionary["017"].wait_time)			
+		if Timer_dictionary.has("017"):
+			Timer_dictionary["017"].wait_time = Parry_bonus_time
+			if Timer_dictionary["017"].is_stopped():
+				add_percent_melee_damage(Parry_bonus)  # Add damage bonus
+				Timer_dictionary["017"].start()
+			print("Timer 017 reset to:", Parry_bonus_time, "remaining:", Timer_dictionary["017"].time_left)
+		else:
+			print("Timer 017 not initialized yet!")
+		
+		
 
 #----------component related functions----------#
 func _on_player_health_died() -> void:
@@ -557,6 +636,24 @@ func set_dash_cooldown(Value: float) -> void:
 
 func toggle_can_attack() -> void:
 	Can_attack = !Can_attack
+	
+func toggle_can_block() -> void:
+	Can_block = !Can_block
+	
+func set_disappear_time(Amount:float) -> void:
+	Disappear_time = Amount
+func set_parry_bonus(Amount:float) -> void:
+	Parry_bonus = Amount
+func set_parry_bonus_time(Amount:float) -> void:
+	Parry_bonus_time = Amount
+
+func toggle_parry() -> void:
+	var bit_5_mask = 1 << 5
+	# XOR toggles the bit: if it's 1 it becomes 0, if it's 0 it becomes 1
+	Melee_hurtbox.collision_mask = Melee_hurtbox.collision_mask ^ bit_5_mask
+
+func apply_light_sword(Light):	# Applied Light Sword
+	Light_sword = Light
 
 #----------status upgrade related functions----------#
 func get_effect_manager() -> Node:

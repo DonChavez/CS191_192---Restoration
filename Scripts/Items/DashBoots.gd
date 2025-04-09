@@ -12,18 +12,22 @@ func _ready() -> void:
 	else:
 		Description += " (Does not stack)"
 func apply_tier(Tier:int) -> void:
-	super(Tier)
 	match Tier:
 		0:
 			DASH_COOLDOWN = 0 # Common White
+			Icon.texture = load("res://Art/Items/dash_1.png")
 		1:
 			DASH_COOLDOWN = 0 # Uncommon Green
+			Icon.texture = load("res://Art/Items/dash_2.png")
 		2:
 			DASH_COOLDOWN = 1  # Rare Blue
+			Icon.texture = load("res://Art/Items/dash_3.png")
 		3:
 			DASH_COOLDOWN = 0.8  # Epic Purple
+			Icon.texture = load("res://Art/Items/dash_4.png")
 		4:
 			DASH_COOLDOWN = 0.6  # Legendary Red
+			Icon.texture = load("res://Art/Items/dash_5.png")
 
 func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:
