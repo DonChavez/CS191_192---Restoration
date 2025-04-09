@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvaactwrwixao"]
+
+[ext_resource type="Script" path="res://Scripts/Items/FireTankHurtbox.gd" id="1_d7qn2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4txxe"]
+
+[node name="TankHurtboxComponent" type="Area2D"]
+collision_layer = 0
+collision_mask = 12
+script = ExtResource("1_d7qn2")
+Damage_interval = 0.7
+
+[node name="FireCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4txxe")

@@ -1,22 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc3c7o8s02iwd"]
+[gd_scene load_steps=4 format=3 uid="uid://d1b6dteht2ol0"]
 
-[ext_resource type="Script" path="res://Scripts/Items/SwordSpin.gd" id="1_14qpa"]
-[ext_resource type="Texture2D" uid="uid://bh8h4ko06fivd" path="res://Art/Items/Spin.png" id="2_47q3c"]
+[ext_resource type="Script" path="res://Scripts/Items/FireTank.gd" id="1_hvt8r"]
+[ext_resource type="Texture2D" uid="uid://cc4y7k0w0wg4v" path="res://Art/Items/FireTank.png" id="2_yhp33"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Spin Sword" type="Node2D"]
+[node name="FireTank" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_14qpa")
-Item_ID = "0006"
-Item_name = "Spin Sword"
-Item_type = 1
+script = ExtResource("1_hvt8r")
+Item_ID = "3013"
+Item_name = "Fire Tank"
+Item_type = 2
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_47q3c")
+texture = ExtResource("2_yhp33")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

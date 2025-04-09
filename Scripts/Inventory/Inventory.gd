@@ -249,3 +249,8 @@ func reapply_removed_item_effect(Removed_item:Node2D) -> void:
 	Removed_item.remove_effect(Player)
 	if Replacement_item:	# Apply replacement item if it exists
 		Replacement_item.apply_effect(Player)
+
+func update_items() -> void:
+	for Item in Items:
+		if Item:
+			Item.update_item_status()
