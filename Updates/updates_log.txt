@@ -313,3 +313,17 @@ ITEMS
 	Life Crystal: Increase Health percentage
 	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
 
+---- Update from latest push (Wed Apr  9 20:53:27 PST 2025) ----
+branch: reset_resai
+v0.1.6.3:
+	Player:
+		Find Used attributes return the computed values
+		Changing any variable that changes computed values now trigger Item Update from inventory
+	Inventory:
+		Update Item function goes through Items which calls an Item function
+			Currently only one using is Fire Tank Item
+
+ITEMS
+	Life Crystal: Increase Health percentage
+	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
+
