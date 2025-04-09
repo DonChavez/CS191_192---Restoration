@@ -24,6 +24,7 @@ const Number_to_roman1 = {	0:"I",
 	Sword Life
 	Stone Skin
 	Double Time
+	Life Crystal
 """,
 	1:"""	Ricochet
 """,
@@ -32,7 +33,7 @@ const Number_to_roman1 = {	0:"I",
 	Glass Cannon
 	Dash Boots
 """,
-	3:"""""",
+	3:"""	Fire Tank""",
 	4:"""""",
 }
 

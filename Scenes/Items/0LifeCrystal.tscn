@@ -1,22 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bc3c7o8s02iwd"]
+[gd_scene load_steps=4 format=3 uid="uid://ch565oa8edn46"]
 
-[ext_resource type="Script" path="res://Scripts/Items/SwordSpin.gd" id="1_14qpa"]
-[ext_resource type="Texture2D" uid="uid://bh8h4ko06fivd" path="res://Art/Items/Spin.png" id="2_47q3c"]
+[ext_resource type="Script" path="res://Scripts/Items/LifeCrystal.gd" id="1_thi52"]
+[ext_resource type="Texture2D" uid="uid://dhkldwi6g2qd2" path="res://Art/Items/LifeCrystal.png" id="2_ts2jq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
 
-[node name="Spin Sword" type="Node2D"]
+[node name="LifeCrystal" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
-script = ExtResource("1_14qpa")
-Item_ID = "0006"
-Item_name = "Spin Sword"
-Item_type = 1
+script = ExtResource("1_thi52")
+Item_ID = "0014"
+Item_name = "Life Crystal"
+Stacking = true
+Item_type = 2
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_47q3c")
+texture = ExtResource("2_ts2jq")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

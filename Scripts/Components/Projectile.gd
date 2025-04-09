@@ -137,5 +137,5 @@ func add_pierce_count(Added_pierce: int):
 
 
 func implement_damage(New_damage: float) -> void:
-	
+
 	ProjectileHurtbox.hurtbox_implement_damage(New_damage)

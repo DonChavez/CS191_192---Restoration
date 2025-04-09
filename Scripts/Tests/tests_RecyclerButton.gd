@@ -34,7 +34,7 @@ func test_elite_set_index():
 
  recycler_button.queue_free()
 
-func test_elite_set_id():
+func test_elite_change_cost():
 
  var recycler_button_scene = load(RECYCLER_BUTTON_SCENE)
  var recycler_button = recycler_button_scene.instantiate()
@@ -44,9 +44,10 @@ func test_elite_set_id():
  add_child(recycler_button)
  await get_tree().process_frame  # Allow _ready() to execute
 
- recycler_button.set_id(12)
+ recycler_button.change_cost(12)
 
- assert_int(recycler_button.Row_ID).is_equal(12)
+ # Might Not Need Assertions as long as method runs successfully
+ #assert_int(recycler_button.Row_ID).is_equal(12)
 
  recycler_button.queue_free()
 

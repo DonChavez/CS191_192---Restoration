@@ -1,9 +1,9 @@
-[gd_scene load_steps=26 format=4 uid="uid://cuuy8aqddjprb"]
+[gd_scene load_steps=28 format=4 uid="uid://cuuy8aqddjprb"]
 
-[ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
-[ext_resource type="Texture2D" uid="uid://dycx224aw04sf" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
-[ext_resource type="Texture2D" uid="uid://ffhr1g6vo61q" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
-[ext_resource type="Texture2D" uid="uid://dcygb7neoi3oe" path="res://Art/Objects/objects.png" id="5_scw7s"]
+[ext_resource type="Texture2D" uid="uid://bshvvrusp78ii" path="res://Art/Tilesets/grass.png" id="2_da6o1"]
+[ext_resource type="Texture2D" uid="uid://b4vlxbslijteg" path="res://Art/Tilesets/plains.png" id="3_lhkxd"]
+[ext_resource type="Texture2D" uid="uid://ceiwslpw05pft" path="res://Art/Tilesets/fences.png" id="4_pq8yq"]
+[ext_resource type="Texture2D" uid="uid://cwbfs1tqr1qpe" path="res://Art/Objects/objects.png" id="5_scw7s"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="6_dgjc6"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="7_xo2jl"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="8_yyyly"]
@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://bxqyk2ppf3nal" path="res://Scenes/Items/0DoubleTime.tscn" id="16_e0gvr"]
 [ext_resource type="PackedScene" uid="uid://jiamupj0x6pd" path="res://Scenes/Items/0GlassCannon.tscn" id="17_jvr30"]
 [ext_resource type="PackedScene" uid="uid://b313um8gt4per" path="res://Scenes/Items/0DashBoots.tscn" id="18_aye6b"]
+[ext_resource type="PackedScene" uid="uid://d1b6dteht2ol0" path="res://Scenes/Items/0FireTank.tscn" id="19_k85hy"]
+[ext_resource type="PackedScene" uid="uid://ch565oa8edn46" path="res://Scenes/Items/0LifeCrystal.tscn" id="20_g14qh"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c12ks"]
 texture = ExtResource("2_da6o1")
@@ -670,6 +672,49 @@ position = Vector2(373, 436)
 [node name="DashBoots2" parent="." instance=ExtResource("18_aye6b")]
 position = Vector2(373, 436)
 Item_ID = "4012"
+
+[node name="FireTank" parent="." instance=ExtResource("19_k85hy")]
+position = Vector2(384, 506)
+
+[node name="LifeCrystal" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal2" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal3" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal4" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal5" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal6" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal7" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal8" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal9" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
+
+[node name="LifeCrystal10" parent="." instance=ExtResource("20_g14qh")]
+position = Vector2(498, 480)
+Item_ID = "4014"
 
 [connection signal="body_entered" from="Stairs" to="Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="Stairs" to="Stairs" method="_on_body_exited"]
