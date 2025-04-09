@@ -29,6 +29,9 @@ var Item_cost_map = {
 	4: 60
 }
 
+# music variable
+@onready var Recycler_sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for I in range(Recycler_slots.size()):
@@ -85,5 +88,6 @@ func _on_recycler_button_clicked(Index: int) -> void:
 			Inventory.add_trash(-Cost)
 			RecyclerUI.update_trash(Inventory.Trash)
 			_drop_item(Item) # self method
+			Recycler_sfx.play()
 		else:
 			print("Not enough trash")

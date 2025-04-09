@@ -1,7 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://dsucn6yegovhr"]
 
-
-[ext_resource type="Texture2D" uid="uid://dn580sqvsth1" path="res://Art/Characters/slime.png" id="1_imy10"]
+[ext_resource type="Texture2D" uid="uid://dod5mpstk3ueo" path="res://Art/Characters/slime.png" id="1_imy10"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_y1unw"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_37op7"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_15032"]

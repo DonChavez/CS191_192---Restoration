@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1jrt03ir805e"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Portal.gd" id="1_a3od5"]
-[ext_resource type="Texture2D" uid="uid://bef06w0tk0cyx" path="res://Art/Tilesets/walls/wooden_door_b.png" id="1_oxm5d"]
+[ext_resource type="Texture2D" uid="uid://dnc110d2wedyl" path="res://Art/Tilesets/walls/wooden_door_b.png" id="1_oxm5d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgk3x"]
 

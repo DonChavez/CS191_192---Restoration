@@ -71,5 +71,8 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 30
 text = "Quit"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"ui"
+
 [connection signal="pressed" from="Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

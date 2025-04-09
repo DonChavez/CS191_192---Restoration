@@ -17,6 +17,7 @@ func start_game() -> void:
 	
 	# Load the first level immediately without a transition
 	_start_level_load_direct(Starting_level)
+	AudioManager.play_sound("forest_theme")
 
 func _start_level_load_direct(New_level_path: String) -> void:
 	# Ensure the path is valid
