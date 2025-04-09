@@ -31,8 +31,8 @@ func test_item_slot_toggle_item_obtain():
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item(item)
- assert_object(item_slot.Item_color).is_not_equal(0)
+ item_slot.toggle_item(true)
+ assert_bool(item_slot.Has_item).is_true()
 
  item_slot.queue_free()
  item.queue_free()
@@ -49,9 +49,9 @@ func test_item_slot_toggle_item_discard():
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item(item)
- item_slot.toggle_item(item)
- assert_float(item_slot.Item_color.a).is_equal(1.0) #BUG-ALERT: Might Have to be 0
+ item_slot.toggle_item(true)
+ item_slot.toggle_item(false)
+ assert_bool(item_slot.Has_item).is_false()
 
  item_slot.queue_free()
  item.queue_free()
@@ -81,7 +81,7 @@ func test_item_slot_click_has_item():
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item(item)
+ item_slot.toggle_item(true)
  item_slot._on_mouse_entered()
  assert_bool(item_slot.Hover).is_true()
 
@@ -102,7 +102,7 @@ func test_item_slot_reset():
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item(item)
+ item_slot.toggle_item(true)
  item_slot.reset()
  assert_bool(item_slot.Clicked).is_false()
 
@@ -136,7 +136,7 @@ func test_item_update_ui():
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item(item)
+ item_slot.toggle_item(true)
  item_slot.update_slot_ui()
  # No need for assertions, as long as update runs
 
@@ -144,3 +144,4 @@ func test_item_update_ui():
  item.queue_free()
 
 # Cannot test live methods (For BDD or Scene runner) [Ex: _on_mouse_entered etc...]
+# NOTE "item" instantiation might not be used anymore after sprint 5
