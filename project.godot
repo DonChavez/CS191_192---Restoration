@@ -23,6 +23,7 @@ LevelManager="*res://Globals/LevelManager.gd"
 PlayerManager="*res://Globals/PlayerManager.gd"
 Transition="*res://Globals/Transition.tscn"
 UIManager="*res://Globals/UIManager.gd"
+AudioManager="*res://Globals/AudioManager.gd"
 
 [display]
 
@@ -52,6 +53,8 @@ folder_colors={
 "res://Art/UI/": "orange",
 "res://Font/": "gray",
 "res://Globals/": "orange",
+"res://Music/": "blue",
+"res://Music/SFX/UI/": "orange",
 "res://Scenes/": "green",
 "res://Scenes/UI/": "orange",
 "res://Scripts/": "blue",

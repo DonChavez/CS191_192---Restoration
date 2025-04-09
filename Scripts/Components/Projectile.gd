@@ -109,6 +109,7 @@ func _physics_process(delta: float) -> void:
 # handle what happens when the projectile hits something
 func _on_projectile_hurtbox_hit(Hitbox: HitboxComponent, _amount: float) -> void:
 	if Hitbox.is_in_group("TSHitbox"):
+		PlayerManager.play_block_sfx()
 		var Normal = (global_position - Hitbox.global_position).normalized()
 		#redirect_to_nearest_enemy(Normal)  # Reflect the projectile
 		if PlayerManager.Player_instance.Is_parrying:

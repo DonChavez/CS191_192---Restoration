@@ -8,6 +8,22 @@ signal Player_spawned  # Emitted when the player is successfully spawned
 var Player_scene_path: String = "res://Scenes/Player/Player.tscn"
 var Player_instance: Node = null : set = _set_player_instance
 
+# Audio variables
+var spawn_sfx: AudioStreamPlayer  # Will be created in _ready
+@export var spawn_sound: AudioStream = preload("res://Music/SFX/Player/spawn.mp3")
+@export var block_sound: AudioStream = preload("res://Music/SFX/Player/block_1.mp3")
+const TELEPORT_END = preload("res://Music/SFX/Player/Teleport_end.mp3")
+
+func _ready():
+	spawn_sfx = AudioStreamPlayer.new()
+	spawn_sfx.name = "SpawnSFX"
+	add_child(spawn_sfx)
+	
+func play_block_sfx():
+	if spawn_sfx and block_sound:
+		spawn_sfx.stream = block_sound
+		spawn_sfx.play()
+	
 ## Player Instance Setter
 func _set_player_instance(value: Node) -> void:
 	Player_instance = value
@@ -26,11 +42,21 @@ func spawn_player() -> void:
 
 	Player_instance = Player_scene.instantiate()
 	get_tree().current_scene.add_child(Player_instance)
+	
+	# Play spawn sound
+	if spawn_sfx and spawn_sound:
+		spawn_sfx.stream = spawn_sound
+		spawn_sfx.play()
+	
 	_initialize_player_position()
 	_connect_health_signal()
 
 func transfer_player() -> void:
 	await get_tree().process_frame  # Ensure previous calls complete
+	
+	if spawn_sfx:
+		spawn_sfx.stream = TELEPORT_END
+		spawn_sfx.play()
 
 	var New_scene = get_tree().current_scene
 	if not New_scene:
@@ -40,6 +66,10 @@ func transfer_player() -> void:
 	if Player_instance:
 		New_scene.add_child(Player_instance)
 		_initialize_player_position()
+		
+	if spawn_sfx:
+		spawn_sfx.stream = TELEPORT_END
+		spawn_sfx.play()
 
 ## Player Initialization
 func _initialize_player_position() -> void:

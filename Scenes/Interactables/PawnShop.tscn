@@ -1,11 +1,11 @@
 [gd_scene load_steps=30 format=3 uid="uid://v1dle5t75pan"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/NPCTab.gd" id="1_44lvi"]
-[ext_resource type="Texture2D" uid="uid://dahmg5t0k8ka1" path="res://Art/Characters/player.png" id="2_doxdg"]
+[ext_resource type="Texture2D" uid="uid://7ovpvlqrfm7a" path="res://Art/Characters/player.png" id="2_doxdg"]
 [ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/UI/Dialogue.tscn" id="3_bjrrm"]
 [ext_resource type="Script" path="res://Scripts/Interactables/PawnShopTab.gd" id="4_ilsyw"]
 [ext_resource type="Script" path="res://Scripts/Inventory/InventoryUI.gd" id="5_vwjpk"]
-[ext_resource type="Texture2D" uid="uid://b4w3dtepsdun8" path="res://Art/Objects/coin_pouch.png" id="7_v5uso"]
+[ext_resource type="Texture2D" uid="uid://dem8ysio7k10h" path="res://Art/Objects/coin_pouch.png" id="7_v5uso"]
 [ext_resource type="PackedScene" uid="uid://c1c8vyfyanpjj" path="res://Scenes/Inventory/ItemSlot.tscn" id="8_oyt86"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4s4x0"]
@@ -68,14 +68,44 @@ radius = 31.0161
 bg_color = Color(0.6, 0.6, 0.6, 0.596078)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d3aib"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hauld"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a4y2o"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_viqlf"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a1sxe"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="Theme" id="Theme_58mhd"]
 VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_d3aib")
@@ -85,14 +115,44 @@ VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_viqlf")
 VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_a1sxe")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rod21"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_323wq"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cdjiu"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ch8b6"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ipec5"]
+resource_local_to_scene = false
+resource_name = ""
+content_margin_left = -1.0
+content_margin_top = -1.0
+content_margin_right = -1.0
+content_margin_bottom = -1.0
 
 [sub_resource type="Theme" id="Theme_nyfi1"]
 VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_rod21")

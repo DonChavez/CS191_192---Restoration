@@ -7,9 +7,10 @@ extends CharacterBody2D
 @onready var DashTimer: Timer = $DashTimer
 @onready var Melee_los: RayCast2D = $MeleeLOS
 @onready var Wait_timer: Timer = $WaitTimer
+@onready var Melee_sfx: AudioStreamPlayer2D = $MeleeSFX
 
 # exportable variables
-# movemovent variables
+# movement variables
 @export var Speed = 50
 @export var Dash_speed = 200
 @export var Dash_cooldown : float = 2.0
@@ -24,6 +25,7 @@ var Dash_direction = Vector2.ZERO
 # player variables
 var Player_chase = false
 var Player = null
+var is_attacking = false  # Flag to track attack state
 
 func _ready() -> void:
 	# default animation start
@@ -56,13 +58,15 @@ func _physics_process(delta: float) -> void:
 			if Melee_los.is_colliding() and Melee_los.get_collider() == Player:
 				Player_chase = true
 				Last_direction = (Player.position - position).normalized()
-				# Optional debug print
-				# print("I see you!")
 			else:
 				Player_chase = false
-				# print("Where are you?!")
 		
-		# default moving without dash
+		# If attacking, don't change animation
+		if is_attacking:
+			# Attack animation already playing
+			return
+		
+		# Default moving without dash
 		move_and_collide(velocity * delta)
 		
 		if Player_chase:
@@ -88,20 +92,22 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	# whatever enters the detection area is set to body
-	# since only the player collides with this detection area, we set the body as the player
-	#Player = body
-	## enemy will now chase the player
-	#Player_chase = true
-	#print("URRARRUU!")
-	#DashTimer.start()  # Optional: start the dash timer upon seeing the player
 	if body.is_in_group("Player"):
 		Player = body
 		print("URRARRUU!")
 		if Is_waiting:
-			Is_waiting = false # reset timer 
+			Is_waiting = false  # reset timer 
 			Wait_timer.stop()
 		DashTimer.start()
+
+		# Start the attack animation and set the attack flag to prevent other animations
+		is_attacking = true
+		Melee_sprite.play("Attack")
+		Melee_sfx.play()
+		# Optional: Wait until attack animation ends
+		await Melee_sprite.animation_finished
+		is_attacking = false  # Reset the attacking state after the animation finishes
+
 
 func _on_detection_area_body_exited(_body: Node2D) -> void:
 	# we want to stop chasing the player once they exit
@@ -134,21 +140,20 @@ func is_dead() -> bool:
 	return Melee_health.Health <= 0
 
 func enemy_dead() -> void:
-	# playd death animation
+	# play death animation
 	Melee_sprite.play("Death")
 	# ensure enemy doesn't take more damage
 	Melee_hitbox.monitoring = false
 	
 	#-------Death Animation Handling-------#
-	# same method as seen in the player
 	var Death_animation_name : String = "Death"
-	var Death_animation_speed : float = Melee_sprite.get_sprite_frames().get_animation_speed(Death_animation_name) # the speed in which the whole animation plays out
-	var Death_animation_frames : float = Melee_sprite.get_sprite_frames().get_frame_count(Death_animation_name) # the nmumber of frames in the animation
-	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed) # the length of the whole animation
-	var Death_frame_speed : float = Death_animation_length / Death_animation_frames # the duration of each frame
+	var Death_animation_speed : float = Melee_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
+	var Death_animation_frames : float = Melee_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
+	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
+	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
 	
 	# wait for the death animation to finish playing
 	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
-	#-------Death Animation Handling-------#
 	
+	#-------Death Animation Handling-------#
 	queue_free()
