@@ -75,8 +75,8 @@ func _ready() -> void:
 		var material = ShaderMaterial.new()
 		material.shader = load("res://Scripts/Enemies/EliteEnemy.gdshader")  
 		Elite_sprite.material = material
-    
-   Elite_sprite.animation_finished.connect(_on_animation_finished)
+	
+	Elite_sprite.animation_finished.connect(_on_animation_finished)
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
@@ -153,7 +153,7 @@ func is_shield_active() -> void:
 		
 		if Elite_sprite.material:
 			Elite_sprite.material.set_shader_parameter("draw_outline", true)
-      
+	  
 func update_animation() -> void:
 	var new_animation = "Idle"
 	
