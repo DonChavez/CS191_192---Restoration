@@ -10,6 +10,9 @@ extends CharacterBody2D
 
 
 
+# Damage Variables
+@export var Knockback_strength : float = 300.0
+
 #-----onready variables-----#
 # Animation Variables
 @onready var Player_sprite: AnimatedSprite2D = $AnimatedPlayer2D
@@ -100,6 +103,10 @@ var Spinning: bool = false
 var Melee_x_additional: int = 0
 var Melee_y_additional: int = 0
 var Sword_list: Array
+
+# damaged variables
+var Is_hit : bool = false
+var Knockback_direction : Vector2 = Vector2.ZERO
 var Light_sword:HitboxComponent
 
 # Blocking Variables
@@ -536,10 +543,31 @@ func _on_player_health_died() -> void:
 	await get_tree().create_timer(0.5).timeout
 
 func _on_player_health_damage_taken(_Amount: float) -> void:
-	var original_color = modulate
-	Player_sprite.modulate = Color(1, 0, 0)
+	var original_color = modulate  # Store the original color
+	Player_sprite.modulate = Color(1, 0, 0)  # Flash red
+	
+	# knockback handling
+	Is_hit = true
+	# remove player hitbox
+	Player_hitbox.monitoring = false
+	Player_hitbox.monitorable = false
+	#knockback(area.get_parent().velocity)
+	#Player_hitbox.area_entered
+	
+	# Return to the original color after a short delay
 	await get_tree().create_timer(0.2).timeout
 	Player_sprite.modulate = original_color
+	Is_hit = false
+	# return player hitbox
+	Player_hitbox.monitoring = true
+	Player_hitbox.monitorable = true
+	
+func knockback(Enemy_velocity : Vector2) -> void: 
+	pass
+	Knockback_direction = (Enemy_velocity - velocity).normalized() * Knockback_strength
+	velocity = Knockback_direction
+	move_and_slide()
+	
 
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:

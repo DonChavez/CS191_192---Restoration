@@ -730,11 +730,11 @@ grow_vertical = 2
 [node name="PauseScreen" parent="UI Wrapper" instance=ExtResource("11_tbdxu")]
 
 [node name="PlayerSFX" type="AudioStreamPlayer2D" parent="."]
+volume_db = 4.0
 bus = &"sfx"
 
 [node name="PlayerWalkingSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("13_73quu")
-volume_db = -5.0
 
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]

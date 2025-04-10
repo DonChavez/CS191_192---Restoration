@@ -1,5 +1,7 @@
 extends Control
 
+signal LessThanHalf
+
 @onready var PollutionLevel: ProgressBar = $PollutionLevel
 
 signal pollution_updated(value: float)
@@ -19,6 +21,10 @@ func _ready():
 	
 	# Connect to any existing trash items at startup
 	connect_to_existing_trash()
+
+func _process(delta: float) -> void:
+	if Current_pollution < 50.0:
+		LessThanHalf.emit()
 
 func connect_to_existing_trash():
 	# Connect to any trash items already in the group

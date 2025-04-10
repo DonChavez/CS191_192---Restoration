@@ -1,7 +1,7 @@
 [gd_scene load_steps=97 format=3 uid="uid://8kacbgbahtld"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_8h1ev"]
-[ext_resource type="Texture2D" uid="uid://c64ltpwpq88lh" path="res://Art/Sprites/player_sprite_sheet_modified.png" id="2_ir4se"]
+[ext_resource type="Texture2D" uid="uid://bgix0wrpmi5td" path="res://Art/Sprites/player_sprite_sheet_modified.png" id="2_ir4se"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_8cvl4"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_u01b6"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_wl5vj"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="10_hsmik"]
 [ext_resource type="PackedScene" uid="uid://dpdisv8unuwy0" path="res://Scenes/UI/GameOverScreen.tscn" id="11_rlvun"]
 [ext_resource type="PackedScene" uid="uid://r4v4npadga3m" path="res://Scenes/UI/PauseScreen.tscn" id="12_essgl"]
-[ext_resource type="AudioStream" uid="uid://8gr0froikqo4" path="res://Music/SFX/Player/grass_walk.mp3" id="13_5fg3c"]
+[ext_resource type="AudioStream" uid="uid://bvd80xjaixn5m" path="res://Music/SFX/Player/grass_walk.mp3" id="13_5fg3c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kw1xj"]
 atlas = ExtResource("2_ir4se")
