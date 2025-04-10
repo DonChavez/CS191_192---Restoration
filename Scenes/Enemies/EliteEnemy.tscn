@@ -1,6 +1,7 @@
-[gd_scene load_steps=68 format=3 uid="uid://os8pu43ds3tc"]
+[gd_scene load_steps=71 format=3 uid="uid://os8pu43ds3tc"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/EliteEnemy.gd" id="1_q18po"]
+[ext_resource type="Shader" path="res://Scripts/Enemies/EliteEnemy.gdshader" id="1_r8k15"]
 [ext_resource type="Texture2D" uid="uid://cdd61gcetfh44" path="res://Art/Characters/EliteEnemy/DragonDeath.png" id="2_f7wkg"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_3x10y"]
 [ext_resource type="Texture2D" uid="uid://cm3gvpx421e35" path="res://Art/Characters/EliteEnemy/DragonIdle.png" id="3_ksokq"]
@@ -8,6 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_2kw33"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_0wwcd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3f8uv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5ym0c"]
+shader = ExtResource("1_r8k15")
+shader_parameter/line_color = Color(1, 1, 1, 1)
+shader_parameter/line_thickness = 1.0
+shader_parameter/draw_outline = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p21ad"]
 atlas = ExtResource("2_f7wkg")
@@ -425,12 +432,16 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
 radius = 48.0416
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_nuh0c"]
+radius = 6.0
+
 [node name="EliteEnemy" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_q18po")
 
 [node name="EliteEnemySprite" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_5ym0c")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_ohb7u")
 animation = &"Move"
@@ -481,6 +492,30 @@ target_position = Vector2(129, 0)
 collision_mask = 3
 
 [node name="WaitTimer" type="Timer" parent="."]
+
+[node name="EliteEnemyShield" type="Area2D" parent="." groups=["Shield"]]
+
+[node name="EliteEnemyShieldCollision" type="CollisionShape2D" parent="EliteEnemyShield"]
+scale = Vector2(2.82838, 2.82838)
+shape = SubResource("CircleShape2D_nuh0c")
+
+[node name="EliteEnemyShieldHitbox" parent="EliteEnemyShield" node_paths=PackedStringArray("Health") instance=ExtResource("5_2kw33")]
+collision_layer = 4
+Health = NodePath("../EliteEnemyShieldDurability")
+
+[node name="EliteEnemyShieldHitCollision" type="CollisionShape2D" parent="EliteEnemyShield/EliteEnemyShieldHitbox"]
+scale = Vector2(2.8742, 2.8742)
+shape = SubResource("CircleShape2D_nuh0c")
+
+[node name="EliteEnemyShieldDurability" parent="EliteEnemyShield" instance=ExtResource("3_3x10y")]
+
+[node name="EliteEnemyShieldDurabilityBar" parent="EliteEnemyShield" node_paths=PackedStringArray("Health_component") instance=ExtResource("8_3f8uv")]
+offset_left = -45.0
+offset_top = 37.0
+offset_right = 56.0
+offset_bottom = 41.0
+scale = Vector2(0.900955, 0.900955)
+Health_component = NodePath("../EliteEnemyShieldDurability")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

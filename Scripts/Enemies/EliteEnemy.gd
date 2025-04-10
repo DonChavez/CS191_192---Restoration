@@ -4,9 +4,13 @@ extends CharacterBody2D
 @onready var Elite_sprite: AnimatedSprite2D = $EliteEnemySprite
 @onready var Elite_health: HealthComponent = $EliteEnemyHealth
 @onready var Elite_hitbox: HitboxComponent = $EliteEnemyHitbox
+@onready var Elite_enemy_shield_durability: HealthComponent = $EliteEnemyShield/EliteEnemyShieldDurability
+@onready var Elite_enemy_shield_hitbox: HitboxComponent = $EliteEnemyShield/EliteEnemyShieldHitbox
+@onready var Elite_enemy_shield_durability_bar: ProgressBar = $EliteEnemyShield/EliteEnemyShieldDurabilityBar
 @onready var DashTimer: Timer = $DashTimer
 @onready var Elite_los: RayCast2D = $EliteLOS
 @onready var Wait_timer: Timer = $WaitTimer
+@onready var Elite_health_bar: ProgressBar = $HealthBar
 
 # exportable variables
 # movemovent variables
@@ -43,9 +47,26 @@ func _ready() -> void:
 	DashTimer.timeout.connect(_on_dash_timer_timeout)
 	DashTimer.start()
 	Wait_timer.timeout.connect(_on_wait_timer_timeout)
+	
+	#disable hitbox first
+	Elite_hitbox.visible = false
+	Elite_hitbox.monitorable = false
+	Elite_hitbox.monitoring = false
+	
+	Elite_enemy_shield_durability_bar.visible = true
+	Elite_health_bar.visible = true
+	
+	# Setup Elite Enemy Light Shield
+	if not Elite_sprite.material:
+		var material = ShaderMaterial.new()
+		material.shader = load("res://Scripts/Enemies/EliteEnemy.gdshader")  
+		Elite_sprite.material = material
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
+		# check shield activity
+		is_shield_active()
+		
 		# this is essential for moving CharacterBodies
 		
 		if Dashing:
@@ -106,6 +127,29 @@ func _physics_process(delta: float) -> void:
 	else:
 		enemy_dead()
 
+func is_shield_active() -> void: 
+	if Elite_enemy_shield_durability.Health <= 0: 
+		Elite_enemy_shield_hitbox.visible = false
+		Elite_enemy_shield_hitbox.monitoring = false
+		Elite_enemy_shield_hitbox.monitorable = false
+		
+		Elite_hitbox.visible = true
+		Elite_hitbox.monitorable = true
+		Elite_hitbox.monitoring = true
+		
+		if Elite_sprite.material:
+			Elite_sprite.material.set_shader_parameter("draw_outline", false)
+	else:
+		Elite_enemy_shield_hitbox.visible = true
+		Elite_enemy_shield_hitbox.monitoring = true
+		Elite_enemy_shield_hitbox.monitorable = true
+		
+		Elite_hitbox.visible = false
+		Elite_hitbox.monitorable = false
+		Elite_hitbox.monitoring = false
+		
+		if Elite_sprite.material:
+			Elite_sprite.material.set_shader_parameter("draw_outline", true)
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	# whatever enters the detection area is set to body

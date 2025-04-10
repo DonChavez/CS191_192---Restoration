@@ -17,7 +17,6 @@ var Hitbox_dict = {}
 var Hitbox_list: Array[HitboxComponent] = []
 var Processing_list: Array[HitboxComponent] = []
 
-
 func _ready() -> void:
 	# if player hitbox collision is entered by another hitbox component, it calls the on_hitbox_entered function
 	# area_entered is defined in godot

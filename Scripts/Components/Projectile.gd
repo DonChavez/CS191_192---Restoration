@@ -9,6 +9,7 @@ extends CharacterBody2D
 # projectile textures
 @export var Player_projectile_texture: Texture2D
 @export var Enemy_projectile_texture: Texture2D
+@export var Boss_projectile_texture: Texture2D
 
 # onready variables
 @onready var ProjectileHurtbox: HurtboxComponent = $ProjectileHurtbox
@@ -50,7 +51,10 @@ func fireblaster(Name: Node2D) -> void:
 		ProjectileHurtbox.set_collision_layer_value(6, true)		# Assign it as enemy projectile
 		ProjectileHurtbox.set_collision_mask_value(2, true) 		# Can collide with player
 		ProjectileHurtbox.set_collision_mask_value(3, false)		# No collision with other enemies
-		ProjectileSprite.texture = Enemy_projectile_texture
+		if Name and Name.is_in_group("Boss"):
+			ProjectileSprite.texture = Boss_projectile_texture
+		else:
+			ProjectileSprite.texture = Enemy_projectile_texture
 		
 # Bounce the projectile off a surface with random direction
 func bounce(bounce_normal: Vector2) -> void:
