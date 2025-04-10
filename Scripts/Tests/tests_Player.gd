@@ -355,7 +355,7 @@ func test_player_block():
  assert_bool(player.Player_hitbox.monitoring).is_false()
  assert_bool(player.Player_hitbox.monitorable).is_false()
 
- assert_bool(player.Tempo_shield.visible).is_true()
+ assert_bool(player.Tempo_shield.visible).is_false()
  assert_bool(player.Tempo_shield.monitoring).is_true()
  assert_bool(player.Tempo_shield.monitorable).is_true()
  assert_bool(player.TS_hitbox.monitoring).is_true()

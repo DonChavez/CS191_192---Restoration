@@ -49,11 +49,12 @@ func _process(Delta: float) -> void:
 				ItemType.TRASH:
 					Inventory.add_trash(Value)
 					EATTRASH.emit(1.0)
+					AudioManager.play_sound("trash_pickup")
 					# emit float value to decrease the pollution level: 1.0
 					# emit signal to increase/decrease ung pollution level
 				ItemType.COIN:
+					AudioManager.play_sound("coin_pickup")
 					Inventory.add_coin(Value)
-			print("ding")
 			queue_free()
 	elif Idle:
 		# Idle Animation
@@ -62,6 +63,9 @@ func _process(Delta: float) -> void:
 #Upon Player Entry Area
 func _on_body_entered(Body: Node2D) -> void:
 	Player = Body # Works if correct Collision Mapping
+	
+	
+		
 	Inventory = Player.get_inventory()
 	Idle = false
 

@@ -6,13 +6,15 @@ enum Existence { WORLD, INVENTORY, SHOP}
 @onready var Icon = $Icon
 @export var Item_ID:String
 @export var Item_name:String
+@export var Stacking: bool
+
 @onready var Exist_in: Existence = Existence.WORLD 
 
 @export var Spawn_animate: bool = true
 enum ItemType {RANGE, MELEE, PASSIVE}
 @export var Item_type: ItemType
 @onready var Item_tier:int
-@onready var Default_color: Color
+
 
 # For Description
 @onready var Description: String
@@ -24,11 +26,10 @@ const Tier_to_text = {	0:"Common",
 						4:"Legendary"	}
 
 # Other Nodes
-@onready var Player: CharacterBody2D = null  
 @onready var Inventory: InventoryObject = null
-
+@onready var User: CharacterBody2D = null
 # Item effect-related properties
-var Effect_applied = false
+@onready var Effect_applied = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -36,7 +37,7 @@ func _ready() -> void:
 	spawn_object_animation()
 	Item_tier = int(Item_ID[0])
 
-func get_ID(ID: String) -> void:
+func change_ID(ID: String) -> void:
 	Item_ID = ID
 	Item_tier = int(Item_ID[0])
 
@@ -49,9 +50,7 @@ func _process(Delta: float) -> void:	# Add to Inventory if interacted
 
 # Pick up button appears
 func _on_area_2d_body_entered(Body: Node2D):
-	if !Player: # Creates connection between Item and Inventory
-		Player = Body
-		Inventory = Player.get_inventory()
+	Inventory = Body.get_inventory()
 	if Exist_in == Existence.WORLD:
 		Input_label.visible = true
 
@@ -82,23 +81,33 @@ func spawn_object_animation() -> void:
 	$".".set_deferred("monitoring", true) 
 
 func apply_tier(Tier:int) -> void:
-	match Tier:
-		0: Default_color = Color(1.0, 1.0, 1.0)  # Common White
-		1: Default_color = Color(0.53, 1.0, 0.53)  # Uncommon Green
-		2: Default_color = Color(0.53, 0.53, 1.0)  # Rare Blue
-		3: Default_color = Color(0.8, 0.4, 0.8)  # Epic Purple (Fixed)
-		4: Default_color = Color(1.0, 0.4, 0.4)   # Legendary Red
-	Icon.self_modulate = Default_color
+	pass
 	
-func get_default_color() -> Color:
-	return Default_color
-	
+
+#-----for getting values methods-----#
+
 func get_item_tier() -> int:
 	return Item_tier
+func get_item_id() -> String:
+	return Item_ID
+func get_applied() -> bool:
+	return Effect_applied
 
-# Override these in specific item scripts
-func apply_effect(player):
+func get_stacking() -> bool:
+	return Stacking
+#-----Application methods-----#
+func acquire_user(Player:CharacterBody2D):
+	User = Player
+
+func update_item_status() -> void:		# Can be used for changing descriptions
 	pass
 
-func remove_effect(player):
+func applied_toggle() -> void:
+	Effect_applied = !Effect_applied
+
+# Override these in specific item scripts
+func apply_effect(Player:CharacterBody2D):
+	pass
+
+func remove_effect(Player:CharacterBody2D):
 	pass

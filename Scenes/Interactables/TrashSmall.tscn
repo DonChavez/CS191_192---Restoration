@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://4ljjh7bbnlts"]
+[gd_scene load_steps=4 format=3 uid="uid://cxo2tgb3sgts3"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Collectable.gd" id="1_psxko"]
 [ext_resource type="Texture2D" uid="uid://bc0uqlkdqcmdw" path="res://Art/Objects/can_trash.png" id="2_q8udf"]
@@ -19,5 +19,7 @@ shape = SubResource("CircleShape2D_tuomk")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.00540216, 0.00540216)
 texture = ExtResource("2_q8udf")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

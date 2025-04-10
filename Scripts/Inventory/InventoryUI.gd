@@ -15,13 +15,11 @@ func update_inventory():
 		var Item = Inventory_manager.get_item(I) #InventorManager get item
 		var Slot = Grid[I]  # Get slot node
 		
-		# Replace with Icon texture if has item
+		Slot.texture_normal = load("res://Art/tilesets/grid.png")
 		if Item:
-			Slot.texture_normal = Item.get_node("Icon").texture
-			Slot.update_slot_ui()
-		else: 
-			Slot.texture_normal = load("res://Art/tilesets/grid.png") #Blank tile
-			Slot.update_slot_ui()
+			Slot.toggle_item_ui(Item.get_node("Icon").texture)
+		else:
+			Slot.toggle_item_ui(null)
 		
 		
 # Update Coin count UI

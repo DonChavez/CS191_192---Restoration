@@ -16,11 +16,11 @@ extends Control
 @onready var Range_items: int = 0
 @onready var Melee_items: int = 0
 
-var Item_cost_convertion: Dictionary = {	0: 1,
-									1: 3,
-									2: 5,
-									3: 10,
-									4: 20}
+var Item_cost_convertion: Dictionary = {	0: 2,
+									1: 4,
+									2: 8,
+									3: 14,
+									4: 24}
 
 enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
@@ -48,9 +48,9 @@ func toggle_tab():
 		Items = Inventory.get_inventory_array().duplicate()
 		for I in range(Inventory_slot_num):
 			if Items[I]:
-				Inventory_slots[I].toggle_item(Items[I]) # Lets Item Slot know it has an item
+				Inventory_slots[I].toggle_item(true) # Lets Item Slot know it has an item
 			else:
-				Inventory_slots[I].toggle_item(null) # Lets Item Slot know it has an item
+				Inventory_slots[I].toggle_item(false) # Lets Item Slot know it has an item
 
 		Inventory_ui.update_inventory()
 	_reset_item_slot(Selected)
@@ -119,7 +119,7 @@ func sell_item() -> void:
 
 	print("Finished Profit")
 	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
+	Inventory_slots[Selected].toggle_item(false)
 	print("Deleting")
 	Inventory.delete_item(Selected)
 	_reset_item_slot(Selected)
@@ -140,8 +140,8 @@ func move_item(Index: int) -> void:
 		Items[Selected] = null
 		# Change Item Slot statuses
 	Items[Index] = holder
-	Inventory_slots[Selected].toggle_item(Items[Selected])
-	Inventory_slots[Index].toggle_item(Items[Index])
+	Inventory_slots[Selected].toggle_item(true)
+	Inventory_slots[Index].toggle_item(true)
 	# Change Item Slot statuses and Selected
 	_reset_item_slot(Selected)
 	_reset_item_slot(Index)

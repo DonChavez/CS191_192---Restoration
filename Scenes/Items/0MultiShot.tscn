@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://disryke7g2rsn"]
+[gd_scene load_steps=3 format=3 uid="uid://disryke7g2rsn"]
 
 [ext_resource type="Script" path="res://Scripts/Items/MultiShot.gd" id="1_qwsdn"]
-[ext_resource type="Texture2D" uid="uid://bee18rjsyy86m" path="res://Art/Items/Multishot.png" id="2_pi344"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
@@ -9,13 +8,14 @@ size = Vector2(22.1679, 21.1539)
 [node name="MultiShot" type="Node2D"]
 scale = Vector2(0.315403, 0.315403)
 script = ExtResource("1_qwsdn")
-Item_ID = "0004"
+Item_ID = "2004"
 Item_name = "Multi Shot"
+Stacking = true
 
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_pi344")
+expand_mode = 3
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

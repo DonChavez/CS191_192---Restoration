@@ -1,33 +1,40 @@
-extends Control
+extends Panel
 
-@onready var Grid1 = $UpgradePanel/CenterContainer/UpgradeGrid.get_children() #Slots
-@onready var Grid2 = $UpgradePanel/CenterContainer2/UpgradeGrid2.get_children() #Slots
-@onready var Coinlabel = $UpgradePanel/CoinLabel
+@onready var Grid:Array = $ScrollContainer/UpgradeGrid.get_children() #Slots
+@onready var Coinlabel:Label = $CoinLabel
+@onready var Description_box:RichTextLabel = $DescriptionTextLabel
+var Item_category:Dictionary
+var Player_upgrade_count:Dictionary
+@onready var Costs:Dictionary 
 
-var Builder: Array
+const Number_to_roman1 = {	0:"I",
+							1:"II",
+							2:"III",
+							3:"IV",
+							4:"V",
+							5:"MAX"	}
+						
 
-# Add labels
-func get_labels(Labels: Array) -> void:
-	Builder = Labels.duplicate()
-	for I in range(Grid1.size()):
-		Grid1[I].change_label(Builder[I])
-		Grid1[I].texture_normal = load("res://Art/tilesets/grid.png") #Blank tile
-	for I in range(Grid2.size()):
-		Grid2[I].change_label(Builder[I+3])
-		Grid2[I].texture_normal = load("res://Art/tilesets/grid.png") #Blank tile
+func send_dictionaries(Item_category_map:Dictionary, Cost:Dictionary):
+	Item_category = Item_category_map
+	Costs = Cost
 
-# Add costs for the correct Item slot
-func get_cost(Grid_no: int, Index: int, Cost: int) -> void:
-	if Grid_no == 1:
-		if Cost == -1:
-			Grid1[Index].maxed_out()
-		else:
-			Grid1[Index].change_cost(Cost)
-	elif Grid_no == 2:
-		if Cost == -1:
-			Grid2[Index].maxed_out()
-		else:
-			Grid2[Index].change_cost(Cost)
+func add_labels(Player_upgrade_counter: Dictionary) -> void:
+	Player_upgrade_count = Player_upgrade_counter
+	var Builder: String
+	for I in range(Grid.size()):
+		var Item_name = Item_category[I]
+		Builder = Item_name+" "+Number_to_roman1[Player_upgrade_count[Item_name]]
+		Grid[I].change_label(Builder)
+
+func add_description(Index: int, Value: float) -> void:
+	var Item_name = Item_category[Index]
+	if Costs[Player_upgrade_count[Item_name]] == -1:
+		Description_box.text = "Upgrade is Maxed Out"
+	else:
+		Description_box.text = "Cost: "+ str(Costs[Player_upgrade_count[Item_name]])+" coin\n"
+		Description_box.text = Description_box.text+"Upgrade "+Item_category[Index]+". Increasing it by "+str(Value) 
+
 
 # Updates the Coin amount
 func update_coin(Coin:int):

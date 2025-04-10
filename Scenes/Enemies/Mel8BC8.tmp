@@ -1,0 +1,194 @@
+[gd_scene load_steps=24 format=3 uid="uid://dm30882fg0dtv"]
+
+[ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
+[ext_resource type="Texture2D" uid="uid://bny1bremoaaso" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
+[ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
+[ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
+[ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
+[ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_xthu2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6napr"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi3f7"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1r6"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bucgd"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7l8e"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb5t6"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk0fh"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw8ge"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or8x8"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o067"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(1024, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm2hp"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(1280, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2kt2"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sobor"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ohb7u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6napr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qi3f7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md1r6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bucgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7l8e")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"Death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb5t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sk0fh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mw8ge")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or8x8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6o067")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm2hp")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2kt2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sobor")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o1hhy"]
+radius = 4.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
+radius = 48.0416
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_skdr7"]
+radius = 5.0
+
+[node name="MeleeEnemy" type="CharacterBody2D" groups=["Enemy"]]
+position = Vector2(0, -3)
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_awrbn")
+
+[node name="MeleeEnemySprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -13)
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_ohb7u")
+animation = &"Move"
+
+[node name="MeleeEnemyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_o1hhy")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+scale = Vector2(1.38959, 1.38959)
+shape = SubResource("CircleShape2D_3h7bf")
+
+[node name="MeleeEnemyHealth" parent="." instance=ExtResource("3_eru4r")]
+
+[node name="MeleeEnemyHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("5_aliup")]
+position = Vector2(0, 1)
+collision_layer = 4
+Health = NodePath("../MeleeEnemyHealth")
+
+[node name="MeleeEnemyHitCollision" type="CollisionShape2D" parent="MeleeEnemyHitbox"]
+shape = SubResource("CircleShape2D_skdr7")
+
+[node name="MeleeEnemyHurtbox" parent="." instance=ExtResource("6_qdt4s")]
+position = Vector2(0, 1)
+collision_layer = 0
+collision_mask = 2
+
+[node name="MeleeEnemyHurtCollision" type="CollisionShape2D" parent="MeleeEnemyHurtbox"]
+shape = SubResource("CircleShape2D_skdr7")
+
+[node name="DashTimer" type="Timer" parent="."]
+
+[node name="HealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("6_xthu2")]
+offset_left = -7.0
+offset_top = 4.0
+offset_right = 21.0
+offset_bottom = 8.0
+Health_component = NodePath("../MeleeEnemyHealth")
+
+[node name="MeleeLOS" type="RayCast2D" parent="."]
+target_position = Vector2(66, 0)
+collision_mask = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

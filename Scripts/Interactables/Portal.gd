@@ -13,6 +13,7 @@ func _ready():
 	
 func interact() -> void:
 	print("Interacted with portalt!")  
+	AudioManager.play_sound("teleport_start")
 	# needed to change the scene
 	LevelManager.change_level(Target_level_path)
 		

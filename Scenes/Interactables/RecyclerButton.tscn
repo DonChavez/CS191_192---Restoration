@@ -7,16 +7,12 @@
 texture_normal = ExtResource("1_w48fd")
 script = ExtResource("1_6ah26")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 0
-offset_left = -16.0
-offset_top = 41.0
-offset_right = 56.0
-offset_bottom = 64.0
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="CenterContainer"]
+[node name="Label" type="Label" parent="."]
 layout_mode = 2
+offset_left = 47.0
+offset_top = 2.0
+offset_right = 144.0
+offset_bottom = 38.0
 theme_override_font_sizes/font_size = 12
 text = "resa"
 

@@ -1,84 +1,110 @@
-[gd_scene load_steps=22 format=3 uid="uid://dm30882fg0dtv"]
+[gd_scene load_steps=25 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
-[ext_resource type="Texture2D" uid="uid://c34me3qo7dg3n" path="res://Art/Characters/slime_green.png" id="2_2mu7m"]
+[ext_resource type="Texture2D" uid="uid://bny1bremoaaso" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_xthu2"]
+[ext_resource type="AudioStream" uid="uid://j0s23gajeupp" path="res://Music/SFX/Enemies/blunt_slash.mp3" id="7_lqy48"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qjghk"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(0, 48, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6napr"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(0, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rjtak"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(24, 48, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qi3f7"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(256, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_r021k"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(48, 48, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1r6"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(512, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vi4bx"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(0, 0, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_bucgd"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(768, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_20gwj"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(24, 0, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7l8e"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(1024, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ibv7j"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(48, 0, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb5t6"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(0, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v2x4j"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(72, 0, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_sk0fh"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(256, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t5s17"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(0, 24, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_mw8ge"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(512, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1v1ce"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(24, 24, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_or8x8"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(768, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_reuhc"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(48, 24, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6o067"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(1024, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m0lcg"]
-atlas = ExtResource("2_2mu7m")
-region = Rect2(72, 24, 24, 24)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm2hp"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(1280, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2kt2"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sobor"]
+atlas = ExtResource("2_q60wm")
+region = Rect2(256, 512, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ohb7u"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qjghk")
+"texture": SubResource("AtlasTexture_6napr")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rjtak")
+"texture": SubResource("AtlasTexture_qi3f7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_r021k")
+"texture": SubResource("AtlasTexture_md1r6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bucgd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7l8e")
 }],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [],
 "loop": true,
 "name": &"Death",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vi4bx")
+"texture": SubResource("AtlasTexture_nb5t6")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_20gwj")
+"texture": SubResource("AtlasTexture_sk0fh")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ibv7j")
+"texture": SubResource("AtlasTexture_mw8ge")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v2x4j")
+"texture": SubResource("AtlasTexture_or8x8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6o067")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm2hp")
 }],
 "loop": true,
 "name": &"Idle",
@@ -86,16 +112,10 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t5s17")
+"texture": SubResource("AtlasTexture_g2kt2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1v1ce")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_reuhc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m0lcg")
+"texture": SubResource("AtlasTexture_sobor")
 }],
 "loop": true,
 "name": &"Move",
@@ -118,9 +138,10 @@ collision_mask = 3
 script = ExtResource("1_awrbn")
 
 [node name="MeleeEnemySprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -6)
+position = Vector2(0, -13)
+scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_ohb7u")
-animation = &"Idle"
+animation = &"Attack"
 
 [node name="MeleeEnemyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -157,9 +178,9 @@ shape = SubResource("CircleShape2D_skdr7")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("6_xthu2")]
 offset_left = -7.0
-offset_top = 7.0
+offset_top = 4.0
 offset_right = 21.0
-offset_bottom = 11.0
+offset_bottom = 8.0
 Health_component = NodePath("../MeleeEnemyHealth")
 
 [node name="MeleeLOS" type="RayCast2D" parent="."]
@@ -168,6 +189,11 @@ collision_mask = 3
 
 [node name="WaitTimer" type="Timer" parent="."]
 wait_time = 5.0
+
+[node name="MeleeSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_lqy48")
+volume_db = -5.0
+bus = &"sfx"
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

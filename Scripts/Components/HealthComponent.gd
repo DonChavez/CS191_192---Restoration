@@ -46,6 +46,7 @@ func take_damage(Amount : float) -> void:
 		
 func heal(Amount: float) -> void:
 	# prevent from healing when dead
+	print("I healed: ", Amount)
 	if Is_dead:
 		return
 	# heal health by a certain amount
@@ -55,9 +56,12 @@ func heal(Amount: float) -> void:
 	regen.emit(Amount)
 	changed.emit(Health)
 
-func apply_new_health(Amount: float) -> void:
-	var Health_added = Amount + Max_health
+func set_new_health(Amount: float) -> void:
+	var Health_added = Amount - Max_health
 	Max_health = Amount
 	if Health_added > 0:
 		heal(Health_added)
 	print(Max_health)
+
+func get_health() -> Array[float]:
+	return [Health,Max_health]

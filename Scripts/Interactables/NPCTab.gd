@@ -18,7 +18,6 @@ func _ready():
 	Dialogue.visible = false
 	Guide.visible = false
 
-	The_tab.send_owner(self)
 	
 func _physics_process(_delta):
 	# If showing tab, press F to leave

@@ -1,16 +1,16 @@
 [gd_scene load_steps=26 format=3 uid="uid://dybc7khnwy044"]
 
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInfo.gd" id="1_ka6yk"]
-[ext_resource type="Texture2D" uid="uid://cohgu3apanof7" path="res://Art/UI/icon_bg.png" id="2_u5r28"]
+[ext_resource type="Texture2D" uid="uid://c2rrpx7k6kc5u" path="res://Art/UI/icon_bg.png" id="2_u5r28"]
 [ext_resource type="FontFile" uid="uid://bwlr8ymoai0gi" path="res://Art/Font/Roboto-Regular.ttf" id="3_5hyxa"]
-[ext_resource type="Texture2D" uid="uid://d2taqcvowr32g" path="res://Art/UI/border.png" id="3_sip7q"]
+[ext_resource type="Texture2D" uid="uid://dsn472ex24dsw" path="res://Art/UI/border.png" id="3_sip7q"]
 [ext_resource type="FontFile" uid="uid://dspxi5m2ck58b" path="res://Art/Font/Economica-Regular.ttf" id="5_pwk0g"]
 [ext_resource type="Texture2D" uid="uid://b4g6lcko0jev7" path="res://Art/Draft/weapons.png" id="6_3mvd7"]
-[ext_resource type="Texture2D" uid="uid://bawwh312mh7yd" path="res://Art/UI/medium-border.png" id="6_i42w1"]
+[ext_resource type="Texture2D" uid="uid://cei8c1yj52f67" path="res://Art/UI/medium-border.png" id="6_i42w1"]
 [ext_resource type="FontFile" uid="uid://cmwlpv802466h" path="res://Art/Font/Economica-Bold.ttf" id="7_b770i"]
-[ext_resource type="Texture2D" uid="uid://ctyp5g3s2xfpx" path="res://Art/UI/trash-icon.png" id="8_lld73"]
-[ext_resource type="Texture2D" uid="uid://ceu1x23sae3vb" path="res://Art/UI/big-border.png" id="9_4n5uk"]
-[ext_resource type="Texture2D" uid="uid://dtkp1umh7o8nx" path="res://Art/UI/objectives-icon.png" id="10_f0vor"]
+[ext_resource type="Texture2D" uid="uid://fangsm80rxmq" path="res://Art/UI/trash-icon.png" id="8_lld73"]
+[ext_resource type="Texture2D" uid="uid://d1wo5mv4ebepb" path="res://Art/UI/big-border.png" id="9_4n5uk"]
+[ext_resource type="Texture2D" uid="uid://m4pmflp2fvwu" path="res://Art/UI/objectives-icon.png" id="10_f0vor"]
 [ext_resource type="Script" path="res://Scripts/Pollution/PollutionSystem.gd" id="11_si86v"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyhw2"]
@@ -260,6 +260,7 @@ theme_override_font_sizes/font_size = 70
 text = "Melee"
 
 [node name="Inventory" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
