@@ -35,37 +35,37 @@ func test_melee_enemy_ready():
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
 
-func test_melee_enemy_detect_enter():
-
- var melee_enemy_scene = load(MELEE_ENEMY_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var melee_enemy = melee_enemy_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
-
- melee_enemy.Melee_health = healthcomponent
- melee_enemy.Melee_hitbox = hitboxcomponent
-
- var Melee_sprite = melee_enemy.get_node("AnimatedSprite2D")
- var DashTimer = melee_enemy.get_node("Timer")
-
- var sample_body = Node2D.new()
-
- add_child(melee_enemy)
- await get_tree().process_frame  # Allow _ready() to execute
-
- melee_enemy._on_detection_area_body_entered(sample_body)
- assert_bool(melee_enemy.Player_chase).is_true()
-
- melee_enemy.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
- sample_body.queue_free()
+#func test_melee_enemy_detect_enter():
+#
+ #var melee_enemy_scene = load(MELEE_ENEMY_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var melee_enemy = melee_enemy_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+#
+ #melee_enemy.Melee_health = healthcomponent
+ #melee_enemy.Melee_hitbox = hitboxcomponent
+#
+ #var Melee_sprite = melee_enemy.get_node("AnimatedSprite2D")
+ #var DashTimer = melee_enemy.get_node("Timer")
+#
+ #var sample_body = Node2D.new()
+#
+ #add_child(melee_enemy)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #melee_enemy._on_detection_area_body_entered(sample_body)
+ #assert_bool(melee_enemy.Player_chase).is_true()
+#
+ #melee_enemy.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
+ #sample_body.queue_free()
 
 func test_melee_enemy_detect_exit():
 

@@ -1,101 +1,107 @@
-[gd_scene load_steps=21 format=3 uid="uid://drw6aay8lkvx6"]
+[gd_scene load_steps=22 format=3 uid="uid://drw6aay8lkvx6"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/RangedEnemy.gd" id="1_qc07w"]
-[ext_resource type="Texture2D" uid="uid://blewjyxqigito" path="res://Art/Characters/Shooter.png" id="2_5s71k"]
+[ext_resource type="Texture2D" uid="uid://dlvk0cr12jt0e" path="res://Art/Sprites/Ranged_enemy.png" id="2_u3p8n"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_8bud7"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_di4qy"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_1nxr0"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_emrfn"]
+[ext_resource type="AudioStream" uid="uid://c2urtdy1va2wy" path="res://Music/SFX/Enemies/pistol.mp3" id="7_t7f4w"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6gctf"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(64, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_trt7l"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(0, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7k45"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(32, 96, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_uel4b"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(256, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xj1ax"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(64, 96, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_288ij"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(512, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_aqjcx"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(96, 96, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vn1ii"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(768, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5j5ec"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(96, 128, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_db3wq"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(1024, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jf6kf"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(96, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wr6f"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(1280, 0, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nc84e"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(128, 0, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gace"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(0, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_661o7"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_3i10y"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(256, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_io65r"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(0, 128, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_tjdsl"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(512, 256, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4k0ya"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(32, 128, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1v4f"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(0, 512, 256, 256)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pdovd"]
-atlas = ExtResource("2_5s71k")
-region = Rect2(64, 128, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_ye1rl"]
+atlas = ExtResource("2_u3p8n")
+region = Rect2(256, 512, 256, 256)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ohb7u"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6gctf")
+"texture": SubResource("AtlasTexture_trt7l")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_n7k45")
+"texture": SubResource("AtlasTexture_uel4b")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xj1ax")
+"texture": SubResource("AtlasTexture_288ij")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_aqjcx")
+"texture": SubResource("AtlasTexture_vn1ii")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5j5ec")
+"texture": SubResource("AtlasTexture_db3wq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wr6f")
 }],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [],
 "loop": true,
 "name": &"Death",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jf6kf")
+"texture": SubResource("AtlasTexture_0gace")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nc84e")
+"texture": SubResource("AtlasTexture_3i10y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_661o7")
+"texture": SubResource("AtlasTexture_tjdsl")
 }],
 "loop": true,
 "name": &"Idle",
-"speed": 5.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_io65r")
+"texture": SubResource("AtlasTexture_j1v4f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4k0ya")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pdovd")
+"texture": SubResource("AtlasTexture_ye1rl")
 }],
 "loop": true,
 "name": &"Move",
@@ -115,9 +121,9 @@ script = ExtResource("1_qc07w")
 
 [node name="RangedEnemySprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 1)
-scale = Vector2(0.713849, 0.713849)
+scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_ohb7u")
-animation = &"Death"
+animation = &"Attack"
 
 [node name="RangedEnemyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -155,5 +161,18 @@ offset_left = -4.0
 offset_right = 12.0
 Health_component = NodePath("../RangedEnemyHealth")
 
+[node name="RangedLOS" type="RayCast2D" parent="."]
+target_position = Vector2(-102, 0)
+collision_mask = 3
+
+[node name="WaitTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_t7f4w")
+volume_db = -4.0
+
+[connection signal="animation_finished" from="RangedEnemySprite" to="." method="_on_animation_finished"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

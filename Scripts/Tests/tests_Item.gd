@@ -2,7 +2,7 @@ class_name Item_UnitTest
 extends GdUnitTestSuite
 
 
-const ITEM_SCENE = "res://Scenes/Items/C001.tscn"  # Update with correct path
+const ITEM_SCENE = "res://Scenes/Items/0MultiShot.tscn"  # Update with correct path
 
 func test_item_ready():
 

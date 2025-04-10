@@ -41,7 +41,7 @@ func test_hurtboxcomponent_hitbox_entered():
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
- hurtboxcomponent.Hitbox = hitboxcomponent
+ #hurtboxcomponent.Hitbox = hitboxcomponent
 
  add_child(hurtboxcomponent)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -49,7 +49,7 @@ func test_hurtboxcomponent_hitbox_entered():
  hurtboxcomponent.monitoring = true
  hurtboxcomponent._on_hitbox_entered(hitboxcomponent)
 
- assert_float(hurtboxcomponent.Time_since_last_damage).is_equal(0.1)
+ assert_float(hurtboxcomponent.Time_since_last_damage).is_equal(0.0)
 
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
@@ -66,7 +66,7 @@ func test_hurtboxcomponent_hitbox_exited():
 
  hitboxcomponent.Health = healthcomponent
  hitboxcomponent.Health._ready()
- hurtboxcomponent.Hitbox = hitboxcomponent
+ #hurtboxcomponent.Hitbox = hitboxcomponent
 
  add_child(hurtboxcomponent)
  await get_tree().process_frame  # Allow _ready() to execute
@@ -75,7 +75,7 @@ func test_hurtboxcomponent_hitbox_exited():
  hurtboxcomponent._on_hitbox_entered(hitboxcomponent)
  hurtboxcomponent._on_hitbox_exited(hitboxcomponent)
 
- assert_float(hurtboxcomponent.Hitbox).is_null()
+ assert_object(hurtboxcomponent.Hitbox_dict).is_equal({})
 
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()

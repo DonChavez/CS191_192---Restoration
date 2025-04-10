@@ -140,3 +140,278 @@ v0.0.7.1:
 	2. changed the fired_by logic to using "self" instead of strings
 	3. changed redirect function to redirect_target() and redirect_random() for parrying and blocking respectively
 
+---- Update from latest push (Thu Mar 13 14:01:16 PST 2025) ----
+branch: reset_julian
+v0.0.9:
+	1. Created PollutionSystem scene
+	2. created EATTRASH signal for trash_small, trash_medium, and trees to emit signals for pollution system
+	3. connected pollution system to player scene
+
+
+---- Update from latest push (Wed Mar 26 16:47:28 PST 2025) ----
+branch: reset_sean
+v0.1.1:
+	1. New Global Scene (UIManager) - handles anything UI related
+	2. Added new art assets 
+		- New Tileset (https://schwarnhild.itch.io/summer-plains-tileset-and-asset-pack-32x32-pixels)
+			- Recolored to match the game
+			- Added new trees and bushes
+		- Draft Main Menu - draft idea for main menu design
+		- Added temporary weapons assets for HUD
+	3. Organized scenes and scripts - did the relocation
+	4. FOLDER COLORS - added folder colors for easy access (grey folders are usually untouched)
+	5. Added new UI elements
+		- Game Over Screen - New scene when the player dies with buttons
+		- Pause Screen - New scene when the player presses the pause button ("escape")
+		- Menu - Main Menu when the game launches
+		- HUD - New scene for the HUD display following the viewport
+	6. Added a new shader - just used it for making the background blurry
+	7. Changed Inventory from (CanvasLayer -> Control)
+	8. Modified PollutionMeter (Now integrated with the HUD)
+	9. Added a UI Wrapper in the player to contain UI elements
+	10. Moved Inventory and PollutionSystem to UI Wrapper
+	11. Synced Player Health, Shield durability, Level Name, and Pollution with HUD
+	12. Added a pollution_updated signal to PollutionSystem (This is used to sync to HUD)
+	13. Added pausing to the game - will pause the game when it is paused
+	14. Added restart to the game - player can now restart the level
+	15. Added exit to the game - Main Menu and Pause Screen makes player exit the game when clicked
+	16. Changed the viewport of the game (from Maximized -> Exclusive Full Screen)
+	17. Responsive Design UI - UI elements will be responsive to different screen sizes like websites
+	18. Added new input map ("escape") - activates when the ESC is pressed
+	19. Refactored PlayerManager to be more readable
+	20. Refactored UIManager to be more readable
+
+---- Update from latest push (Wed Mar 26 20:26:56 PST 2025) ----
+branch: reset_resai
+v0.1.3:
+	1.  Edited Player:
+		- Added Stat variables
+		- Added functions to change melee and projectile damage
+		- Improved Melee weapon application
+		- Added Stats variables
+		- Added Functions to edit stat variables
+		- Added Upgrade counter to keep track of stats and upgrade no.
+	2. Edited Projectiles
+	3. Edited HurtboxComponent to have function to change damage amount
+	4. Added Pawn Shop
+		- Can Sell items for coin here
+		- Clicks are paralled into Inventory
+		- Build is similar to Inventory
+	5. Added Trainer
+		- Can train certain stats here
+		- Costs ramps up
+		- Similar to Recycler
+Other:
+	1. Comments
+
+---- Update from latest push (Thu Mar 27 10:01:55 PST 2025) ----
+branch: reset_julian
+v0.1.5.1:
+	1. Implemented Raycasting for each enemy type to integrate Line of Sight onto the player
+		- Enemy only moves towards player if there's no obstacle in between the LOS
+		- Enemy continuously moves for 5 seconds in 1 direction looking for the player after the player leaves the detection circle
+		- Enemy returns to Idle state if player is not found
+		- Enemy search duration is reset everytime it sees the player
+	2. Added breakable log object
+		- Utilizes layers 1 and 3, environment and enemy
+		- Player cannot pass through the object
+		- Player can destroy the Object
+		- Spawns 2 trash parts after breakage
+	3. Level0
+		- Created Scenes for Part 1, 2, 3, and 4
+		- Populated and Completed details for Part 1 and Part 2
+		- Item shops were substituted for regular items since there are no shops yet (as of this push)
+---- Update from latest push (Mon Apr  7 22:47:36 PST 2025) ----
+branch: reset_julian
+v0.1.5.2:
+	1. Boss has been added
+		- Currently has the same assets for elite enemy
+		- light shield is in place
+		- cannot damage the boss for as long as the light shield is still active
+
+---- Update from latest push (Mon Apr  7 22:52:15 PST 2025) ----
+branch: reset_resai
+v0.1.6.2:
+	1. Changed Recycler and Trainer UI
+		- Reformed Nodes used in UI and streamlined Slot indexing (Major Change)
+		- Changed Several variables and function inputs
+		- Renamed a few functions
+		- Streamlined Recyclerbutton signals
+		- Better UIs
+		- Changed Costs for both 
+	2. Pawn Shop
+		- Changed Selling amount
+	2. Player
+		- Reformed Player attributes to Base, Increment and Used attributes
+		- Used Attribute calculated from Base and Increment and more
+		- Added Percentage Increases for attributes
+		- Weapon Properties are not the same as Attributes (All changes must be due to items)
+		- Dash Mechanic with safety check for object collision only
+		- Many item exclusive functions
+	3. Inventory Item Application and removal
+		- Added apply_item_effect to:
+			- apply item effect if first time/stacking
+			- if non stacking and lower tier to current, do nothing
+			- if non stacking and higher tier to current, replace application
+		- Added reapply_removed_item_effect to
+			- remove item effect if non stacking
+			- if there is a replacement, apply that effect instead
+	4. Hurt Box Component
+		- Added success signal and checker 
+		- emits signal to Player of the damage dealt
+	5. Hit Box Component
+		- Added Damage Reduction
+		- returns actual damage taken to hurt box
+
+ITEMS
+	Sword Hate: Sword that deals an increased percent damage for every successful successive hit Stacking
+	Sword Life: Sword that has percent life steal Stacking
+	Stone Skin: Reduce incoming damage by percent
+	Double Time: Increase Movement Speed by percent
+	Glass Cannon: 1 hit to die, 100% increase to projectile dmg, 200% increase to melee dmg
+	Dash Boots: Enables Dashing, tiers lower dash cooldown
+
+---- Update from latest push (Wed Apr  9 11:46:34 PST 2025) ----
+branch: reset_resai
+v0.1.6.3:
+	Player:
+		Find Used attributes return the computed values
+		Changing any variable that changes computed values now trigger Item Update from inventory
+	Inventory:
+		Update Item function goes through Items which calls an Item function
+			Currently only one using is Fire Tank Item
+
+ITEMS
+	Life Crystal: Increase Health percentage
+	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
+
+---- Update from latest push (Wed Apr  9 17:15:45 PST 2025) ----
+branch: reset_resai
+v0.1.6.3:
+	Player:
+		Find Used attributes return the computed values
+		Changing any variable that changes computed values now trigger Item Update from inventory
+	Inventory:
+		Update Item function goes through Items which calls an Item function
+			Currently only one using is Fire Tank Item
+
+ITEMS
+	Life Crystal: Increase Health percentage
+	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
+
+---- Update from latest push (Wed Apr  9 17:43:58 PST 2025) ----
+branch: reset_resai
+v0.1.6.3:
+	Player:
+		Find Used attributes return the computed values
+		Changing any variable that changes computed values now trigger Item Update from inventory
+	Inventory:
+		Update Item function goes through Items which calls an Item function
+			Currently only one using is Fire Tank Item
+
+ITEMS
+	Life Crystal: Increase Health percentage
+	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
+
+---- Update from latest push (Wed Apr  9 20:53:27 PST 2025) ----
+branch: reset_resai
+v0.1.6.3:
+	Player:
+		Find Used attributes return the computed values
+		Changing any variable that changes computed values now trigger Item Update from inventory
+	Inventory:
+		Update Item function goes through Items which calls an Item function
+			Currently only one using is Fire Tank Item
+
+ITEMS
+	Life Crystal: Increase Health percentage
+	Fire Tank: Deal Damage to all enemies around the user, Disables weapons
+
+---- Update from latest push (Wed Apr  9 21:53:57 PST 2025) ----
+branch: reset_resai
+v0.1.9:
+	Inventory and Pawnshop UI and Item:
+		Removed Tinting
+	Itemslot:
+		Added textureRect node for ItemIcons
+	Items:
+		Removed tinting
+		Used proper icon images
+	Levels:
+		Cleaned up Some test Levels
+ITEMS:
+	Light Sword: Disables Block, attacks now parry
+	Parry This: Become invincible for a few seconds upon successful parry
+	Riposte Gauntlet: Increase melee damage for a short time upon successful parry
+
+---- Update from latest push (Wed Apr  9 22:37:32 PST 2025) ----
+branch: reset_resai
+v0.1.9:
+	Inventory and Pawnshop UI and Item:
+		Removed Tinting
+	Itemslot:
+		Added textureRect node for ItemIcons
+	Items:
+		Removed tinting
+		Used proper icon images
+	Levels:
+		Cleaned up Some test Levels
+ITEMS:
+	Light Sword: Disables Block, attacks now parry
+	Parry This: Become invincible for a few seconds upon successful parry
+	Riposte Gauntlet: Increase melee damage for a short time upon successful parry
+
+---- Update from latest push (Wed Apr  9 22:44:32 PST 2025) ----
+branch: reset_resai
+v0.1.9:
+	Inventory and Pawnshop UI and Item:
+		Removed Tinting
+	Itemslot:
+		Added textureRect node for ItemIcons
+	Items:
+		Removed tinting
+		Used proper icon images
+	Levels:
+		Cleaned up Some test Levels
+ITEMS:
+	Light Sword: Disables Block, attacks now parry
+	Parry This: Become invincible for a few seconds upon successful parry
+	Riposte Gauntlet: Increase melee damage for a short time upon successful parry
+
+---- Update from latest push (Thu Apr 10 08:06:57 PST 2025) ----
+branch: reset_resai
+v0.1.9:
+	Inventory and Pawnshop UI and Item:
+		Removed Tinting
+	Itemslot:
+		Added textureRect node for ItemIcons
+	Items:
+		Removed tinting
+		Used proper icon images
+	Levels:
+		Cleaned up Some test Levels
+ITEMS:
+	Light Sword: Disables Block, attacks now parry
+	Parry This: Become invincible for a few seconds upon successful parry
+	Riposte Gauntlet: Increase melee damage for a short time upon successful parry
+
+---- Update from latest push (Thu Apr 10 10:54:16 PST 2025) ----
+branch: reset_julian
+v0.1.10.0:
+	1. Level0 Completion
+	- part 3, 4, 5, and 6 has been added
+	- part 3 consists of trash enemy tutorial
+	- part 4 consists of planing tutorial
+	- part 5 consists of elite enemy tutorial
+	- part 6 consists of boss tutorial
+	2. Boss Implementation
+	- Boss with proper sprites has been added 
+	- Current working attacks: circular saw
+	- bugs: melee attack hurtbox does not disappear for some reason - removed for the meantime
+	3. Portal implementation
+	- portal only spawns when the boss is killed
+	- bugs: emitting the pollution level from the UI stopped working for some reason - removed for the meantime for the fix 
+	4. Ligth shields
+	- boss and elite enemies have light shields with corresponding durability
+	- appears as white outline
+	- outline disappears when durability is destroyed

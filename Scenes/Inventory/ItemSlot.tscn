@@ -10,16 +10,11 @@ ignore_texture_size = true
 stretch_mode = 5
 script = ExtResource("2_broc3")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="ItemIcon" type="TextureRect" parent="."]
 layout_mode = 0
-offset_left = -16.0
-offset_top = 41.0
-offset_right = 56.0
-offset_bottom = 64.0
-mouse_filter = 2
-
-[node name="Label" type="Label" parent="CenterContainer"]
-layout_mode = 2
+offset_right = 40.0
+offset_bottom = 40.0
+expand_mode = 3
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

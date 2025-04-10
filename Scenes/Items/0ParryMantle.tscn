@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqamlsc8qnjeg"]
+
+[ext_resource type="Script" path="res://Scripts/Items/ParryMantle.gd" id="1_d1qo4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
+size = Vector2(22.1679, 21.1539)
+
+[node name="ParryMantle" type="Node2D"]
+scale = Vector2(0.315403, 0.315403)
+script = ExtResource("1_d1qo4")
+Item_ID = "0016"
+Item_name = "Parry Mantle"
+Item_type = 2
+
+[node name="Icon" type="TextureRect" parent="."]
+offset_right = 68.0
+offset_bottom = 68.0
+expand_mode = 3
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 1032
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(35.0947, 33.5094)
+scale = Vector2(3.12681, 3.12681)
+shape = SubResource("RectangleShape2D_p8trr")
+
+[node name="InputLabel" type="Label" parent="."]
+offset_left = 25.3644
+offset_top = -76.0931
+offset_right = 65.3644
+offset_bottom = -53.0931
+scale = Vector2(4.12728, 4.12728)
+text = "F"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,5 +1,19 @@
 branch: reset_julian
-v0.0.9:
-	1. created PollutionSystem scene
-	2. created EATTRASH signal for trash_small, trash_medium, and trees to emit signals for pollution system
-	3. connected pollution system to player scene
+v0.1.10.0:
+	1. Level0 Completion
+	- part 3, 4, 5, and 6 has been added
+	- part 3 consists of trash enemy tutorial
+	- part 4 consists of planing tutorial
+	- part 5 consists of elite enemy tutorial
+	- part 6 consists of boss tutorial
+	2. Boss Implementation
+	- Boss with proper sprites has been added 
+	- Current working attacks: circular saw
+	- bugs: melee attack hurtbox does not disappear for some reason - removed for the meantime
+	3. Portal implementation
+	- portal only spawns when the boss is killed
+	- bugs: emitting the pollution level from the UI stopped working for some reason - removed for the meantime for the fix 
+	4. Ligth shields
+	- boss and elite enemies have light shields with corresponding durability
+	- appears as white outline
+	- outline disappears when durability is destroyed

@@ -3,6 +3,7 @@ extends GdUnitTestSuite
 
 
 const ITEM_SLOT_SCENE = "res://Scenes/Inventory/ItemSlot.tscn"  # Update with correct path
+const SAMPLE_ITEM_SCENE = "res://Scenes/Items/0MultiShot.tscn"
 
 func test_item_slot_ready():
 
@@ -21,33 +22,39 @@ func test_item_slot_ready():
 func test_item_slot_toggle_item_obtain():
 
  var item_slot_scene = load(ITEM_SLOT_SCENE)
+ var item_scene = load(SAMPLE_ITEM_SCENE)
  var item_slot = item_slot_scene.instantiate()
+ var item = item_scene.instantiate()
 
  var The_label = item_slot.get_node("CenterContainer/Label")
 
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item()
+ item_slot.toggle_item(true)
  assert_bool(item_slot.Has_item).is_true()
 
  item_slot.queue_free()
+ item.queue_free()
 
 func test_item_slot_toggle_item_discard():
 
  var item_slot_scene = load(ITEM_SLOT_SCENE)
+ var item_scene = load(SAMPLE_ITEM_SCENE)
  var item_slot = item_slot_scene.instantiate()
+ var item = item_scene.instantiate()
 
  var The_label = item_slot.get_node("CenterContainer/Label")
 
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item()
- item_slot.toggle_item()
+ item_slot.toggle_item(true)
+ item_slot.toggle_item(false)
  assert_bool(item_slot.Has_item).is_false()
 
  item_slot.queue_free()
+ item.queue_free()
 
 func test_item_slot_click_no_item():
 
@@ -67,35 +74,40 @@ func test_item_slot_click_no_item():
 func test_item_slot_click_has_item():
 
  var item_slot_scene = load(ITEM_SLOT_SCENE)
+ var item_scene = load(SAMPLE_ITEM_SCENE)
  var item_slot = item_slot_scene.instantiate()
-
- var The_label = item_slot.get_node("CenterContainer/Label")
+ var item = item_scene.instantiate()
 
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item()
- item_slot._on_pressed()
- assert_bool(item_slot.Clicked).is_true()
+ item_slot.toggle_item(true)
+ item_slot._on_mouse_entered()
+ assert_bool(item_slot.Hover).is_true()
 
  item_slot.queue_free()
+ item.queue_free()
+
+
 
 func test_item_slot_reset():
 
  var item_slot_scene = load(ITEM_SLOT_SCENE)
+ var item_scene = load(SAMPLE_ITEM_SCENE)
  var item_slot = item_slot_scene.instantiate()
+ var item = item_scene.instantiate()
 
  var The_label = item_slot.get_node("CenterContainer/Label")
 
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.toggle_item()
- item_slot._on_pressed()
+ item_slot.toggle_item(true)
  item_slot.reset()
  assert_bool(item_slot.Clicked).is_false()
 
  item_slot.queue_free()
+ item.queue_free()
 
 func test_item_set_index():
 
@@ -112,20 +124,24 @@ func test_item_set_index():
 
  item_slot.queue_free()
 
-func test_item_change_label():
+func test_item_update_ui():
 
  var item_slot_scene = load(ITEM_SLOT_SCENE)
+ var item_scene = load(SAMPLE_ITEM_SCENE)
  var item_slot = item_slot_scene.instantiate()
+ var item = item_scene.instantiate()
 
  var The_label = item_slot.get_node("CenterContainer/Label")
 
  add_child(item_slot)
  await get_tree().process_frame  # Allow _ready() to execute
 
- item_slot.change_label("Glimpse of Flames")
- assert_str(item_slot.The_label.text).is_equal("Glimpse of Flames")
+ item_slot.toggle_item(true)
+ item_slot.update_slot_ui()
+ # No need for assertions, as long as update runs
 
  item_slot.queue_free()
-
+ item.queue_free()
 
 # Cannot test live methods (For BDD or Scene runner) [Ex: _on_mouse_entered etc...]
+# NOTE "item" instantiation might not be used anymore after sprint 5

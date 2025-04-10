@@ -1,15 +1,41 @@
-[gd_scene load_steps=9 format=3 uid="uid://3l055tt4lhc"]
+[gd_scene load_steps=17 format=3 uid="uid://3l055tt4lhc"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Recycler.gd" id="1_6hf5r"]
-[ext_resource type="Texture2D" uid="uid://b5waaboblqwti" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
+[ext_resource type="Texture2D" uid="uid://muv3gtr72kf0" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
 [ext_resource type="PackedScene" uid="uid://et7hu31mtlgf" path="res://Scenes/Interactables/ItemManager.tscn" id="2_c0ff1"]
 [ext_resource type="Script" path="res://Scripts/Interactables/RecyclerUI.gd" id="3_bw1r6"]
-[ext_resource type="Texture2D" uid="uid://bbgcpktgpyph2" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
+[ext_resource type="Texture2D" uid="uid://bxx1fnbelg0lt" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
 [ext_resource type="PackedScene" uid="uid://brm8k3e0qaxpp" path="res://Scenes/Interactables/RecyclerButton.tscn" id="7_fohf1"]
+[ext_resource type="AudioStream" uid="uid://cpn30m2vptd3s" path="res://Music/SFX/recycler_spit.mp3" id="7_qhtvr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joq7y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fovvc"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_1c7js"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_un1sj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vwa04"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_d47ai"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spnkm"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5xt1u"]
+
+[sub_resource type="Theme" id="Theme_or8to"]
+VScrollBar/icons/decrement = SubResource("ImageTexture_1c7js")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_1c7js")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_1c7js")
+VScrollBar/icons/increment = SubResource("ImageTexture_1c7js")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_1c7js")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_1c7js")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_un1sj")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_vwa04")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_d47ai")
+VScrollBar/styles/scroll = SubResource("StyleBoxEmpty_spnkm")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_5xt1u")
 
 [node name="RecyclerManager" type="StaticBody2D"]
 collision_layer = 1545
@@ -49,13 +75,29 @@ offset_left = -112.0
 offset_top = -56.0
 offset_right = -72.0
 offset_bottom = -16.0
-scale = Vector2(0.569697, 0.569697)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_bw1r6")
 
 [node name="RecyclerPanel" type="Panel" parent="RecyclerUI"]
 layout_mode = 0
-offset_right = 400.0
-offset_bottom = 200.0
+offset_left = -76.0
+offset_top = -36.0
+offset_right = 524.0
+offset_bottom = 264.0
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 0
+offset_left = 246.0
+offset_top = 46.0
+offset_right = 580.0
+offset_bottom = 270.0
+theme = SubResource("Theme_or8to")
+
+[node name="DescriptionTextLabel" type="RichTextLabel" parent="RecyclerUI/RecyclerPanel/ScrollContainer2"]
+clip_contents = false
+custom_minimum_size = Vector2(334, 338)
+layout_mode = 2
+text = "easasaer"
 
 [node name="RecyclerLabel" type="Label" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0
@@ -67,62 +109,54 @@ text = "Recycler"
 
 [node name="TextureRect" type="TextureRect" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0
-offset_left = 305.424
-offset_top = 5.26611
-offset_right = 2353.42
-offset_bottom = 2053.27
+offset_left = 435.319
+offset_top = 8.77659
+offset_right = 2483.31
+offset_bottom = 2056.78
 scale = Vector2(0.0171447, 0.0171447)
 texture = ExtResource("4_jwbys")
 
 [node name="TrashLabel" type="Label" parent="RecyclerUI/RecyclerPanel"]
 layout_mode = 0
-offset_left = 344.0
-offset_top = 13.266
-offset_right = 384.0
-offset_bottom = 36.266
+offset_left = 480.957
+offset_top = 14.0426
+offset_right = 520.957
+offset_bottom = 37.0426
 text = "0"
 
-[node name="CenterContainer" type="CenterContainer" parent="RecyclerUI/RecyclerPanel"]
-layout_mode = 2
-offset_top = 56.1702
-offset_right = 433.0
-offset_bottom = 96.1702
+[node name="ScrollContainer" type="ScrollContainer" parent="RecyclerUI/RecyclerPanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 44.0
+offset_right = 227.0
+offset_bottom = 268.0
+theme = SubResource("Theme_or8to")
 
-[node name="RecyclerGrid" type="GridContainer" parent="RecyclerUI/RecyclerPanel/CenterContainer"]
-layout_mode = 2
-theme_override_constants/h_separation = 91
-columns = 5
-
-[node name="RecyclerButton" parent="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid" instance=ExtResource("7_fohf1")]
+[node name="RecycleGrid" type="GridContainer" parent="RecyclerUI/RecyclerPanel/ScrollContainer"]
 layout_mode = 2
 
-[node name="RecyclerButton2" parent="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid" instance=ExtResource("7_fohf1")]
+[node name="RecycleButton" parent="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid" instance=ExtResource("7_fohf1")]
 layout_mode = 2
 
-[node name="RecyclerButton3" parent="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid" instance=ExtResource("7_fohf1")]
+[node name="RecycleButton2" parent="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid" instance=ExtResource("7_fohf1")]
 layout_mode = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="RecyclerUI/RecyclerPanel"]
-layout_mode = 2
-offset_top = 126.383
-offset_right = 400.0
-offset_bottom = 166.383
-
-[node name="RecyclerGrid2" type="GridContainer" parent="RecyclerUI/RecyclerPanel/CenterContainer2"]
-layout_mode = 2
-theme_override_constants/h_separation = 92
-columns = 5
-
-[node name="RecyclerButton" parent="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2" instance=ExtResource("7_fohf1")]
+[node name="RecycleButton3" parent="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid" instance=ExtResource("7_fohf1")]
 layout_mode = 2
 
-[node name="RecyclerButton2" parent="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2" instance=ExtResource("7_fohf1")]
+[node name="RecycleButton4" parent="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid" instance=ExtResource("7_fohf1")]
 layout_mode = 2
+
+[node name="RecycleButton5" parent="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid" instance=ExtResource("7_fohf1")]
+layout_mode = 2
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_qhtvr")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid/RecyclerButton" to="." method="_on_recycler_button_clicked"]
-[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid/RecyclerButton2" to="." method="_on_recycler_button_clicked"]
-[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer/RecyclerGrid/RecyclerButton3" to="." method="_on_recycler_button_clicked"]
-[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2/RecyclerButton" to="." method="_on_recycler_button_clicked"]
-[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/CenterContainer2/RecyclerGrid2/RecyclerButton2" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid/RecycleButton" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid/RecycleButton2" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid/RecycleButton3" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid/RecycleButton4" to="." method="_on_recycler_button_clicked"]
+[connection signal="CLICKED" from="RecyclerUI/RecyclerPanel/ScrollContainer/RecycleGrid/RecycleButton5" to="." method="_on_recycler_button_clicked"]

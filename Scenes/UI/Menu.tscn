@@ -1,0 +1,116 @@
+[gd_scene load_steps=6 format=3 uid="uid://cg5g6b3cie2qj"]
+
+[ext_resource type="Script" path="res://Scripts/UI/StartButton.gd" id="1_7sdnx"]
+[ext_resource type="Texture2D" uid="uid://dwi5q7uifm46h" path="res://Art/Draft/title-screen.png" id="2_hplbn"]
+[ext_resource type="FontFile" uid="uid://cmwlpv802466h" path="res://Art/Font/Economica-Bold.ttf" id="3_buubt"]
+[ext_resource type="AudioStream" uid="uid://dnqcjhbfrmurq" path="res://Music/OST/menu_theme_draft.mp3" id="4_ifphr"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ofl1j"]
+
+[node name="Menu" type="CanvasLayer"]
+script = ExtResource("1_7sdnx")
+
+[node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 2540.0
+offset_bottom = 1580.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_hplbn")
+stretch_mode = 3
+
+[node name="Continue" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 539.0
+offset_top = 287.0
+offset_right = 699.0
+offset_bottom = 331.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../Exit")
+focus_neighbor_bottom = NodePath("../New Game")
+focus_next = NodePath("../New Game")
+focus_previous = NodePath("../Exit")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_buubt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ofl1j")
+text = "Continue"
+
+[node name="New Game" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 539.0
+offset_top = 335.0
+offset_right = 699.0
+offset_bottom = 379.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../Continue")
+focus_neighbor_bottom = NodePath("../Exit")
+focus_next = NodePath("../Exit")
+focus_previous = NodePath("../Continue")
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_buubt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ofl1j")
+text = "New Game"
+
+[node name="Exit" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 539.0
+offset_top = 386.0
+offset_right = 699.0
+offset_bottom = 430.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbor_top = NodePath("../New Game")
+focus_neighbor_bottom = NodePath("../Continue")
+focus_next = NodePath("../Continue")
+focus_previous = NodePath("../New Game")
+focus_mode = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_buubt")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ofl1j")
+text = "Exit"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"ui"
+
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ifphr")
+autoplay = true
+
+[connection signal="pressed" from="Menu/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="Menu/New Game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="Menu/Exit" to="." method="_on_exit_pressed"]

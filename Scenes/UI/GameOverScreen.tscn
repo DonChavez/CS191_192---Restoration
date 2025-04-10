@@ -1,0 +1,58 @@
+[gd_scene load_steps=3 format=3 uid="uid://dpdisv8unuwy0"]
+
+[ext_resource type="Script" path="res://Scripts/UI/GameOver.gd" id="1_p4vgk"]
+[ext_resource type="Material" uid="uid://c5r0ej5gssjqq" path="res://Scripts/UI/blur.tres" id="2_f57l8"]
+
+[node name="GameOver" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_p4vgk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = ExtResource("2_f57l8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.223529)
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 122.0
+offset_right = 80.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Restart"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -9.5
+offset_right = 20.0
+offset_bottom = 9.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "You died lmao"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

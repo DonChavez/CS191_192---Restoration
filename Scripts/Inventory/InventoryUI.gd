@@ -2,16 +2,12 @@ extends Control
 
 @onready var Inventory_manager = $".."
 @onready var Grid = $InventoryPanel/ScrollContainer/CenterContainer/InventoryGrid.get_children()
-@onready var Trashlabel = $InventoryPanel/TrashLabel
+@onready var Trashlabel = $InventoryPanel/TrashLabel if is_instance_valid($InventoryPanel/TrashLabel) else null
 @onready var Coinlabel = $InventoryPanel/CoinLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.visible = false
-
-#Toggle to see or not the Inventory UI
-func toggle_inventory():
-	self.visible = !self.visible
+	pass
 
 # Update texture of each Slot
 func update_inventory():
@@ -19,12 +15,13 @@ func update_inventory():
 		var Item = Inventory_manager.get_item(I) #InventorManager get item
 		var Slot = Grid[I]  # Get slot node
 		
-		# Replace with Icon texture if has item
+		Slot.texture_normal = load("res://Art/tilesets/grid.png")
 		if Item:
-			Slot.texture_normal = Item.get_node("Icon").texture
-		else: 
-			Slot.texture_normal = load("res://Art/tilesets/grid.png") #Blank tile
-
+			Slot.toggle_item_ui(Item.get_node("Icon").texture)
+		else:
+			Slot.toggle_item_ui(null)
+		
+		
 # Update Coin count UI
 func update_trash(Trash:int):
 	Trashlabel.text = str(Trash)
