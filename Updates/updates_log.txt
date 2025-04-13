@@ -415,3 +415,13 @@ v0.1.10.0:
 	- boss and elite enemies have light shields with corresponding durability
 	- appears as white outline
 	- outline disappears when durability is destroyed
+---- Update from latest push (Sun Apr 13 19:59:31 PST 2025) ----
+branch: reset_resai
+v0.1.10.1:
+	Items:
+		- Added Basic Sword Item
+		- Added Basic Bow Item
+	Dash:
+		- Added Dash camera interaction
+	Camera:
+		- Added Script to handle smooth dash animation
