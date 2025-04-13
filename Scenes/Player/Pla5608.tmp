@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
 [ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="8_5onck"]
-[ext_resource type="Script" path="res://Scripts/Player/Camera.gd" id="8_56bxr"]
+[ext_resource type="Script" path="res://Scenes/Player/Camera.gd" id="8_56bxr"]
 [ext_resource type="Script" path="res://Scripts/UI/UIWrapper.gd" id="9_48qhq"]
 [ext_resource type="PackedScene" uid="uid://dybc7khnwy044" path="res://Scenes/UI/HUD.tscn" id="10_kcxfu"]
 [ext_resource type="PackedScene" uid="uid://dpdisv8unuwy0" path="res://Scenes/UI/GameOverScreen.tscn" id="11_t5804"]
@@ -665,6 +665,10 @@ position = Vector2(-1, -4)
 collision_layer = 66
 collision_mask = 5
 script = ExtResource("1_fmgx4")
+Is_parrying = null
+Attack_sound = null
+Ranged_sound = null
+Knockback_strength = null
 
 [node name="AnimatedPlayer2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
