@@ -19,6 +19,7 @@ var is_attacking: bool = false
 var Speed = 50
 var Last_direction : Vector2 = Vector2.ZERO
 var Is_waiting : bool = false
+var Run_away : bool = false
 
 # player variables
 var Player_chase = false
@@ -40,7 +41,7 @@ func _physics_process(delta: float) -> void:
 		
 		Attack_timer += delta
 		
-		if Player != null and !Is_waiting:
+		if Player != null and !Is_waiting and !Run_away:
 			Ranged_los.target_position = Player.global_position - global_position
 			Ranged_los.force_raycast_update()
 			if Ranged_los.is_colliding() and Ranged_los.get_collider() == Player:
@@ -50,19 +51,28 @@ func _physics_process(delta: float) -> void:
 				Player_chase = false
 		
 		if Player_chase:
-			var Direction = (Player.position - position).normalized()
-			velocity = Direction * Speed
+			#var Direction = (Player.position - position).normalized()
+			#velocity = Direction * Speed
 			
 			# Play appropriate animation based on attack state
 			if is_attacking:
+				velocity = Vector2.ZERO
 				Ranged_sprite.play("Attack")
 			else:
+				#velocity = Direction * Speed
 				Ranged_sprite.play("Move")
 				
 			if Attack_timer >= Attack_cooldown and !is_attacking:
 				start_attack()
 			
 			Ranged_sprite.flip_h = Player.position.x < position.x
+		
+		elif Run_away:
+			is_attacking = false
+			var Direction = (position - Player.position).normalized()
+			velocity = Direction * Speed
+			
+			Ranged_sprite.flip_h = Player.position.x > position.x
 		
 		elif Is_waiting:
 			velocity = Last_direction * Speed
@@ -75,18 +85,19 @@ func _physics_process(delta: float) -> void:
 		enemy_dead()
 
 func start_attack() -> void:
-	is_attacking = true
-	Attack_timer = 0.0
-	Ranged_sprite.play("Attack")
-	
-	# Calculate time for 4th frame (assuming 0-based index)
-	var attack_speed = Ranged_sprite.get_sprite_frames().get_animation_speed("Attack")
-	var frame_duration = 1.0 / attack_speed
-	var time_to_frame_4 = frame_duration * 2 
-	
-	# Wait until 4th frame to spawn projectile
-	await get_tree().create_timer(time_to_frame_4).timeout
-	shoot_projectile()
+	if !Run_away:
+		is_attacking = true
+		Attack_timer = 0.0
+		Ranged_sprite.play("Attack")
+		
+		# Calculate time for 4th frame (assuming 0-based index)
+		var attack_speed = Ranged_sprite.get_sprite_frames().get_animation_speed("Attack")
+		var frame_duration = 1.0 / attack_speed
+		var time_to_frame_4 = frame_duration * 2 
+		
+		# Wait until 4th frame to spawn projectile
+		await get_tree().create_timer(time_to_frame_4).timeout
+		shoot_projectile()
 
 func _on_animation_finished() -> void:
 	if Ranged_sprite.animation == "Attack":
@@ -110,11 +121,24 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 			Is_waiting = false
 			Wait_timer.stop()
 
-func _on_detection_area_body_exited(_body: Node2D) -> void:
-	if _body == Player and Player_chase:
+func _on_detection_area_body_exited(body: Node2D) -> void:
+	if body == Player and Player_chase:
 		Is_waiting = true
 		Player_chase = false
 		Wait_timer.start()
+
+func _on_get_away_from_me_body_entered(body: Node2D) -> void:
+	if body == Player and Player_chase:
+		Player_chase = false
+		Run_away = true
+		print("GET AWAY FROM ME")
+
+func _on_get_away_from_me_body_exited(body: Node2D) -> void:
+	if body == Player:
+		Player_chase = true
+		Run_away = false
+		print("COME BACK HERE")
+
 
 func _on_wait_timer_timeout() -> void:
 	if Is_waiting:

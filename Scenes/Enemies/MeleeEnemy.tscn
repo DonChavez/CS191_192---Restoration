@@ -1,12 +1,12 @@
 [gd_scene load_steps=25 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
-[ext_resource type="Texture2D" uid="uid://bny1bremoaaso" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
+[ext_resource type="Texture2D" uid="uid://drf1oqe7rue1i" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_xthu2"]
-[ext_resource type="AudioStream" uid="uid://j0s23gajeupp" path="res://Music/SFX/Enemies/blunt_slash.mp3" id="7_lqy48"]
+[ext_resource type="AudioStream" uid="uid://d3wa7cnh6tof" path="res://Music/SFX/Enemies/blunt_slash.mp3" id="7_lqy48"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6napr"]
 atlas = ExtResource("2_q60wm")

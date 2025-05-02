@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8e1eypx76o43"]
+[gd_scene load_steps=4 format=3 uid="uid://dhobbqn2f65m4"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Collectable.gd" id="1_8lc0w"]
-[ext_resource type="Texture2D" uid="uid://bxx1fnbelg0lt" path="res://Art/Objects/trashbag.png" id="2_olocw"]
+[ext_resource type="Texture2D" uid="uid://6iwvgkdqoj8" path="res://Art/Objects/trashbag.png" id="2_olocw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuomk"]
 
