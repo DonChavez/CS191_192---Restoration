@@ -408,7 +408,7 @@ vertical_alignment = 1
 
 [node name="toNewTut" parent="." instance=ExtResource("5_14g4i")]
 position = Vector2(754, 447)
-Target_level_path = "res://Scenes/Levels/Level0/Level0Part1.tscn"
+Target_level_path = "res://Scenes/Levels/Level0/Level0Final.tscn"
 
 [node name="Label2" type="Label" parent="toNewTut"]
 offset_left = -22.0

@@ -2,6 +2,8 @@ extends Node2D
 
 @export var Portal_to_hub = load("res://Scenes/Interactables/Portal.tscn")
 @export var Target_level_path : String = "res://Scenes/Levels/TestingArea/HubTestingArea.tscn"
+@export var X_Portal : int = 478
+@export var Y_Portal : int = -46
 
 var Boss_defeated : bool = false
 var Portal_spawned : bool = false
@@ -32,5 +34,5 @@ func check_conditions() -> void:
 func spawn_portal() -> void: 
 	var Portal_instance = Portal_to_hub.instantiate()
 	Portal_instance.Target_level_path = Target_level_path
-	Portal_instance.position = Vector2(478, -46)
+	Portal_instance.position = Vector2(X_Portal, Y_Portal)
 	add_child(Portal_instance)

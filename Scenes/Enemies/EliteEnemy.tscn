@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://os8pu43ds3tc"]
+[gd_scene load_steps=48 format=3 uid="uid://os8pu43ds3tc"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/EliteEnemy.gd" id="1_q18po"]
 [ext_resource type="Shader" path="res://Scripts/Enemies/EliteEnemy.gdshader" id="1_r8k15"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3f8uv"]
 [ext_resource type="AudioStream" uid="uid://bas4p2oa0hlci" path="res://Music/SFX/Enemies/heavy_slash.mp3" id="8_7dabk"]
 [ext_resource type="AudioStream" uid="uid://q7elpqvkjvg8" path="res://Music/SFX/Enemies/shotgun.mp3" id="9_y1f4f"]
+[ext_resource type="PackedScene" uid="uid://4747hptuo641" path="res://Scenes/CoinSpawner.tscn" id="10_7e4yg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5ym0c"]
 shader = ExtResource("1_r8k15")
@@ -363,6 +364,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttack"]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_jlkg0")
+
+[node name="CoinSpawner" parent="." instance=ExtResource("10_7e4yg")]
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

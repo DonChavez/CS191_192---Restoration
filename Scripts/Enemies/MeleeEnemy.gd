@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var Melee_los: RayCast2D = $MeleeLOS
 @onready var Wait_timer: Timer = $WaitTimer
 @onready var Melee_sfx: AudioStreamPlayer2D = $MeleeSFX
+@onready var Coin_spawner: Node = $CoinSpawner
 
 # exportable variables
 # movement variables
@@ -151,6 +152,8 @@ func enemy_dead() -> void:
 	var Death_animation_frames : float = Melee_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
 	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
 	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
+	
+	Coin_spawner.spawn_coin(5)
 	
 	# wait for the death animation to finish playing
 	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout

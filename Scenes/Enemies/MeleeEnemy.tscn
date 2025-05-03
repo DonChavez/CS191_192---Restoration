@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dm30882fg0dtv"]
+[gd_scene load_steps=26 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
 [ext_resource type="Texture2D" uid="uid://drf1oqe7rue1i" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_xthu2"]
 [ext_resource type="AudioStream" uid="uid://d3wa7cnh6tof" path="res://Music/SFX/Enemies/blunt_slash.mp3" id="7_lqy48"]
+[ext_resource type="PackedScene" uid="uid://4747hptuo641" path="res://Scenes/CoinSpawner.tscn" id="8_mnu7x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6napr"]
 atlas = ExtResource("2_q60wm")
@@ -193,6 +194,8 @@ wait_time = 5.0
 [node name="MeleeSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_lqy48")
 bus = &"sfx"
+
+[node name="CoinSpawner" parent="." instance=ExtResource("8_mnu7x")]
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

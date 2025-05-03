@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var BE_hitbox: HitboxComponent = $BasicEnemyHitbox
 @onready var Line_of_sight: RayCast2D = $EnemyLOS
 @onready var Wait_timer: Timer = $WaitTimer
+@onready var Coin_spawner: Node = $CoinSpawner
 
 # movemovent variables
 var Speed = 50
@@ -115,5 +116,7 @@ func enemy_dead() -> void:
 	# wait for the death animation to finish playing
 	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
 	#-------Death Animation Handling-------#
+	
+	Coin_spawner.spawn_coin(2)
 	
 	queue_free()

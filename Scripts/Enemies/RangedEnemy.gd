@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var Ranged_hitbox: HitboxComponent = $RangedEnemyHitbox
 @onready var Ranged_los: RayCast2D = $RangedLOS
 @onready var Wait_timer: Timer = $WaitTimer
+@onready var Coin_spawner: Node = $CoinSpawner
 
 # exportable variables
 @export var Projectile = load("res://Scenes/Objects/Projectile.tscn")
@@ -159,4 +160,7 @@ func enemy_dead() -> void:
 	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
 	
 	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
+	
+	Coin_spawner.spawn_coin(10)
+	
 	queue_free()

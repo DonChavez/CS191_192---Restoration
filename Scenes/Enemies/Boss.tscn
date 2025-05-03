@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b128jqdf73j7d"]
+[gd_scene load_steps=43 format=3 uid="uid://b128jqdf73j7d"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/Boss.gd" id="1_oaeso"]
 [ext_resource type="Texture2D" uid="uid://durtom7hl6jct" path="res://Art/Characters/axebandicoot.png" id="3_eik70"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="6_7yace"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="7_cx56x"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_vv4gq"]
+[ext_resource type="PackedScene" uid="uid://4747hptuo641" path="res://Scenes/CoinSpawner.tscn" id="9_dljs1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w6us7"]
 shader = ExtResource("5_x4vs1")
@@ -338,6 +339,8 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossMeleeDetectionArea"]
 shape = SubResource("CircleShape2D_fcyb3")
+
+[node name="CoinSpawner" parent="." instance=ExtResource("9_dljs1")]
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

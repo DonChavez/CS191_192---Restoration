@@ -14,6 +14,7 @@ extends CharacterBody2D
 
 @onready var Boss_melee_detection_area: Area2D = $BossMeleeDetectionArea
 @onready var Melee_attack: HurtboxComponent = $MeleeAttack
+@onready var Coin_spawner: Node = $CoinSpawner
 
 # exportable variables
 # movement variables
@@ -349,6 +350,9 @@ func enemy_dead() -> void:
 	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
 	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
 	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
+	
+	Coin_spawner.spawn_coin(50)
+	
 	queue_free()
 
 func _on_boss_melee_detection_area_body_entered(body: Node2D) -> void:
