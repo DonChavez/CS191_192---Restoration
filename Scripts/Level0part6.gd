@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var Portal_to_hub = load("res://Scenes/Interactables/Portal.tscn")
-@export var Target_level_path : String = "res://Scenes/Levels/TestingArea/HubTestingArea.tscn"
+@export var Target_level_path : String = "res://Scenes/Levels/TestingArea/NewHubArea.tscn"
 @export var X_Portal : int = 478
 @export var Y_Portal : int = -46
 

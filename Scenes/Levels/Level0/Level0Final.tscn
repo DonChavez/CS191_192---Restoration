@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://bm1rguyy08mc1"]
+[gd_scene load_steps=102 format=4 uid="uid://bm1rguyy08mc1"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_71nxk"]
 [ext_resource type="Texture2D" uid="uid://cbfd1bxgojamu" path="res://Art/Tilesets/plains.png" id="2_stdq7"]
@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://kb63wl84mtd3" path="res://Scenes/Items/0Richochet.tscn" id="33_7e3ei"]
 [ext_resource type="PackedScene" uid="uid://h5aphehtfr43" path="res://Scenes/Items/0SpreadShot.tscn" id="34_ddnjf"]
 [ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLeech.tscn" id="36_drkq5"]
+[ext_resource type="PackedScene" uid="uid://dxeofmwydwwey" path="res://Scenes/Items/0StoneSkin.tscn" id="36_rfsqm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a31tv"]
 texture = ExtResource("1_71nxk")
@@ -9244,9 +9245,6 @@ tile_set = SubResource("TileSet_jov52")
 
 [node name="part1" type="Node2D" parent="."]
 
-[node name="PlayerSpawn" type="Node2D" parent="part1"]
-position = Vector2(134, 532)
-
 [node name="BreakableObject" parent="part1" instance=ExtResource("11_fdbbm")]
 position = Vector2(74, 609)
 
@@ -9276,15 +9274,6 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(312, 433)
 Dialogue_resource = ExtResource("16_8bhr7")
 Dialogue_start = "Introduction"
-
-[node name="MultiShot" parent="part1" instance=ExtResource("18_1aa7n")]
-position = Vector2(129, 649)
-
-[node name="SwordHate" parent="part1" instance=ExtResource("18_yicy8")]
-position = Vector2(331, 318)
-
-[node name="MultiShot2" parent="part1" instance=ExtResource("18_1aa7n")]
-position = Vector2(279, 315)
 
 [node name="part2" type="Node2D" parent="."]
 position = Vector2(631, 111)
@@ -9749,6 +9738,18 @@ position = Vector2(2023, 358)
 position = Vector2(1922, 634)
 Dialogue_resource = ExtResource("16_8bhr7")
 Dialogue_start = "HillGuy"
+
+[node name="PlayerSpawn" type="Node2D" parent="."]
+position = Vector2(129, 531)
+
+[node name="MultiShot" parent="." instance=ExtResource("18_1aa7n")]
+position = Vector2(253, 329)
+
+[node name="SwordHate" parent="." instance=ExtResource("18_yicy8")]
+position = Vector2(312, 330)
+
+[node name="StoneSkin" parent="." instance=ExtResource("36_rfsqm")]
+position = Vector2(126, 656)
 
 [connection signal="body_entered" from="part2/Stairs" to="part2/Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="part2/Stairs" to="part2/Stairs" method="_on_body_exited"]

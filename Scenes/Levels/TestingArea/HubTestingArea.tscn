@@ -430,67 +430,51 @@ position = Vector2(965, 248)
 
 [node name="DashBoots" parent="." instance=ExtResource("16_knn4t")]
 position = Vector2(197, 424)
-Spawn_animate = false
 
 [node name="DoubleTime" parent="." instance=ExtResource("17_h0vfh")]
 position = Vector2(192, 465)
-Spawn_animate = false
 
 [node name="FireTank" parent="." instance=ExtResource("18_t2ugx")]
 position = Vector2(194, 502)
-Spawn_animate = false
 
 [node name="GlassCannon" parent="." instance=ExtResource("19_f5e1k")]
 position = Vector2(187, 537)
-Spawn_animate = false
 
 [node name="LifeCrystal" parent="." instance=ExtResource("20_w8yam")]
 position = Vector2(187, 576)
-Spawn_animate = false
 
 [node name="MultiShot" parent="." instance=ExtResource("16_iuc1w")]
 position = Vector2(372, 421)
-Spawn_animate = false
 
 [node name="ParryMantle" parent="." instance=ExtResource("22_vvjux")]
 position = Vector2(277, 528)
-Spawn_animate = false
 
 [node name="Pierce" parent="." instance=ExtResource("21_x7ygo")]
 position = Vector2(368, 503)
-Spawn_animate = false
 
 [node name="Ricochet" parent="." instance=ExtResource("16_u8myj")]
 position = Vector2(373, 544)
-Spawn_animate = false
 
 [node name="RiposteGauntlet" parent="." instance=ExtResource("25_mbt8c")]
 position = Vector2(280, 428)
-Spawn_animate = false
 
 [node name="SpreadShot" parent="." instance=ExtResource("20_injys")]
 position = Vector2(370, 464)
-Spawn_animate = false
 
 [node name="StoneSkin" parent="." instance=ExtResource("27_en8xk")]
 position = Vector2(277, 474)
-Spawn_animate = false
 
 [node name="SwordHate" parent="." instance=ExtResource("28_g6c0c")]
 position = Vector2(467, 428)
-Spawn_animate = false
 
 [node name="SwordLeech" parent="." instance=ExtResource("29_qpkg5")]
 position = Vector2(464, 476)
-Spawn_animate = false
 
 [node name="SwordLight" parent="." instance=ExtResource("21_2qwh1")]
 position = Vector2(470, 516)
-Spawn_animate = false
 
 [node name="Spin Sword" parent="." instance=ExtResource("31_hoi2b")]
 position = Vector2(471, 564)
-Spawn_animate = false
 
 [node name="Enemies" type="Node2D" parent="."]
 
