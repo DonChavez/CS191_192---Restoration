@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/Environment/MovetoPart2.gd" id="11_tquvw"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="12_6serb"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="13_krwrk"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashPile.tscn" id="14_0tdrv"]
+[ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="14_0tdrv"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashCan.tscn" id="15_77e53"]
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="16_a7w2y"]
 [ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="17_xnjq0"]

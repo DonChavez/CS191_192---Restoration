@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=4 uid="uid://bm1rguyy08mc1"]
+[gd_scene load_steps=101 format=4 uid="uid://bm1rguyy08mc1"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_71nxk"]
 [ext_resource type="Texture2D" uid="uid://cbfd1bxgojamu" path="res://Art/Tilesets/plains.png" id="2_stdq7"]
@@ -13,15 +13,14 @@
 [ext_resource type="PackedScene" uid="uid://onv3ylysb86m" path="res://Scenes/Objects/BreakableObject.tscn" id="11_fdbbm"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="12_kitpf"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="13_30mxe"]
-[ext_resource type="Texture2D" uid="uid://borygxwb3hnfg" path="res://Art/Characters/player.png" id="14_0sbeo"]
-[ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/UI/Dialogue.tscn" id="15_4pwts"]
-[ext_resource type="PackedScene" uid="uid://v1dle5t75pan" path="res://Scenes/Interactables/PawnShop.tscn" id="16_gq3uu"]
+[ext_resource type="Resource" uid="uid://drochkgr2uhcg" path="res://Dialogue/Level0.dialogue" id="16_8bhr7"]
 [ext_resource type="PackedScene" uid="uid://disryke7g2rsn" path="res://Scenes/Items/0MultiShot.tscn" id="18_1aa7n"]
+[ext_resource type="PackedScene" uid="uid://dr3o55x38an4q" path="res://Scenes/Items/0SwordHate.tscn" id="18_yicy8"]
 [ext_resource type="PackedScene" uid="uid://btpotfo7v6c50" path="res://Scenes/Enemies/TowerEnemy.tscn" id="19_b8jte"]
 [ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="20_px0a7"]
 [ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="21_gc7ax"]
 [ext_resource type="Texture2D" uid="uid://yspj6li8ls2g" path="res://Art/Tilesets/Forest Stairs.jpg" id="22_atkyd"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashPile.tscn" id="22_r4vnx"]
+[ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="22_r4vnx"]
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="23_tbt0g"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashCan.tscn" id="23_xur37"]
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="24_p81mt"]
@@ -29,7 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="26_reclq"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/Trees.tscn" id="27_o3x25"]
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="28_ikmke"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/NPC.tscn" id="30_dvqnh"]
+[ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="30_dvqnh"]
 [ext_resource type="Script" path="res://Scripts/Level0part6.gd" id="30_eibje"]
 [ext_resource type="PackedScene" uid="uid://bgk1yki43amh" path="res://Scenes/Items/0Pierce.tscn" id="31_hl12n"]
 [ext_resource type="PackedScene" uid="uid://dfjvxrjh6jt1g" path="res://Scenes/Items/0ProjectileLife.tscn" id="32_p0dsk"]
@@ -9132,118 +9131,6 @@ sources/4 = SubResource("TileSetAtlasSource_axc6m")
 sources/5 = SubResource("TileSetAtlasSource_hg4gi")
 sources/6 = SubResource("TileSetAtlasSource_ibaay")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4s4x0"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_st52e"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lcx5a"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u14k2"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(144, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_s0ys1"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(192, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d70ki"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(240, 0, 48, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5il3x"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4s4x0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_st52e")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lcx5a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u14k2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_s0ys1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d70ki")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qamo4"]
-size = Vector2(8, 11)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5kqiw"]
-radius = 31.0161
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_38dyw"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(0, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5xdlt"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(48, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_raitk"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(96, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bxfpd"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(144, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ehk1k"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(192, 0, 48, 48)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xxsi0"]
-atlas = ExtResource("14_0sbeo")
-region = Rect2(240, 0, 48, 48)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_divtr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_38dyw")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5xdlt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_raitk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bxfpd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ehk1k")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xxsi0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kh247"]
-size = Vector2(8, 11)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_eyxen"]
-radius = 31.0161
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a0i14"]
 size = Vector2(76, 38)
 
@@ -9358,7 +9245,7 @@ tile_set = SubResource("TileSet_jov52")
 [node name="part1" type="Node2D" parent="."]
 
 [node name="PlayerSpawn" type="Node2D" parent="part1"]
-position = Vector2(124, 534)
+position = Vector2(134, 532)
 
 [node name="BreakableObject" parent="part1" instance=ExtResource("11_fdbbm")]
 position = Vector2(74, 609)
@@ -9385,78 +9272,25 @@ scale = Vector2(0.433304, 0.433304)
 text = "Return to Hub"
 metadata/_edit_use_anchors_ = true
 
-[node name="NPC" type="CharacterBody2D" parent="part1"]
-position = Vector2(315, 453)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="part1/NPC"]
-sprite_frames = SubResource("SpriteFrames_5il3x")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="part1/NPC"]
-position = Vector2(1, 12)
-shape = SubResource("RectangleShape2D_qamo4")
-
-[node name="Area2D" type="Area2D" parent="part1/NPC"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="part1/NPC/Area2D"]
-position = Vector2(1, 9)
-shape = SubResource("CircleShape2D_5kqiw")
-
-[node name="Dialogue" parent="part1/NPC" instance=ExtResource("15_4pwts")]
-offset_left = -56.0
-offset_top = -48.0
-offset_right = -56.0
-offset_bottom = -48.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="part1/NPC"]
-offset_left = 15.0
-offset_top = 5.0
-offset_right = 89.0
-offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
-text = "F to speak"
-metadata/_edit_use_anchors_ = true
-
-[node name="Shop" parent="part1" instance=ExtResource("16_gq3uu")]
-position = Vector2(311, 332)
+[node name="IntroGuy" parent="part1" instance=ExtResource("30_dvqnh")]
+position = Vector2(312, 433)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "Introduction"
 
 [node name="MultiShot" parent="part1" instance=ExtResource("18_1aa7n")]
 position = Vector2(129, 649)
+
+[node name="SwordHate" parent="part1" instance=ExtResource("18_yicy8")]
+position = Vector2(331, 318)
+
+[node name="MultiShot2" parent="part1" instance=ExtResource("18_1aa7n")]
+position = Vector2(279, 315)
 
 [node name="part2" type="Node2D" parent="."]
 position = Vector2(631, 111)
 
 [node name="TowerEnemy" parent="part2" instance=ExtResource("19_b8jte")]
 position = Vector2(443, -39)
-
-[node name="NPC" type="CharacterBody2D" parent="part2"]
-position = Vector2(737, 258)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="part2/NPC"]
-sprite_frames = SubResource("SpriteFrames_divtr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="part2/NPC"]
-position = Vector2(1, 12)
-shape = SubResource("RectangleShape2D_kh247")
-
-[node name="Area2D" type="Area2D" parent="part2/NPC"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="part2/NPC/Area2D"]
-position = Vector2(1, 9)
-shape = SubResource("CircleShape2D_eyxen")
-
-[node name="Label" type="Label" parent="part2/NPC"]
-offset_left = 15.0
-offset_top = 5.0
-offset_right = 89.0
-offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
-text = "F to speak"
-metadata/_edit_use_anchors_ = true
 
 [node name="BasicEnemy" parent="part2" instance=ExtResource("20_px0a7")]
 position = Vector2(738, 170)
@@ -9480,33 +9314,6 @@ position = Vector2(1191, 130)
 
 [node name="BasicEnemy5" parent="part2" instance=ExtResource("20_px0a7")]
 position = Vector2(1123, 33)
-
-[node name="NPC2" type="CharacterBody2D" parent="part2"]
-position = Vector2(1240, -25)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="part2/NPC2"]
-sprite_frames = SubResource("SpriteFrames_divtr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="part2/NPC2"]
-position = Vector2(1, 12)
-shape = SubResource("RectangleShape2D_kh247")
-
-[node name="Area2D" type="Area2D" parent="part2/NPC2"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="part2/NPC2/Area2D"]
-position = Vector2(1, 9)
-shape = SubResource("CircleShape2D_eyxen")
-
-[node name="Label" type="Label" parent="part2/NPC2"]
-offset_left = 15.0
-offset_top = 5.0
-offset_right = 89.0
-offset_bottom = 24.0
-scale = Vector2(0.5, 0.5)
-text = "F to speak"
-metadata/_edit_use_anchors_ = true
 
 [node name="Stairs2" type="Area2D" parent="part2"]
 position = Vector2(1518, -373)
@@ -9539,6 +9346,18 @@ rotation = 2.08795
 [node name="BreakableObject4" parent="part2" instance=ExtResource("11_fdbbm")]
 position = Vector2(1221, 616)
 rotation = 0.920922
+
+[node name="NPCs" type="Node2D" parent="part2"]
+
+[node name="SlimeTrap" parent="part2/NPCs" instance=ExtResource("30_dvqnh")]
+position = Vector2(737, 260)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "NPCInDistress"
+
+[node name="TownTrap" parent="part2/NPCs" instance=ExtResource("30_dvqnh")]
+position = Vector2(1252, -26)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "TownInDistress"
 
 [node name="part3" type="Node2D" parent="."]
 position = Vector2(1539, 333)
@@ -9839,11 +9658,10 @@ position = Vector2(513, 102)
 
 [node name="NPCsAndRewards" type="CanvasGroup" parent="part6"]
 
-[node name="NPC" parent="part6/NPCsAndRewards" instance=ExtResource("30_dvqnh")]
+[node name="EndGuy" parent="part6/NPCsAndRewards" instance=ExtResource("30_dvqnh")]
 position = Vector2(487, 10)
-
-[node name="NPC2" parent="part6/NPCsAndRewards" instance=ExtResource("16_gq3uu")]
-position = Vector2(1393, 431)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "Congratulations"
 
 [node name="RecyclerManager" parent="part6/NPCsAndRewards" instance=ExtResource("12_kitpf")]
 position = Vector2(1477, 432)
@@ -9865,6 +9683,11 @@ position = Vector2(202, 725)
 
 [node name="SpreadShot" parent="part6/NPCsAndRewards" instance=ExtResource("34_ddnjf")]
 position = Vector2(1223, 94)
+
+[node name="BeforeBoss" parent="part6/NPCsAndRewards" instance=ExtResource("30_dvqnh")]
+position = Vector2(1351, 446)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "RecyclerDude"
 
 [node name="Enemies" type="Node2D" parent="part6"]
 position = Vector2(160, 6)
@@ -9922,17 +9745,13 @@ polygon = PackedVector2Array(-189, 1937, -576, 1946, -582, 877, -161, 882, -166,
 [node name="SwordLeech" parent="." instance=ExtResource("36_drkq5")]
 position = Vector2(2023, 358)
 
-[node name="NPC" parent="." instance=ExtResource("30_dvqnh")]
+[node name="HillBoy" parent="." instance=ExtResource("30_dvqnh")]
 position = Vector2(1922, 634)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "HillGuy"
 
-[connection signal="body_entered" from="part1/NPC/Area2D" to="part1/NPC" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="part1/NPC/Area2D" to="part1/NPC" method="_on_area_2d_body_exited"]
-[connection signal="body_entered" from="part2/NPC/Area2D" to="part2/NPC" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="part2/NPC/Area2D" to="part2/NPC" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="part2/Stairs" to="part2/Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="part2/Stairs" to="part2/Stairs" method="_on_body_exited"]
-[connection signal="body_entered" from="part2/NPC2/Area2D" to="part2/NPC2" method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="part2/NPC2/Area2D" to="part2/NPC2" method="_on_area_2d_body_exited"]
 [connection signal="body_entered" from="part2/Stairs2" to="part2/Stairs2" method="_on_body_entered"]
 [connection signal="body_exited" from="part2/Stairs2" to="part2/Stairs2" method="_on_body_exited"]
 [connection signal="body_entered" from="part3/Stairs Handling/Stairs" to="part3/Stairs Handling/Stairs" method="_on_body_entered"]

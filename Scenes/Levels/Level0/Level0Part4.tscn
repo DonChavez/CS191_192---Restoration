@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cjpdt04uq065s" path="res://Art/Tilesets/walls/Houses/house4_1.png" id="9_xa5gb"]
 [ext_resource type="Texture2D" uid="uid://d3ot1p1y7edmk" path="res://Art/Tilesets/walls/Houses/house.png" id="10_vn6wb"]
 [ext_resource type="Script" path="res://Scripts/Environment/MovetoPart2.gd" id="11_renku"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashPile.tscn" id="12_pifgk"]
+[ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="12_pifgk"]
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="13_q3fcl"]
 [ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="14_q6cts"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/Trees.tscn" id="15_1xof2"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://drw6aay8lkvx6"]
+[gd_scene load_steps=26 format=3 uid="uid://drw6aay8lkvx6"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/RangedEnemy.gd" id="1_qc07w"]
 [ext_resource type="Texture2D" uid="uid://dx373k5mb3cys" path="res://Art/Sprites/Ranged_enemy.png" id="2_u3p8n"]
@@ -109,11 +109,17 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_skdr7"]
-radius = 6.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06fju"]
+size = Vector2(10, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
 radius = 48.0416
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3vwlj"]
+size = Vector2(10, 23)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsysn"]
+size = Vector2(10, 23)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fdqfc"]
 radius = 61.0328
@@ -130,8 +136,8 @@ sprite_frames = SubResource("SpriteFrames_ohb7u")
 animation = &"Attack"
 
 [node name="RangedEnemyCollision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_skdr7")
+position = Vector2(1, 5.5)
+shape = SubResource("RectangleShape2D_06fju")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 position = Vector2(0, 1)
@@ -150,7 +156,8 @@ collision_layer = 4
 Health = NodePath("../RangedEnemyHealth")
 
 [node name="RangedEnemyHitCollision" type="CollisionShape2D" parent="RangedEnemyHitbox"]
-shape = SubResource("CircleShape2D_skdr7")
+position = Vector2(1, 4.5)
+shape = SubResource("RectangleShape2D_3vwlj")
 
 [node name="RangedEnemyHurtbox" parent="." instance=ExtResource("6_1nxr0")]
 position = Vector2(0, 1)
@@ -158,7 +165,8 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="RangedEnemyHurtCollision" type="CollisionShape2D" parent="RangedEnemyHurtbox"]
-shape = SubResource("CircleShape2D_skdr7")
+position = Vector2(1, 4.5)
+shape = SubResource("RectangleShape2D_vsysn")
 
 [node name="HealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("6_emrfn")]
 offset_left = -4.0
