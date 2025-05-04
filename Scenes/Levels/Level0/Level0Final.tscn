@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=4 uid="uid://bm1rguyy08mc1"]
+[gd_scene load_steps=101 format=4 uid="uid://bm1rguyy08mc1"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_71nxk"]
 [ext_resource type="Texture2D" uid="uid://cbfd1bxgojamu" path="res://Art/Tilesets/plains.png" id="2_stdq7"]
@@ -34,7 +34,6 @@
 [ext_resource type="PackedScene" uid="uid://dfjvxrjh6jt1g" path="res://Scenes/Items/0ProjectileLife.tscn" id="32_p0dsk"]
 [ext_resource type="PackedScene" uid="uid://kb63wl84mtd3" path="res://Scenes/Items/0Richochet.tscn" id="33_7e3ei"]
 [ext_resource type="PackedScene" uid="uid://h5aphehtfr43" path="res://Scenes/Items/0SpreadShot.tscn" id="34_ddnjf"]
-[ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLeech.tscn" id="36_drkq5"]
 [ext_resource type="PackedScene" uid="uid://dxeofmwydwwey" path="res://Scenes/Items/0StoneSkin.tscn" id="36_rfsqm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a31tv"]
@@ -9259,7 +9258,7 @@ position = Vector2(159, 300)
 
 [node name="PortalToHub" parent="part1" instance=ExtResource("13_30mxe")]
 position = Vector2(201, 317)
-Target_level_path = "res://Scenes/Levels/TestingArea/HubTestingArea.tscn"
+Target_level_path = "res://Scenes/Levels/TestingArea/NewHubArea.tscn"
 
 [node name="Label2" type="Label" parent="part1/PortalToHub"]
 offset_left = -20.0
@@ -9278,18 +9277,6 @@ Dialogue_start = "Introduction"
 [node name="part2" type="Node2D" parent="."]
 position = Vector2(631, 111)
 
-[node name="TowerEnemy" parent="part2" instance=ExtResource("19_b8jte")]
-position = Vector2(443, -39)
-
-[node name="BasicEnemy" parent="part2" instance=ExtResource("20_px0a7")]
-position = Vector2(738, 170)
-
-[node name="BasicEnemy2" parent="part2" instance=ExtResource("20_px0a7")]
-position = Vector2(678, 350)
-
-[node name="BasicEnemy3" parent="part2" instance=ExtResource("20_px0a7")]
-position = Vector2(802, 353)
-
 [node name="Stairs" type="Area2D" parent="part2"]
 position = Vector2(7, 32)
 collision_mask = 2
@@ -9297,12 +9284,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="part2/Stairs"]
 position = Vector2(871, 546)
 shape = SubResource("RectangleShape2D_a0i14")
-
-[node name="BasicEnemy4" parent="part2" instance=ExtResource("20_px0a7")]
-position = Vector2(1191, 130)
-
-[node name="BasicEnemy5" parent="part2" instance=ExtResource("20_px0a7")]
-position = Vector2(1123, 33)
 
 [node name="Stairs2" type="Area2D" parent="part2"]
 position = Vector2(1518, -373)
@@ -9313,12 +9294,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="part2/Stairs2"]
 position = Vector2(871, 546)
 shape = SubResource("RectangleShape2D_a0i14")
-
-[node name="MeleeEnemy" parent="part2" instance=ExtResource("21_gc7ax")]
-position = Vector2(1220, 245)
-
-[node name="MeleeEnemy2" parent="part2" instance=ExtResource("21_gc7ax")]
-position = Vector2(1116, 201)
 
 [node name="BreakableObject" parent="part2" instance=ExtResource("11_fdbbm")]
 position = Vector2(1222, 564)
@@ -9380,7 +9355,7 @@ script = ExtResource("23_tbt0g")
 position = Vector2(851, 541)
 shape = SubResource("RectangleShape2D_mw825")
 
-[node name="TrashGroup" type="CanvasGroup" parent="part3"]
+[node name="TrashGroup" type="Node2D" parent="part3"]
 
 [node name="TrashPile" parent="part3/TrashGroup" instance=ExtResource("22_r4vnx")]
 position = Vector2(1219, 40)
@@ -9409,104 +9384,14 @@ position = Vector2(714, 618)
 [node name="TrashCan2" parent="part3/TrashGroup" instance=ExtResource("23_xur37")]
 position = Vector2(1303, 172)
 
-[node name="TrashSmall" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1569, 201)
-
-[node name="TrashSmall9" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1606, 599)
-
-[node name="TrashSmall10" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1557, 752)
-
-[node name="TrashSmall2" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1023, 245)
-
-[node name="TrashSmall3" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1166, 290)
-
-[node name="TrashSmall4" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1037, 384)
-
-[node name="TrashSmall5" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1255, 455)
-
-[node name="TrashSmall6" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1150, 538)
-
-[node name="TrashSmall7" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1006, 546)
-
-[node name="TrashSmall8" parent="part3/TrashGroup" instance=ExtResource("24_p81mt")]
-position = Vector2(1073, 53)
-
-[node name="TrashMedium" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1546, 383)
-
-[node name="TrashMedium6" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1510, 504)
-
-[node name="TrashMedium7" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1537, 66)
-
-[node name="TrashMedium2" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1092, 321)
-
-[node name="TrashMedium3" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1223, 138)
-
-[node name="TrashMedium4" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1054, 163)
-
-[node name="TrashMedium5" parent="part3/TrashGroup" instance=ExtResource("25_gyxax")]
-position = Vector2(1319, 536)
-
-[node name="EnemyGroup" type="CanvasGroup" parent="part3"]
-
-[node name="MeleeEnemy" parent="part3/EnemyGroup" instance=ExtResource("21_gc7ax")]
-position = Vector2(675, 370)
-
-[node name="MeleeEnemy2" parent="part3/EnemyGroup" instance=ExtResource("21_gc7ax")]
-position = Vector2(668, 168)
-
-[node name="MeleeEnemy3" parent="part3/EnemyGroup" instance=ExtResource("21_gc7ax")]
-position = Vector2(568, 15)
-
-[node name="MeleeEnemy4" parent="part3/EnemyGroup" instance=ExtResource("21_gc7ax")]
-position = Vector2(892, 562)
-
-[node name="BasicEnemy" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(591, 276)
-
-[node name="BasicEnemy6" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(678, 50)
-
-[node name="BasicEnemy7" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(705, -1)
-
-[node name="BasicEnemy2" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(544, 469)
-
-[node name="BasicEnemy3" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(506, 180)
-
-[node name="BasicEnemy4" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(681, 513)
-
-[node name="BasicEnemy5" parent="part3/EnemyGroup" instance=ExtResource("20_px0a7")]
-position = Vector2(499, 577)
-
-[node name="RangedEnemy2" parent="part3/EnemyGroup" instance=ExtResource("26_reclq")]
-position = Vector2(901, 368)
-
-[node name="RangedEnemy3" parent="part3/EnemyGroup" instance=ExtResource("26_reclq")]
-position = Vector2(832, 58)
+[node name="EnemyGroup" type="Node2D" parent="part3"]
 
 [node name="part4" type="Node2D" parent="."]
 position = Vector2(1538, 1228)
 
 [node name="SceneTransitions" type="CanvasGroup" parent="part4"]
 
-[node name="Trash" type="CanvasGroup" parent="part4"]
+[node name="Trash" type="Node2D" parent="part4"]
 
 [node name="TrashPile" parent="part4/Trash" instance=ExtResource("22_r4vnx")]
 position = Vector2(137, 832)
@@ -9516,30 +9401,6 @@ position = Vector2(964, 897)
 
 [node name="TrashPile3" parent="part4/Trash" instance=ExtResource("22_r4vnx")]
 position = Vector2(1286, 314)
-
-[node name="TrashSmall" parent="part4/Trash" instance=ExtResource("24_p81mt")]
-position = Vector2(1300, 41)
-
-[node name="TrashSmall2" parent="part4/Trash" instance=ExtResource("24_p81mt")]
-position = Vector2(860, 290)
-
-[node name="TrashSmall3" parent="part4/Trash" instance=ExtResource("24_p81mt")]
-position = Vector2(90, 258)
-
-[node name="TrashSmall4" parent="part4/Trash" instance=ExtResource("24_p81mt")]
-position = Vector2(1154, 666)
-
-[node name="TrashSmall5" parent="part4/Trash" instance=ExtResource("24_p81mt")]
-position = Vector2(415, 580)
-
-[node name="TrashMedium" parent="part4/Trash" instance=ExtResource("25_gyxax")]
-position = Vector2(419, 812)
-
-[node name="TrashMedium2" parent="part4/Trash" instance=ExtResource("25_gyxax")]
-position = Vector2(955, 86)
-
-[node name="TrashMedium3" parent="part4/Trash" instance=ExtResource("25_gyxax")]
-position = Vector2(848, 590)
 
 [node name="TrashCan" parent="part4/Trash" instance=ExtResource("23_xur37")]
 position = Vector2(443, 54)
@@ -9555,67 +9416,7 @@ position = Vector2(427, 340)
 [node name="Trees3" parent="part4/Objectives" instance=ExtResource("27_o3x25")]
 position = Vector2(810, 548)
 
-[node name="Enemies" type="CanvasGroup" parent="part4"]
-
-[node name="BasicEnemy" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(394, 384)
-
-[node name="BasicEnemy10" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1181, 515)
-
-[node name="BasicEnemy11" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1104, 234)
-
-[node name="BasicEnemy12" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1265, 783)
-
-[node name="BasicEnemy13" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1002, 431)
-
-[node name="BasicEnemy2" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(401, 314)
-
-[node name="BasicEnemy3" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(508, 408)
-
-[node name="BasicEnemy4" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(844, 510)
-
-[node name="BasicEnemy5" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(779, 598)
-
-[node name="BasicEnemy6" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(869, 585)
-
-[node name="BasicEnemy7" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(153, 591)
-
-[node name="BasicEnemy8" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(66, 586)
-
-[node name="BasicEnemy9" parent="part4/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(71, 663)
-
-[node name="MeleeEnemy" parent="part4/Enemies" instance=ExtResource("21_gc7ax")]
-position = Vector2(479, 326)
-
-[node name="MeleeEnemy2" parent="part4/Enemies" instance=ExtResource("21_gc7ax")]
-position = Vector2(763, 524)
-
-[node name="MeleeEnemy3" parent="part4/Enemies" instance=ExtResource("21_gc7ax")]
-position = Vector2(166, 667)
-
-[node name="RangedEnemy" parent="part4/Enemies" instance=ExtResource("26_reclq")]
-position = Vector2(157, 413)
-
-[node name="RangedEnemy2" parent="part4/Enemies" instance=ExtResource("26_reclq")]
-position = Vector2(632, 407)
-
-[node name="RangedEnemy3" parent="part4/Enemies" instance=ExtResource("26_reclq")]
-position = Vector2(880, 732)
-
-[node name="TowerEnemy" parent="part4/Enemies" instance=ExtResource("19_b8jte")]
-position = Vector2(487, 624)
+[node name="Enemies" type="Node2D" parent="part4"]
 
 [node name="Breakables" type="CanvasGroup" parent="part4"]
 
@@ -9633,7 +9434,6 @@ rotation = 1.62705
 
 [node name="part6" type="Node2D" parent="."]
 position = Vector2(-345, 1103)
-script = ExtResource("30_eibje")
 
 [node name="SceneTransitions" type="CanvasGroup" parent="part6"]
 
@@ -9678,42 +9478,6 @@ position = Vector2(1351, 446)
 Dialogue_resource = ExtResource("16_8bhr7")
 Dialogue_start = "RecyclerDude"
 
-[node name="Enemies" type="Node2D" parent="part6"]
-position = Vector2(160, 6)
-
-[node name="BossEliteEnemy" parent="part6/Enemies" groups=["Boss"] instance=ExtResource("28_ikmke")]
-position = Vector2(416, 526)
-
-[node name="MeleeEnemy" parent="part6/Enemies" instance=ExtResource("21_gc7ax")]
-position = Vector2(417, 340)
-
-[node name="MeleeEnemy2" parent="part6/Enemies" instance=ExtResource("21_gc7ax")]
-position = Vector2(421, 706)
-
-[node name="RangedEnemy" parent="part6/Enemies" instance=ExtResource("26_reclq")]
-position = Vector2(346, 387)
-
-[node name="RangedEnemy2" parent="part6/Enemies" instance=ExtResource("26_reclq")]
-position = Vector2(346, 646)
-
-[node name="BasicEnemy" parent="part6/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1503, 718)
-
-[node name="BasicEnemy2" parent="part6/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1569, 803)
-
-[node name="BasicEnemy3" parent="part6/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1488, 865)
-
-[node name="BasicEnemy4" parent="part6/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1597, 376)
-
-[node name="BasicEnemy5" parent="part6/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1461, 313)
-
-[node name="BasicEnemy6" parent="part6/Enemies" instance=ExtResource("20_px0a7")]
-position = Vector2(1565, 227)
-
 [node name="WorldCollisions" type="Node2D" parent="."]
 
 [node name="BeachCollisions" type="StaticBody2D" parent="WorldCollisions"]
@@ -9731,9 +9495,6 @@ polygon = PackedVector2Array(1963, 776, 1963, 1049, 1569, 1228, 1113, 1223, 894,
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WorldCollisions/OutsideCollisions"]
 polygon = PackedVector2Array(-189, 1937, -576, 1946, -582, 877, -161, 882, -166, 116, 484, 107, 496, -124, 2316, -113, 2314, 93, 2909, 109, 2910, 187, 1958, 195, 1961, -14, 988, -6, 982, 373, 405, 373, 397, 266, -30, 263, -8, 634, 54, 628, 60, 1030, -47, 1052, -245, 1397, -260, 1861)
 
-[node name="SwordLeech" parent="." instance=ExtResource("36_drkq5")]
-position = Vector2(2023, 358)
-
 [node name="HillBoy" parent="." instance=ExtResource("30_dvqnh")]
 position = Vector2(1922, 634)
 Dialogue_resource = ExtResource("16_8bhr7")
@@ -9750,6 +9511,410 @@ position = Vector2(312, 330)
 
 [node name="StoneSkin" parent="." instance=ExtResource("36_rfsqm")]
 position = Vector2(126, 656)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Elite" type="Node2D" parent="Enemies"]
+script = ExtResource("30_eibje")
+X_Portal = 145
+Y_Portal = 1005
+
+[node name="EliteEnemy" parent="Enemies/Elite" groups=["Boss"] instance=ExtResource("28_ikmke")]
+position = Vector2(118, 1632)
+
+[node name="Tower" type="Node2D" parent="Enemies"]
+
+[node name="TowerEnemy" parent="Enemies/Tower" instance=ExtResource("19_b8jte")]
+position = Vector2(1085, 109)
+
+[node name="Ranged" type="Node2D" parent="Enemies"]
+
+[node name="RangedEnemy" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(2470, 994)
+
+[node name="RangedEnemy2" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(1775, 1647)
+
+[node name="RangedEnemy3" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(2715, 1908)
+
+[node name="RangedEnemy4" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(2252, 394)
+
+[node name="RangedEnemy5" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(2498, 343)
+
+[node name="RangedEnemy6" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(119, 1776)
+
+[node name="RangedEnemy7" parent="Enemies/Ranged" instance=ExtResource("26_reclq")]
+position = Vector2(129, 1489)
+
+[node name="Melee" type="Node2D" parent="Enemies"]
+
+[node name="MeleeEnemy" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(1820, 334)
+
+[node name="MeleeEnemy2" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(1734, 272)
+
+[node name="MeleeEnemy3" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2219, 722)
+
+[node name="MeleeEnemy4" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2225, 539)
+
+[node name="MeleeEnemy5" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2429, 755)
+
+[node name="MeleeEnemy6" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2151, 361)
+
+[node name="MeleeEnemy7" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2638, 682)
+
+[node name="MeleeEnemy8" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2814, 799)
+
+[node name="MeleeEnemy9" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2670, 915)
+
+[node name="MeleeEnemy10" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2577, 1292)
+
+[node name="MeleeEnemy11" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2765, 1417)
+
+[node name="MeleeEnemy12" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2371, 1740)
+
+[node name="MeleeEnemy13" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(1991, 1529)
+
+[node name="MeleeEnemy14" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(1671, 1821)
+
+[node name="MeleeEnemy15" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(1972, 1783)
+
+[node name="MeleeEnemy16" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(2787, 471)
+
+[node name="MeleeEnemy17" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(242, 1548)
+
+[node name="MeleeEnemy18" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
+position = Vector2(225, 1700)
+
+[node name="Basic" type="Node2D" parent="Enemies"]
+
+[node name="BasicEnemy" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1322, 417)
+
+[node name="BasicEnemy9" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2091, 574)
+
+[node name="BasicEnemy10" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2070, 685)
+
+[node name="BasicEnemy11" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2098, 790)
+
+[node name="BasicEnemy12" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2173, 865)
+
+[node name="BasicEnemy13" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2070, 894)
+
+[node name="BasicEnemy14" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1927, 1539)
+
+[node name="BasicEnemy15" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1938, 1612)
+
+[node name="BasicEnemy16" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2018, 1597)
+
+[node name="BasicEnemy17" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2306, 1758)
+
+[node name="BasicEnemy18" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2326, 1814)
+
+[node name="BasicEnemy19" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2402, 1797)
+
+[node name="BasicEnemy20" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1614, 1831)
+
+[node name="BasicEnemy21" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1627, 1893)
+
+[node name="BasicEnemy22" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1704, 1887)
+
+[node name="BasicEnemy23" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1251, 1289)
+
+[node name="BasicEnemy24" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1344, 1384)
+
+[node name="BasicEnemy25" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1382, 1484)
+
+[node name="BasicEnemy26" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1282, 1814)
+
+[node name="BasicEnemy27" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1404, 1815)
+
+[node name="BasicEnemy28" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1345, 1921)
+
+[node name="BasicEnemy29" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1345, 1921)
+
+[node name="BasicEnemy30" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1759, 1423)
+
+[node name="BasicEnemy31" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2406, 1523)
+
+[node name="BasicEnemy32" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2638, 1454)
+
+[node name="BasicEnemy33" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2358, 1072)
+
+[node name="BasicEnemy34" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2449, 578)
+
+[node name="BasicEnemy35" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(2263, 323)
+
+[node name="BasicEnemy2" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1366, 333)
+
+[node name="BasicEnemy3" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1413, 416)
+
+[node name="BasicEnemy4" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1794, 114)
+
+[node name="BasicEnemy5" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1843, 180)
+
+[node name="BasicEnemy6" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1869, 254)
+
+[node name="BasicEnemy7" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1772, 183)
+
+[node name="BasicEnemy8" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
+position = Vector2(1808, 260)
+
+[node name="TrashParts" type="Node2D" parent="."]
+
+[node name="TrashSmall" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3016, 330)
+
+[node name="TrashSmall2" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3094, 476)
+
+[node name="TrashSmall3" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3083, 738)
+
+[node name="TrashSmall4" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3120, 893)
+
+[node name="TrashSmall5" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3042, 1084)
+
+[node name="TrashSmall6" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3122, 1317)
+
+[node name="TrashSmall7" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3035, 1531)
+
+[node name="TrashSmall8" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3137, 1711)
+
+[node name="TrashSmall9" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3051, 1927)
+
+[node name="TrashSmall10" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(3161, 2103)
+
+[node name="TrashSmall11" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2995, 2176)
+
+[node name="TrashSmall12" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2995, 2176)
+
+[node name="TrashSmall13" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2873, 2282)
+
+[node name="TrashSmall14" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2643, 2236)
+
+[node name="TrashSmall15" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2517, 2282)
+
+[node name="TrashSmall16" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2253, 2172)
+
+[node name="TrashSmall17" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2101, 2300)
+
+[node name="TrashSmall18" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(1859, 2220)
+
+[node name="TrashSmall19" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(1681, 2290)
+
+[node name="TrashSmall20" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(1459, 2208)
+
+[node name="TrashSmall21" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(1251, 2174)
+
+[node name="TrashSmall22" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(1029, 2196)
+
+[node name="TrashSmall23" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(753, 2142)
+
+[node name="TrashSmall24" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(753, 2142)
+
+[node name="TrashSmall25" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(541, 2188)
+
+[node name="TrashSmall26" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(327, 2146)
+
+[node name="TrashSmall27" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(86, 2166)
+
+[node name="TrashSmall28" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(-200, 2078)
+
+[node name="TrashSmall29" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(-296, 2208)
+
+[node name="TrashSmall30" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(-470, 2102)
+
+[node name="TrashSmall31" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(-470, 2102)
+
+[node name="TrashSmall32" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2025, 1927)
+
+[node name="TrashSmall33" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2381, 1938)
+
+[node name="TrashSmall34" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2630, 1838)
+
+[node name="TrashSmall35" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2587, 1613)
+
+[node name="TrashSmall36" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2452, 1378)
+
+[node name="TrashSmall37" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2858, 1253)
+
+[node name="TrashSmall38" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2470, 1192)
+
+[node name="TrashSmall39" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2499, 918)
+
+[node name="TrashSmall40" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2528, 683)
+
+[node name="TrashSmall41" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2378, 398)
+
+[node name="TrashSmall42" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2620, 384)
+
+[node name="TrashSmall43" parent="TrashParts" instance=ExtResource("24_p81mt")]
+position = Vector2(2620, 384)
+
+[node name="TrashMedium" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3151, 343)
+
+[node name="TrashMedium2" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3006, 911)
+
+[node name="TrashMedium3" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3130, 1133)
+
+[node name="TrashMedium4" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3130, 1520)
+
+[node name="TrashMedium5" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3053, 1769)
+
+[node name="TrashMedium6" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3144, 1988)
+
+[node name="TrashMedium7" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(3097, 2311)
+
+[node name="TrashMedium8" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2747, 2193)
+
+[node name="TrashMedium9" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2343, 2311)
+
+[node name="TrashMedium10" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2060, 2213)
+
+[node name="TrashMedium11" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(1626, 2186)
+
+[node name="TrashMedium12" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(1323, 2277)
+
+[node name="TrashMedium13" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(938, 2322)
+
+[node name="TrashMedium14" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(524, 2285)
+
+[node name="TrashMedium15" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(174, 2238)
+
+[node name="TrashMedium16" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(-72, 2248)
+
+[node name="TrashMedium17" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(-126, 2120)
+
+[node name="TrashMedium18" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(1623, 1659)
+
+[node name="TrashMedium19" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(1589, 1437)
+
+[node name="TrashMedium20" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2154, 1679)
+
+[node name="TrashMedium21" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2201, 1215)
+
+[node name="TrashMedium22" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2743, 1097)
+
+[node name="TrashMedium23" parent="TrashParts" instance=ExtResource("25_gyxax")]
+position = Vector2(2368, 660)
+
+[node name="RecyclerManager" parent="." instance=ExtResource("12_kitpf")]
+position = Vector2(2074, 355)
 
 [connection signal="body_entered" from="part2/Stairs" to="part2/Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="part2/Stairs" to="part2/Stairs" method="_on_body_exited"]
