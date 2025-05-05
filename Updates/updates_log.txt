@@ -395,3 +395,33 @@ ITEMS:
 	Parry This: Become invincible for a few seconds upon successful parry
 	Riposte Gauntlet: Increase melee damage for a short time upon successful parry
 
+---- Update from latest push (Thu Apr 10 10:54:16 PST 2025) ----
+branch: reset_julian
+v0.1.10.0:
+	1. Level0 Completion
+	- part 3, 4, 5, and 6 has been added
+	- part 3 consists of trash enemy tutorial
+	- part 4 consists of planing tutorial
+	- part 5 consists of elite enemy tutorial
+	- part 6 consists of boss tutorial
+	2. Boss Implementation
+	- Boss with proper sprites has been added 
+	- Current working attacks: circular saw
+	- bugs: melee attack hurtbox does not disappear for some reason - removed for the meantime
+	3. Portal implementation
+	- portal only spawns when the boss is killed
+	- bugs: emitting the pollution level from the UI stopped working for some reason - removed for the meantime for the fix 
+	4. Ligth shields
+	- boss and elite enemies have light shields with corresponding durability
+	- appears as white outline
+	- outline disappears when durability is destroyed
+---- Update from latest push (Sun Apr 13 19:59:31 PST 2025) ----
+branch: reset_resai
+v0.1.10.1:
+	Items:
+		- Added Basic Sword Item
+		- Added Basic Bow Item
+	Dash:
+		- Added Dash camera interaction
+	Camera:
+		- Added Script to handle smooth dash animation
