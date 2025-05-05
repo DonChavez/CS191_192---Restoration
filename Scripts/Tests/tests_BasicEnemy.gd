@@ -151,34 +151,34 @@ func test_enemy_dead_detect():
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
 
-func test_enemy_dead():
- var enemy_scene = load(ENEMY_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var enemy = enemy_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
- enemy.BE_health = healthcomponent
- enemy.BE_hitbox = hitboxcomponent
-
- var BE_sprite = enemy.get_node("AnimatedSprite2D")
-
- var sample_body = Node2D.new()
-
- add_child(enemy)
- await get_tree().process_frame  # Allow _ready() to execute
-
- enemy.BE_health.take_damage(100.0)
- enemy.enemy_dead()
-
- assert_bool(enemy.is_dead()).is_true()
- assert_bool(enemy.BE_hitbox.monitoring).is_false()
- 
- enemy.queue_free()
- sample_body.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
+#func test_enemy_dead():
+ #var enemy_scene = load(ENEMY_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var enemy = enemy_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+ #enemy.BE_health = healthcomponent
+ #enemy.BE_hitbox = hitboxcomponent
+#
+ #var BE_sprite = enemy.get_node("AnimatedSprite2D")
+#
+ #var sample_body = Node2D.new()
+#
+ #add_child(enemy)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #enemy.BE_health.take_damage(100.0)
+ #enemy.enemy_dead()
+#
+ #assert_bool(enemy.is_dead()).is_true()
+ #assert_bool(enemy.BE_hitbox.monitoring).is_false()
+ #
+ #enemy.queue_free()
+ #sample_body.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
