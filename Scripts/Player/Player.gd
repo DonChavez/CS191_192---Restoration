@@ -16,6 +16,8 @@ extends CharacterBody2D
 #-----onready variables-----#
 # Animation Variables
 @onready var Player_sprite: AnimatedSprite2D = $AnimatedPlayer2D
+@onready var Player_camera: Camera2D = $Camera2D
+
 # Action Variables
 @onready var Tempo_shield: Area2D = $TempoShield
 @onready var TS_durability: HealthComponent = $TempoShield/TSDurability
@@ -227,25 +229,31 @@ func dash() -> void:
 	if Last_direction == Vector2.ZERO:
 		Last_direction = Vector2.RIGHT
 	
-	var dash_vector = Last_direction.normalized() * Dash_distance
-	var target_position = global_position + dash_vector
+	# Save position before dash
+	var Pre_dash_position = global_position
 	
-	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(global_position, target_position)
-	query.collide_with_areas = false
-	query.collide_with_bodies = true
-	query.collision_mask = 1 << 0
-	var result = space_state.intersect_ray(query)
+	var Dash_vector = Last_direction.normalized() * Dash_distance
+	var Target_position = global_position + Dash_vector
 	
-	if result:
-		var safe_position = result.position - (Last_direction.normalized() * 2)
-		global_position = safe_position
+	var Space_state = get_world_2d().direct_space_state
+	var Query = PhysicsRayQueryParameters2D.create(global_position, Target_position)
+	Query.collide_with_areas = false
+	Query.collide_with_bodies = true
+	Query.collision_mask = 1 << 0
+	var Result = Space_state.intersect_ray(Query)
+	
+	if Result:
+		var Safe_position = Result.position - (Last_direction.normalized() * 2)
+		global_position = Safe_position
 	else:
-		global_position = target_position
+		global_position = Target_position
+	
+	Player_camera.on_player_dashed(Pre_dash_position)	# For animation
 	
 	Can_dash = false
 	await get_tree().create_timer(Dash_cooldown).timeout
 	Can_dash = true
+
 
 #----------animation related functions----------#
 func update_animations() -> void:
