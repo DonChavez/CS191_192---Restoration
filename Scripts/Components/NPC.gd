@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var Dialogue: Control = $Dialogue
 @onready var Guide: Label = $Label
 
+@export var Dialogue_resource : DialogueResource
+@export var Dialogue_start : String = ""
+
 var can_interact: bool = false  # Tracks if the player is in the interaction area
 
 func _ready():
@@ -13,8 +16,9 @@ func _ready():
 	
 func _physics_process(_delta):
 	if can_interact and Input.is_action_just_pressed("interact"):  # Check if 'F' key is pressed
-		Dialogue.visible = !Dialogue.visible  # Toggle visibility
-		Guide.visible = !Guide.visible
+		#Dialogue.visible = !Dialogue.visible  # Toggle visibility
+		#Guide.visible = !Guide.visible
+		DialogueManager.show_example_dialogue_balloon(Dialogue_resource, Dialogue_start)
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):  # Ensure only the player triggers it

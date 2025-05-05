@@ -14,7 +14,7 @@
 [ext_resource type="Script" path="res://Scripts/Environment/MovetoPart2.gd" id="11_cs5v7"]
 [ext_resource type="PackedScene" uid="uid://b128jqdf73j7d" path="res://Scenes/Enemies/Boss.tscn" id="12_an2cf"]
 [ext_resource type="PackedScene" uid="uid://onv3ylysb86m" path="res://Scenes/Objects/BreakableObject.tscn" id="13_iudna"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/NPC.tscn" id="15_lc0sk"]
+[ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="15_lc0sk"]
 [ext_resource type="PackedScene" uid="uid://v1dle5t75pan" path="res://Scenes/Interactables/PawnShop.tscn" id="16_paojj"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="17_bjh1a"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashCan.tscn" id="18_ka4pi"]

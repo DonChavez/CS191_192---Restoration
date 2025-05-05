@@ -1,13 +1,13 @@
-[gd_scene load_steps=38 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=43 format=4 uid="uid://cvpx21a28kpv3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://b5l4bnjgh5qhd" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
 [ext_resource type="Texture2D" uid="uid://cvorohdpce8lg" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
 [ext_resource type="Texture2D" uid="uid://u1cp43hebimg" path="res://Art/Objects/objects.png" id="4_yr3pd"]
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="5_14g4i"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/NPC.tscn" id="6_lef3a"]
+[ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="6_lef3a"]
 [ext_resource type="PackedScene" uid="uid://c0scvsyxn0nnp" path="res://Scenes/Interactables/Coin.tscn" id="9_h28lj"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashPile.tscn" id="10_6erel"]
+[ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="10_6erel"]
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="11_pu62g"]
 [ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="12_svkrl"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="14_epukc"]
@@ -31,6 +31,11 @@
 [ext_resource type="PackedScene" uid="uid://dr3o55x38an4q" path="res://Scenes/Items/0SwordHate.tscn" id="28_g6c0c"]
 [ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLeech.tscn" id="29_qpkg5"]
 [ext_resource type="PackedScene" uid="uid://bc3c7o8s02iwd" path="res://Scenes/Items/0SwordSpin.tscn" id="31_hoi2b"]
+[ext_resource type="PackedScene" uid="uid://dsucn6yegovhr" path="res://Scenes/Enemies/BasicEnemy.tscn" id="32_hra2v"]
+[ext_resource type="PackedScene" uid="uid://dm30882fg0dtv" path="res://Scenes/Enemies/MeleeEnemy.tscn" id="33_wtnk0"]
+[ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="34_3x581"]
+[ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="35_ote1c"]
+[ext_resource type="PackedScene" uid="uid://b128jqdf73j7d" path="res://Scenes/Enemies/Boss.tscn" id="36_ri6gv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")
@@ -349,7 +354,7 @@ vertical_alignment = 1
 
 [node name="PortalToForest" parent="." instance=ExtResource("5_14g4i")]
 position = Vector2(537, 434)
-Target_level_path = "res://Scenes/Levels/Forest.tscn"
+Target_level_path = "res://Scenes/Levels/Level1/Level1.tscn"
 
 [node name="Label2" type="Label" parent="PortalToForest"]
 offset_left = -14.0
@@ -425,64 +430,65 @@ position = Vector2(965, 248)
 
 [node name="DashBoots" parent="." instance=ExtResource("16_knn4t")]
 position = Vector2(197, 424)
-Spawn_animate = false
 
 [node name="DoubleTime" parent="." instance=ExtResource("17_h0vfh")]
 position = Vector2(192, 465)
-Spawn_animate = false
 
 [node name="FireTank" parent="." instance=ExtResource("18_t2ugx")]
 position = Vector2(194, 502)
-Spawn_animate = false
 
 [node name="GlassCannon" parent="." instance=ExtResource("19_f5e1k")]
 position = Vector2(187, 537)
-Spawn_animate = false
 
 [node name="LifeCrystal" parent="." instance=ExtResource("20_w8yam")]
 position = Vector2(187, 576)
-Spawn_animate = false
 
 [node name="MultiShot" parent="." instance=ExtResource("16_iuc1w")]
 position = Vector2(372, 421)
-Spawn_animate = false
 
 [node name="ParryMantle" parent="." instance=ExtResource("22_vvjux")]
 position = Vector2(277, 528)
-Spawn_animate = false
 
 [node name="Pierce" parent="." instance=ExtResource("21_x7ygo")]
 position = Vector2(368, 503)
-Spawn_animate = false
 
 [node name="Ricochet" parent="." instance=ExtResource("16_u8myj")]
 position = Vector2(373, 544)
-Spawn_animate = false
 
 [node name="RiposteGauntlet" parent="." instance=ExtResource("25_mbt8c")]
 position = Vector2(280, 428)
-Spawn_animate = false
 
 [node name="SpreadShot" parent="." instance=ExtResource("20_injys")]
 position = Vector2(370, 464)
-Spawn_animate = false
 
 [node name="StoneSkin" parent="." instance=ExtResource("27_en8xk")]
 position = Vector2(277, 474)
-Spawn_animate = false
 
 [node name="SwordHate" parent="." instance=ExtResource("28_g6c0c")]
 position = Vector2(467, 428)
-Spawn_animate = false
 
 [node name="SwordLeech" parent="." instance=ExtResource("29_qpkg5")]
 position = Vector2(464, 476)
-Spawn_animate = false
 
 [node name="SwordLight" parent="." instance=ExtResource("21_2qwh1")]
 position = Vector2(470, 516)
-Spawn_animate = false
 
 [node name="Spin Sword" parent="." instance=ExtResource("31_hoi2b")]
 position = Vector2(471, 564)
-Spawn_animate = false
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="BasicEnemy" parent="Enemies" instance=ExtResource("32_hra2v")]
+position = Vector2(108, 144)
+
+[node name="MeleeEnemy" parent="Enemies" instance=ExtResource("33_wtnk0")]
+position = Vector2(443, 91)
+
+[node name="RangedEnemy" parent="Enemies" instance=ExtResource("34_3x581")]
+position = Vector2(596, 542)
+
+[node name="EliteEnemy" parent="Enemies" instance=ExtResource("35_ote1c")]
+position = Vector2(989, 542)
+
+[node name="Boss" parent="Enemies" instance=ExtResource("36_ri6gv")]
+position = Vector2(1020, 90)
