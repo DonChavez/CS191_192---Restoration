@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2.ZERO
 			BE_sprite.play("Idle")
 		
-		move_and_slide()
+		move_and_collide(velocity * delta)
 	else:
 		enemy_dead()
 
@@ -76,6 +76,7 @@ func is_dead() -> bool:
 func enemy_dead() -> void:
 	BE_sprite.play("Death")
 	BE_hitbox.monitoring = false
+	BE_hitbox.monitorable = false
 	
 	var Death_animation_name : String = "Death"
 	var Death_animation_speed : float = BE_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
@@ -83,7 +84,8 @@ func enemy_dead() -> void:
 	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
 	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
 	
+	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
+	
 	Coin_spawner.spawn_coin(2)
 	
-	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
 	queue_free()
