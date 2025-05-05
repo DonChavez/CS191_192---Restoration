@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://onv3ylysb86m"]
 
 [ext_resource type="Script" path="res://Scripts/Environment/BreakableObject.gd" id="1_e5vff"]
-[ext_resource type="Texture2D" uid="uid://dhtw8xkrkxp23" path="res://Art/Objects/wooden log.png" id="1_u82lr"]
+[ext_resource type="Texture2D" uid="uid://dtl5q628s3j4k" path="res://Art/Objects/wooden log.png" id="1_u82lr"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_qrpcr"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_yg4eo"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="4_86txv"]
-[ext_resource type="PackedScene" uid="uid://cgqs0mhensrhc" path="res://Scenes/Interactables/TrashSpawner.tscn" id="6_riads"]
+[ext_resource type="PackedScene" uid="uid://yxxfogk31m4r" path="res://Scenes/Interactables/TrashSpawner.tscn" id="6_riads"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bccb0"]
 size = Vector2(1178, 331.526)

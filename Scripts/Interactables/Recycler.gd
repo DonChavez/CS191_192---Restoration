@@ -68,6 +68,7 @@ func _drop_item(Item_instance: Node2D):
 	
 	Item_instance.global_position = self.global_position+Vector2(0,70)
 	Item_instance.visible = true  # Ensure it's visible in the world
+	Item_instance.Spawn_animate = true # allows the items to jump out of existence
 
 	var World_scene = get_tree().current_scene  # Get current game world
 	World_scene.add_child(Item_instance)  # Move to world

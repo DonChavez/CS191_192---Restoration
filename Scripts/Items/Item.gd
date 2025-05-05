@@ -10,7 +10,7 @@ enum Existence { WORLD, INVENTORY, SHOP}
 
 @onready var Exist_in: Existence = Existence.WORLD 
 
-@export var Spawn_animate: bool = true
+@export var Spawn_animate: bool = false # changed to false by default
 enum ItemType {RANGE, MELEE, PASSIVE}
 @export var Item_type: ItemType
 @onready var Item_tier:int

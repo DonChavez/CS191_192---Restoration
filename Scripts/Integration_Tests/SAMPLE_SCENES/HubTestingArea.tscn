@@ -7,9 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="5_pdle8"]
 [ext_resource type="PackedScene" uid="uid://cjtxjswjxse8x" path="res://Scenes/Interactables/NPC.tscn" id="6_h77qy"]
 [ext_resource type="PackedScene" uid="uid://c0scvsyxn0nnp" path="res://Scenes/Interactables/Coin.tscn" id="7_wrygr"]
-[ext_resource type="PackedScene" uid="uid://dqitanht6fg3n" path="res://Scenes/Interactables/TrashPile.tscn" id="8_3honw"]
+[ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="8_3honw"]
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="9_3tutr"]
-[ext_resource type="PackedScene" uid="uid://b8e1eypx76o43" path="res://Scenes/Interactables/TrashMedium.tscn" id="10_qvyie"]
+[ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="10_qvyie"]
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="11_h5ymx"]
 [ext_resource type="PackedScene" uid="uid://dqi04l68m3ba3" path="res://Scenes/Interactables/TrashCan.tscn" id="12_4ddk5"]
 [ext_resource type="PackedScene" uid="uid://dd3fv2rspunln" path="res://Scenes/Interactables/Trees.tscn" id="13_sxvev"]
@@ -366,24 +366,20 @@ vertical_alignment = 1
 
 [node name="Coin" parent="." instance=ExtResource("7_wrygr")]
 position = Vector2(823, 371)
-Spawn_animate = false
 
 [node name="Coin3" parent="." instance=ExtResource("7_wrygr")]
 position = Vector2(910, 340)
 Value = 1000
-Spawn_animate = false
 
 [node name="TrashPile" parent="." instance=ExtResource("8_3honw")]
 position = Vector2(105, 279)
 
 [node name="TrashSmall" parent="." instance=ExtResource("9_3tutr")]
 position = Vector2(655, 265)
-Spawn_animate = false
 
 [node name="TrashMedium" parent="." instance=ExtResource("10_qvyie")]
 position = Vector2(685, 294)
 Value = 1000
-Spawn_animate = false
 
 [node name="RecyclerManager" parent="." instance=ExtResource("11_h5ymx")]
 position = Vector2(385, 226)
@@ -416,67 +412,51 @@ position = Vector2(965, 248)
 
 [node name="DashBoots" parent="." instance=ExtResource("16_0cxmo")]
 position = Vector2(197, 424)
-Spawn_animate = false
 
 [node name="DoubleTime" parent="." instance=ExtResource("17_5v1vg")]
 position = Vector2(192, 465)
-Spawn_animate = false
 
 [node name="FireTank" parent="." instance=ExtResource("18_f0646")]
 position = Vector2(194, 502)
-Spawn_animate = false
 
 [node name="GlassCannon" parent="." instance=ExtResource("19_g5p37")]
 position = Vector2(187, 537)
-Spawn_animate = false
 
 [node name="LifeCrystal" parent="." instance=ExtResource("20_06a88")]
 position = Vector2(187, 576)
-Spawn_animate = false
 
 [node name="MultiShot" parent="." instance=ExtResource("21_sng2c")]
 position = Vector2(372, 421)
-Spawn_animate = false
 
 [node name="ParryMantle" parent="." instance=ExtResource("22_x4tb5")]
 position = Vector2(277, 528)
-Spawn_animate = false
 
 [node name="Pierce" parent="." instance=ExtResource("23_jbqia")]
 position = Vector2(368, 503)
-Spawn_animate = false
 
 [node name="Ricochet" parent="." instance=ExtResource("24_qkw8k")]
 position = Vector2(373, 544)
-Spawn_animate = false
 
 [node name="RiposteGauntlet" parent="." instance=ExtResource("25_d4nf3")]
 position = Vector2(280, 428)
-Spawn_animate = false
 
 [node name="SpreadShot" parent="." instance=ExtResource("26_wg5ji")]
 position = Vector2(370, 464)
-Spawn_animate = false
 
 [node name="StoneSkin" parent="." instance=ExtResource("27_tx2tv")]
 position = Vector2(277, 474)
-Spawn_animate = false
 
 [node name="SwordHate" parent="." instance=ExtResource("28_kyqe6")]
 position = Vector2(467, 428)
-Spawn_animate = false
 
 [node name="SwordLeech" parent="." instance=ExtResource("29_2b5y6")]
 position = Vector2(464, 476)
-Spawn_animate = false
 
 [node name="SwordLight" parent="." instance=ExtResource("30_brfwt")]
 position = Vector2(470, 516)
-Spawn_animate = false
 
 [node name="Spin Sword" parent="." instance=ExtResource("31_0gacr")]
 position = Vector2(471, 564)
-Spawn_animate = false
 
 [node name="Player" parent="." instance=ExtResource("32_nt3wt")]
 position = Vector2(536, 438)

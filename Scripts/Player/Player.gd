@@ -36,8 +36,6 @@ extends CharacterBody2D
 @onready var Player_sfx: AudioStreamPlayer2D = $PlayerSFX
 @onready var Player_walking_sfx: AudioStreamPlayer2D = $PlayerWalkingSFX
 
-
-
 #-----local variables-----#
 # input/direction variables
 var Input_direction : Vector2 = Vector2.ZERO

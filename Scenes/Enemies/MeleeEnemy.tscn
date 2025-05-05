@@ -1,12 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://dm30882fg0dtv"]
+[gd_scene load_steps=28 format=3 uid="uid://dm30882fg0dtv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemies/MeleeEnemy.gd" id="1_awrbn"]
-[ext_resource type="Texture2D" uid="uid://bny1bremoaaso" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
+[ext_resource type="Texture2D" uid="uid://drf1oqe7rue1i" path="res://Art/Sprites/Melee_enemy.png" id="2_q60wm"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_eru4r"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="5_aliup"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="6_qdt4s"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="6_xthu2"]
-[ext_resource type="AudioStream" uid="uid://j0s23gajeupp" path="res://Music/SFX/Enemies/blunt_slash.mp3" id="7_lqy48"]
+[ext_resource type="AudioStream" uid="uid://d3wa7cnh6tof" path="res://Music/SFX/Enemies/blunt_slash.mp3" id="7_lqy48"]
+[ext_resource type="PackedScene" uid="uid://4747hptuo641" path="res://Scenes/CoinSpawner.tscn" id="8_mnu7x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6napr"]
 atlas = ExtResource("2_q60wm")
@@ -122,14 +123,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_o1hhy"]
-radius = 4.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_snetd"]
+size = Vector2(12, 25)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3h7bf"]
 radius = 48.0416
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_skdr7"]
-radius = 5.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tjhju"]
+size = Vector2(12, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oncpq"]
+radius = 18.0278
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ydxj0"]
+radius = 23.0217
 
 [node name="MeleeEnemy" type="CharacterBody2D" groups=["Enemy"]]
 position = Vector2(0, -3)
@@ -138,14 +145,14 @@ collision_mask = 3
 script = ExtResource("1_awrbn")
 
 [node name="MeleeEnemySprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -13)
+position = Vector2(0, -3)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_ohb7u")
 animation = &"Attack"
 
 [node name="MeleeEnemyCollision" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_o1hhy")
+shape = SubResource("RectangleShape2D_snetd")
 
 [node name="DetectionArea" type="Area2D" parent="."]
 position = Vector2(0, 1)
@@ -153,10 +160,12 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0, -1.42109e-14)
 scale = Vector2(1.38959, 1.38959)
 shape = SubResource("CircleShape2D_3h7bf")
 
 [node name="MeleeEnemyHealth" parent="." instance=ExtResource("3_eru4r")]
+position = Vector2(0, 1)
 
 [node name="MeleeEnemyHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("5_aliup")]
 position = Vector2(0, 1)
@@ -164,15 +173,7 @@ collision_layer = 4
 Health = NodePath("../MeleeEnemyHealth")
 
 [node name="MeleeEnemyHitCollision" type="CollisionShape2D" parent="MeleeEnemyHitbox"]
-shape = SubResource("CircleShape2D_skdr7")
-
-[node name="MeleeEnemyHurtbox" parent="." instance=ExtResource("6_qdt4s")]
-position = Vector2(0, 1)
-collision_layer = 0
-collision_mask = 2
-
-[node name="MeleeEnemyHurtCollision" type="CollisionShape2D" parent="MeleeEnemyHurtbox"]
-shape = SubResource("CircleShape2D_skdr7")
+shape = SubResource("RectangleShape2D_tjhju")
 
 [node name="DashTimer" type="Timer" parent="."]
 
@@ -184,6 +185,7 @@ offset_bottom = 8.0
 Health_component = NodePath("../MeleeEnemyHealth")
 
 [node name="MeleeLOS" type="RayCast2D" parent="."]
+position = Vector2(0, 1)
 target_position = Vector2(66, 0)
 collision_mask = 3
 
@@ -191,9 +193,30 @@ collision_mask = 3
 wait_time = 5.0
 
 [node name="MeleeSFX" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 1)
 stream = ExtResource("7_lqy48")
 bus = &"sfx"
+
+[node name="CoinSpawner" parent="." instance=ExtResource("8_mnu7x")]
+
+[node name="MeleeAttack" parent="." instance=ExtResource("6_qdt4s")]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeAttack"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_oncpq")
+
+[node name="MeleeDetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeDetectionArea"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_ydxj0")
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
+[connection signal="body_entered" from="MeleeDetectionArea" to="." method="_on_melee_detection_area_body_entered"]
+[connection signal="body_exited" from="MeleeDetectionArea" to="." method="_on_melee_detection_area_body_exited"]
