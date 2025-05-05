@@ -2124,7 +2124,6 @@ tile_map_data = PackedByteArray("AAASAEAABgAEAAIAAAAwAE0AAAABAAAAAABCAE0AAAADAAA
 tile_set = SubResource("TileSet_uxgx1")
 
 [node name="WorldCollisions" type="Node2D" parent="."]
-visible = false
 
 [node name="OutsideCollisions" type="StaticBody2D" parent="WorldCollisions"]
 
