@@ -1,23 +1,19 @@
 [gd_scene load_steps=98 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_fmgx4"]
-
-[ext_resource type="Texture2D" uid="uid://bbqdflisyv7ws" path="res://Art/Sprites/player_sprite_sheet_modified.png" id="2_lv08t"]
-
+[ext_resource type="Texture2D" uid="uid://cwtn0yx4eh3a6" path="res://Art/Sprites/player_sprite_sheet_modified.png" id="2_lv08t"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_4xdl3"]
 [ext_resource type="PackedScene" uid="uid://c2p11rdf0f6yt" path="res://Scenes/Player/TempoShield.tscn" id="3_psm1d"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_2ll6f"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="5_0jedd"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_3nwdd"]
 [ext_resource type="PackedScene" uid="uid://b8kph1r1jhejt" path="res://Scenes/Inventory/Inventory.tscn" id="8_5onck"]
-[ext_resource type="Script" path="res://Scripts/Player/Camera.gd" id="8_56bxr"]
+[ext_resource type="Script" path="res://Scenes/Player/Camera.gd" id="8_56bxr"]
 [ext_resource type="Script" path="res://Scripts/UI/UIWrapper.gd" id="9_48qhq"]
 [ext_resource type="PackedScene" uid="uid://dybc7khnwy044" path="res://Scenes/UI/HUD.tscn" id="10_kcxfu"]
 [ext_resource type="PackedScene" uid="uid://dpdisv8unuwy0" path="res://Scenes/UI/GameOverScreen.tscn" id="11_t5804"]
 [ext_resource type="PackedScene" uid="uid://r4v4npadga3m" path="res://Scenes/UI/PauseScreen.tscn" id="11_tbdxu"]
-
-[ext_resource type="AudioStream" uid="uid://bgqj5wt2nk2pi" path="res://Music/SFX/Player/grass_walk.mp3" id="13_73quu"]
-
+[ext_resource type="AudioStream" uid="uid://dw16t321q8i" path="res://Music/SFX/Player/grass_walk.mp3" id="13_73quu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kw1xj"]
 atlas = ExtResource("2_lv08t")
@@ -669,6 +665,10 @@ position = Vector2(-1, -4)
 collision_layer = 66
 collision_mask = 5
 script = ExtResource("1_fmgx4")
+Is_parrying = null
+Attack_sound = null
+Ranged_sound = null
+Knockback_strength = null
 
 [node name="AnimatedPlayer2D" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true

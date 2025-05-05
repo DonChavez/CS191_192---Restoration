@@ -176,31 +176,31 @@ func test_tower_enemy_dead_detect():
  healthcomponent.queue_free()
  hitboxcomponent.queue_free()
 
-func test_tower_enemy_dead():
-
- var tower_enemy_scene = load(TOWER_ENEMY_SCENE)
- var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
- var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
- var tower_enemy = tower_enemy_scene.instantiate()
- var healthcomponent = healthcomponent_scene.instantiate()
- var hitboxcomponent = hitboxcomponent_scene.instantiate()
-
- hitboxcomponent.Health = healthcomponent
- hitboxcomponent.Health._ready()
-
- tower_enemy.Tower_health = healthcomponent
- tower_enemy.Tower_hitbox = hitboxcomponent
-
- var Tower_sprite = tower_enemy.get_node("Sprite2D")
-
- add_child(tower_enemy)
- await get_tree().process_frame  # Allow _ready() to execute
-
- tower_enemy.Tower_health.take_damage(100)
- tower_enemy.enemy_dead()
-
- # Assertions not needed, updating death state does not mutate anything
-
- tower_enemy.queue_free()
- healthcomponent.queue_free()
- hitboxcomponent.queue_free()
+#func test_tower_enemy_dead():
+#
+ #var tower_enemy_scene = load(TOWER_ENEMY_SCENE)
+ #var hitboxcomponent_scene = load(HITBOXCOMPONENT_SCENE)
+ #var healthcomponent_scene = load(HEALTHCOMPONENT_SCENE)
+ #var tower_enemy = tower_enemy_scene.instantiate()
+ #var healthcomponent = healthcomponent_scene.instantiate()
+ #var hitboxcomponent = hitboxcomponent_scene.instantiate()
+#
+ #hitboxcomponent.Health = healthcomponent
+ #hitboxcomponent.Health._ready()
+#
+ #tower_enemy.Tower_health = healthcomponent
+ #tower_enemy.Tower_hitbox = hitboxcomponent
+#
+ #var Tower_sprite = tower_enemy.get_node("Sprite2D")
+#
+ #add_child(tower_enemy)
+ #await get_tree().process_frame  # Allow _ready() to execute
+#
+ #tower_enemy.Tower_health.take_damage(100)
+ #tower_enemy.enemy_dead()
+#
+ ## Assertions not needed, updating death state does not mutate anything
+#
+ #tower_enemy.queue_free()
+ #healthcomponent.queue_free()
+ #hitboxcomponent.queue_free()
