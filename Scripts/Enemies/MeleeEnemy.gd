@@ -35,6 +35,21 @@ var Player = null
 # Animation state tracking
 var current_animation: String = "Idle"
 
+# Patrol variables
+var Spawn_position : Vector2
+var Patrol_distance : float = 50.0
+var Patrol_direction : Vector2 = Vector2.RIGHT
+var Walk_time : float = Patrol_distance / Speed
+enum PatrolState { WALKING, IDLING }
+var Current_patrol_state = PatrolState.WALKING
+var Idle_timer: Timer
+var Idle_time: float = 1.0
+var Walk_timer: Timer
+
+# Post-chase idle variables
+var Is_idling_after_chase : bool = false
+var Post_chase_idle_timer : Timer
+
 func _ready() -> void:
 	Melee_sprite.play("Idle")
 	current_animation = "Idle"
@@ -52,6 +67,30 @@ func _ready() -> void:
 	Melee_attack.visible = false
 	
 	Melee_sprite.animation_finished.connect(_on_animation_finished)
+	
+	# Initialize patrol variables
+	Spawn_position = position
+	Idle_timer = Timer.new()
+	Idle_timer.one_shot = true
+	Idle_timer.wait_time = Idle_time
+	add_child(Idle_timer)
+	Idle_timer.timeout.connect(_on_idle_timer_timeout)
+	
+	Walk_timer = Timer.new()
+	Walk_timer.one_shot = true
+	Walk_timer.wait_time = Walk_time
+	add_child(Walk_timer)
+	Walk_timer.timeout.connect(_on_walk_timer_timeout)
+	
+	Post_chase_idle_timer = Timer.new()
+	Post_chase_idle_timer.one_shot = true
+	Post_chase_idle_timer.wait_time = 2.0
+	add_child(Post_chase_idle_timer)
+	Post_chase_idle_timer.timeout.connect(_on_post_chase_idle_timer_timeout)
+	
+	var pause_duration = randf_range(1.0, 3.0)
+	await get_tree().create_timer(pause_duration).timeout
+	Walk_timer.start()
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
@@ -73,22 +112,24 @@ func _physics_process(delta: float) -> void:
 			else:
 				Player_chase = false
 		
-		# Update velocity and state
-		if Player_chase and Player:
+		if Is_idling_after_chase:
+			velocity = Vector2.ZERO
+		elif Player_chase and Player:
 			var Direction = (Player.position - position).normalized()
 			velocity = Direction * Speed
-			
-			# Attack logic: Melee if in range
 			if Player_in_melee_range and !is_melee_attacking:
 				start_melee_attack()
-			
 			Melee_sprite.flip_h = Player.position.x < position.x
-		
 		elif Is_waiting:
 			velocity = Last_direction * Speed
 			Melee_sprite.flip_h = Last_direction.x < 0
 		else:
-			velocity = Vector2.ZERO
+			match Current_patrol_state:
+				PatrolState.WALKING:
+					velocity = Speed * Patrol_direction
+					Melee_sprite.flip_h = Patrol_direction.x < 0
+				PatrolState.IDLING:
+					velocity = Vector2.ZERO
 		
 		update_animation()
 	else:
@@ -96,14 +137,12 @@ func _physics_process(delta: float) -> void:
 
 func update_animation() -> void:
 	var new_animation = "Idle"
-	
 	if is_melee_attacking:
 		new_animation = "Attack"
 	elif velocity != Vector2.ZERO:
 		new_animation = "Move"
 	else:
 		new_animation = "Idle"
-	
 	if new_animation != current_animation:
 		Melee_sprite.play(new_animation)
 		current_animation = new_animation
@@ -111,47 +150,30 @@ func update_animation() -> void:
 func start_melee_attack() -> void:
 	is_melee_attacking = true
 	melee_timer = 0.0
-	
 	if Melee_sfx:
 		if Melee_sfx.playing:
 			Melee_sfx.stop()
 		Melee_sfx.play()
-	
 	var attack_speed = Melee_sprite.get_sprite_frames().get_animation_speed("Attack")
 	var frame_duration = 1.0 / attack_speed
 	var attack_length = frame_duration * Melee_sprite.get_sprite_frames().get_frame_count("Attack")
-	
-	# Play animation
 	Melee_sprite.play("Attack")
-	
-	# Wait for 30% of animation time before activating melee attack area
 	await get_tree().create_timer(attack_length * 0.3).timeout
-	
-	# Activate melee attack area
 	Melee_attack.monitoring = true
 	Melee_attack.monitorable = true
 	Melee_attack.visible = true
-	
-	# Keep active for 40% of animation time
 	await get_tree().create_timer(attack_length * 0.4).timeout
-	
-	# Deactivate melee attack area
 	Melee_attack.monitoring = false
 	Melee_attack.monitorable = false
 	Melee_attack.visible = false
-	
-	# Wait for remaining 30% of animation time
 	await get_tree().create_timer(attack_length * 0.3).timeout
-	
-	# Add random delay of 1-3 seconds before allowing another melee attack
 	var random_delay = 1.0 + randf() * 2.0
 	await get_tree().create_timer(random_delay).timeout
-	
 	is_melee_attacking = false
 
 func _on_animation_finished() -> void:
 	if Melee_sprite.animation == "Attack":
-		pass  # Handled in start_melee_attack
+		pass
 	update_animation()
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
@@ -183,8 +205,28 @@ func _on_dash_timer_timeout() -> void:
 func _on_wait_timer_timeout() -> void:
 	if Is_waiting:
 		Is_waiting = false
+		Is_idling_after_chase = true
+		Post_chase_idle_timer.start()
 		Player = null
-		print("Que?")
+		Spawn_position = position
+		print("Wait a minute... who are you?")
+
+func _on_walk_timer_timeout() -> void:
+	if Current_patrol_state == PatrolState.WALKING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Dashing and not is_melee_attacking:
+		Current_patrol_state = PatrolState.IDLING
+		Idle_timer.start()
+
+func _on_idle_timer_timeout() -> void:
+	if Current_patrol_state == PatrolState.IDLING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Dashing and not is_melee_attacking:
+		Current_patrol_state = PatrolState.WALKING
+		Patrol_direction = -Patrol_direction
+		Walk_timer.start()
+
+func _on_post_chase_idle_timer_timeout() -> void:
+	Is_idling_after_chase = false
+	Current_patrol_state = PatrolState.WALKING
+	Patrol_direction = Vector2.RIGHT
+	Walk_timer.start()
 
 func is_dead() -> bool:
 	return Melee_health.Health <= 0
@@ -194,14 +236,11 @@ func enemy_dead() -> void:
 		Melee_sprite.play("Death")
 		current_animation = "Death"
 		Melee_hitbox.monitoring = false
-	
 	var Death_animation_name : String = "Death"
 	var Death_animation_speed : float = Melee_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
 	var Death_animation_frames : float = Melee_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
 	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
-	
 	Coin_spawner.spawn_coin(5)
-	
 	await get_tree().create_timer(Death_animation_length).timeout
 	queue_free()
 

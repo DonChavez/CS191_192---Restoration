@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://t6mbgw23qcdp"]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/FruitSpawn.gd" id="1_0k614"]
+
+[node name="FruitSpawn" type="Node"]
+script = ExtResource("1_0k614")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://onv3ylysb86m"]
+[gd_scene load_steps=9 format=3 uid="uid://onv3ylysb86m"]
 
 [ext_resource type="Script" path="res://Scripts/Environment/BreakableObject.gd" id="1_e5vff"]
 [ext_resource type="Texture2D" uid="uid://dtl5q628s3j4k" path="res://Art/Objects/wooden log.png" id="1_u82lr"]
@@ -9,6 +9,9 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bccb0"]
 size = Vector2(1178, 331.526)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7w2fd"]
+size = Vector2(1069.18, 303.201)
 
 [node name="BreakableObject" type="Node2D" groups=["Enemy"]]
 scale = Vector2(0.0626647, 0.0626647)
@@ -39,10 +42,9 @@ Health = NodePath("../LogHealth")
 Damage_interval = 0.2
 Substitute_damage = 1.0
 
-[node name="LogHit" type="CollisionShape2D" parent="LogHitbox"]
-position = Vector2(6.03972, -4.76385)
-rotation = -0.000479903
-shape = SubResource("RectangleShape2D_bccb0")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LogHitbox"]
+position = Vector2(7.97897, -7.97898)
+shape = SubResource("RectangleShape2D_7w2fd")
 
 [node name="LogHealthBar" parent="." node_paths=PackedStringArray("Health_component") instance=ExtResource("4_86txv")]
 offset_left = -434.0

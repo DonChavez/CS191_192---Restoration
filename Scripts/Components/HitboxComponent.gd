@@ -31,6 +31,8 @@ func damage_received(Amount: float) -> float:
 		# 	interaction_sound.play()  # play hit sound
 		Time_since_last_damage = 0.0  # reset cooldown
 	return Damage_taken
+	
+	
 		
 func _physics_process(delta: float) -> void:
 	if Time_since_last_damage < Damage_interval:
