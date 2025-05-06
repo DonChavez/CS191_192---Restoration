@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=44 format=4 uid="uid://cvpx21a28kpv3"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://b5l4bnjgh5qhd" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
@@ -16,7 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://kb63wl84mtd3" path="res://Scenes/Items/0Richochet.tscn" id="16_u8myj"]
 [ext_resource type="PackedScene" uid="uid://bxqyk2ppf3nal" path="res://Scenes/Items/0DoubleTime.tscn" id="17_h0vfh"]
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashCan.tscn" id="17_hcbu8"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/Trees.tscn" id="18_585nw"]
+[ext_resource type="PackedScene" uid="uid://baakqqbsd84ic" path="res://Scenes/Interactables/Trees.tscn" id="18_585nw"]
 [ext_resource type="PackedScene" uid="uid://d1b6dteht2ol0" path="res://Scenes/Items/0FireTank.tscn" id="18_t2ugx"]
 [ext_resource type="PackedScene" uid="uid://jiamupj0x6pd" path="res://Scenes/Items/0GlassCannon.tscn" id="19_f5e1k"]
 [ext_resource type="PackedScene" uid="uid://v1dle5t75pan" path="res://Scenes/Interactables/PawnShop.tscn" id="20_a0338"]
@@ -36,6 +36,7 @@
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="34_3x581"]
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="35_ote1c"]
 [ext_resource type="PackedScene" uid="uid://b128jqdf73j7d" path="res://Scenes/Enemies/Boss.tscn" id="36_ri6gv"]
+[ext_resource type="PackedScene" uid="uid://b4kwsuct2dfys" path="res://Scenes/Objects/Healing Items/Apple.tscn" id="37_no2vf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")
@@ -492,3 +493,6 @@ position = Vector2(989, 542)
 
 [node name="Boss" parent="Enemies" instance=ExtResource("36_ri6gv")]
 position = Vector2(1020, 90)
+
+[node name="Apple" parent="." instance=ExtResource("37_no2vf")]
+position = Vector2(611, 384)

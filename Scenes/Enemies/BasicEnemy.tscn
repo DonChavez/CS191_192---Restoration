@@ -197,4 +197,7 @@ wait_time = 5.0
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="area_entered" from="BasicEnemyHitbox" to="." method="_on_basic_enemy_hitbox_area_entered"]
+[connection signal="body_entered" from="BasicEnemyHitbox" to="." method="_on_basic_enemy_hitbox_body_entered"]
+[connection signal="damaged" from="BasicEnemyHitbox" to="." method="_on_basic_enemy_hitbox_damaged"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

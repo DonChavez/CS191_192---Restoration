@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dd3fv2rspunln"]
+[gd_scene load_steps=7 format=3 uid="uid://baakqqbsd84ic"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Trees.gd" id="1_v1knk"]
-[ext_resource type="Texture2D" uid="uid://dson8dhbhjei3" path="res://Art/Objects/Tree.png" id="2_le0mh"]
-[ext_resource type="Texture2D" uid="uid://bqmk676pgqx76" path="res://Art/Objects/Area.png" id="3_v2qep"]
+[ext_resource type="Texture2D" uid="uid://c1hqha07u22pa" path="res://Art/Objects/Tree.png" id="2_le0mh"]
+[ext_resource type="Texture2D" uid="uid://j8sr2dx7rrf1" path="res://Art/Objects/Area.png" id="3_v2qep"]
+[ext_resource type="PackedScene" uid="uid://t6mbgw23qcdp" path="res://Scripts/Interactables/FruitSpawn.tscn" id="4_nioac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cfl5c"]
 size = Vector2(61.1373, 149.99)
@@ -59,6 +60,8 @@ wait_time = 0.1
 position = Vector2(8.50001, 28.6581)
 scale = Vector2(2.27293, 1.51719)
 texture = ExtResource("3_v2qep")
+
+[node name="FruitSpawn" parent="." instance=ExtResource("4_nioac")]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
