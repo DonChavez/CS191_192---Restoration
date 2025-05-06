@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://h5aphehtfr43"]
+[gd_scene load_steps=3 format=3 uid="uid://h5aphehtfr43"]
 
 [ext_resource type="Script" path="res://Scripts/Items/SpreadShot.gd" id="1_h4i6b"]
-[ext_resource type="Texture2D" uid="uid://coacfmo0d7qed" path="res://Art/Items/Spreadshot.png" id="2_eyso4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
@@ -16,7 +15,7 @@ Stacking = true
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_eyso4")
+expand_mode = 3
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

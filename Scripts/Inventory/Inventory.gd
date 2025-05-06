@@ -18,6 +18,7 @@ class_name InventoryObject
 @onready var Melee_items: int = 0
 @onready var Disable: bool = false
 
+signal trash_changed(new_amount: int)
 
 enum Existence { WORLD, INVENTORY, SHOP}
 enum ItemType {RANGE, MELEE, PASSIVE}
@@ -28,22 +29,59 @@ func _ready():	# Empty inventory at the start (Change)
 		Items.append(null)  # Empty slot
 		Inventory_slots[I].set_index(I) # Sets the index of each slot (item_slot)
 	Inventory_ui.update_inventory() # InventoryUI updates UI (child)
+	DialogueManager.dialogue_started.connect(_on_dialogue_started)
+	DialogueManager.dialogue_ended.connect(_on_dialogue_ended)
 	self.visible = false
 
-func _process(Delta: float) -> void:
-	if not Disable:
-		if Input.is_action_just_pressed("inventory"):
-			toggle_inventory()
-			reset_item_slot(Selected)
-			Inventory_ui.update_inventory() # InventoryUI update (child)
-			Player.Can_process_input = !Player.Can_process_input
-		if Input.is_action_just_pressed("block"):
-			reset_item_slot(Selected)
-			Inventory_ui.update_inventory() # InventoryUI update (child)
+func _process(delta: float) -> void:
+	# Block input actions during dialogue
+	if DialogueState.is_dialogue_active:
+		return
+		
+	Inventory_ui.update_inventory()
+	
+	if PlayerManager.Player_instance:
+		PlayerManager.Player_instance.Can_process_movement = not self.visible
+		PlayerManager.Player_instance.Can_process_input = not self.visible
+
+	# Handle inventory toggle
+	if Input.is_action_just_pressed("inventory"):
+		toggle_inventory()
+		reset_item_slot(Selected)
+		if Inventory_ui:
+			Inventory_ui.update_inventory()
+		# Update player input based on inventory state
+		if PlayerManager.Player_instance:
+			PlayerManager.Player_instance.Can_process_input = not Inventory_ui.visible
+
+	# Handle block action
+	if Input.is_action_just_pressed("block"):
+		reset_item_slot(Selected)
+		if Inventory_ui:
+			Inventory_ui.update_inventory()
+
+func _on_dialogue_started(_resource: DialogueResource):
+	# Close inventory if open when dialogue starts
+	if Inventory_ui and Inventory_ui.visible:
+		Inventory_ui.visible = false
+		reset_item_slot(Selected)
+		if Inventory_ui:
+			Inventory_ui.update_inventory()
+	# Enable player input for dialogue interactions
+	if PlayerManager.Player_instance:
+		PlayerManager.Player_instance.Can_process_input = true
+
+func _on_dialogue_ended(_resource: DialogueResource):
+	if not Inventory_ui.visible:
+		Inventory_ui.visible = true
+	# Restore player input state based on inventory state
+	if PlayerManager.Player_instance:
+		PlayerManager.Player_instance.Can_process_input = not Inventory_ui.visible
 
 # Toggle to see or not the Inventory UI
 func toggle_inventory():
 	self.visible = !self.visible
+	
 func disable_toggle() -> void:
 	Disable = !Disable
 
@@ -53,6 +91,7 @@ func add_coin(Amount: int):
 	Inventory_ui.update_coin(Coins)
 func add_trash(Amount: int):
 	Trash += Amount
+	trash_changed.emit(Trash)
 	Inventory_ui.update_trash(Trash)
 
 #-----for getting values methods-----#
@@ -67,6 +106,14 @@ func get_item(Index):
 	if Index >= 0 and Index < Inventory_slot_num:
 		return Items[Index]
 	return null
+	
+func get_item_count() -> int:
+	var count: int = 0
+	for item in Items:
+		if item != null:
+			count += 1
+	return count
+	
 
 #-----for item methods-----#
 # Reset the status of an Inventory Slot and Selected
@@ -103,7 +150,7 @@ func add_item(Item_data: Node2D) -> bool:
 			Items[I] = Item_data
 			print("Added:", Item_data["name"])
 			Item_data.Exist_in = Existence.INVENTORY  # Update state
-			Inventory_slots[I].toggle_item(Item_data) # Lets Item Slot know it has an item
+			Inventory_slots[I].toggle_item(true) # Lets Item Slot know it has an item
 			Inventory_ui.update_inventory() # InventoryUI update (child)
 				
 			return true  # Item added successfully
@@ -151,7 +198,7 @@ func drop_item():
 	Item_instance.visible = true  # Ensure it's visible in the world
 	
 	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
+	Inventory_slots[Selected].toggle_item(false)
 	reset_item_slot(Selected)
 	remove_item_type(Item_instance)
 	Player.get_range(Range_items)
@@ -175,7 +222,7 @@ func delete_item(Index: int) -> void:
 	Items[Selected] = null  # Remove from inventory
 	
 	# Change Item Slot statuses
-	Inventory_slots[Selected].toggle_item(null)
+	Inventory_slots[Selected].toggle_item(false)
 	reset_item_slot(Selected)
 	remove_item_type(Item_instance)
 	Player.get_range(Range_items)
@@ -204,8 +251,8 @@ func move_item(Index: int) -> void:
 		Items[Selected] = null
 		# Change Item Slot statuses
 	Items[Index] = holder
-	Inventory_slots[Selected].toggle_item(Items[Selected])
-	Inventory_slots[Index].toggle_item(Items[Index])
+	Inventory_slots[Selected].toggle_item(true)
+	Inventory_slots[Index].toggle_item(true)
 	# Change Item Slot statuses and Selected
 	reset_item_slot(Selected)
 	reset_item_slot(Index)

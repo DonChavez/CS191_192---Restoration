@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://dsucn6yegovhr"]
+[gd_scene load_steps=26 format=3 uid="uid://dsucn6yegovhr"]
 
-[ext_resource type="Texture2D" uid="uid://djyuh81hcp0e0" path="res://Art/Characters/slime.png" id="1_imy10"]
+[ext_resource type="Texture2D" uid="uid://dod5mpstk3ueo" path="res://Art/Characters/slime.png" id="1_imy10"]
 [ext_resource type="Script" path="res://Scripts/Enemies/BasicEnemy.gd" id="1_y1unw"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="2_37op7"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="3_15032"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="4_827q7"]
+[ext_resource type="PackedScene" uid="uid://4747hptuo641" path="res://Scenes/CoinSpawner.tscn" id="7_egxwf"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="7_l4m78"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_68bnb"]
@@ -163,6 +164,7 @@ shape = SubResource("CircleShape2D_3h7bf")
 
 [node name="BasicEnemyHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("3_15032")]
 position = Vector2(0, 1)
+scale = Vector2(1.20896, 1.20896)
 collision_layer = 4
 Health = NodePath("../BasicEnemyHealth")
 
@@ -171,9 +173,9 @@ shape = SubResource("CircleShape2D_skdr7")
 
 [node name="BasicEnemyHurtbox" parent="." instance=ExtResource("4_827q7")]
 position = Vector2(0, 1)
+scale = Vector2(1.22343, 1.22343)
 collision_layer = 0
 collision_mask = 2
-Damage_interval = 0.5
 
 [node name="BasicEnemyHurtCollision" type="CollisionShape2D" parent="BasicEnemyHurtbox"]
 shape = SubResource("CircleShape2D_skdr7")
@@ -192,6 +194,9 @@ collision_mask = 3
 [node name="WaitTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="CoinSpawner" parent="." instance=ExtResource("7_egxwf")]
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="hit" from="BasicEnemyHurtbox" to="." method="_on_basic_enemy_hurtbox_hit"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

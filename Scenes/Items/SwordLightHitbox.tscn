@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1js5pj52sxht"]
+
+[ext_resource type="Script" path="res://Scripts/Items/SwordLightHitbox.gd" id="1_gb5fm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mf2g8"]
+
+[node name="SwordHitboxComponent" type="Area2D" groups=["TSHitbox"]]
+collision_layer = 128
+collision_mask = 32
+script = ExtResource("1_gb5fm")
+
+[node name="LightCollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_mf2g8")

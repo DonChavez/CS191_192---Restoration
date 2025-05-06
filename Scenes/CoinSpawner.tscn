@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://4747hptuo641"]
+
+[ext_resource type="Script" path="res://Scripts/Interactables/CoinSpawn.gd" id="1_xqcwd"]
+
+[node name="CoinSpawner" type="Node"]
+script = ExtResource("1_xqcwd")

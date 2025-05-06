@@ -1,36 +1,31 @@
-[gd_scene load_steps=26 format=3 uid="uid://dybc7khnwy044"]
+[gd_scene load_steps=34 format=3 uid="uid://dybc7khnwy044"]
 
 [ext_resource type="Script" path="res://Scripts/UI/PlayerInfo.gd" id="1_ka6yk"]
 [ext_resource type="Texture2D" uid="uid://c2rrpx7k6kc5u" path="res://Art/UI/icon_bg.png" id="2_u5r28"]
 [ext_resource type="FontFile" uid="uid://bwlr8ymoai0gi" path="res://Art/Font/Roboto-Regular.ttf" id="3_5hyxa"]
 [ext_resource type="Texture2D" uid="uid://dsn472ex24dsw" path="res://Art/UI/border.png" id="3_sip7q"]
 [ext_resource type="FontFile" uid="uid://dspxi5m2ck58b" path="res://Art/Font/Economica-Regular.ttf" id="5_pwk0g"]
-[ext_resource type="Texture2D" uid="uid://b4g6lcko0jev7" path="res://Art/Draft/weapons.png" id="6_3mvd7"]
+[ext_resource type="Texture2D" uid="uid://77o56ftuet8c" path="res://Art/Draft/frank.png" id="6_fvcgq"]
 [ext_resource type="Texture2D" uid="uid://cei8c1yj52f67" path="res://Art/UI/medium-border.png" id="6_i42w1"]
 [ext_resource type="FontFile" uid="uid://cmwlpv802466h" path="res://Art/Font/Economica-Bold.ttf" id="7_b770i"]
+[ext_resource type="Script" path="res://Scripts/UI/TopHUD.gd" id="8_38si7"]
 [ext_resource type="Texture2D" uid="uid://fangsm80rxmq" path="res://Art/UI/trash-icon.png" id="8_lld73"]
 [ext_resource type="Texture2D" uid="uid://d1wo5mv4ebepb" path="res://Art/UI/big-border.png" id="9_4n5uk"]
 [ext_resource type="Texture2D" uid="uid://m4pmflp2fvwu" path="res://Art/UI/objectives-icon.png" id="10_f0vor"]
 [ext_resource type="Script" path="res://Scripts/Pollution/PollutionSystem.gd" id="11_si86v"]
+[ext_resource type="Script" path="res://Scripts/UI/inputs.gd" id="13_7a3cf"]
+[ext_resource type="Texture2D" uid="uid://3ct00lnvnx8l" path="res://Art/Draft/sword.png" id="13_ju0op"]
+[ext_resource type="Texture2D" uid="uid://bgw426m1umu8p" path="res://Art/Draft/bow.png" id="14_b050h"]
+[ext_resource type="Texture2D" uid="uid://bvo1rgpvpkbqe" path="res://Art/Draft/inventory.png" id="15_h3awg"]
+[ext_resource type="Texture2D" uid="uid://p2sav1rw0ehq" path="res://Art/Draft/shield.png" id="16_xcqb0"]
+[ext_resource type="Texture2D" uid="uid://dln3kgwjjv70d" path="res://Art/Draft/dash.png" id="18_h0g0k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vyhw2"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_msn0e"]
 bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tu524"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uyr0a"]
 bg_color = Color(0.917647, 0.309804, 0.32549, 1)
@@ -49,12 +44,6 @@ base_font = ExtResource("5_pwk0g")
 spacing_glyph = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_paak6"]
-resource_local_to_scene = false
-resource_name = ""
-content_margin_left = -1.0
-content_margin_top = -1.0
-content_margin_right = -1.0
-content_margin_bottom = -1.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8wv6h"]
 bg_color = Color(0.211765, 0.666667, 0.807843, 1)
@@ -105,6 +94,14 @@ ProgressBar/fonts/font = ExtResource("3_5hyxa")
 ProgressBar/styles/background = SubResource("StyleBoxFlat_f42uy")
 ProgressBar/styles/fill = SubResource("StyleBoxFlat_y845r")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oiawq"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 11
+
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -127,7 +124,7 @@ offset_top = 321.0
 offset_right = 113.0
 offset_bottom = 321.0
 grow_vertical = 0
-scale = Vector2(0.498089, 0.498089)
+scale = Vector2(0.533245, 0.533245)
 pivot_offset = Vector2(-92, 384)
 script = ExtResource("1_ka6yk")
 
@@ -250,13 +247,9 @@ offset_bottom = 47.0
 texture = ExtResource("3_sip7q")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerInfo"]
-position = Vector2(-7, 308)
-rotation = -2.70931
-scale = Vector2(9.04167, 9.04167)
-texture = ExtResource("6_3mvd7")
-hframes = 13
-vframes = 8
-frame = 14
+position = Vector2(-11.6931, 307.576)
+scale = Vector2(0.891072, 0.891072)
+texture = ExtResource("6_fvcgq")
 
 [node name="ColorRect" type="ColorRect" parent="PlayerInfo"]
 layout_mode = 0
@@ -267,36 +260,15 @@ offset_bottom = 206.0
 
 [node name="Label" type="Label" parent="PlayerInfo"]
 layout_mode = 0
-offset_left = -47.8312
+offset_left = -59.8772
 offset_top = 161.148
-offset_right = 127.169
+offset_right = 115.123
 offset_bottom = 242.148
 scale = Vector2(0.5, 0.5)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("7_b770i")
 theme_override_font_sizes/font_size = 70
-text = "Melee"
-
-[node name="Inventory" type="Control" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 852.0
-offset_top = 586.0
-offset_right = 852.0
-offset_bottom = 586.0
-grow_horizontal = 0
-grow_vertical = 0
-
-[node name="ColorRect" type="ColorRect" parent="Inventory"]
-layout_mode = 2
-offset_right = 428.0
-offset_bottom = 135.0
-color = Color(0.254902, 0.239216, 0.239216, 0.498039)
+text = "Frankie"
 
 [node name="Top" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -305,6 +277,7 @@ offset_bottom = 40.0
 scale = Vector2(0.5, 0.5)
 theme_override_constants/margin_left = 63
 theme_override_constants/margin_top = 62
+script = ExtResource("8_38si7")
 
 [node name="Header" type="HBoxContainer" parent="Top"]
 layout_mode = 2
@@ -385,7 +358,7 @@ theme_override_constants/margin_top = 20
 
 [node name="Objectives" type="VBoxContainer" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 18
 
 [node name="Label" type="Label" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives"]
 layout_mode = 2
@@ -404,7 +377,7 @@ layout_mode = 0
 offset_left = 3.0
 offset_right = 425.0
 offset_bottom = 144.0
-theme_override_constants/separation = 17
+theme_override_constants/separation = 42
 
 [node name="MarginContainer" type="MarginContainer" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control/HBoxContainer"]
 layout_mode = 2
@@ -412,6 +385,7 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 7
 
 [node name="TextureRect" type="TextureRect" parent="Top/Header/Control/VBoxContainer/Control/MarginContainer/Objectives/Control/HBoxContainer/MarginContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 texture = ExtResource("10_f0vor")
 stretch_mode = 2
@@ -427,7 +401,10 @@ theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 1)
 theme_override_constants/shadow_offset_x = 4
 theme_override_fonts/font = SubResource("FontVariation_jsy21")
 theme_override_font_sizes/font_size = 50
-text = "Detroy The End of the World"
+text = "Talk to a 
+NPC"
+horizontal_alignment = 1
+vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="PollutionSystem" type="Control" parent="Top/Header"]
@@ -499,8 +476,10 @@ theme_override_constants/shadow_offset_x = 5
 theme_override_fonts/font = ExtResource("7_b770i")
 theme_override_font_sizes/font_size = 50
 text = "The Forest"
+horizontal_alignment = 1
 
 [node name="Time" type="Label" parent="Top/Header/Timer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_shadow_color = Color(0.254902, 0.239216, 0.239216, 0.831373)
@@ -509,3 +488,190 @@ theme_override_fonts/font = ExtResource("7_b770i")
 theme_override_font_sizes/font_size = 50
 text = "09:11"
 horizontal_alignment = 2
+
+[node name="Inputs" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1240.0
+offset_top = 675.0
+offset_right = 1280.0
+offset_bottom = 715.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("13_7a3cf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Inputs"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = -80
+
+[node name="Sword" type="Control" parent="Inputs/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Inputs/HBoxContainer/Sword"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -54.0
+offset_right = 543.0
+offset_bottom = 546.0
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_u5r28")
+
+[node name="sword" type="TextureRect" parent="Inputs/HBoxContainer/Sword/TextureRect"]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 99.9998
+offset_right = 562.0
+offset_bottom = 562.0
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("13_ju0op")
+
+[node name="Label" type="Label" parent="Inputs/HBoxContainer/Sword"]
+layout_mode = 0
+offset_left = -40.0
+offset_top = 10.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_oiawq")
+text = "LMB"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bow" type="Control" parent="Inputs/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Inputs/HBoxContainer/Bow"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -54.0
+offset_right = 543.0
+offset_bottom = 546.0
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_u5r28")
+
+[node name="bow" type="TextureRect" parent="Inputs/HBoxContainer/Bow/TextureRect2"]
+layout_mode = 0
+offset_left = 99.9997
+offset_top = 99.9998
+offset_right = 434.0
+offset_bottom = 434.0
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("14_b050h")
+
+[node name="Label2" type="Label" parent="Inputs/HBoxContainer/Bow"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 9.0
+offset_right = 1.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_oiawq")
+text = "Space"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Shield" type="Control" parent="Inputs/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Inputs/HBoxContainer/Shield"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -54.0
+offset_right = 543.0
+offset_bottom = 546.0
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_u5r28")
+
+[node name="shield" type="TextureRect" parent="Inputs/HBoxContainer/Shield/TextureRect4"]
+layout_mode = 0
+offset_left = 99.9999
+offset_top = 99.9998
+offset_right = 726.0
+offset_bottom = 726.0
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("16_xcqb0")
+
+[node name="Label4" type="Label" parent="Inputs/HBoxContainer/Shield"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = 9.0
+offset_right = 3.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_oiawq")
+text = "RMB
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dash" type="Control" parent="Inputs/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect4" type="TextureRect" parent="Inputs/HBoxContainer/Dash"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -54.0
+offset_right = 543.0
+offset_bottom = 546.0
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_u5r28")
+
+[node name="shield" type="TextureRect" parent="Inputs/HBoxContainer/Dash/TextureRect4"]
+layout_mode = 0
+offset_left = 158.333
+offset_top = 116.666
+offset_right = 1216.33
+offset_bottom = 1374.67
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("18_h0g0k")
+
+[node name="Label4" type="Label" parent="Inputs/HBoxContainer/Dash"]
+layout_mode = 0
+offset_left = -42.0
+offset_top = 9.0
+offset_right = 3.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_oiawq")
+text = "Shift
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Inventory" type="Control" parent="Inputs/HBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect3" type="TextureRect" parent="Inputs/HBoxContainer/Inventory"]
+layout_mode = 0
+offset_left = -57.0
+offset_top = -54.0
+offset_right = 543.0
+offset_bottom = 546.0
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("2_u5r28")
+
+[node name="inventory" type="TextureRect" parent="Inputs/HBoxContainer/Inventory/TextureRect3"]
+layout_mode = 0
+offset_left = 99.9999
+offset_top = 99.9998
+offset_right = 726.0
+offset_bottom = 726.0
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("15_h3awg")
+
+[node name="Label3" type="Label" parent="Inputs/HBoxContainer/Inventory"]
+layout_mode = 0
+offset_left = -43.0
+offset_top = 9.0
+offset_right = 2.0
+offset_bottom = 28.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_oiawq")
+text = "TAB"
+horizontal_alignment = 1
+vertical_alignment = 1

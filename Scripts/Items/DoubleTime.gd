@@ -18,14 +18,19 @@ func apply_tier(Tier:int) -> void:
 	match Tier:
 		0:
 			MOVEMENT_SPEED_VALUE = 1  # Common White
+			Icon.texture = load("res://Art/Items/double_1.png")
 		1:
 			MOVEMENT_SPEED_VALUE = 2  # Uncommon Green
+			Icon.texture = load("res://Art/Items/double_2.png")
 		2:
 			MOVEMENT_SPEED_VALUE = 3  # Rare Blue
+			Icon.texture = load("res://Art/Items/double_3.png")
 		3:
 			MOVEMENT_SPEED_VALUE = 4  # Epic Purple
+			Icon.texture = load("res://Art/Items/double_4.png")
 		4:
 			MOVEMENT_SPEED_VALUE = 5  # Legendary Red
+			Icon.texture = load("res://Art/Items/double_5.png")
 
 func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:

@@ -5,6 +5,7 @@ extends CharacterBody2D
 
 @onready var Tower_health: HealthComponent = $TowerEnemyHealth
 @onready var Tower_hitbox: HitboxComponent = $TowerEnemyHitbox
+@onready var Coin_spawner: Node = $CoinSpawner
 
 # exportable variables
 @export var Projectile = load("res://Scenes/Objects/Projectile.tscn")
@@ -79,4 +80,7 @@ func is_dead() -> bool:
 
 func enemy_dead() -> void:
 	print("NOOOOOOOOOOOOOOOOOOOOO")
+	
+	Coin_spawner.spawn_coin(15)
+	
 	queue_free()

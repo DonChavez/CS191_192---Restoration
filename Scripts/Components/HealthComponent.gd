@@ -46,10 +46,11 @@ func take_damage(Amount : float) -> void:
 		
 func heal(Amount: float) -> void:
 	# prevent from healing when dead
-	print("I healed: ", Amount)
+	
 	if Is_dead:
 		return
 	# heal health by a certain amount
+	print("I healed: ", Amount)
 	Health += Amount
 	# ensures that health does not exceed max_health
 	Health = min(Health, Max_health)  

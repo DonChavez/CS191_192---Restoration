@@ -18,14 +18,19 @@ func apply_tier(Tier:int) -> void:
 	match Tier:
 		0:
 			ADDITIONAL_BOUNCE_COUNT = 1  # Common White
+			Icon.texture = load("res://Art/Items/ricochet_1.png")
 		1:
 			ADDITIONAL_BOUNCE_COUNT = 2  # Uncommon Green
+			Icon.texture = load("res://Art/Items/ricochet_2.png")
 		2:
 			ADDITIONAL_BOUNCE_COUNT = 3  # Rare Blue
+			Icon.texture = load("res://Art/Items/ricochet_3.png")
 		3:
 			ADDITIONAL_BOUNCE_COUNT = 4  # Epic Purple
+			Icon.texture = load("res://Art/Items/ricochet_4.png")
 		4:
 			ADDITIONAL_BOUNCE_COUNT = 5  # Legendary Red
+			Icon.texture = load("res://Art/Items/ricochet_5.png")
 
 func apply_effect(Player:CharacterBody2D):
 	if !Effect_applied:

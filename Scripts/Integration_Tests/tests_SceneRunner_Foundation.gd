@@ -163,7 +163,7 @@ func test_simulate_Attack(timeout = 10000) -> void:
 
 
 
-func test_simulate_Kill(timeout = 10000) -> void:
+func test_simulate_attack_damage(timeout = 10000) -> void:
 # Create the scene runner for scene `test_scene.tscn`
  var runner := scene_runner("res://Scripts/Integration_Tests/SAMPLE_SCENES/BaseTestingArea.tscn")
  var test_player = runner.invoke("find_child", "Player")
@@ -203,15 +203,6 @@ func test_simulate_Kill(timeout = 10000) -> void:
  runner.simulate_action_press("attack")
  await runner.simulate_frames(100)
  runner.simulate_action_release("attack")
-
- runner.simulate_action_press("attack")
- await runner.simulate_frames(100)
- runner.simulate_action_press("attack")
-
- runner.simulate_action_press("attack")
- await runner.simulate_frames(100)
- runner.simulate_action_release("attack")
-
 
  await runner.simulate_frames(50)
 

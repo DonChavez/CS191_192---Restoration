@@ -135,11 +135,9 @@ func _toggle_hud(visible: bool) -> void:
 func _on_player_died() -> void:
 	print("Player has died!")
 	Player_died.emit()
-	var player = Player_instance
-	Player_instance = null  # Clear reference
 
 	get_tree().paused = true  # Pause game
-	_show_game_over_screen(player)
+	_show_game_over_screen(Player_instance)
 
 func _show_game_over_screen(player: Node) -> void:
 	if not player:

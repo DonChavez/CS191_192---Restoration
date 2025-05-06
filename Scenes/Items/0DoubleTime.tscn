@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxqyk2ppf3nal"]
+[gd_scene load_steps=3 format=3 uid="uid://bxqyk2ppf3nal"]
 
 [ext_resource type="Script" path="res://Scripts/Items/DoubleTime.gd" id="1_uefu1"]
-[ext_resource type="Texture2D" uid="uid://dhctogo606vqa" path="res://Art/Items/DoubleTime.png" id="2_6xmuj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8trr"]
 size = Vector2(22.1679, 21.1539)
@@ -17,7 +16,7 @@ Item_type = 2
 [node name="Icon" type="TextureRect" parent="."]
 offset_right = 68.0
 offset_bottom = 68.0
-texture = ExtResource("2_6xmuj")
+expand_mode = 3
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 1032

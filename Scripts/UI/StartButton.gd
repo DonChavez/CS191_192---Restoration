@@ -9,7 +9,6 @@ extends CanvasLayer
 
 @export var pressed_sound: AudioStream = preload("res://Music/SFX/UI/Modern10.mp3")
 
-@onready var continue_button: Button = $Menu/Continue
 @onready var new_game_button: Button = $"Menu/New Game"
 @onready var exit_button: Button = $Menu/Exit
 @onready var audio_player: AudioStreamPlayer = $AudioStreamPlayer
@@ -17,15 +16,8 @@ extends CanvasLayer
 
 func _ready() -> void:
 	# Connect hover signals for each button
-	continue_button.mouse_entered.connect(_on_button_hovered)
 	new_game_button.mouse_entered.connect(_on_button_hovered)
 	exit_button.mouse_entered.connect(_on_button_hovered)
-
-# when start button is pressed, start the game
-func _on_continue_pressed() -> void:
-	audio_player.stream = pressed_sound
-	audio_player.play()
-	LevelManager.start_game()
 
 func _on_new_game_pressed() -> void:
 	audio_player.stream = pressed_sound

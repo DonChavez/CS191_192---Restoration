@@ -10,9 +10,19 @@ extends CharacterBody2D
 
 
 
+# Damage Variables
+@export var Knockback_strength : float = 250.0
+var knockback_velocity: Vector2 = Vector2.ZERO
+var knockback_timer := 0.0
+const KNOCKBACK_DURATION := 0.5
+const KNOCKBACK_STRENGTH := 1000.0
+@export var knockback_decay_rate: float = 6.0
+
 #-----onready variables-----#
 # Animation Variables
 @onready var Player_sprite: AnimatedSprite2D = $AnimatedPlayer2D
+@onready var Player_camera: Camera2D = $Camera2D
+
 # Action Variables
 @onready var Tempo_shield: Area2D = $TempoShield
 @onready var TS_durability: HealthComponent = $TempoShield/TSDurability
@@ -27,11 +37,10 @@ extends CharacterBody2D
 @onready var Melee_collision: CollisionShape2D = $MeleeHurtbox/CollisionShape2D
 @onready var Main = null
 @onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
+@onready var HUD = $"UI Wrapper/HUD"
 @onready var Effect_manager: Node = $EffectManager
 @onready var Player_sfx: AudioStreamPlayer2D = $PlayerSFX
 @onready var Player_walking_sfx: AudioStreamPlayer2D = $PlayerWalkingSFX
-
-
 
 #-----local variables-----#
 # input/direction variables
@@ -52,7 +61,7 @@ var Upgrade_status_count: Dictionary = {
 @onready var Base_attack_speed : float = 1.0
 @onready var Base_max_health: float = 100.0
 @onready var Base_projectile_dmg: float = 10.0
-@onready var Base_melee_dmg: float = 20.0
+@onready var Base_melee_dmg: float = 200.0
 # Increment Stats for player
 @onready var Incr_move_speed : float = 0
 @onready var Incr_attack_speed : float = 0
@@ -101,20 +110,29 @@ var Melee_x_additional: int = 0
 var Melee_y_additional: int = 0
 var Sword_list: Array
 
+# damaged variables
+var Is_hit : bool = false
+var Knockback_direction : Vector2 = Vector2.ZERO
+var Light_sword:HitboxComponent
+
 # Blocking Variables
 var Is_blocking : bool = false
 var Parry_window : float = 0.5
+var Can_block: bool = true
+var Disappear_time: float = 0
+var Parry_bonus: float = 0
+var Parry_bonus_time: float = 0
 
 # Shooting Variables
 var Projectile_bounce_count : int = 0
 var Spread_shot_count: int = 0
-var Multi_shot_count: int = 1
+var Multi_shot_count: int = 0
 var Reloading: bool = false
 var Has_range: int = 0
 
 # Projectile Variables
 var Live_time_addition: int = 0
-var Pierce_addition: int = 1
+var Pierce_addition: int = 0
 
 # Interaction Variables
 var Can_process_input : bool = true
@@ -137,16 +155,32 @@ func _ready() -> void:
 	Tempo_shield.connect("area_entered", _on_tempo_shield_area_entered)
 
 func _physics_process(delta: float) -> void:
-	if !Player_is_dead:
-		input_handling()
-		if Is_blocking:
-			velocity = Vector2.ZERO
-		else:
-			velocity = Input_direction * Used_move_speed
-		
-		move_and_slide()
-		update_movement_input()
-		update_animations()
+	if Player_is_dead:
+		return
+
+	input_handling()
+
+	var base_velocity = Vector2.ZERO
+	if Is_blocking or Is_attacking:
+		base_velocity = Vector2.ZERO
+	else:
+		base_velocity = Input_direction * Used_move_speed
+
+	if knockback_velocity.length() > 1.0:
+		position += knockback_velocity * delta
+		# Exponential decay
+		knockback_velocity *= exp(-knockback_decay_rate * delta)
+	else:
+		knockback_velocity = Vector2.ZERO
+
+	# Combine the base velocity with knockback velocity
+	velocity = base_velocity + knockback_velocity
+	
+	# Pass the resultant velocity to move_and_slide
+	move_and_collide(velocity*delta)
+
+	update_movement_input()
+	update_animations()
 
 #----------Input related functions----------#
 func input_handling() -> void:
@@ -157,11 +191,13 @@ func input_handling() -> void:
 	
 	if Input.is_action_just_pressed("dash") and Can_dash:
 		dash()
-	if Input.is_action_pressed("block") and not Is_blocking:
+	
+	# Player is now blocking
+	if Input.is_action_pressed("block") and not Is_blocking and Can_block:
 		block()
 	elif Input.is_action_just_released("block") and Is_blocking:
 		end_block()
-    
+	
 	# if melee button is pressed and previously not doing a melee attack
 	# player should not be able to attack while blocking
 	# note that the player can only equip either a melee or a projectile weapon so this will be adjusted eventually
@@ -188,6 +224,7 @@ func get_object_spawn_position(Direction: String) -> Vector2:
 #----------movement related functions----------#
 func update_movement_input():
 	if !Can_process_movement or Is_blocking:  # Prevent direction updates while blocking
+		Input_direction = Vector2.ZERO
 		return
 	Input_direction = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -215,25 +252,31 @@ func dash() -> void:
 	if Last_direction == Vector2.ZERO:
 		Last_direction = Vector2.RIGHT
 	
-	var dash_vector = Last_direction.normalized() * Dash_distance
-	var target_position = global_position + dash_vector
+	# Save position before dash
+	var Pre_dash_position = global_position
 	
-	var space_state = get_world_2d().direct_space_state
-	var query = PhysicsRayQueryParameters2D.create(global_position, target_position)
-	query.collide_with_areas = false
-	query.collide_with_bodies = true
-	query.collision_mask = 1 << 0
-	var result = space_state.intersect_ray(query)
+	var Dash_vector = Last_direction.normalized() * Dash_distance
+	var Target_position = global_position + Dash_vector
 	
-	if result:
-		var safe_position = result.position - (Last_direction.normalized() * 2)
-		global_position = safe_position
+	var Space_state = get_world_2d().direct_space_state
+	var Query = PhysicsRayQueryParameters2D.create(global_position, Target_position)
+	Query.collide_with_areas = false
+	Query.collide_with_bodies = true
+	Query.collision_mask = 1 << 0
+	var Result = Space_state.intersect_ray(Query)
+	
+	if Result:
+		var Safe_position = Result.position - (Last_direction.normalized() * 2)
+		global_position = Safe_position
 	else:
-		global_position = target_position
+		global_position = Target_position
+	
+	Player_camera.on_player_dashed(Pre_dash_position)	# For animation
 	
 	Can_dash = false
 	await get_tree().create_timer(Dash_cooldown).timeout
 	Can_dash = true
+
 
 #----------animation related functions----------#
 func update_animations() -> void:
@@ -322,7 +365,6 @@ func _on_tempo_shield_area_entered(area: Area2D) -> void:
 
 #----------melee related functions----------#
 func melee_attack() -> void: 
-	print("haha i attack u")
 	Is_attacking = true
 	Facing_direction = get_mouse_direction()
 	Player_sprite.speed_scale = Used_attack_speed
@@ -359,20 +401,43 @@ func activate_melee_hurtbox(Delay : float, Duration : float) -> void:
 	var Holder = Successful_hits
 	Melee_hurtbox.success_check()
 	Melee_hurtbox.visible = true
-	Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
 	
+	var Attack_direction2 = null
+
 	if "Spin Sword" in Sword_list:
 		Melee_hurtbox.position = Vector2(0,0)
-	var Attack_direction = use_melee_weapon("")
+		if Light_sword:
+			Light_sword.position = Vector2(0,0)
+			Attack_direction2 = use_melee_weapon("",Light_sword.Collision)
+			Is_parrying = true
+			Light_sword.toggle()
+	else:
+		Melee_hurtbox.position = get_object_spawn_position(Facing_direction)
+		if Light_sword:
+			Light_sword.position = get_object_spawn_position(Facing_direction)
+			Attack_direction2 = use_melee_weapon("",Light_sword.Collision)
+			Is_parrying = true
+			Light_sword.toggle()
+	
+	var Attack_direction = use_melee_weapon("",Melee_collision)		# any shape changes are temporary
+	
+			# any shape changes are temporary
 	
 	await get_tree().create_timer(Duration, false, true).timeout
 	Melee_hurtbox.monitoring = false
-	if "Sword Hate" not in Sword_list or Successful_hits == Holder:
-		Successful_hits = 0
 	Melee_hurtbox.visible = false
-	print("Successful hits: ", Successful_hits)
-	print("Damage: ", Used_melee_dmg) 
-	use_melee_weapon(Attack_direction)
+	
+	if "Sword Hate" not in Sword_list or Successful_hits == Holder:# For checking consecutive hits
+		Successful_hits = 0
+
+	print("Successful hits: ",Successful_hits)
+	print("Damage: ",Used_melee_dmg) 
+	use_melee_weapon(Attack_direction,Melee_collision)				# Removed here with the same direction
+	
+	if Attack_direction2	:
+		use_melee_weapon(Attack_direction2,Light_sword.Collision)
+		Is_parrying = false
+		Light_sword.toggle()
 
 func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool) -> void:
 	if not Equip:
@@ -381,14 +446,14 @@ func apply_melee_weapon(Melee_x: int, Melee_y: int, Weapon: String, Equip: bool)
 		Sword_list.append(Weapon)
 	Melee_x_additional += Melee_x
 	Melee_y_additional += Melee_y
-
-func use_melee_weapon(Direction: String) -> String:
-	print(Melee_x_additional,", ",Melee_y_additional)
+	
+func use_melee_weapon(Direction: String,Collision) -> String:
+#	print(Melee_x_additional,", ",Melee_y_additional)
 	var Usage = -1
 	if not Direction:
 		Direction = Facing_direction
 		Usage = 1
-	var shape = Melee_collision.shape	
+	var shape = Collision.shape	
 	match Direction:	
 		"left":
 			shape.extents.x += (Melee_x_additional) * Usage
@@ -444,6 +509,57 @@ func reloaded() -> void:
 	await get_tree().create_timer(1/Used_attack_speed).timeout
 	Reloading = false
 
+var Timer_dictionary: Dictionary = {}
+func set_up_timer(ID: String, Time_amount: float) -> void:
+	if Timer_dictionary.has(ID):
+
+		Timer_dictionary[ID].wait_time = 0
+		print("Updated timer for ID:", ID, "to time:", Time_amount)
+	else:
+		# Create new timer
+		Timer_dictionary[ID] = Timer.new()
+		Timer_dictionary[ID].one_shot = true
+		Timer_dictionary[ID].wait_time = 0
+		print(Timer_dictionary[ID].wait_time)
+		add_child(Timer_dictionary[ID])
+		Timer_dictionary[ID].wait_time = 0
+		Timer_dictionary[ID].connect("timeout", Callable(self, "_on_parry_timer_timeout").bind(ID))
+		print("Timer set up for ID:", ID, "with time:", Time_amount)
+	print(Timer_dictionary[ID].wait_time)
+func _on_parry_timer_timeout(ID) -> void:
+	match ID:
+		"016":
+			Player_hitbox.monitorable = true
+		"017":
+			print("Not yet")
+			add_percent_melee_damage(-Parry_bonus)
+	
+
+func on_projectile_parry() -> void:
+	# Example durations (could be parameters or constants)
+	print("Parried")
+	if Disappear_time > 0:
+		if Timer_dictionary.has("016"):
+			Timer_dictionary["016"].wait_time = Disappear_time
+			if Timer_dictionary["016"].is_stopped():
+				Player_hitbox.monitorable = false  # Disable collision layer 2
+				Timer_dictionary["016"].start()
+			print("Timer 016 reset to:", Disappear_time, "remaining:", Timer_dictionary["016"].time_left)
+		else:
+			print("Timer 016 not initialized yet!")
+	
+	if Parry_bonus_time > 0:
+		print(Timer_dictionary["017"].wait_time)			
+		if Timer_dictionary.has("017"):
+			Timer_dictionary["017"].wait_time = Parry_bonus_time
+			if Timer_dictionary["017"].is_stopped():
+				add_percent_melee_damage(Parry_bonus)  # Add damage bonus
+				Timer_dictionary["017"].start()
+			print("Timer 017 reset to:", Parry_bonus_time, "remaining:", Timer_dictionary["017"].time_left)
+		else:
+			print("Timer 017 not initialized yet!")
+		
+
 #----------component related functions----------#
 func _on_player_health_died() -> void:
 	if Player_is_dead:
@@ -457,9 +573,38 @@ func _on_player_health_died() -> void:
 func _on_player_health_damage_taken(_Amount: float) -> void:
 	var original_color = modulate
 	Player_sprite.modulate = Color(1, 0, 0)
+
+	Is_hit = true
+	Player_hitbox.monitoring = false
+	Player_hitbox.monitorable = false
+
 	await get_tree().create_timer(0.2).timeout
 	Player_sprite.modulate = original_color
-
+	Is_hit = false
+	Player_hitbox.monitoring = true
+	Player_hitbox.monitorable = true
+	
+func apply_knockback(force: Vector2) -> void:
+	knockback_velocity = force
+	
+func reset_state():
+	await get_tree().process_frame
+	velocity = Vector2.ZERO
+	Input_direction = Vector2.ZERO
+	Player_health.Is_dead = false
+	Player_is_dead = false
+	Player_hitbox.monitoring = true
+	Player_health.heal(Player_health.Max_health)
+	Can_process_input = true
+	Can_process_movement = true
+	await get_tree().process_frame
+	UIManager.reinitialize_ui()
+	var playerinfo = get_node_or_null("UI Wrapper/HUD/PlayerInfo")
+	if playerinfo:
+		playerinfo.init_elements()
+	await get_tree().process_frame
+	
+	
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
@@ -488,6 +633,24 @@ func set_dash_cooldown(Value: float) -> void:
 
 func toggle_can_attack() -> void:
 	Can_attack = !Can_attack
+	
+func toggle_can_block() -> void:
+	Can_block = !Can_block
+	
+func set_disappear_time(Amount:float) -> void:
+	Disappear_time = Amount
+func set_parry_bonus(Amount:float) -> void:
+	Parry_bonus = Amount
+func set_parry_bonus_time(Amount:float) -> void:
+	Parry_bonus_time = Amount
+
+func toggle_parry() -> void:
+	var bit_5_mask = 1 << 5
+	# XOR toggles the bit: if it's 1 it becomes 0, if it's 0 it becomes 1
+	Melee_hurtbox.collision_mask = Melee_hurtbox.collision_mask ^ bit_5_mask
+
+func apply_light_sword(Light):	# Applied Light Sword
+	Light_sword = Light
 
 #----------status upgrade related functions----------#
 func get_effect_manager() -> Node:
@@ -634,3 +797,11 @@ func add_used_lifesteal_percent(Amount: int) -> void:
 func add_used_damage_reduction_percent(Amount: int) -> void:
 	Percent_damage_reduction += (Amount * 0.01)
 	Player_hitbox.set_damage_reduction(Percent_damage_reduction)
+
+
+func _on_melee_hurtbox_hit(enemy_hitbox: HitboxComponent, amount: float) -> void:
+	var enemy = enemy_hitbox.get_parent()
+	if enemy and enemy.has_method("apply_knockback"):
+		var dir = (enemy.global_position - global_position).normalized()
+		enemy.apply_knockback(dir * Knockback_strength)
+		print("knockback")

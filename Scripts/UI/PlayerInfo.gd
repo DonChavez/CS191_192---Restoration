@@ -20,10 +20,12 @@ var last_shield: float = 0
 var shield_damage_timer: float = 0.0
 
 func _ready() -> void:
+	init_elements()
+
+func init_elements():
 	_initialize_UI_elements()
 	_initialize_health_component()
 	_initialize_shield_component()
-
 # ---------------- HEALTH SYSTEM ---------------- #
 
 func _initialize_UI_elements() -> void:
