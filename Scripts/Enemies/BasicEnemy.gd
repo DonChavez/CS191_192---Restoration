@@ -66,6 +66,8 @@ func _ready() -> void:
 	Post_chase_idle_timer.timeout.connect(_on_post_chase_idle_timer_timeout)
 	
 	# Start walking initially
+	var pause_duration = randf_range(1.0, 3.0)
+	await get_tree().create_timer(pause_duration).timeout
 	Walk_timer.start()
 
 func _physics_process(delta: float) -> void:

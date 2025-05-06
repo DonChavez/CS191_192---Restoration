@@ -1,7 +1,7 @@
 extends Node
 
-#var Starting_level = "res://Scenes/Levels/TestingArea/NewHubArea.tscn" # changed starting area
-var Starting_level = "res://Scenes/Levels/TestingArea/HubTestingArea.tscn" # changed starting area
+var Starting_level = "res://Scenes/Levels/TestingArea/NewHubArea.tscn" # changed starting area
+#var Starting_level = "res://Scenes/Levels/TestingArea/HubTestingArea.tscn" # for testing
 
 # Signals for better control and debugging
 signal load_start()

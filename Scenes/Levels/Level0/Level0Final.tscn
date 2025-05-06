@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://bm1rguyy08mc1"]
+[gd_scene load_steps=102 format=4 uid="uid://bm1rguyy08mc1"]
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_71nxk"]
 [ext_resource type="Texture2D" uid="uid://cbfd1bxgojamu" path="res://Art/Tilesets/plains.png" id="2_stdq7"]
@@ -34,6 +34,7 @@
 [ext_resource type="PackedScene" uid="uid://dfjvxrjh6jt1g" path="res://Scenes/Items/0ProjectileLife.tscn" id="32_p0dsk"]
 [ext_resource type="PackedScene" uid="uid://kb63wl84mtd3" path="res://Scenes/Items/0Richochet.tscn" id="33_7e3ei"]
 [ext_resource type="PackedScene" uid="uid://h5aphehtfr43" path="res://Scenes/Items/0SpreadShot.tscn" id="34_ddnjf"]
+[ext_resource type="PackedScene" uid="uid://b4kwsuct2dfys" path="res://Scenes/Objects/Healing Items/Apple.tscn" id="36_h1lav"]
 [ext_resource type="PackedScene" uid="uid://dxeofmwydwwey" path="res://Scenes/Items/0StoneSkin.tscn" id="36_rfsqm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a31tv"]
@@ -9908,6 +9909,68 @@ position = Vector2(2074, 355)
 position = Vector2(2411, 1720)
 Dialogue_resource = ExtResource("16_8bhr7")
 Dialogue_start = "Planter"
+
+[node name="HealingItems" type="Node2D" parent="."]
+
+[node name="Apple" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1667, 638)
+
+[node name="Apple2" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1588, 424)
+
+[node name="Apple3" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1348, 650)
+
+[node name="Apple4" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1677, 744)
+
+[node name="Apple5" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1608, 267)
+
+[node name="Apple6" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1231, 374)
+
+[node name="Apple7" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2583, 1100)
+
+[node name="Apple8" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2077, 1142)
+
+[node name="Apple9" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2307, 1451)
+
+[node name="Apple10" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2243, 1977)
+
+[node name="Apple11" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(1091, 1840)
+
+[node name="Apple12" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(744, 1601)
+
+[node name="Apple13" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(807, 1482)
+
+[node name="Apple14" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(525, 1275)
+
+[node name="Apple15" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(544, 1178)
+
+[node name="Apple16" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(635, 2024)
+
+[node name="Apple17" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2653, 1204)
+
+[node name="Apple18" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2581, 849)
+
+[node name="Apple19" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2546, 326)
+
+[node name="Apple20" parent="HealingItems" instance=ExtResource("36_h1lav")]
+position = Vector2(2327, 306)
 
 [connection signal="body_entered" from="part2/Stairs" to="part2/Stairs" method="_on_body_entered"]
 [connection signal="body_exited" from="part2/Stairs" to="part2/Stairs" method="_on_body_exited"]
