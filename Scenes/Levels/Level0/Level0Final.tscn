@@ -26,7 +26,7 @@
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="24_p81mt"]
 [ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="25_gyxax"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="26_reclq"]
-[ext_resource type="PackedScene" path="res://Scenes/Interactables/Trees.tscn" id="27_o3x25"]
+[ext_resource type="PackedScene" uid="uid://darfh1m8ue0c" path="res://Scenes/Interactables/Trees.tscn" id="27_o3x25"]
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="28_ikmke"]
 [ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="30_dvqnh"]
 [ext_resource type="Script" path="res://Scripts/Level0part6.gd" id="30_eibje"]
@@ -9286,6 +9286,7 @@ position = Vector2(144, 608)
 position = Vector2(209, 609)
 
 [node name="RecyclerManager" parent="part1" instance=ExtResource("12_kitpf")]
+z_index = 1
 position = Vector2(159, 300)
 
 [node name="PortalToHub" parent="part1" instance=ExtResource("13_30mxe")]
@@ -9485,6 +9486,7 @@ Dialogue_resource = ExtResource("16_8bhr7")
 Dialogue_start = "Congratulations"
 
 [node name="RecyclerManager" parent="part6/NPCsAndRewards" instance=ExtResource("12_kitpf")]
+z_index = 1
 position = Vector2(1477, 432)
 
 [node name="TrashCan" parent="part6/NPCsAndRewards" instance=ExtResource("23_xur37")]
@@ -9946,6 +9948,7 @@ position = Vector2(2743, 1097)
 position = Vector2(2368, 660)
 
 [node name="RecyclerManager" parent="." instance=ExtResource("12_kitpf")]
+z_index = 1
 position = Vector2(2074, 355)
 
 [connection signal="body_entered" from="part2/Stairs" to="part2/Stairs" method="_on_body_entered"]

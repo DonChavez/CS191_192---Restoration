@@ -15,12 +15,16 @@ extends CharacterBody2D
 @export var Attack_timer: float = 0.0
 @export var Attack_cooldown: float = 1.0
 var is_attacking: bool = false
+var knockback_velocity: Vector2 = Vector2.ZERO
+@export var knockback_decay_rate: float = 6.0
+@export var Knockback_strength : float = 100.0
 
 # movement variables
 var Speed = 50
 var Last_direction : Vector2 = Vector2.ZERO
 var Is_waiting : bool = false
 var Run_away : bool = false
+var Is_dying : bool = false
 
 # player variables
 var Player_chase = false
@@ -29,16 +33,60 @@ var Player = null
 # music variables
 @onready var Ranged_sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
+# Patrol variables
+var Spawn_position : Vector2
+var Patrol_distance : float = 50.0
+var Patrol_direction : Vector2 = Vector2.RIGHT
+var Walk_time : float = Patrol_distance / Speed
+enum PatrolState { WALKING, IDLING }
+var Current_patrol_state = PatrolState.WALKING
+var Idle_timer: Timer
+var Idle_time: float = 1.0
+var Walk_timer: Timer
+
+# Post-chase idle variables
+var Is_idling_after_chase : bool = false
+var Post_chase_idle_timer : Timer
 
 func _ready() -> void:
 	Ranged_sprite.play("Idle")
 	Ranged_los.enabled = true
-	if not Wait_timer.is_connected("timeout", _on_wait_timer_timeout):
-		Wait_timer.timeout.connect(_on_wait_timer_timeout)
+	Wait_timer.timeout.connect(_on_wait_timer_timeout)
 	Ranged_sprite.animation_finished.connect(_on_animation_finished)
+	
+	# Initialize patrol variables
+	Spawn_position = position
+	Idle_timer = Timer.new()
+	Idle_timer.one_shot = true
+	Idle_timer.wait_time = Idle_time
+	add_child(Idle_timer)
+	Idle_timer.timeout.connect(_on_idle_timer_timeout)
+	
+	Walk_timer = Timer.new()
+	Walk_timer.one_shot = true
+	Walk_timer.wait_time = Walk_time
+	add_child(Walk_timer)
+	Walk_timer.timeout.connect(_on_walk_timer_timeout)
+	
+	Post_chase_idle_timer = Timer.new()
+	Post_chase_idle_timer.one_shot = true
+	Post_chase_idle_timer.wait_time = 2.0
+	add_child(Post_chase_idle_timer)
+	Post_chase_idle_timer.timeout.connect(_on_post_chase_idle_timer_timeout)
+	
+	var pause_duration = randf_range(1.0, 3.0)
+	await get_tree().create_timer(pause_duration).timeout
+	Walk_timer.start()
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
+		
+		if knockback_velocity.length() > 1.0:
+			position += knockback_velocity * delta
+			# Exponential decay
+			knockback_velocity *= exp(-knockback_decay_rate * delta)
+		else:
+			knockback_velocity = Vector2.ZERO
 		move_and_collide(velocity * delta)
 		
 		Attack_timer += delta
@@ -81,10 +129,17 @@ func _physics_process(delta: float) -> void:
 			Ranged_sprite.play("Move")
 		
 		else:
-			Ranged_sprite.play("Idle")
-			velocity = Vector2.ZERO
+			match Current_patrol_state:
+				PatrolState.WALKING:
+					velocity = Speed * Patrol_direction
+					Ranged_sprite.play("Move")
+					Ranged_sprite.flip_h = Patrol_direction.x < 0
+				PatrolState.IDLING:
+					velocity = Vector2.ZERO
+					Ranged_sprite.play("Idle")
 	else:
-		enemy_dead()
+		if !Is_dying:
+			enemy_dead()
 
 func start_attack() -> void:
 	if !Run_away:
@@ -141,16 +196,38 @@ func _on_get_away_from_me_body_exited(body: Node2D) -> void:
 		Run_away = false
 		print("COME BACK HERE")
 
-
 func _on_wait_timer_timeout() -> void:
 	if Is_waiting:
-		Is_waiting = false 
+		Is_waiting = false
+		Is_idling_after_chase = true
+		Post_chase_idle_timer.start()
 		Player = null
+		Spawn_position = position
+		print("Wait a minute... who are you?")
+
+func _on_walk_timer_timeout() -> void:
+	if Current_patrol_state == PatrolState.WALKING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Run_away:
+		Current_patrol_state = PatrolState.IDLING
+		Idle_timer.start()
+
+func _on_idle_timer_timeout() -> void:
+	if Current_patrol_state == PatrolState.IDLING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Run_away:
+		Current_patrol_state = PatrolState.WALKING
+		Patrol_direction = -Patrol_direction
+		Walk_timer.start()
+
+func _on_post_chase_idle_timer_timeout() -> void:
+	Is_idling_after_chase = false
+	Current_patrol_state = PatrolState.WALKING
+	Patrol_direction = Vector2.RIGHT
+	Walk_timer.start()
+
 
 func is_dead() -> bool: 
 	return Ranged_health.Health <= 0
 
 func enemy_dead() -> void:
+	Is_dying = true
 	Ranged_sprite.play("Death")
 	Ranged_hitbox.monitoring = false
 	

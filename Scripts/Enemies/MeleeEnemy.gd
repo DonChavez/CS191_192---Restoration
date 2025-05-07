@@ -39,6 +39,22 @@ var Player = null
 # Animation state tracking
 var current_animation: String = "Idle"
 
+# Patrol variables
+var Spawn_position : Vector2
+var Patrol_distance : float = 50.0
+var Patrol_direction : Vector2 = Vector2.RIGHT
+var Walk_time : float = Patrol_distance / Speed
+enum PatrolState { WALKING, IDLING }
+var Current_patrol_state = PatrolState.WALKING
+var Idle_timer: Timer
+var Idle_time: float = 1.0
+var Walk_timer: Timer
+var Is_dying = false
+
+# Post-chase idle variables
+var Is_idling_after_chase : bool = false
+var Post_chase_idle_timer : Timer
+
 func _ready() -> void:
 	Melee_sprite.play("Idle")
 	current_animation = "Idle"
@@ -46,11 +62,9 @@ func _ready() -> void:
 	
 	DashTimer.wait_time = 1
 	DashTimer.one_shot = false
-	if not Wait_timer.is_connected("timeout", _on_dash_timer_timeout):
-		DashTimer.timeout.connect(_on_dash_timer_timeout)
+	DashTimer.timeout.connect(_on_dash_timer_timeout)
 	DashTimer.start()
-	if not Wait_timer.is_connected("timeout", _on_wait_timer_timeout):
-		Wait_timer.timeout.connect(_on_wait_timer_timeout)
+	Wait_timer.timeout.connect(_on_wait_timer_timeout)
 	
 	# Initialize melee attack area as invisible and non-functional
 	Melee_attack.monitoring = false
@@ -58,6 +72,30 @@ func _ready() -> void:
 	Melee_attack.visible = false
 	
 	Melee_sprite.animation_finished.connect(_on_animation_finished)
+	
+	# Initialize patrol variables
+	Spawn_position = position
+	Idle_timer = Timer.new()
+	Idle_timer.one_shot = true
+	Idle_timer.wait_time = Idle_time
+	add_child(Idle_timer)
+	Idle_timer.timeout.connect(_on_idle_timer_timeout)
+	
+	Walk_timer = Timer.new()
+	Walk_timer.one_shot = true
+	Walk_timer.wait_time = Walk_time
+	add_child(Walk_timer)
+	Walk_timer.timeout.connect(_on_walk_timer_timeout)
+	
+	Post_chase_idle_timer = Timer.new()
+	Post_chase_idle_timer.one_shot = true
+	Post_chase_idle_timer.wait_time = 2.0
+	add_child(Post_chase_idle_timer)
+	Post_chase_idle_timer.timeout.connect(_on_post_chase_idle_timer_timeout)
+	
+	var pause_duration = randf_range(1.0, 3.0)
+	await get_tree().create_timer(pause_duration).timeout
+	Walk_timer.start()
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
@@ -65,7 +103,7 @@ func _physics_process(delta: float) -> void:
 			velocity = Dash_direction * Dash_speed
 			move_and_collide(velocity * delta)
 			return
-		
+			
 		if knockback_velocity.length() > 1.0:
 			position += knockback_velocity * delta
 			# Exponential decay
@@ -86,26 +124,29 @@ func _physics_process(delta: float) -> void:
 			else:
 				Player_chase = false
 		
-		# Update velocity and state
-		if Player_chase and Player:
+		if Is_idling_after_chase:
+			velocity = Vector2.ZERO
+		elif Player_chase and Player:
 			var Direction = (Player.position - position).normalized()
 			velocity = Direction * Speed
-			
-			# Attack logic: Melee if in range
 			if Player_in_melee_range and !is_melee_attacking:
 				start_melee_attack()
-			
 			Melee_sprite.flip_h = Player.position.x < position.x
-		
 		elif Is_waiting:
 			velocity = Last_direction * Speed
 			Melee_sprite.flip_h = Last_direction.x < 0
 		else:
-			velocity = Vector2.ZERO
+			match Current_patrol_state:
+				PatrolState.WALKING:
+					velocity = Speed * Patrol_direction
+					Melee_sprite.flip_h = Patrol_direction.x < 0
+				PatrolState.IDLING:
+					velocity = Vector2.ZERO
 		
 		update_animation()
 	else:
-		enemy_dead()
+		if !Is_dying:
+			enemy_dead()
 
 func update_animation() -> void:
 	var new_animation = "Idle"
@@ -203,6 +244,7 @@ func is_dead() -> bool:
 	return Melee_health.Health <= 0
 
 func enemy_dead() -> void:
+	Is_dying = true
 	if current_animation != "Death":
 		Melee_sprite.play("Death")
 		current_animation = "Death"
@@ -229,6 +271,23 @@ func _on_melee_detection_area_body_exited(body: Node2D) -> void:
 	if body.is_in_group("Player"):
 		Player_in_melee_range = false
 		print("Get back here!")
+		
+func _on_walk_timer_timeout() -> void:
+	if Current_patrol_state == PatrolState.WALKING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Dashing and not is_melee_attacking:
+		Current_patrol_state = PatrolState.IDLING
+		Idle_timer.start()
+
+func _on_idle_timer_timeout() -> void:
+	if Current_patrol_state == PatrolState.IDLING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Dashing and not is_melee_attacking:
+		Current_patrol_state = PatrolState.WALKING
+		Patrol_direction = -Patrol_direction
+		Walk_timer.start()
+
+func _on_post_chase_idle_timer_timeout() -> void:
+	Is_idling_after_chase = false
+	Current_patrol_state = PatrolState.WALKING
+	Patrol_direction = Vector2.RIGHT
+	Walk_timer.start()
 
 func apply_knockback(force: Vector2) -> void:
 	knockback_velocity = force
