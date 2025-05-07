@@ -9,10 +9,15 @@ extends CharacterBody2D
 @onready var Wait_timer: Timer = $WaitTimer
 @onready var Coin_spawner: Node = $CoinSpawner
 
-# movement variables
+var knockback_velocity: Vector2 = Vector2.ZERO
+@export var knockback_decay_rate: float = 6.0
+@export var Knockback_strength : float = 100.0
+
+# movement variablesa
 var Speed = 50
 var Last_direction : Vector2 = Vector2.ZERO
 var Is_waiting : bool = false
+var Is_dying : bool = false
 
 # player variables
 var Player_chase = false
@@ -72,6 +77,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if !is_dead():
+		if knockback_velocity.length() > 1.0:
+			position += knockback_velocity * delta
+			# Exponential decay
+			knockback_velocity *= exp(-knockback_decay_rate * delta)
+		else:
+			knockback_velocity = Vector2.ZERO
+			
 		if Player != null and !Is_waiting:
 			Line_of_sight.target_position = Player.global_position - global_position
 			Line_of_sight.force_raycast_update()
@@ -106,7 +118,8 @@ func _physics_process(delta: float) -> void:
 		
 		move_and_collide(velocity * delta)
 	else:
-		enemy_dead()
+		if !Is_dying:
+			enemy_dead()
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -124,12 +137,40 @@ func _on_detection_area_body_exited(_body: Node2D) -> void:
 func _on_wait_timer_timeout() -> void:
 	if Is_waiting:
 		Is_waiting = false
-		Is_idling_after_chase = true
-		Post_chase_idle_timer.start()
 		Player = null
 		print("Wait a minute... who are you?")
-		# Adjust new spawn position
-		Spawn_position = position
+
+func is_dead() -> bool:
+	return BE_health.Health <= 0
+
+func enemy_dead() -> void:
+	BE_sprite.play("Death")
+	BE_hitbox.monitoring = false
+	BE_hurtbox.monitoring = false
+	Is_dying = true
+	ProgressionManager.add_slime_defeated()
+	
+	var Death_animation_name : String = "Death"
+	var Death_animation_speed : float = BE_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
+	var Death_animation_frames : float = BE_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
+	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
+	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
+	
+	Coin_spawner.spawn_coin(2)
+	
+	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
+	queue_free()
+
+func apply_knockback(force: Vector2) -> void:
+	knockback_velocity = force
+
+func _on_basic_enemy_hurtbox_hit(player_hitbox: HitboxComponent, amount: float) -> void:
+	var player = player_hitbox.get_parent()
+	if player and player.has_method("apply_knockback"):
+		var dir = (player.global_position - global_position).normalized()
+		player.apply_knockback(dir * Knockback_strength)
+		print("knockback")
+
 
 func _on_walk_timer_timeout() -> void:
 	if Current_patrol_state == PatrolState.WALKING and not Player_chase and not Is_waiting and not Is_idling_after_chase:
@@ -147,25 +188,3 @@ func _on_post_chase_idle_timer_timeout() -> void:
 	Current_patrol_state = PatrolState.WALKING
 	Patrol_direction = Vector2.RIGHT  # Start walking right after idle
 	Walk_timer.start()
-
-func is_dead() -> bool:
-	return BE_health.Health <= 0
-
-func enemy_dead() -> void:
-	BE_sprite.play("Death")
-	BE_hitbox.monitoring = false
-	BE_hitbox.monitorable = false
-	BE_hurtbox.monitoring = false
-	BE_hurtbox.monitorable = false
-	
-	var Death_animation_name : String = "Death"
-	var Death_animation_speed : float = BE_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
-	var Death_animation_frames : float = BE_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
-	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
-	var Death_frame_speed : float = Death_animation_length / Death_animation_frames
-	
-	await get_tree().create_timer(Death_animation_length - Death_frame_speed, false, true).timeout
-	
-	Coin_spawner.spawn_coin(2)
-	
-	queue_free()

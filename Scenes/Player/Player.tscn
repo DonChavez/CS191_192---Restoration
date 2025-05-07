@@ -1,7 +1,7 @@
-[gd_scene load_steps=98 format=3 uid="uid://b6us2qurr7wx7"]
+[gd_scene load_steps=100 format=3 uid="uid://b6us2qurr7wx7"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_fmgx4"]
-[ext_resource type="Texture2D" uid="uid://bbqdflisyv7ws" path="res://Art/Sprites/player_sprite_sheet_modified.png" id="2_lv08t"]
+[ext_resource type="Texture2D" uid="uid://bgix0wrpmi5td" path="res://Art/Sprites/player_sprite_sheet_modified.png" id="2_lv08t"]
 [ext_resource type="PackedScene" uid="uid://cdxbtkj5u7k1v" path="res://Scenes/Components/HealthComponent.tscn" id="3_4xdl3"]
 [ext_resource type="PackedScene" uid="uid://c2p11rdf0f6yt" path="res://Scenes/Player/TempoShield.tscn" id="3_psm1d"]
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="4_2ll6f"]
@@ -11,9 +11,11 @@
 [ext_resource type="Script" path="res://Scripts/Player/Camera.gd" id="8_56bxr"]
 [ext_resource type="Script" path="res://Scripts/UI/UIWrapper.gd" id="9_48qhq"]
 [ext_resource type="PackedScene" uid="uid://dybc7khnwy044" path="res://Scenes/UI/HUD.tscn" id="10_kcxfu"]
+[ext_resource type="Texture2D" uid="uid://bg2uvipfvqrn6" path="res://Art/Draft/arrow.png" id="11_qvenm"]
 [ext_resource type="PackedScene" uid="uid://dpdisv8unuwy0" path="res://Scenes/UI/GameOverScreen.tscn" id="11_t5804"]
 [ext_resource type="PackedScene" uid="uid://r4v4npadga3m" path="res://Scenes/UI/PauseScreen.tscn" id="11_tbdxu"]
-[ext_resource type="AudioStream" uid="uid://bgqj5wt2nk2pi" path="res://Music/SFX/Player/grass_walk.mp3" id="13_73quu"]
+[ext_resource type="AudioStream" uid="uid://bvd80xjaixn5m" path="res://Music/SFX/Player/grass_walk.mp3" id="13_73quu"]
+[ext_resource type="Script" path="res://Scripts/UI/arrow.gd" id="14_qw1qs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kw1xj"]
 atlas = ExtResource("2_lv08t")
@@ -691,10 +693,10 @@ Damage_interval = 0.5
 shape = SubResource("RectangleShape2D_d4m5w")
 
 [node name="MeleeHurtbox" parent="." instance=ExtResource("5_0jedd")]
+scale = Vector2(1.14116, 1.14116)
 collision_layer = 0
 collision_mask = 12
-Damage_amount = 0.0
-Damage_interval = 0.2
+Damage_amount = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeHurtbox"]
 shape = SubResource("RectangleShape2D_wt541")
@@ -731,6 +733,23 @@ grow_vertical = 2
 
 [node name="PauseScreen" parent="UI Wrapper" instance=ExtResource("11_tbdxu")]
 
+[node name="Arrow" type="Control" parent="UI Wrapper"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("14_qw1qs")
+
+[node name="TextureRect" type="TextureRect" parent="UI Wrapper/Arrow"]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 138.0
+offset_right = 115.0
+offset_bottom = 212.0
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(37, 37)
+texture = ExtResource("11_qvenm")
+
 [node name="PlayerSFX" type="AudioStreamPlayer2D" parent="."]
 volume_db = 4.0
 bus = &"sfx"
@@ -741,5 +760,6 @@ stream = ExtResource("13_73quu")
 [connection signal="damage_taken" from="PlayerHealth" to="." method="_on_player_health_damage_taken"]
 [connection signal="died" from="PlayerHealth" to="." method="_on_player_health_died"]
 [connection signal="damage_dealt" from="MeleeHurtbox" to="." method="do_life_steal"]
+[connection signal="hit" from="MeleeHurtbox" to="." method="_on_melee_hurtbox_hit"]
 [connection signal="success" from="MeleeHurtbox" to="." method="add_successful_hits"]
 [connection signal="body_entered" from="TempoShield" to="." method="_on_tempo_shield_body_entered"]

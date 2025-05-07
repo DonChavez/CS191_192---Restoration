@@ -61,9 +61,11 @@ func _ready() -> void:
 	
 	DashTimer.wait_time = 1
 	DashTimer.one_shot = false
-	DashTimer.timeout.connect(_on_dash_timer_timeout)
+	if not Wait_timer.is_connected("timeout", _on_dash_timer_timeout):
+		DashTimer.timeout.connect(_on_dash_timer_timeout)
 	DashTimer.start()
-	Wait_timer.timeout.connect(_on_wait_timer_timeout)
+	if not Wait_timer.is_connected("timeout", _on_wait_timer_timeout):
+		Wait_timer.timeout.connect(_on_wait_timer_timeout)
 	
 	# disable hitbox first
 	Elite_hitbox.visible = false

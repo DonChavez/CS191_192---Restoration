@@ -25,6 +25,8 @@ Transition="*res://Globals/Transition.tscn"
 UIManager="*res://Globals/UIManager.gd"
 AudioManager="*res://Globals/AudioManager.gd"
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
+DialogueState="*res://Globals/dialoguestate.gd"
+ProgressionManager="*res://Globals/ProgressionManager.gd"
 
 [display]
 
@@ -77,6 +79,7 @@ Enemy=""
 Shield=""
 PollutionReduction="Sucks the Green out of that bar"
 Boss=""
+NPC=""
 
 [gui]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dgx4d5ogv1yi8"]
 
-[ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_epuwt"]
+[ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="1_epuwt"]
 
 [node name="Dialogue" type="Control"]
 layout_mode = 3

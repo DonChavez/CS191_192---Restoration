@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://6copm6oh8v16"]
+
+[sub_resource type="Animation" id="Animation_wg3sw"]
+resource_name = "Intro"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3suuj"]
+_data = {
+"Intro": SubResource("Animation_wg3sw")
+}
+
+[node name="Intro" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+process_callback = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3suuj")
+}
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Black Rect" type="ColorRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

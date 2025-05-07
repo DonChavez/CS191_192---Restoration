@@ -1,27 +1,38 @@
-[gd_scene load_steps=44 format=4 uid="uid://cvpx21a28kpv3"]
+[gd_scene load_steps=43 format=4 uid="uid://cvpx21a28kpv3"]
+
 
 [ext_resource type="Texture2D" uid="uid://dx6xm0wwie1au" path="res://Art/Tilesets/grass.png" id="1_fpcnl"]
 [ext_resource type="Texture2D" uid="uid://b5l4bnjgh5qhd" path="res://Art/Tilesets/floors/wooden.png" id="2_whptk"]
 [ext_resource type="Texture2D" uid="uid://cvorohdpce8lg" path="res://Art/Tilesets/fences.png" id="3_mq7l8"]
 [ext_resource type="Texture2D" uid="uid://u1cp43hebimg" path="res://Art/Objects/objects.png" id="4_yr3pd"]
+
 [ext_resource type="PackedScene" uid="uid://d1jrt03ir805e" path="res://Scenes/Interactables/Portal.tscn" id="5_14g4i"]
+[ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="6_lef3a"]
 [ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="6_lef3a"]
 [ext_resource type="PackedScene" uid="uid://c0scvsyxn0nnp" path="res://Scenes/Interactables/Coin.tscn" id="9_h28lj"]
 [ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="10_6erel"]
+[ext_resource type="PackedScene" uid="uid://ded0yqdtknhm4" path="res://Scenes/Interactables/TrashPile.tscn" id="10_6erel"]
 [ext_resource type="PackedScene" uid="uid://cxo2tgb3sgts3" path="res://Scenes/Interactables/TrashSmall.tscn" id="11_pu62g"]
+
 [ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="12_svkrl"]
+
 [ext_resource type="PackedScene" uid="uid://3l055tt4lhc" path="res://Scenes/Interactables/Recycler.tscn" id="14_epukc"]
 [ext_resource type="PackedScene" uid="uid://disryke7g2rsn" path="res://Scenes/Items/0MultiShot.tscn" id="16_iuc1w"]
 [ext_resource type="PackedScene" uid="uid://b313um8gt4per" path="res://Scenes/Items/0DashBoots.tscn" id="16_knn4t"]
+[ext_resource type="PackedScene" uid="uid://b313um8gt4per" path="res://Scenes/Items/0DashBoots.tscn" id="16_knn4t"]
 [ext_resource type="PackedScene" uid="uid://kb63wl84mtd3" path="res://Scenes/Items/0Richochet.tscn" id="16_u8myj"]
 [ext_resource type="PackedScene" uid="uid://bxqyk2ppf3nal" path="res://Scenes/Items/0DoubleTime.tscn" id="17_h0vfh"]
+
 [ext_resource type="PackedScene" path="res://Scenes/Interactables/TrashCan.tscn" id="17_hcbu8"]
-[ext_resource type="PackedScene" uid="uid://baakqqbsd84ic" path="res://Scenes/Interactables/Trees.tscn" id="18_585nw"]
+[ext_resource type="PackedScene" path="res://Scenes/Interactables/Trees.tscn" id="18_585nw"]
+
 [ext_resource type="PackedScene" uid="uid://d1b6dteht2ol0" path="res://Scenes/Items/0FireTank.tscn" id="18_t2ugx"]
 [ext_resource type="PackedScene" uid="uid://jiamupj0x6pd" path="res://Scenes/Items/0GlassCannon.tscn" id="19_f5e1k"]
 [ext_resource type="PackedScene" uid="uid://v1dle5t75pan" path="res://Scenes/Interactables/PawnShop.tscn" id="20_a0338"]
 [ext_resource type="PackedScene" uid="uid://h5aphehtfr43" path="res://Scenes/Items/0SpreadShot.tscn" id="20_injys"]
 [ext_resource type="PackedScene" uid="uid://bj61jhrq7i7u1" path="res://Scenes/Interactables/Trainer.tscn" id="20_tempy"]
+[ext_resource type="PackedScene" uid="uid://ch565oa8edn46" path="res://Scenes/Items/0LifeCrystal.tscn" id="20_w8yam"]
+[ext_resource type="PackedScene" uid="uid://rvxf1vf4p8o2" path="res://Scenes/Items/0SwordLight.tscn" id="21_2qwh1"]
 [ext_resource type="PackedScene" uid="uid://ch565oa8edn46" path="res://Scenes/Items/0LifeCrystal.tscn" id="20_w8yam"]
 [ext_resource type="PackedScene" uid="uid://rvxf1vf4p8o2" path="res://Scenes/Items/0SwordLight.tscn" id="21_2qwh1"]
 [ext_resource type="PackedScene" uid="uid://bgk1yki43amh" path="res://Scenes/Items/0Pierce.tscn" id="21_x7ygo"]
@@ -36,7 +47,6 @@
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="34_3x581"]
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="35_ote1c"]
 [ext_resource type="PackedScene" uid="uid://b128jqdf73j7d" path="res://Scenes/Enemies/Boss.tscn" id="36_ri6gv"]
-[ext_resource type="PackedScene" uid="uid://b4kwsuct2dfys" path="res://Scenes/Objects/Healing Items/Apple.tscn" id="37_no2vf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jukss"]
 texture = ExtResource("1_fpcnl")
@@ -356,6 +366,7 @@ vertical_alignment = 1
 [node name="PortalToForest" parent="." instance=ExtResource("5_14g4i")]
 position = Vector2(537, 434)
 Target_level_path = "res://Scenes/Levels/Level1/Level1.tscn"
+Target_level_path = "res://Scenes/Levels/Level1/Level1.tscn"
 
 [node name="Label2" type="Label" parent="PortalToForest"]
 offset_left = -14.0
@@ -371,12 +382,15 @@ vertical_alignment = 1
 
 [node name="Coin" parent="." instance=ExtResource("9_h28lj")]
 position = Vector2(823, 371)
+position = Vector2(823, 371)
 
 [node name="Coin3" parent="." instance=ExtResource("9_h28lj")]
+position = Vector2(910, 340)
 position = Vector2(910, 340)
 Value = 1000
 
 [node name="TrashPile" parent="." instance=ExtResource("10_6erel")]
+position = Vector2(105, 279)
 position = Vector2(105, 279)
 
 [node name="TrashSmall" parent="." instance=ExtResource("11_pu62g")]
@@ -384,18 +398,23 @@ position = Vector2(655, 265)
 
 [node name="TrashMedium" parent="." instance=ExtResource("12_svkrl")]
 position = Vector2(685, 294)
+position = Vector2(685, 294)
 Value = 1000
 
 [node name="RecyclerManager" parent="." instance=ExtResource("14_epukc")]
 position = Vector2(385, 226)
+position = Vector2(385, 226)
 
 [node name="TrashCan" parent="." instance=ExtResource("17_hcbu8")]
+position = Vector2(89, 477)
 position = Vector2(89, 477)
 
 [node name="Trees" parent="." instance=ExtResource("18_585nw")]
 position = Vector2(80, 397)
+position = Vector2(80, 397)
 
 [node name="NPC2" parent="." instance=ExtResource("20_a0338")]
+position = Vector2(798, 243)
 position = Vector2(798, 243)
 
 [node name="Portal" parent="." instance=ExtResource("5_14g4i")]
@@ -409,6 +428,20 @@ offset_right = 45.0
 offset_bottom = 36.0
 scale = Vector2(0.5, 0.5)
 text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="toNewTut" parent="." instance=ExtResource("5_14g4i")]
+position = Vector2(754, 447)
+Target_level_path = "res://Scenes/Levels/Level0/Level0Final.tscn"
+
+[node name="Label2" type="Label" parent="toNewTut"]
+offset_left = -22.0
+offset_top = 13.0
+offset_right = 68.0
+offset_bottom = 36.0
+scale = Vector2(0.5, 0.5)
+text = "New Tutorial"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -493,6 +526,3 @@ position = Vector2(989, 542)
 
 [node name="Boss" parent="Enemies" instance=ExtResource("36_ri6gv")]
 position = Vector2(1020, 90)
-
-[node name="Apple" parent="." instance=ExtResource("37_no2vf")]
-position = Vector2(611, 384)

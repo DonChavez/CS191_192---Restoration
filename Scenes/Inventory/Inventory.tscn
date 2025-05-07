@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://Scripts/Inventory/Inventory.gd" id="1_j5x7l"]
 [ext_resource type="Script" path="res://Scripts/Inventory/InventoryUI.gd" id="1_lloe7"]
-[ext_resource type="Texture2D" uid="uid://bbgcpktgpyph2" path="res://Art/Objects/trashbag.png" id="3_obxsk"]
-[ext_resource type="Texture2D" uid="uid://b4w3dtepsdun8" path="res://Art/Objects/coin_pouch.png" id="4_fqtxd"]
+[ext_resource type="Texture2D" uid="uid://bxx1fnbelg0lt" path="res://Art/Objects/trashbag.png" id="3_obxsk"]
+[ext_resource type="Texture2D" uid="uid://dem8ysio7k10h" path="res://Art/Objects/coin_pouch.png" id="4_fqtxd"]
 [ext_resource type="PackedScene" uid="uid://c1c8vyfyanpjj" path="res://Scenes/Inventory/ItemSlot.tscn" id="5_cpe76"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eg0yy"]

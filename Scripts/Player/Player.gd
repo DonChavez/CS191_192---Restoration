@@ -11,7 +11,12 @@ extends CharacterBody2D
 
 
 # Damage Variables
-@export var Knockback_strength : float = 300.0
+@export var Knockback_strength : float = 250.0
+var knockback_velocity: Vector2 = Vector2.ZERO
+var knockback_timer := 0.0
+const KNOCKBACK_DURATION := 0.5
+const KNOCKBACK_STRENGTH := 1000.0
+@export var knockback_decay_rate: float = 6.0
 
 #-----onready variables-----#
 # Animation Variables
@@ -32,6 +37,7 @@ extends CharacterBody2D
 @onready var Melee_collision: CollisionShape2D = $MeleeHurtbox/CollisionShape2D
 @onready var Main = null
 @onready var Inventory: InventoryObject = $"UI Wrapper/Inventory"
+@onready var HUD = $"UI Wrapper/HUD"
 @onready var Effect_manager: Node = $EffectManager
 @onready var Player_sfx: AudioStreamPlayer2D = $PlayerSFX
 @onready var Player_walking_sfx: AudioStreamPlayer2D = $PlayerWalkingSFX
@@ -54,8 +60,8 @@ var Upgrade_status_count: Dictionary = {
 @onready var Base_move_speed : float = 170.0
 @onready var Base_attack_speed : float = 1.0
 @onready var Base_max_health: float = 100.0
-@onready var Base_projectile_dmg: float = 10.0
-@onready var Base_melee_dmg: float = 20.0
+@onready var Base_projectile_dmg: float = 20.0
+@onready var Base_melee_dmg: float = 40.0 
 # Increment Stats for player
 @onready var Incr_move_speed : float = 0
 @onready var Incr_attack_speed : float = 0
@@ -120,13 +126,13 @@ var Parry_bonus_time: float = 0
 # Shooting Variables
 var Projectile_bounce_count : int = 0
 var Spread_shot_count: int = 0
-var Multi_shot_count: int = 1
+var Multi_shot_count: int = 0
 var Reloading: bool = false
 var Has_range: int = 0
 
 # Projectile Variables
 var Live_time_addition: int = 0
-var Pierce_addition: int = 1
+var Pierce_addition: int = 0
 
 # Interaction Variables
 var Can_process_input : bool = true
@@ -149,16 +155,32 @@ func _ready() -> void:
 	Tempo_shield.connect("area_entered", _on_tempo_shield_area_entered)
 
 func _physics_process(delta: float) -> void:
-	if !Player_is_dead:
-		input_handling()
-		if Is_blocking:
-			velocity = Vector2.ZERO
-		else:
-			velocity = Input_direction * Used_move_speed
-		
-		move_and_slide()
-		update_movement_input()
-		update_animations()
+	if Player_is_dead:
+		return
+
+	input_handling()
+
+	var base_velocity = Vector2.ZERO
+	if Is_blocking or Is_attacking:
+		base_velocity = Vector2.ZERO
+	else:
+		base_velocity = Input_direction * Used_move_speed
+
+	if knockback_velocity.length() > 1.0:
+		position += knockback_velocity * delta
+		# Exponential decay
+		knockback_velocity *= exp(-knockback_decay_rate * delta)
+	else:
+		knockback_velocity = Vector2.ZERO
+
+	# Combine the base velocity with knockback velocity
+	velocity = base_velocity + knockback_velocity
+	
+	# Pass the resultant velocity to move_and_slide
+	move_and_collide(velocity*delta)
+
+	update_movement_input()
+	update_animations()
 
 #----------Input related functions----------#
 func input_handling() -> void:
@@ -202,6 +224,7 @@ func get_object_spawn_position(Direction: String) -> Vector2:
 #----------movement related functions----------#
 func update_movement_input():
 	if !Can_process_movement or Is_blocking:  # Prevent direction updates while blocking
+		Input_direction = Vector2.ZERO
 		return
 	Input_direction = Vector2(
 		Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
@@ -342,7 +365,6 @@ func _on_tempo_shield_area_entered(area: Area2D) -> void:
 
 #----------melee related functions----------#
 func melee_attack() -> void: 
-	print("haha i attack u")
 	Is_attacking = true
 	Facing_direction = get_mouse_direction()
 	Player_sprite.speed_scale = Used_attack_speed
@@ -549,32 +571,40 @@ func _on_player_health_died() -> void:
 	await get_tree().create_timer(0.5).timeout
 
 func _on_player_health_damage_taken(_Amount: float) -> void:
-	var original_color = modulate  # Store the original color
-	Player_sprite.modulate = Color(1, 0, 0)  # Flash red
-	
-	# knockback handling
+	var original_color = modulate
+	Player_sprite.modulate = Color(1, 0, 0)
+
 	Is_hit = true
-	# remove player hitbox
 	Player_hitbox.monitoring = false
 	Player_hitbox.monitorable = false
-	#knockback(area.get_parent().velocity)
-	#Player_hitbox.area_entered
-	
-	# Return to the original color after a short delay
+
 	await get_tree().create_timer(0.2).timeout
 	Player_sprite.modulate = original_color
 	Is_hit = false
-	# return player hitbox
 	Player_hitbox.monitoring = true
 	Player_hitbox.monitorable = true
 	
-func knockback(Enemy_velocity : Vector2) -> void: 
-	pass
-	Knockback_direction = (Enemy_velocity - velocity).normalized() * Knockback_strength
-	velocity = Knockback_direction
-	move_and_slide()
+func apply_knockback(force: Vector2) -> void:
+	knockback_velocity = force
 	
-
+func reset_state():
+	await get_tree().process_frame
+	velocity = Vector2.ZERO
+	Input_direction = Vector2.ZERO
+	Player_health.Is_dead = false
+	Player_is_dead = false
+	Player_hitbox.monitoring = true
+	Player_health.heal(Player_health.Max_health)
+	Can_process_input = true
+	Can_process_movement = true
+	await get_tree().process_frame
+	UIManager.reinitialize_ui()
+	var playerinfo = get_node_or_null("UI Wrapper/HUD/PlayerInfo")
+	if playerinfo:
+		playerinfo.init_elements()
+	await get_tree().process_frame
+	
+	
 #----------item related functions----------#
 func get_inventory() -> InventoryObject:
 	return Inventory
@@ -767,3 +797,11 @@ func add_used_lifesteal_percent(Amount: int) -> void:
 func add_used_damage_reduction_percent(Amount: int) -> void:
 	Percent_damage_reduction += (Amount * 0.01)
 	Player_hitbox.set_damage_reduction(Percent_damage_reduction)
+
+
+func _on_melee_hurtbox_hit(enemy_hitbox: HitboxComponent, amount: float) -> void:
+	var enemy = enemy_hitbox.get_parent()
+	if enemy and enemy.has_method("apply_knockback"):
+		var dir = (enemy.global_position - global_position).normalized()
+		enemy.apply_knockback(dir * Knockback_strength)
+		print("knockback")

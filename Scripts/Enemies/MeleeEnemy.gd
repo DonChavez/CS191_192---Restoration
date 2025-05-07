@@ -24,6 +24,10 @@ var melee_timer: float = 0.0
 var is_melee_attacking: bool = false
 var Player_in_melee_range: bool = false
 
+var knockback_velocity: Vector2 = Vector2.ZERO
+@export var knockback_decay_rate: float = 6.0
+@export var Knockback_strength : float = 250.0
+
 # local variables
 var Last_direction : Vector2 = Vector2.ZERO
 var Is_waiting : bool = false
@@ -45,6 +49,7 @@ var Current_patrol_state = PatrolState.WALKING
 var Idle_timer: Timer
 var Idle_time: float = 1.0
 var Walk_timer: Timer
+var Is_dying = false
 
 # Post-chase idle variables
 var Is_idling_after_chase : bool = false
@@ -98,6 +103,13 @@ func _physics_process(delta: float) -> void:
 			velocity = Dash_direction * Dash_speed
 			move_and_collide(velocity * delta)
 			return
+			
+		if knockback_velocity.length() > 1.0:
+			position += knockback_velocity * delta
+			# Exponential decay
+			knockback_velocity *= exp(-knockback_decay_rate * delta)
+		else:
+			knockback_velocity = Vector2.ZERO
 		
 		move_and_collide(velocity * delta)
 		
@@ -133,16 +145,19 @@ func _physics_process(delta: float) -> void:
 		
 		update_animation()
 	else:
-		enemy_dead()
+		if !Is_dying:
+			enemy_dead()
 
 func update_animation() -> void:
 	var new_animation = "Idle"
+	
 	if is_melee_attacking:
 		new_animation = "Attack"
 	elif velocity != Vector2.ZERO:
 		new_animation = "Move"
 	else:
 		new_animation = "Idle"
+	
 	if new_animation != current_animation:
 		Melee_sprite.play(new_animation)
 		current_animation = new_animation
@@ -150,30 +165,47 @@ func update_animation() -> void:
 func start_melee_attack() -> void:
 	is_melee_attacking = true
 	melee_timer = 0.0
+	
 	if Melee_sfx:
 		if Melee_sfx.playing:
 			Melee_sfx.stop()
 		Melee_sfx.play()
+	
 	var attack_speed = Melee_sprite.get_sprite_frames().get_animation_speed("Attack")
 	var frame_duration = 1.0 / attack_speed
 	var attack_length = frame_duration * Melee_sprite.get_sprite_frames().get_frame_count("Attack")
+	
+	# Play animation
 	Melee_sprite.play("Attack")
+	
+	# Wait for 30% of animation time before activating melee attack area
 	await get_tree().create_timer(attack_length * 0.3).timeout
+	
+	# Activate melee attack area
 	Melee_attack.monitoring = true
 	Melee_attack.monitorable = true
 	Melee_attack.visible = true
+	
+	# Keep active for 40% of animation time
 	await get_tree().create_timer(attack_length * 0.4).timeout
+	
+	# Deactivate melee attack area
 	Melee_attack.monitoring = false
 	Melee_attack.monitorable = false
 	Melee_attack.visible = false
+	
+	# Wait for remaining 30% of animation time
 	await get_tree().create_timer(attack_length * 0.3).timeout
+	
+	# Add random delay of 1-3 seconds before allowing another melee attack
 	var random_delay = 1.0 + randf() * 2.0
 	await get_tree().create_timer(random_delay).timeout
+	
 	is_melee_attacking = false
 
 func _on_animation_finished() -> void:
 	if Melee_sprite.animation == "Attack":
-		pass
+		pass  # Handled in start_melee_attack
 	update_animation()
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
@@ -205,12 +237,41 @@ func _on_dash_timer_timeout() -> void:
 func _on_wait_timer_timeout() -> void:
 	if Is_waiting:
 		Is_waiting = false
-		Is_idling_after_chase = true
-		Post_chase_idle_timer.start()
 		Player = null
-		Spawn_position = position
-		print("Wait a minute... who are you?")
+		print("Que?")
 
+func is_dead() -> bool:
+	return Melee_health.Health <= 0
+
+func enemy_dead() -> void:
+	Is_dying = true
+	if current_animation != "Death":
+		Melee_sprite.play("Death")
+		current_animation = "Death"
+		Melee_hitbox.monitoring = false
+		
+	ProgressionManager.add_melee_defeated()
+	
+	var Death_animation_name : String = "Death"
+	var Death_animation_speed : float = Melee_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
+	var Death_animation_frames : float = Melee_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
+	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
+	
+	Coin_spawner.spawn_coin(5)
+	
+	await get_tree().create_timer(Death_animation_length).timeout
+	queue_free()
+
+func _on_melee_detection_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Player_in_melee_range = true
+		print("I'll get you")
+
+func _on_melee_detection_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Player_in_melee_range = false
+		print("Get back here!")
+		
 func _on_walk_timer_timeout() -> void:
 	if Current_patrol_state == PatrolState.WALKING and not Player_chase and not Is_waiting and not Is_idling_after_chase and not Dashing and not is_melee_attacking:
 		Current_patrol_state = PatrolState.IDLING
@@ -228,28 +289,12 @@ func _on_post_chase_idle_timer_timeout() -> void:
 	Patrol_direction = Vector2.RIGHT
 	Walk_timer.start()
 
-func is_dead() -> bool:
-	return Melee_health.Health <= 0
-
-func enemy_dead() -> void:
-	if current_animation != "Death":
-		Melee_sprite.play("Death")
-		current_animation = "Death"
-		Melee_hitbox.monitoring = false
-	var Death_animation_name : String = "Death"
-	var Death_animation_speed : float = Melee_sprite.get_sprite_frames().get_animation_speed(Death_animation_name)
-	var Death_animation_frames : float = Melee_sprite.get_sprite_frames().get_frame_count(Death_animation_name)
-	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
-	Coin_spawner.spawn_coin(5)
-	await get_tree().create_timer(Death_animation_length).timeout
-	queue_free()
-
-func _on_melee_detection_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		Player_in_melee_range = true
-		print("I'll get you")
-
-func _on_melee_detection_area_body_exited(body: Node2D) -> void:
-	if body.is_in_group("Player"):
-		Player_in_melee_range = false
-		print("Get back here!")
+func apply_knockback(force: Vector2) -> void:
+	knockback_velocity = force
+	
+func _on_melee_attack_hit(player_hitbox: HitboxComponent, amount: float) -> void:
+	var player = player_hitbox.get_parent()
+	if player and player.has_method("apply_knockback"):
+		var dir = (player.global_position - global_position).normalized()
+		player.apply_knockback(dir * Knockback_strength)
+		print("knockback")
