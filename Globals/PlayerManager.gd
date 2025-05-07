@@ -135,11 +135,9 @@ func _toggle_hud(visible: bool) -> void:
 func _on_player_died() -> void:
 	print("Player has died!")
 	Player_died.emit()
-	var player = Player_instance
-	Player_instance = null  # Clear reference
 
 	get_tree().paused = true  # Pause game
-	_show_game_over_screen(player)
+	_show_game_over_screen(Player_instance)
 
 func _show_game_over_screen(player: Node) -> void:
 	if not player:
@@ -158,4 +156,4 @@ func _show_game_over_screen(player: Node) -> void:
 	game_over_screen = preload("res://Scenes/UI/GameOverScreen.tscn").instantiate()
 	game_over_screen.name = "GameOverScreen"
 	ui_wrapper.add_child(game_over_screen)
-	game_over_screen.show()
+	game_over_screen.show_game_over()

@@ -33,6 +33,8 @@ func spawn_trash(Amount: int) -> void:
 			continue
 		var Trash_instance = Trash_scene.instantiate()
 		
+		Trash_instance.Spawn_animate = true  # Enable animation for dynamic spawns
+		
 		Trash_instance.global_position = Parent.global_position+Vector2(0,20)
 
 		World_scene.add_child(Trash_instance)  # Move to world

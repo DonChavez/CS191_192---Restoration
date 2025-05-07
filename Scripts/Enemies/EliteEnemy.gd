@@ -11,6 +11,9 @@ extends CharacterBody2D
 @onready var Elite_los: RayCast2D = $EliteLOS
 @onready var Wait_timer: Timer = $WaitTimer
 @onready var Elite_health_bar: ProgressBar = $HealthBar
+@onready var Elite_melee_detection_area: Area2D = $EliteMeleeDetectionArea
+@onready var Melee_attack: HurtboxComponent = $MeleeAttack
+@onready var Coin_spawner: Node = $CoinSpawner
 
 # exportable variables
 # movement variables
@@ -30,10 +33,10 @@ var Is_waiting : bool = false
 var is_ranged_attacking: bool = false
 
 # melee variables
-@export var Melee_range: float = 50.0
 @export var Melee_cooldown: float = 1.5
 var melee_timer: float = 0.0
 var is_melee_attacking: bool = false
+var Player_in_melee_range: bool = false
 
 # local variables
 var Dashing = false
@@ -58,11 +61,13 @@ func _ready() -> void:
 	
 	DashTimer.wait_time = 1
 	DashTimer.one_shot = false
-	DashTimer.timeout.connect(_on_dash_timer_timeout)
+	if not Wait_timer.is_connected("timeout", _on_dash_timer_timeout):
+		DashTimer.timeout.connect(_on_dash_timer_timeout)
 	DashTimer.start()
-	Wait_timer.timeout.connect(_on_wait_timer_timeout)
+	if not Wait_timer.is_connected("timeout", _on_wait_timer_timeout):
+		Wait_timer.timeout.connect(_on_wait_timer_timeout)
 	
-	#disable hitbox first
+	# disable hitbox first
 	Elite_hitbox.visible = false
 	Elite_hitbox.monitorable = false
 	Elite_hitbox.monitoring = false
@@ -76,6 +81,11 @@ func _ready() -> void:
 		material.shader = load("res://Scripts/Enemies/EliteEnemy.gdshader")  
 		Elite_sprite.material = material
 	
+	# Initialize melee attack area as invisible and non-functional
+	Melee_attack.monitoring = false
+	Melee_attack.monitorable = false
+	Melee_attack.visible = false
+	
 	Elite_sprite.animation_finished.connect(_on_animation_finished)
 
 func _physics_process(delta: float) -> void:
@@ -83,7 +93,6 @@ func _physics_process(delta: float) -> void:
 		# check shield activity
 		is_shield_active()
 		
-		# this is essential for moving CharacterBodies
 		if Dashing:
 			velocity = Dash_direction * Dash_speed
 			move_and_collide(velocity * delta)
@@ -106,14 +115,15 @@ func _physics_process(delta: float) -> void:
 		# Update velocity and state
 		if Player_chase and Player:
 			var Direction = (Player.position - position).normalized()
-			var distance_to_player = position.distance_to(Player.position)
 			velocity = Direction * Speed
 			
-			# Attack logic: Melee if close, otherwise Ranged
-			if distance_to_player <= Melee_range and melee_timer >= Melee_cooldown and !is_melee_attacking:
+			# Attack logic: Melee if in range, otherwise Ranged
+			if Player_in_melee_range and !is_melee_attacking:
 				start_melee_attack()
-			elif Shoot_timer >= Shoot_cooldown and !is_ranged_attacking and !is_melee_attacking:
+			elif Shoot_timer >= Shoot_cooldown and !Player_in_melee_range and !is_ranged_attacking:
+				is_ranged_attacking = true
 				start_ranged_attack()
+				await get_tree().create_timer(1.0).timeout
 			
 			Rotation_offset += Rotation_speed * delta
 			Rotation_offset = fmod(Rotation_offset, 360.0)
@@ -125,7 +135,6 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity = Vector2.ZERO
 		
-		# Update animation only when state changes
 		update_animation()
 	else:
 		enemy_dead()
@@ -153,7 +162,7 @@ func is_shield_active() -> void:
 		
 		if Elite_sprite.material:
 			Elite_sprite.material.set_shader_parameter("draw_outline", true)
-	  
+
 func update_animation() -> void:
 	var new_animation = "Idle"
 	
@@ -166,7 +175,6 @@ func update_animation() -> void:
 	else:
 		new_animation = "Idle"
 	
-	# Only play if the animation changes
 	if new_animation != current_animation:
 		Elite_sprite.play(new_animation)
 		current_animation = new_animation
@@ -177,9 +185,8 @@ func start_ranged_attack() -> void:
 	
 	var attack_speed = Elite_sprite.get_sprite_frames().get_animation_speed("Ranged_attack")
 	var frame_duration = 1.0 / attack_speed
-	var time_to_frame_4 = frame_duration * 6  # Adjusted to frame 4
+	var time_to_frame_4 = frame_duration * 6
 	
-	# Play sound immediately
 	if Elite_sfx:
 		if Elite_sfx.playing:
 			Elite_sfx.stop()
@@ -188,26 +195,59 @@ func start_ranged_attack() -> void:
 	
 	await get_tree().create_timer(time_to_frame_4).timeout
 	shoot_projectile()
-	circle_attack()
+	
+	# Add random delay of 1-3 seconds before allowing another ranged attack
+	Shoot_cooldown = 1.0 + randf() * 2.0
+	is_ranged_attacking = false
 
 func start_melee_attack() -> void:
 	is_melee_attacking = true
 	melee_timer = 0.0
 	
-	# Play sound immediately
 	if Elite_sfx:
 		if Elite_sfx.playing:
 			Elite_sfx.stop()
 		Elite_sfx.stream = HEAVY_SLASH
 		Elite_sfx.play()
-	# Add melee damage logic here if needed
+	
+	var attack_speed = Elite_sprite.get_sprite_frames().get_animation_speed("Melee_attack")
+	var frame_duration = 1.0 / attack_speed
+	var attack_length = frame_duration * Elite_sprite.get_sprite_frames().get_frame_count("Melee_attack")
+	
+	# Play animation
+	Elite_sprite.play("Melee_attack")
+	
+	# Wait for 30% of animation time before activating melee attack area
+	await get_tree().create_timer(attack_length * 0.3).timeout
+	
+	# Activate melee attack area
+	Melee_attack.monitoring = true
+	Melee_attack.monitorable = true
+	Melee_attack.visible = true
+	
+	# Keep active for 40% of animation time
+	await get_tree().create_timer(attack_length * 0.4).timeout
+	
+	# Deactivate melee attack area
+	Melee_attack.monitoring = false
+	Melee_attack.monitorable = false
+	Melee_attack.visible = false
+	
+	# Wait for remaining 30% of animation time
+	await get_tree().create_timer(attack_length * 0.3).timeout
+	
+	# Add random delay of 1-3 seconds before allowing another melee attack
+	var random_delay = 1.0 + randf() * 2.0
+	await get_tree().create_timer(random_delay).timeout
+	
+	is_melee_attacking = false
 
 func _on_animation_finished() -> void:
 	if Elite_sprite.animation == "Ranged_attack":
-		is_ranged_attacking = false
+		pass  # Handled in start_ranged_attack
 	elif Elite_sprite.animation == "Melee_attack":
-		is_melee_attacking = false
-	update_animation()  # Ensure animation updates after attack ends
+		pass  # Handled in start_melee_attack
+	update_animation()
 
 func shoot_projectile() -> void:
 	var Direction = (Player.position - position).normalized()
@@ -217,22 +257,6 @@ func shoot_projectile() -> void:
 	ProjectileInstance.SpawnPos = global_position
 	ProjectileInstance.Fired_by = self
 	get_parent().add_child.call_deferred(ProjectileInstance)
-
-func circle_attack() -> void:
-	var Num_projectiles = 8
-	var Angle_step = TAU / Num_projectiles
-	var Angle_offset = deg_to_rad(Rotation_offset)
-
-	for i in range(Num_projectiles):
-		var Angle = i * Angle_step + Angle_offset
-		var Direction = Vector2(cos(Angle), sin(Angle))
-
-		var ProjectileInstance = Projectile.instantiate()
-		ProjectileInstance.Direction = Direction.normalized()
-		ProjectileInstance.Lifetime = 5.0
-		ProjectileInstance.SpawnPos = global_position
-		ProjectileInstance.Fired_by = self
-		get_parent().add_child.call_deferred(ProjectileInstance)
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("Player"):
@@ -280,4 +304,19 @@ func enemy_dead() -> void:
 	var Death_animation_length : float = (Death_animation_frames / Death_animation_speed)
 	
 	await get_tree().create_timer(Death_animation_length, false, true).timeout
+	
+	Coin_spawner.spawn_coin(20)
+	
 	queue_free()
+
+func _on_elite_melee_detection_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Player_in_melee_range = true
+		if is_ranged_attacking:
+			is_ranged_attacking = false
+		print("I'll get you")
+
+func _on_elite_melee_detection_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("Player"):
+		Player_in_melee_range = false
+	print("Get back here!")

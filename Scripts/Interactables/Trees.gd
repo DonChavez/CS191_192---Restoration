@@ -16,6 +16,9 @@ signal EATTRASH(Amount : float)
 @onready var Planted: bool = false
 @onready var Planting: bool = false
 @onready var Just_plant: bool = false
+@onready var Fruit_spawn: Node = $FruitSpawn
+
+@export var Fruits_to_spawn : int = 2
 
 #-----export variables-----#
 @export var Plant_time: int = 5
@@ -70,8 +73,9 @@ func _update_planting_progress() -> void:
 		Interact_label.visible = false
 		Progress.visible = false
 		Collision_body.disabled = false
-		EATTRASH.emit(25.0)
-		# emit float signal of 25.0 to reduce pollution level 
+		EATTRASH.emit(10.0)
+		Fruit_spawn.spawn_fruit(Fruits_to_spawn)
+		# emit float signal of 10.0 to reduce pollution level 
 		# emit signal to decrease pollution
 
 func _on_area_2d_body_entered(body: Node2D) -> void:

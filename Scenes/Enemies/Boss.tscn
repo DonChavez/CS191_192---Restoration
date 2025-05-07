@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b128jqdf73j7d"]
+[gd_scene load_steps=43 format=3 uid="uid://b128jqdf73j7d"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/Boss.gd" id="1_oaeso"]
 [ext_resource type="Texture2D" uid="uid://d1lu5somqnlms" path="res://Art/Characters/axebandicoot.png" id="3_eik70"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://u343rxod55s" path="res://Scenes/Components/HitboxComponent.tscn" id="6_7yace"]
 [ext_resource type="PackedScene" uid="uid://cptudld2heq8h" path="res://Scenes/Components/HurtboxComponent.tscn" id="7_cx56x"]
 [ext_resource type="PackedScene" uid="uid://c4trest17eiso" path="res://Scenes/Components/HealthBar.tscn" id="8_vv4gq"]
+[ext_resource type="PackedScene" uid="uid://4747hptuo641" path="res://Scenes/CoinSpawner.tscn" id="9_dljs1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w6us7"]
 shader = ExtResource("5_x4vs1")
@@ -131,7 +132,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n6wrd")
 }],
-"loop": true,
+"loop": false,
 "name": &"Beyblade",
 "speed": 5.0
 }, {
@@ -148,7 +149,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_68154")
 }],
-"loop": true,
+"loop": false,
 "name": &"Charge",
 "speed": 5.0
 }, {
@@ -243,7 +244,7 @@ radius = 39.0128
 radius = 31.09
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fcyb3"]
-radius = 50.01
+radius = 80.0062
 
 [node name="Boss" type="CharacterBody2D" groups=["Boss", "Enemy"]]
 collision_layer = 4
@@ -255,16 +256,14 @@ material = SubResource("ShaderMaterial_w6us7")
 position = Vector2(0, -6)
 scale = Vector2(0.459334, 0.459334)
 sprite_frames = SubResource("SpriteFrames_ohb7u")
-animation = &"Beyblade"
+animation = &"Move"
 
 [node name="BossCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0.5, -3)
 scale = Vector2(0.50527, 0.50527)
 shape = SubResource("RectangleShape2D_0evqr")
 
 [node name="DetectionArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(0, 1)
 scale = Vector2(1.40063, 1.40063)
 collision_layer = 0
@@ -277,24 +276,12 @@ shape = SubResource("CircleShape2D_3h7bf")
 Max_health = 1000.0
 
 [node name="BossHitbox" parent="." node_paths=PackedStringArray("Health") instance=ExtResource("6_7yace")]
-visible = false
 position = Vector2(0, -2)
 scale = Vector2(0.506457, 0.506457)
 collision_layer = 4
 Health = NodePath("../BossHealth")
 
 [node name="BossHitCollision" type="CollisionShape2D" parent="BossHitbox"]
-position = Vector2(1, -1.5)
-shape = SubResource("RectangleShape2D_0evqr")
-
-[node name="BossHurtbox" parent="." instance=ExtResource("7_cx56x")]
-visible = false
-position = Vector2(0, -2)
-scale = Vector2(0.503087, 0.503087)
-collision_layer = 0
-collision_mask = 2
-
-[node name="BossHurtCollision" type="CollisionShape2D" parent="BossHurtbox"]
 position = Vector2(1, -1.5)
 shape = SubResource("RectangleShape2D_0evqr")
 
@@ -321,7 +308,6 @@ collision_mask = 3
 [node name="WaitTimer" type="Timer" parent="."]
 
 [node name="BossShield" type="Area2D" parent="." groups=["Shield"]]
-visible = false
 scale = Vector2(0.555675, 0.555675)
 
 [node name="BossShieldCollision" type="CollisionShape2D" parent="BossShield"]
@@ -348,12 +334,13 @@ scale = Vector2(1.60853, 1.60853)
 Health_component = NodePath("../BossShieldDurability")
 
 [node name="BossMeleeDetectionArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BossMeleeDetectionArea"]
 shape = SubResource("CircleShape2D_fcyb3")
+
+[node name="CoinSpawner" parent="." instance=ExtResource("9_dljs1")]
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

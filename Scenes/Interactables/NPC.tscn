@@ -1,8 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjtxjswjxse8x"]
+[gd_scene load_steps=14 format=3 uid="uid://dhsg2mf0pdgao"]
 
 [ext_resource type="Script" path="res://Scripts/Components/NPC.gd" id="1_k6cf1"]
-[ext_resource type="Texture2D" uid="uid://dahmg5t0k8ka1" path="res://Art/Characters/player.png" id="2_doxdg"]
-[ext_resource type="PackedScene" uid="uid://dgx4d5ogv1yi8" path="res://Scenes/UI/Dialogue.tscn" id="3_bjrrm"]
+[ext_resource type="Texture2D" uid="uid://7ovpvlqrfm7a" path="res://Art/Characters/player.png" id="2_doxdg"]
+[ext_resource type="Shader" path="res://Scripts/UI/glow.gdshader" id="2_yklkh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xbw8j"]
+shader = ExtResource("2_yklkh")
+shader_parameter/glow_intensity = 0.0
+shader_parameter/glow_color = Vector4(1, 1, 0, 1)
+shader_parameter/outline_size = 0.003
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4s4x0"]
 atlas = ExtResource("2_doxdg")
@@ -60,11 +66,12 @@ size = Vector2(8, 11)
 [sub_resource type="CircleShape2D" id="CircleShape2D_4io8b"]
 radius = 31.0161
 
-[node name="NPC" type="CharacterBody2D"]
+[node name="NPC" type="CharacterBody2D" groups=["NPC"]]
 position = Vector2(561, 218)
 script = ExtResource("1_k6cf1")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_xbw8j")
 sprite_frames = SubResource("SpriteFrames_djakc")
 frame_progress = 0.05488
 
@@ -79,12 +86,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(1, 9)
 shape = SubResource("CircleShape2D_4io8b")
-
-[node name="Dialogue" parent="." instance=ExtResource("3_bjrrm")]
-offset_left = -56.0
-offset_top = -48.0
-offset_right = -56.0
-offset_bottom = -48.0
 
 [node name="Label" type="Label" parent="."]
 offset_left = 15.0

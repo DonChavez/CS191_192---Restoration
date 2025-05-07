@@ -1,12 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://3l055tt4lhc"]
 
 [ext_resource type="Script" path="res://Scripts/Interactables/Recycler.gd" id="1_6hf5r"]
-[ext_resource type="Texture2D" uid="uid://muv3gtr72kf0" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
+[ext_resource type="Texture2D" uid="uid://dr2s5op4rqair" path="res://Art/Objects/recycler.png" id="1_j0jfi"]
 [ext_resource type="PackedScene" uid="uid://et7hu31mtlgf" path="res://Scenes/Interactables/ItemManager.tscn" id="2_c0ff1"]
 [ext_resource type="Script" path="res://Scripts/Interactables/RecyclerUI.gd" id="3_bw1r6"]
-[ext_resource type="Texture2D" uid="uid://bxx1fnbelg0lt" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
+[ext_resource type="Texture2D" uid="uid://6iwvgkdqoj8" path="res://Art/Objects/trashbag.png" id="4_jwbys"]
 [ext_resource type="PackedScene" uid="uid://brm8k3e0qaxpp" path="res://Scenes/Interactables/RecyclerButton.tscn" id="7_fohf1"]
-[ext_resource type="AudioStream" uid="uid://cpn30m2vptd3s" path="res://Music/SFX/recycler_spit.mp3" id="7_qhtvr"]
+[ext_resource type="AudioStream" uid="uid://dicjca7lbl2qs" path="res://Music/SFX/recycler_spit.mp3" id="7_qhtvr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_joq7y"]
 

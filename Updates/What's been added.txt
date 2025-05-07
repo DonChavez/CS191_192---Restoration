@@ -1,3 +1,4 @@
+
 branch: reset_julian
 v0.1.10.0:
 	1. Level0 Completion
@@ -17,3 +18,4 @@ v0.1.10.0:
 	- boss and elite enemies have light shields with corresponding durability
 	- appears as white outline
 	- outline disappears when durability is destroyed
+

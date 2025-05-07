@@ -13,7 +13,7 @@ enum ItemType { TRASH, COIN }  # Define types
 @export var Animatedsprite: AnimatedSprite2D  # Get reference
 @export var Sprite: Sprite2D  # Get reference
 @export var Value: int  # Get reference
-@export var Spawn_animate: bool = true
+@export var Spawn_animate: bool = false
 
 #-----local variables-----#
 @onready var Speed: float = 200
