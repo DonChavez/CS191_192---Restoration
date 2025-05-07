@@ -64,8 +64,11 @@ func transfer_player() -> void:
 		return
 
 	if Player_instance:
+		var pollute = Player_instance.get_node_or_null("UI Wrapper/HUD/Top/Header/PollutionSystem")
+		pollute.Current_pollution = pollute.Max_pollution
 		New_scene.add_child(Player_instance)
 		_initialize_player_position()
+		
 		
 	if spawn_sfx:
 		spawn_sfx.stream = TELEPORT_END

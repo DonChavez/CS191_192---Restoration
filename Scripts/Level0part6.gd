@@ -5,6 +5,9 @@ extends Node2D
 @export var X_Portal : int = 478
 @export var Y_Portal : int = -46
 
+@export var Dialogue_resource : DialogueResource
+@export var Dialogue_start : String = ""
+
 var Boss_defeated : bool = false
 var Portal_spawned : bool = false
 
@@ -30,7 +33,7 @@ func check_conditions() -> void:
 
 # Check both conditions and spawn portal if not already spawned
 	if !Boss_defeated and !Portal_spawned:
-		var pollution_level = PlayerManager.Player_instanceget_node_or_null("UI Wrapper/HUD/Top/Header/PollutionSystem")
+		var pollution_level = PlayerManager.Player_instance.get_node_or_null("UI Wrapper/HUD/Top/Header/PollutionSystem").Current_pollution
 			
 		if pollution_level <= 50:
 			spawn_portal()
@@ -42,4 +45,5 @@ func spawn_portal() -> void:
 	Portal_instance.Target_level_path = Target_level_path
 	Portal_instance.position = Vector2(X_Portal, Y_Portal)
 	get_tree().current_scene.add_child(Portal_instance)
-	print("Portal Spawned")
+	DialogueManager.show_example_dialogue_balloon(Dialogue_resource, Dialogue_start)
+	

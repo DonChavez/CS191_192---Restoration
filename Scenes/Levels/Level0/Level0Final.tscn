@@ -1,4 +1,4 @@
-[gd_scene load_steps=101 format=4 uid="uid://bm1rguyy08mc1"]
+[gd_scene load_steps=102 format=4 uid="uid://bm1rguyy08mc1"]
 
 [ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="1_71nxk"]
 [ext_resource type="Texture2D" uid="uid://dycx224aw04sf" path="res://Art/Tilesets/plains.png" id="2_stdq7"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="26_reclq"]
 [ext_resource type="PackedScene" uid="uid://darfh1m8ue0c" path="res://Scenes/Interactables/Trees.tscn" id="27_o3x25"]
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="28_ikmke"]
+[ext_resource type="Resource" uid="uid://tp2fvw4setvm" path="res://Scripts/Portal.dialogue" id="29_4sl3f"]
 [ext_resource type="PackedScene" uid="uid://dhsg2mf0pdgao" path="res://Scenes/Interactables/NPC.tscn" id="30_dvqnh"]
 [ext_resource type="Script" path="res://Scripts/Level0part6.gd" id="30_eibje"]
 [ext_resource type="PackedScene" uid="uid://bgk1yki43amh" path="res://Scenes/Items/0Pierce.tscn" id="31_hl12n"]
@@ -9546,12 +9547,19 @@ position = Vector2(312, 330)
 [node name="StoneSkin" parent="." instance=ExtResource("36_rfsqm")]
 position = Vector2(126, 656)
 
+[node name="Planter" parent="." instance=ExtResource("30_dvqnh")]
+position = Vector2(2398, 1745)
+Dialogue_resource = ExtResource("16_8bhr7")
+Dialogue_start = "Planter"
+
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Elite" type="Node2D" parent="Enemies"]
 script = ExtResource("30_eibje")
 X_Portal = 145
 Y_Portal = 1005
+Dialogue_resource = ExtResource("29_4sl3f")
+Dialogue_start = "PortalSpawn"
 
 [node name="EliteEnemy" parent="Enemies/Elite" groups=["Boss"] instance=ExtResource("28_ikmke")]
 position = Vector2(118, 1632)
@@ -9619,9 +9627,6 @@ position = Vector2(2577, 1292)
 [node name="MeleeEnemy11" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
 position = Vector2(2765, 1417)
 
-[node name="MeleeEnemy12" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
-position = Vector2(2371, 1740)
-
 [node name="MeleeEnemy13" parent="Enemies/Melee" instance=ExtResource("21_gc7ax")]
 position = Vector2(1991, 1529)
 
@@ -9668,15 +9673,6 @@ position = Vector2(1938, 1612)
 
 [node name="BasicEnemy16" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
 position = Vector2(2018, 1597)
-
-[node name="BasicEnemy17" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
-position = Vector2(2306, 1758)
-
-[node name="BasicEnemy18" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
-position = Vector2(2326, 1814)
-
-[node name="BasicEnemy19" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
-position = Vector2(2402, 1797)
 
 [node name="BasicEnemy20" parent="Enemies/Basic" instance=ExtResource("20_px0a7")]
 position = Vector2(1614, 1831)

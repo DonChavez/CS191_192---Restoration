@@ -60,8 +60,8 @@ var Upgrade_status_count: Dictionary = {
 @onready var Base_move_speed : float = 170.0
 @onready var Base_attack_speed : float = 1.0
 @onready var Base_max_health: float = 100.0
-@onready var Base_projectile_dmg: float = 20.0
-@onready var Base_melee_dmg: float = 40.0 
+@export var Base_projectile_dmg: float = 20.0
+@export var Base_melee_dmg: float = 40.0 
 # Increment Stats for player
 @onready var Incr_move_speed : float = 0
 @onready var Incr_attack_speed : float = 0

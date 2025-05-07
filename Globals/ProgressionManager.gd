@@ -4,14 +4,15 @@ var npc_sequence: Array[Dictionary] = [
 	{"name": "IntroGuy", "quest_id": "talk_to_introguy", "objective_text": "Talk to Intro Guy"},
 	{"name": "IntroGuy", "quest_id": "pickup_2_items", "objective_text": "Pick up the items"},
 	{"name": "SlimeTrap", "quest_id": "help_npc", "objective_text": "Kill all the slimes"},
-	{"name": "SlimeTrap", "quest_id": "talk_to_slimetrap", "objective_text": "Talk to SlimeTrap"},
+	{"name": "SlimeTrap", "quest_id": "talk_to_slimetrap", "objective_text": "Talk to Slime Trap"},
 	{"name": "TownTrap", "quest_id": "save_towntrap", "objective_text": "Save TownTrap"},
-	{"name": "TownTrap", "quest_id": "talk_to_towntrap", "objective_text": "Talk to TownTrap"},
-	{"name": "HillBoy", "quest_id": "talk_to_hillguy", "objective_text": "Talk to HillBoy"},
+	{"name": "TownTrap", "quest_id": "talk_to_towntrap", "objective_text": "Talk to Town Trap"},
+	{"name": "HillBoy", "quest_id": "talk_to_hillguy", "objective_text": "Talk to Hill Boy"},
+	{"name": "Planter", "quest_id": "talk_to_planter", "objective_text": "Talk to Planter"},
 	{"name": "BeforeBoss", "quest_id": "clean_world", "objective_text": "Clean the World"},
-	{"name": "BeforeBoss", "quest_id": "talk_to_beforeboss", "objective_text": "Talk to BeforeBoss"},
+	{"name": "BeforeBoss", "quest_id": "talk_to_beforeboss", "objective_text": "Talk to Before Boss"},
 	{"name": "EndGuy", "quest_id": "kill_boss", "objective_text": "Kill the Boss"},
-	{"name": "EndGuy", "quest_id": "talk_to_endguy", "objective_text": "Talk to EndGuy"}
+	{"name": "EndGuy", "quest_id": "talk_to_endguy", "objective_text": "Talk to End Guy"}
 ]
 
 var quest_states: Dictionary = {
@@ -22,6 +23,7 @@ var quest_states: Dictionary = {
 	"save_towntrap": false,
 	"talk_to_towntrap": false,
 	"talk_to_hillguy": false,
+	"talk_to_planter": false,
 	"clean_world": false,
 	"talk_to_beforeboss": false,
 	"kill_boss": false,
@@ -36,6 +38,7 @@ var quest_functions: Dictionary = {
 	"save_towntrap": check_save_towntrap,
 	"talk_to_towntrap": check_talk_to_towntrap,
 	"talk_to_hillguy": check_talk_to_hillguy,
+	"talk_to_planter": check_talk_to_planter,
 	"clean_world": check_clean_world,
 	"talk_to_beforeboss": check_talk_to_beforeboss,
 	"kill_boss": check_kill_boss,
@@ -247,6 +250,12 @@ func check_talk_to_hillguy():
 	for npc in npcs:
 		if npc.name == "HillBoy" and npc.get("TalkTuah") == true:
 			complete_quest("talk_to_hillguy")
+
+func check_talk_to_planter():
+	var npcs = get_tree().get_nodes_in_group("NPC")
+	for npc in npcs:
+		if npc.name == "Planter" and npc.get("TalkTuah") == true:
+			complete_quest("talk_to_planter")
 
 func check_clean_world():
 	if PlayerManager.Player_instance:

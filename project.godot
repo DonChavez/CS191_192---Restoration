@@ -150,7 +150,7 @@ escape={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogue/Level1.dialogue", "res://Dialogue/Level0.dialogue", "res://Dialogue/Hub.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogue/Level1.dialogue", "res://Dialogue/Level0.dialogue", "res://Dialogue/Hub.dialogue", "res://Scripts/Portal.dialogue")
 
 [layer_names]
 
@@ -170,3 +170,4 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+textures/vram_compression/import_etc2_astc=true
