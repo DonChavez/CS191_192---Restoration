@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=4 uid="uid://c6e0qp8v3a3eu"]
+[gd_scene load_steps=49 format=4 uid="uid://c6e0qp8v3a3eu"]
 
 [ext_resource type="Texture2D" uid="uid://c41rfuelt1slh" path="res://Art/Tilesets/grass.png" id="1_ip2qm"]
 [ext_resource type="Texture2D" uid="uid://dycx224aw04sf" path="res://Art/Tilesets/plains.png" id="2_rlayg"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://Scripts/Environment/Stairs.gd" id="12_lrgoj"]
 [ext_resource type="PackedScene" uid="uid://b128jqdf73j7d" path="res://Scenes/Enemies/Boss.tscn" id="13_cst10"]
 [ext_resource type="Script" path="res://Scripts/Level0part6.gd" id="13_sfph6"]
+[ext_resource type="Resource" uid="uid://tp2fvw4setvm" path="res://Scripts/Portal.dialogue" id="14_1mabw"]
 [ext_resource type="PackedScene" uid="uid://os8pu43ds3tc" path="res://Scenes/Enemies/EliteEnemy.tscn" id="14_m05ey"]
 [ext_resource type="PackedScene" uid="uid://btpotfo7v6c50" path="res://Scenes/Enemies/TowerEnemy.tscn" id="15_13u33"]
 [ext_resource type="PackedScene" uid="uid://drw6aay8lkvx6" path="res://Scenes/Enemies/RangedEnemy.tscn" id="15_x1cts"]
@@ -2256,6 +2257,8 @@ polygon = PackedVector2Array(562, 264, 664, 263, 720, 345, 686, 417, 538, 419, 4
 script = ExtResource("13_sfph6")
 X_Portal = -44
 Y_Portal = 1947
+Dialogue_resource = ExtResource("14_1mabw")
+Dialogue_start = "PortalSpawn"
 
 [node name="Boss" parent="Enemies" instance=ExtResource("13_cst10")]
 position = Vector2(-44, 1947)

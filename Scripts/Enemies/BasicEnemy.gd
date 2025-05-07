@@ -47,7 +47,7 @@ func _ready() -> void:
 	Wait_timer.timeout.connect(_on_wait_timer_timeout)
 	
 	# Initialize patrol variables
-	Spawn_position = position
+	Spawn_position = global_position
 	
 	# Create idle timer
 	Idle_timer = Timer.new()
