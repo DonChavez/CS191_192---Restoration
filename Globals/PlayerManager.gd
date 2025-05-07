@@ -156,4 +156,4 @@ func _show_game_over_screen(player: Node) -> void:
 	game_over_screen = preload("res://Scenes/UI/GameOverScreen.tscn").instantiate()
 	game_over_screen.name = "GameOverScreen"
 	ui_wrapper.add_child(game_over_screen)
-	game_over_screen.show()
+	game_over_screen.show_game_over()

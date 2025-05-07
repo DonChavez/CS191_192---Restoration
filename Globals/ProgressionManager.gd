@@ -166,9 +166,9 @@ func update_objectives_text():
 			if PlayerManager.Player_instance:
 				var inventory = PlayerManager.Player_instance.get_node_or_null("UI Wrapper/Inventory")
 				if inventory:
-					text += " (" + str(inventory.Trash) + "/10)"
+					text += " (" + str(inventory.Trash) + "/50)"
 				else:
-					text += " (0/10)"
+					text += " (0/50)"
 
 	objectives_label.text = text
 
@@ -251,7 +251,7 @@ func check_talk_to_hillguy():
 func check_clean_world():
 	if PlayerManager.Player_instance:
 		var inventory = PlayerManager.Player_instance.get_node_or_null("UI Wrapper/Inventory")
-		if inventory and inventory.Trash >= 10:
+		if inventory and inventory.Trash >= 50:
 			complete_quest("clean_world")
 
 func check_talk_to_beforeboss():

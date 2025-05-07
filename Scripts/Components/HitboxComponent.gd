@@ -23,6 +23,8 @@ func damage_received(Amount: float, Attacker_position: Vector2 = Vector2.ZERO) -
 		damaged.emit(Damage_taken)
 		Time_since_last_damage = 0.0
 	return Damage_taken
+	
+	
 		
 func _physics_process(delta: float) -> void:
 	if Time_since_last_damage < Damage_interval:

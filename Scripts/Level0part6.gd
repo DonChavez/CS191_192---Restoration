@@ -30,8 +30,11 @@ func check_conditions() -> void:
 
 # Check both conditions and spawn portal if not already spawned
 	if !Boss_defeated and !Portal_spawned:
-		spawn_portal()
-		Portal_spawned = true  # Prevent multiple spawns
+		var pollution_level = PlayerManager.Player_instanceget_node_or_null("UI Wrapper/HUD/Top/Header/PollutionSystem")
+			
+		if pollution_level <= 50:
+			spawn_portal()
+			Portal_spawned = true  # Prevent multiple spawns
 		print("Boss is dead!")
 
 func spawn_portal() -> void: 

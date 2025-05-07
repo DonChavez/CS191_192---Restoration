@@ -29,7 +29,7 @@
 [ext_resource type="PackedScene" uid="uid://dhobbqn2f65m4" path="res://Scenes/Interactables/TrashMedium.tscn" id="23_cjj11"]
 [ext_resource type="PackedScene" uid="uid://disryke7g2rsn" path="res://Scenes/Items/0MultiShot.tscn" id="24_qnkw2"]
 [ext_resource type="PackedScene" uid="uid://darfh1m8ue0c" path="res://Scenes/Interactables/Trees.tscn" id="26_6q7y1"]
-[ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLife.tscn" id="27_25s6p"]
+[ext_resource type="PackedScene" uid="uid://kvu8co2sb3ox" path="res://Scenes/Items/0SwordLeech.tscn" id="27_25s6p"]
 [ext_resource type="PackedScene" uid="uid://h5aphehtfr43" path="res://Scenes/Items/0SpreadShot.tscn" id="29_5rcnd"]
 [ext_resource type="PackedScene" uid="uid://rvxf1vf4p8o2" path="res://Scenes/Items/0SwordLight.tscn" id="30_j7iv6"]
 [ext_resource type="PackedScene" uid="uid://b4kwsuct2dfys" path="res://Scenes/Objects/Healing Items/Apple.tscn" id="33_3028n"]
@@ -2115,7 +2115,7 @@ sources/6 = SubResource("TileSetAtlasSource_c6qab")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ttwqb"]
 size = Vector2(31, 32)
 
-[node name="Level1" type="Node2D"]
+[node name="The Forest" type="Node2D"]
 
 [node name="Tileset" type="Node2D" parent="."]
 

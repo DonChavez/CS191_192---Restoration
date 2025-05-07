@@ -26,7 +26,7 @@ var Player_in_melee_range: bool = false
 
 var knockback_velocity: Vector2 = Vector2.ZERO
 @export var knockback_decay_rate: float = 6.0
-@export var Knockback_strength : float = 100.0
+@export var Knockback_strength : float = 250.0
 
 # local variables
 var Last_direction : Vector2 = Vector2.ZERO

@@ -177,7 +177,7 @@ scale = Vector2(1.22343, 1.22343)
 collision_layer = 0
 collision_mask = 2
 Damage_amount = 10.0
-Damage_interval = 0.5
+Damage_interval = 0.2
 
 [node name="BasicEnemyHurtCollision" type="CollisionShape2D" parent="BasicEnemyHurtbox"]
 shape = SubResource("CircleShape2D_skdr7")
